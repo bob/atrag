@@ -81,6 +81,11 @@ def _target(
         return None
     relative = re.search(r"\b(?:anterior|seguinte)\b", text, re.IGNORECASE)
     if relative:
+        # Compound relatives need their parent qualifiers; do not guess an anchor.
+        if re.search(r"\s+do\s+", text, re.IGNORECASE):
+            return None
+        if cirs and (unit.instrument_id, unit.document_scope) != ("pt:cirs", "code"):
+            return None
         return _relative(unit, kind, relative[0].lower(), units)
     return _exact_target(unit, text, kind, cirs)
 

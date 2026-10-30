@@ -71,7 +71,7 @@ def test_local_parse_run_is_reproducible_and_preserves_input(extracted):
     assert (manifest["stage"], manifest["status"], manifest["parser_version"]) == (
         "parse",
         "succeeded",
-        "1",
+        "2",
     )
     assert (
         manifest["input_sha256"]["pages.jsonl"]

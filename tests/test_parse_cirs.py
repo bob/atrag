@@ -604,3 +604,66 @@ def test_left_bold_article_mention_at_heading_margin_stays_in_the_body():
 def test_missing_instrument_boundary_is_rejected(pages):
     with pytest.raises(ValueError):
         parse_cirs(pages, [])
+
+
+@pytest.mark.parametrize(
+    "reference",
+    [
+        "n.º 1 do artigo anterior",
+        "n.º 1 do artigo seguinte",
+        "alínea a) do número anterior",
+        "alínea anterior do n.º 1",
+        "alínea a) do n.º 1 do artigo anterior",
+    ],
+)
+def test_qualified_relative_reference_never_discards_its_parent(reference):
+    units = units_by_id(
+        parse(
+            block("Artigo 1.º", 90, heading=True),
+            block("1 - Uma regra.", 115),
+            block("Artigo 2.º", 140, heading=True),
+            block("1 - Primeira regra.", 165),
+            block("2 - Condições:", 190),
+            block("a) Primeira condição.", 215),
+            block(f"b) Ver a {reference}.", 240),
+            block("3 - Outra regra.", 265),
+            block("Artigo 3.º", 290, heading=True),
+            block("1 - Última regra.", 315),
+        )
+    )
+    [ref] = units["pt:cirs:code:article:2:paragraph:2:subparagraph:b"].references
+    assert ref.raw_text == reference
+    assert ref.status == "unresolved"
+    assert ref.target_ids == []
+    assert ref.reason == "missing_or_ambiguous_target"
+
+
+def test_explicit_cirs_relative_reference_needs_an_anchor_in_the_code():
+    units = units_by_id(
+        parse_cirs(
+            [
+                page(
+                    block(
+                        "Decreto-Lei n.º 442-A/88, de 30 de Novembro", 70, heading=True
+                    ),
+                    block("Artigo 1.º", 100, heading=True),
+                    block("Uma regra.", 125),
+                    block("Artigo 2.º", 150, heading=True),
+                    block("Ver o artigo anterior do CIRS.", 175),
+                    block(TITLE, 200, heading=True),
+                    block("Artigo 1.º", 225, heading=True),
+                    block("Uma regra.", 250),
+                    block("Artigo 2.º", 275, heading=True),
+                    block("Ver o artigo anterior do CIRS.", 300),
+                )
+            ],
+            [],
+        )
+    )
+    [decree_ref] = units[
+        "pt:decreto-lei:442-a/88:approving_decree:article:2"
+    ].references
+    assert decree_ref.status == "unresolved"
+    assert decree_ref.target_ids == []
+    [code_ref] = units["pt:cirs:code:article:2"].references
+    assert code_ref.target_ids == ["pt:cirs:code:article:1"]
