@@ -5,7 +5,8 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from atrag.ingestion.sources import SourceDefinition, load_source_registry
+from atrag.ingestion.services.sources import load_source_registry
+from atrag.schemas.ingestion.sources import SourceDefinition
 from atrag.settings import PROJECT_ROOT
 
 

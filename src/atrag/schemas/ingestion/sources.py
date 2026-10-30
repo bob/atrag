@@ -13,7 +13,7 @@ from pydantic import (
     model_validator,
 )
 
-from atrag.settings import SupportedLanguage
+from atrag.schemas.settings import SupportedLanguage
 
 
 class SourceDefinition(BaseModel):
@@ -38,7 +38,3 @@ class SourceDefinition(BaseModel):
         if self.source_url_status != "unknown" and self.source_url is None:
             raise ValueError("A candidate or verified source URL is required")
         return self
-
-
-def load_source_registry(path: Path) -> SourceDefinition:
-    return SourceDefinition.model_validate_json(path.read_text(encoding="utf-8"))

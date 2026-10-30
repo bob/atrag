@@ -1,7 +1,7 @@
 import pytest
 
 from atrag.db import create_db_engine
-from atrag.settings import Settings
+from atrag.schemas.settings import Settings
 
 
 def test_engine_preserves_dsn_options_and_selects_psycopg():

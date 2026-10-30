@@ -3,7 +3,7 @@ import json
 import pytest
 
 from atrag.cli import main
-from atrag.ingestion.sources import load_source_registry
+from atrag.ingestion.services.sources import load_source_registry
 from atrag.settings import PROJECT_ROOT
 
 
@@ -86,3 +86,42 @@ def test_snapshot_command_reports_invalid_source(snapshot_registry, capsys):
         main(["ingest", "snapshot", "--registry", str(snapshot_registry)])
     assert error.value.code == 2
     assert "snapshot" in capsys.readouterr().err.lower()
+
+
+@pytest.mark.parametrize("no_ocr", [True, False])
+def test_inspect_command_outputs_local_artifacts(
+    snapshot_registry, make_pdf, pdf_text, tmp_path, capsys, no_ocr
+):
+    pdf = make_pdf(
+        [
+            pdf_text(100, "Artigo 16.º")
+            + pdf_text(120, "não se aplica ao n.º 1, alínea a), e à taxa de 2,5 %.")
+        ]
+    )
+    args = [
+        "ingest",
+        "inspect",
+        "--registry",
+        str(snapshot_registry),
+        "--source",
+        str(pdf),
+    ]
+    if no_ocr:
+        args.append("--no-ocr")
+    main(args)
+    summary = json.loads(capsys.readouterr().out)
+    assert summary["page_count"] == 1
+    assert summary["table_count"] == 0
+    assert summary["review_status"] == "needs_review"
+    directory = tmp_path / "artifacts" / "runs" / summary["run_id"]
+    assert summary["directory"] == str(directory)
+    assert "não" in (directory / "pages.jsonl").read_text()
+    manifest = json.loads((directory / "manifest.json").read_text())
+    assert manifest["ocr"]["requested"] is not no_ocr
+
+
+def test_inspect_reports_invalid_pdf_without_traceback(snapshot_registry, capsys):
+    with pytest.raises(SystemExit) as error:
+        main(["ingest", "inspect", "--registry", str(snapshot_registry)])
+    assert error.value.code == 2
+    assert "extraction failed" in capsys.readouterr().err

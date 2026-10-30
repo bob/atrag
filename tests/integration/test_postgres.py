@@ -11,7 +11,7 @@ from psycopg_pool import ConnectionPool
 from sqlalchemy import Column, Integer, MetaData, Table, select, text
 
 from atrag.db import create_db_engine
-from atrag.settings import Settings
+from atrag.schemas.settings import Settings
 
 pytestmark = pytest.mark.integration
 

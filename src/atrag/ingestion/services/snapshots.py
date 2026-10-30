@@ -2,32 +2,16 @@
 
 import errno
 import hashlib
-import json
 import shutil
-from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from uuid import UUID, uuid4
 
-from atrag.ingestion.models import SourceSnapshot
-from atrag.ingestion.sources import SourceDefinition
+from atrag.ingestion.services.artifacts import write_json
+from atrag.ingestion.services.runs import record_run
+from atrag.schemas.ingestion.snapshots import SnapshotImport, SourceSnapshot
+from atrag.schemas.ingestion.sources import SourceDefinition
 from atrag.settings import PROJECT_ROOT
-
-
-@dataclass(frozen=True)
-class SnapshotImport:
-    run_id: UUID
-    snapshot: SourceSnapshot
-    reused: bool
-
-
-def _write_json(path: Path, value: dict) -> None:
-    temporary = path.with_suffix(".tmp")
-    temporary.write_text(
-        json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
-    temporary.replace(path)
 
 
 def _pdf_fingerprint(path: Path) -> tuple[str, int]:
@@ -39,7 +23,8 @@ def _pdf_fingerprint(path: Path) -> tuple[str, int]:
     return digest, path.stat().st_size
 
 
-def _read_snapshot(directory: Path, digest: str, size: int) -> SourceSnapshot:
+def read_snapshot(directory: Path, digest: str, size: int) -> SourceSnapshot:
+    """Validate stored provenance and bytes against the expected content address."""
     snapshot = SourceSnapshot.model_validate_json(
         (directory / "manifest.json").read_text(encoding="utf-8")
     )
@@ -80,13 +65,13 @@ def _store_snapshot(
             ingested_at=datetime.now(UTC),
             source=source,
         )
-        _write_json(staging / "manifest.json", snapshot.model_dump(mode="json"))
+        write_json(staging / "manifest.json", snapshot.model_dump(mode="json"))
         destination = raw / digest
         # Do not replace an existing directory, including an incomplete snapshot.
         reused = destination.exists()
         if not reused:
             reused = _publish_snapshot(staging, destination)
-        return _read_snapshot(destination, digest, size), reused
+        return read_snapshot(destination, digest, size), reused
 
 
 def import_snapshot(
@@ -96,34 +81,9 @@ def import_snapshot(
     project_root: Path = PROJECT_ROOT,
 ) -> SnapshotImport:
     """Keep the first snapshot and record subsequent provenance in run manifests."""
-    run_id = uuid4()
-    run_path = data_dir / "runs" / str(run_id) / "manifest.json"
-    run_path.parent.mkdir(parents=True)
-    run = {
-        "run_id": str(run_id),
-        "source": source.model_dump(mode="json"),
-        "started_at": datetime.now(UTC).isoformat(),
-        "finished_at": None,
-        "status": "running",
-        "snapshot_id": None,
-        "reused": None,
-    }
-    _write_json(run_path, run)
-    try:
+    with record_run(
+        data_dir, source=source.model_dump(mode="json"), snapshot_id=None, reused=None
+    ) as run:
         snapshot, reused = _store_snapshot(source, data_dir, project_root)
-    except Exception as error:
-        run.update(
-            status="failed",
-            finished_at=datetime.now(UTC).isoformat(),
-            error_type=type(error).__name__,
-        )
-        _write_json(run_path, run)
-        raise
-    run.update(
-        status="succeeded",
-        finished_at=datetime.now(UTC).isoformat(),
-        snapshot_id=snapshot.snapshot_id,
-        reused=reused,
-    )
-    _write_json(run_path, run)
-    return SnapshotImport(run_id=run_id, snapshot=snapshot, reused=reused)
+        run.manifest.update(snapshot_id=snapshot.snapshot_id, reused=reused)
+    return SnapshotImport(run_id=run.run_id, snapshot=snapshot, reused=reused)

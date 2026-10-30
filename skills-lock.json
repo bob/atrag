@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "skills": {
+    "ub-mode": {
+      "source": "unclebob/ub-mode",
+      "ref": "master",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "e2e28ad6f12ce3bc1e5be6676b0dcd88c217957c79c512b418c241fa2e5825a0"
+    }
+  }
+}

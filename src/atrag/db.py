@@ -3,7 +3,7 @@
 from sqlalchemy import Engine, create_engine
 from sqlalchemy.engine import make_url
 
-from atrag.settings import Settings
+from atrag.schemas.settings import Settings
 
 
 def create_db_engine(settings: Settings) -> Engine:

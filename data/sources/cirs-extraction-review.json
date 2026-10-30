@@ -1,0 +1,32 @@
+{
+  "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+  "tables": [
+    {
+      "source_kind": "text_table",
+      "page_number": 81,
+      "bbox": [144.5, 489.43, 489.58, 708.220015],
+      "header_rows": [["Rendimento coletável\n(euros)", "Taxas\n(percentagem)", null], [null, "Normal\n(A)", "Média\n(B)"]],
+      "rows": [
+        ["Até 8 342", "12,50", "12,500"],
+        ["De mais de 8 342 até 12 587", "15,70", "13,579"],
+        ["De mais de 12 587 até 17 838", "21,20", "15,823"],
+        ["De mais de 17 838 até 23 089", "24,10", "17,705"],
+        ["De mais de 23 089 até 29 397", "31,10", "20,579"],
+        ["De mais de 29 397 até 43 090", "34,90", "25,130"],
+        ["De mais de 43 090 até 46 566", "43,10", "26,472"],
+        ["De mais de 46 566 até 86 634", "44,60", "34,856"],
+        ["Superior a 86 634", "48,00", "–"]
+      ],
+      "context": "Artigo 68.º — Taxas gerais; n.º 1",
+      "review_note": "30.10.2026: all nine rows, decimal commas, two-level headers and continuation compared with Poppler renders of physical pages 81–82 (printed 80–81). Extraction fidelity only; legal applicability is not established."
+    },
+    {
+      "page_number": 82,
+      "bbox": [197.88, 256.39929627261404, 471.18153719735994, 327.60127345807905],
+      "header_rows": [["Rendimento coletável (euros)", "Taxa (percentagem)"]],
+      "rows": [["De mais de 80 000 até 250 000", "2,5"], ["Superior a 250 000", "5"]],
+      "context": "Artigo 68.º-A — Taxa adicional de solidariedade; n.º 1",
+      "review_note": "30.10.2026: transcription and numeric comparison with a Poppler render of physical page 82 (printed 81). Portuguese OCR reads 2,5 as 25; raw OCR is retained and must not supply the rate. This review establishes extraction fidelity only, not legal applicability."
+    }
+  ]
+}

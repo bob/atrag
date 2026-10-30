@@ -1,0 +1,5220 @@
+[
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 2,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [],
+    "raw_text": "Decreto-Lei n.º 442-A/88, de 30 de Novembro ................................................................... 6\nPreâmbulo.............................................................................................................. 11\nCAPÍTULO I Incidência ..................................................................................... 22\nSECÇÃO I Incidência real .............................................................................................................................. 22\nArtigo 1.º Base do imposto ......................................................................................................................... 22\nArtigo 2.º Rendimentos da categoria A ....................................................................................................... 22\nArtigo 2.º-A Delimitação negativa dos rendimentos da categoria A ........................................................... 25",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          85.104,
+          71.06171999999992,
+          548.6215599999999,
+          81.0515999999999
+        ],
+        "text": "Decreto-Lei n.º 442-A/88, de 30 de Novembro ................................................................... 6",
+        "font_names": [
+          "ABCDEE+Verdana-BoldItalic",
+          "Arial-BoldItalicMT"
+        ],
+        "font_sizes": [
+          9.959999999999923,
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          89.20171999999991,
+          548.62156,
+          99.19159999999988
+        ],
+        "text": "Preâmbulo.............................................................................................................. 11",
+        "font_names": [
+          "ABCDEE+Verdana-BoldItalic",
+          "Arial-BoldItalicMT"
+        ],
+        "font_sizes": [
+          9.959999999999923,
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          97.104,
+          107.56171999999992,
+          548.62156,
+          117.52171999999996
+        ],
+        "text": "CAPÍTULO I Incidência ..................................................................................... 22",
+        "font_names": [
+          "ABCDEE+Verdana-Bold"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          109.1,
+          118.81136000000004,
+          548.68,
+          128.77135999999996
+        ],
+        "text": "SECÇÃO I Incidência real .............................................................................................................................. 22",
+        "font_names": [
+          "TimesNewRomanPSMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          121.1,
+          130.33136000000002,
+          548.68,
+          140.29135999999994
+        ],
+        "text": "Artigo 1.º Base do imposto ......................................................................................................................... 22",
+        "font_names": [
+          "TimesNewRomanPSMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          121.1,
+          141.85136,
+          548.68,
+          151.81135999999992
+        ],
+        "text": "Artigo 2.º Rendimentos da categoria A ....................................................................................................... 22",
+        "font_names": [
+          "TimesNewRomanPSMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          121.1,
+          153.25135999999998,
+          548.68,
+          163.2113599999999
+        ],
+        "text": "Artigo 2.º-A Delimitação negativa dos rendimentos da categoria A ........................................................... 25",
+        "font_names": [
+          "TimesNewRomanPSMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 7,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "6"
+    ],
+    "raw_text": "Decreto-Lei n.º 442-A/88, de 30 de Novembro\nAprova o Código do Imposto sobre o Rendimento das Pessoas Singulares, anexo ao presente\ndiploma e que dele faz parte integrante.\nNo uso da autorização legislativa concedida pela Lei n.º 106/88, de 17 de Setembro, e nos termos das\nalíneas a) e b) do n.º 1 do artigo 201.º da Constituição, o Governo decreta o seguinte:\nArtigo 1.º\nAprovação do Código\nÉ aprovado o Código do Imposto sobre o Rendimento das Pessoas Singulares (IRS), que faz parte\nintegrante deste decreto-lei.\nArtigo 2.º\nEntrada em vigor\nO Código do IRS entra em vigor em 1 de janeiro de 1989.",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          211.01,
+          75.05160000000001,
+          422.83376,
+          85.01159999999993
+        ],
+        "text": "Decreto-Lei n.º 442-A/88, de 30 de Novembro",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          93.384,
+          89.59159999999997,
+          540.7777600000001,
+          99.5515999999999
+        ],
+        "text": "Aprova o Código do Imposto sobre o Rendimento das Pessoas Singulares, anexo ao presente",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          223.13,
+          101.11159999999995,
+          410.81432000000007,
+          111.07159999999988
+        ],
+        "text": "diploma e que dele faz parte integrante.",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          135.6716,
+          548.5826399999997,
+          145.63159999999993
+        ],
+        "text": "No uso da autorização legislativa concedida pela Lei n.º 106/88, de 17 de Setembro, e nos termos das",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          147.1916,
+          465.21523999999994,
+          157.15159999999992
+        ],
+        "text": "alíneas a) e b) do n.º 1 do artigo 201.º da Constituição, o Governo decreta o seguinte:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          296.09,
+          170.01080000000002,
+          337.9702,
+          179.49080000000004
+        ],
+        "text": "Artigo 1.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          267.65,
+          180.93079999999998,
+          366.2894,
+          190.4108
+        ],
+        "text": "Aprovação do Código",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          203.47159999999997,
+          548.4631200000001,
+          213.4315999999999
+        ],
+        "text": "É aprovado o Código do Imposto sobre o Rendimento das Pessoas Singulares (IRS), que faz parte",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          214.99160000000006,
+          209.04848,
+          224.95159999999998
+        ],
+        "text": "integrante deste decreto-lei.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          296.09,
+          237.81079999999997,
+          337.9702,
+          247.2908
+        ],
+        "text": "Artigo 2.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          278.21,
+          248.73079999999993,
+          355.6616,
+          258.21079999999995
+        ],
+        "text": "Entrada em vigor",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          271.39160000000004,
+          340.66124,
+          281.35159999999996
+        ],
+        "text": "O Código do IRS entra em vigor em 1 de janeiro de 1989.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 11,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "10"
+    ],
+    "raw_text": "Artigo 15.º\nRegulamentação da cobrança e reembolsos\nO Governo aprovará a legislação complementar necessária à regulamentação da cobrança e dos\nreembolsos do IRS.\nArtigo 16.º\nAs modificações do Código\nAs modificações que de futuro se fizerem sobre matéria contida no Código serão consideradas como\nfazendo parte dele e inseridas no lugar próprio, devendo essas modificações ser sempre efectuadas por\nmeio de substituição dos artigos alterados, supressão dos artigos inúteis ou aditamento dos que forem\nnecessários.\nVisto e aprovado em Conselho de Ministros de 20 de outubro de 1988. - O Primeiro-Ministro, Aníbal\nAntónio Cavaco Silva. - O Ministro das Finanças, Miguel José Ribeiro Cadilhe.\nPromulgado em 30 de novembro de 1988.\nPublique-se.\nO Presidente da República, MÁRIO SOARES.\nReferendado em 30 de novembro de 1988.\nO Primeiro-Ministro, Aníbal António Cavaco Silva.",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          293.45,
+          155.49079999999992,
+          340.61019999999996,
+          164.97079999999994
+        ],
+        "text": "Artigo 15.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          217.73,
+          166.4108,
+          416.15588,
+          175.8908
+        ],
+        "text": "Regulamentação da cobrança e reembolsos",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          189.0716,
+          548.8978,
+          199.0315999999999
+        ],
+        "text": "O Governo aprovará a legislação complementar necessária à regulamentação da cobrança e dos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          200.47159999999997,
+          172.77192,
+          210.4315999999999
+        ],
+        "text": "reembolsos do IRS.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          293.45,
+          211.7708,
+          340.61019999999996,
+          221.25080000000003
+        ],
+        "text": "Artigo 16.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          254.57,
+          222.69079999999997,
+          379.60172,
+          232.17079999999999
+        ],
+        "text": "As modificações do Código",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          244.75160000000005,
+          548.6523599999999,
+          254.71159999999998
+        ],
+        "text": "As modificações que de futuro se fizerem sobre matéria contida no Código serão consideradas como",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          256.27160000000003,
+          548.95132,
+          266.23159999999996
+        ],
+        "text": "fazendo parte dele e inseridas no lugar próprio, devendo essas modificações ser sempre efectuadas por",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          267.7916,
+          548.42328,
+          277.75159999999994
+        ],
+        "text": "meio de substituição dos artigos alterados, supressão dos artigos inúteis ou aditamento dos que forem",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          279.34159999999997,
+          141.10908,
+          289.3015999999999
+        ],
+        "text": "necessários.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          302.26160000000004,
+          548.95816,
+          312.22159999999997
+        ],
+        "text": "Visto e aprovado em Conselho de Ministros de 20 de outubro de 1988. - O Primeiro-Ministro, Aníbal",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          313.7816,
+          432.1541599999999,
+          323.74159999999995
+        ],
+        "text": "António Cavaco Silva. - O Ministro das Finanças, Miguel José Ribeiro Cadilhe.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          336.82159999999993,
+          272.40620000000007,
+          346.78159999999997
+        ],
+        "text": "Promulgado em 30 de novembro de 1988.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          348.34159999999997,
+          140.55644,
+          358.3016
+        ],
+        "text": "Publique-se.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          359.86159999999995,
+          289.91148,
+          369.8216
+        ],
+        "text": "O Presidente da República, MÁRIO SOARES.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          371.26159999999993,
+          276.24620000000004,
+          381.22159999999997
+        ],
+        "text": "Referendado em 30 de novembro de 1988.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          382.78159999999997,
+          305.43044,
+          392.7416
+        ],
+        "text": "O Primeiro-Ministro, Aníbal António Cavaco Silva.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 12,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "11"
+    ],
+    "raw_text": "Preâmbulo\n1 - Objecto da última reestruturação global no início dos anos 60 - já lá vai o espaço de uma geração - o\nnosso sistema tributação do rendimento mostra-se manifestamente desajustado da realidade económico-\nsocial do País, tendo, desde, aquela época, evoluído por forma desordenada, com a acentuação de\ncaracterísticas como a complexidade excessiva, a desigualdade de tratamento entre contribuintes com\nníveis comparáveis de rendimento, o estreitamento das bases de tributação, o agravamento crescente -\nsó contrariado nos últimos anos - das taxas nominais, com efeitos de desencorajamento do esforço de\npoupança e da aplicação ao trabalho e de incentivo à evasão, a instabilidade e a falta de coerência interna\ndo regime das diferentes categorias fiscais, a deficiente articulação entre umas e outras.",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          291.17,
+          98.59159999999997,
+          342.713,
+          108.5515999999999
+        ],
+        "text": "Preâmbulo",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          124.63160000000005,
+          549.1177600000001,
+          134.59159999999997
+        ],
+        "text": "1 - Objecto da última reestruturação global no início dos anos 60 - já lá vai o espaço de uma geração - o",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          136.15160000000003,
+          549.17668,
+          146.11159999999995
+        ],
+        "text": "nosso sistema tributação do rendimento mostra-se manifestamente desajustado da realidade económico-",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          147.6716,
+          548.6456,
+          157.63159999999993
+        ],
+        "text": "social do País, tendo, desde, aquela época, evoluído por forma desordenada, com a acentuação de",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          159.1916,
+          548.4232799999999,
+          169.15159999999992
+        ],
+        "text": "características como a complexidade excessiva, a desigualdade de tratamento entre contribuintes com",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          170.71159999999998,
+          549.05668,
+          180.6715999999999
+        ],
+        "text": "níveis comparáveis de rendimento, o estreitamento das bases de tributação, o agravamento crescente -",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          182.11159999999995,
+          548.74496,
+          192.07159999999988
+        ],
+        "text": "só contrariado nos últimos anos - das taxas nominais, com efeitos de desencorajamento do esforço de",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          193.63160000000005,
+          548.6623199999998,
+          203.59159999999997
+        ],
+        "text": "poupança e da aplicação ao trabalho e de incentivo à evasão, a instabilidade e a falta de coerência interna",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          205.15160000000003,
+          476.72648,
+          215.11159999999995
+        ],
+        "text": "do regime das diferentes categorias fiscais, a deficiente articulação entre umas e outras.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 23,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "22"
+    ],
+    "raw_text": "Código do Imposto sobre o Rendimento das Pessoas Singulares\nCAPÍTULO I\nIncidência\nSECÇÃO I\nIncidência real\nArtigo 1.º\nBase do imposto\n1 - O imposto sobre o rendimento das pessoas singulares (IRS) incide sobre o valor anual dos\nrendimentos das categorias seguintes, mesmo quando provenientes de atos ilícitos, depois de efetuadas\nas correspondentes deduções e abatimentos:\nCategoria A - Rendimentos do trabalho dependente;\nCategoria B - Rendimentos empresariais e profissionais;\nCategoria E - Rendimentos de capitais;\nCategoria F - Rendimentos prediais;\nCategoria G - Incrementos patrimoniais;\nCategoria H - Pensões.\n2 - Os rendimentos, quer em dinheiro quer em espécie, ficam sujeitos a tributação, seja qual for o local\nonde se obtenham, a moeda e a forma por que sejam auferidos.\nArtigo 2.º\nRendimentos da categoria A\n1 - Consideram-se rendimentos do trabalho dependente todas as remunerações pagas ou postas à\ndisposição do seu titular provenientes de:\na) Trabalho por conta de outrem prestado ao abrigo de contrato individual de trabalho ou de outro a ele\nlegalmente equiparado;\nb) Trabalho prestado ao abrigo de contrato de aquisição de serviços ou outro de idêntica natureza, sob a\nautoridade e a direção da pessoa ou entidade que ocupa a posição de sujeito ativo na relação jurídica\ndele resultante;\nc) Exercício de função, serviço ou cargo públicos;\nd) Situações de pré-reforma, pré-aposentação ou reserva, com ou sem prestação de trabalho, bem como\nde prestações atribuídas, não importa a que título, antes de verificados os requisitos exigidos nos regimes\nobrigatórios de segurança social aplicáveis para a passagem à situação de reforma, ou, mesmo que não\nsubsista o contrato de trabalho, se mostrem subordinadas à condição de serem devidas até que tais\nrequisitos se verifiquem, ainda que, em qualquer dos casos anteriormente previstos, sejam devidas por\nfundos de pensões ou outras entidades, que se substituam à entidade originariamente devedora.\n2 - As remunerações referidas no número anterior compreendem, designadamente, ordenados, salários,\nvencimentos, gratificações, percentagens, comissões, participações, subsídios ou prémios, senhas de\npresença, emolumentos, participações em multas e outras remunerações acessórias, ainda que",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          132.38,
+          75.3599999999999,
+          501.63200000000023,
+          87.3599999999999
+        ],
+        "text": "Código do Imposto sobre o Rendimento das Pessoas Singulares",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          12.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          288.77,
+          100.87160000000006,
+          345.38264,
+          110.83159999999998
+        ],
+        "text": "CAPÍTULO I",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          292.61,
+          112.39160000000004,
+          341.44388000000004,
+          122.35159999999996
+        ],
+        "text": "Incidência",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          292.97,
+          135.91160000000002,
+          341.20628000000005,
+          145.87159999999994
+        ],
+        "text": "SECÇÃO I",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          282.29,
+          147.4316,
+          351.62156000000004,
+          157.39159999999993
+        ],
+        "text": "Incidência real",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          296.09,
+          172.6508,
+          337.91576,
+          182.13080000000002
+        ],
+        "text": "Artigo 1.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          278.81,
+          183.57079999999996,
+          355.27568,
+          193.05079999999998
+        ],
+        "text": "Base do imposto",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          198.6716,
+          548.6956399999997,
+          208.63159999999993
+        ],
+        "text": "1 - O imposto sobre o rendimento das pessoas singulares (IRS) incide sobre o valor anual dos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          210.1916,
+          548.56272,
+          220.15159999999992
+        ],
+        "text": "rendimentos das categorias seguintes, mesmo quando provenientes de atos ilícitos, depois de efetuadas",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          221.59159999999997,
+          287.2422,
+          231.5515999999999
+        ],
+        "text": "as correspondentes deduções e abatimentos:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          241.15160000000003,
+          316.70708,
+          251.11159999999995
+        ],
+        "text": "Categoria A - Rendimentos do trabalho dependente;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          260.59159999999997,
+          335.04344,
+          270.5515999999999
+        ],
+        "text": "Categoria B - Rendimentos empresariais e profissionais;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          280.1816,
+          258.88928000000004,
+          290.1415999999999
+        ],
+        "text": "Categoria E - Rendimentos de capitais;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          299.62160000000006,
+          245.60072000000002,
+          309.5816
+        ],
+        "text": "Categoria F - Rendimentos prediais;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          319.1816,
+          262.2506,
+          329.1415999999999
+        ],
+        "text": "Categoria G - Incrementos patrimoniais;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          338.62159999999994,
+          188.87287999999998,
+          348.5816
+        ],
+        "text": "Categoria H - Pensões.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          358.30159999999995,
+          548.8178800000001,
+          368.2616
+        ],
+        "text": "2 - Os rendimentos, quer em dinheiro quer em espécie, ficam sujeitos a tributação, seja qual for o local",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          369.7015999999999,
+          370.04963999999984,
+          379.66159999999996
+        ],
+        "text": "onde se obtenham, a moeda e a forma por que sejam auferidos.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          296.09,
+          389.0408,
+          337.91576,
+          398.52079999999995
+        ],
+        "text": "Artigo 2.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.479999999999961
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          252.89,
+          399.96079999999995,
+          381.13544,
+          409.4407999999999
+        ],
+        "text": "Rendimentos da categoria A",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.479999999999961
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          415.06159999999994,
+          548.59124,
+          425.0216
+        ],
+        "text": "1 - Consideram-se rendimentos do trabalho dependente todas as remunerações pagas ou postas à",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          426.4616,
+          268.8938,
+          436.4216
+        ],
+        "text": "disposição do seu titular provenientes de:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          446.1415999999999,
+          548.3336399999998,
+          456.10159999999996
+        ],
+        "text": "a) Trabalho por conta de outrem prestado ao abrigo de contrato individual de trabalho ou de outro a ele",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          457.54159999999996,
+          189.41508000000007,
+          467.5016
+        ],
+        "text": "legalmente equiparado;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          477.12159999999994,
+          548.72208,
+          487.0816
+        ],
+        "text": "b) Trabalho prestado ao abrigo de contrato de aquisição de serviços ou outro de idêntica natureza, sob a",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          488.6415999999999,
+          548.3121199999999,
+          498.60159999999996
+        ],
+        "text": "autoridade e a direção da pessoa ou entidade que ocupa a posição de sujeito ativo na relação jurídica",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          500.04159999999996,
+          153.36984,
+          510.0016
+        ],
+        "text": "dele resultante;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          519.4816,
+          305.00087999999994,
+          529.4416
+        ],
+        "text": "c) Exercício de função, serviço ou cargo públicos;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          539.1615999999999,
+          549.1974400000001,
+          549.1216
+        ],
+        "text": "d) Situações de pré-reforma, pré-aposentação ou reserva, com ou sem prestação de trabalho, bem como",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          550.6815999999999,
+          548.6623199999999,
+          560.6415999999999
+        ],
+        "text": "de prestações atribuídas, não importa a que título, antes de verificados os requisitos exigidos nos regimes",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          562.0816,
+          548.5627199999998,
+          572.0416
+        ],
+        "text": "obrigatórios de segurança social aplicáveis para a passagem à situação de reforma, ou, mesmo que não",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          573.6016,
+          548.7217999999999,
+          583.5616
+        ],
+        "text": "subsista o contrato de trabalho, se mostrem subordinadas à condição de serem devidas até que tais",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          585.1216,
+          548.5328400000001,
+          595.0816
+        ],
+        "text": "requisitos se verifiquem, ainda que, em qualquer dos casos anteriormente previstos, sejam devidas por",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          596.5215999999999,
+          514.9377599999995,
+          606.4816
+        ],
+        "text": "fundos de pensões ou outras entidades, que se substituam à entidade originariamente devedora.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          616.0816,
+          548.7004799999996,
+          626.0416
+        ],
+        "text": "2 - As remunerações referidas no número anterior compreendem, designadamente, ordenados, salários,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          627.6016,
+          548.4631199999999,
+          637.5616
+        ],
+        "text": "vencimentos, gratificações, percentagens, comissões, participações, subsídios ou prémios, senhas de",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          639.1216,
+          548.85568,
+          649.0816
+        ],
+        "text": "presença, emolumentos, participações em multas e outras remunerações acessórias, ainda que",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 26,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "25"
+    ],
+    "raw_text": "9 - Para efeitos do disposto no n.º 3) da alínea b) do n.º 3, consideram-se direitos adquiridos aqueles cujo\nexercício não depende da manutenção do vínculo laboral, ou como tal considerado para efeitos fiscais,\ndo beneficiário com a respetiva entidade patronal.\n10 - Considera-se entidade patronal toda a que pague ou coloque à disposição remunerações que, nos\ntermos deste artigo, constituam rendimentos de trabalho dependente, sendo a ela equiparada qualquer\noutra entidade que com ela esteja em relação de grupo, domínio ou simples participação,\nindependentemente da respetiva localização geográfica.\n11 - Para efeitos da alínea b) do n.º 3, consideram-se rendimentos do trabalho do sujeito passivo os\nbenefícios ou regalias atribuídos pela respetiva entidade patronal a qualquer outra pessoa do seu\nagregado familiar ou que a ele esteja ligado por vínculo de parentesco ou afinidade até ao 3.º grau da\nlinha colateral, ao qual se equipara a relação de cada um dos unidos de facto com os parentes do outro.\n12 - (Revogado.)\n13 - Para efeitos do n.º 10) da alínea b) do n.º 3, presume-se que a viatura foi adquirida pelo trabalhador\nou membro do órgão social, quando seja registada no seu nome, no de qualquer pessoa que integre o\nseu agregado familiar ou no de outrem por si indicada, no prazo de dois anos a contar do exercício em\nque a viatura deixou de originar encargos para a entidade patronal.\n14 - Os limites legais previstos neste artigo serão os anualmente fixados para os servidores do Estado.\n15 - Consideram-se incluídas na alínea c) do n.º 1 as remunerações auferidas na qualidade de deputado\nao Parlamento Europeu.\nNota: N.º 1 do artigo 195.º da Lei n.º 42/2016, de 28 de dezembro - Norma transitória:\n\"1 - Para os efeitos do n.º 14 do artigo 2.º do CIRS, no ano de 2017 é considerado o valor fixado para o mês de janeiro.\"\nArtigo 2.º-A\nDelimitação negativa dos rendimentos da categoria A\n1 - Não se consideram rendimentos do trabalho dependente:\na) As prestações efetuadas pelas entidades patronais para regimes obrigatórios de segurança social,\nainda que de natureza privada, que visem assegurar exclusivamente benefícios em caso de reforma,\ninvalidez ou sobrevivência;\nb) Os benefícios imputáveis à utilização e fruição de realizações de utilidade social e de lazer mantidas\npela entidade patronal, desde que observados os critérios estabelecidos no artigo 43.º do Código do IRC\ne os 'vales infância' emitidos e atribuídos nas condições previstas no Decreto-Lei n.º 26/99, de 28 de\njaneiro; (Redação da Lei n.º 114/2017, de 29 de dezembro)\nc) As prestações relacionadas exclusivamente com ações de formação profissional dos trabalhadores,\nquer estas sejam ministradas pela entidade patronal, quer por organismos de direito público ou entidade\nreconhecida como tendo competência nos domínios da formação e reabilitação profissionais pelos\nministérios competentes;\nd) As importâncias suportadas pelas entidades patronais com a aquisição de passes sociais a favor dos\nseus trabalhadores, desde que a atribuição dos mesmos tenha carácter geral;\ne) As importâncias suportadas pelas entidades patronais com seguros de saúde ou doença em benefício\ndos seus trabalhadores ou respetivos familiares desde que a atribuição dos mesmos tenha carácter geral;\nf) As importâncias suportadas pelas entidades patronais com encargos, indemnizações ou\ncompensações, pagos no ano da deslocação, em dinheiro ou em espécie, devidos pela mudança do local\nde trabalho, quando este passe a situar-se a uma distância superior a 100 km do local de trabalho anterior,\nna parte que não exceda 10 % da remuneração anual, com o limite de € 4 200 por ano.",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          85.104,
+          75.17160000000001,
+          548.9190400000001,
+          85.13159999999993
+        ],
+        "text": "9 - Para efeitos do disposto no n.º 3) da alínea b) do n.º 3, consideram-se direitos adquiridos aqueles cujo",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          86.71159999999998,
+          548.52288,
+          96.6715999999999
+        ],
+        "text": "exercício não depende da manutenção do vínculo laboral, ou como tal considerado para efeitos fiscais,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          98.11159999999995,
+          305.9669999999999,
+          108.07159999999988
+        ],
+        "text": "do beneficiário com a respetiva entidade patronal.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          117.67160000000001,
+          548.7583999999999,
+          127.63159999999993
+        ],
+        "text": "10 - Considera-se entidade patronal toda a que pague ou coloque à disposição remunerações que, nos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          129.1916,
+          548.4232799999996,
+          139.15159999999992
+        ],
+        "text": "termos deste artigo, constituam rendimentos de trabalho dependente, sendo a ela equiparada qualquer",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          140.71159999999998,
+          548.53284,
+          150.6715999999999
+        ],
+        "text": "outra entidade que com ela esteja em relação de grupo, domínio ou simples participação,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          152.11159999999995,
+          335.1631999999999,
+          162.07159999999988
+        ],
+        "text": "independentemente da respetiva localização geográfica.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          171.6716,
+          548.73668,
+          181.63159999999993
+        ],
+        "text": "11 - Para efeitos da alínea b) do n.º 3, consideram-se rendimentos do trabalho do sujeito passivo os",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          183.1916,
+          548.37348,
+          193.15159999999992
+        ],
+        "text": "benefícios ou regalias atribuídos pela respetiva entidade patronal a qualquer outra pessoa do seu",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          194.71159999999998,
+          548.4858799999997,
+          204.6715999999999
+        ],
+        "text": "agregado familiar ou que a ele esteja ligado por vínculo de parentesco ou afinidade até ao 3.º grau da",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          206.11159999999995,
+          547.1981999999998,
+          216.07159999999988
+        ],
+        "text": "linha colateral, ao qual se equipara a relação de cada um dos unidos de facto com os parentes do outro.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          225.5516,
+          160.00915999999998,
+          235.51159999999993
+        ],
+        "text": "12 - (Revogado.)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          245.11159999999995,
+          548.8331199999999,
+          255.07159999999988
+        ],
+        "text": "13 - Para efeitos do n.º 10) da alínea b) do n.º 3, presume-se que a viatura foi adquirida pelo trabalhador",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          256.63160000000005,
+          548.4232799999996,
+          266.59159999999997
+        ],
+        "text": "ou membro do órgão social, quando seja registada no seu nome, no de qualquer pessoa que integre o",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          268.15160000000003,
+          548.9891200000001,
+          278.11159999999995
+        ],
+        "text": "seu agregado familiar ou no de outrem por si indicada, no prazo de dois anos a contar do exercício em",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          279.5816,
+          382.81835999999976,
+          289.5415999999999
+        ],
+        "text": "que a viatura deixou de originar encargos para a entidade patronal.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          299.14160000000004,
+          541.5767599999999,
+          309.10159999999996
+        ],
+        "text": "14 - Os limites legais previstos neste artigo serão os anualmente fixados para os servidores do Estado.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          318.7016,
+          548.96044,
+          328.6615999999999
+        ],
+        "text": "15 - Consideram-se incluídas na alínea c) do n.º 1 as remunerações auferidas na qualidade de deputado",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          330.10159999999996,
+          193.31940000000006,
+          340.0616
+        ],
+        "text": "ao Parlamento Europeu.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          351.17839999999995,
+          389.25464,
+          359.2184
+        ],
+        "text": "Nota: N.º 1 do artigo 195.º da Lei n.º 42/2016, de 28 de dezembro - Norma transitória:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          370.49839999999995,
+          511.62832,
+          378.53839999999997
+        ],
+        "text": "\"1 - Para os efeitos do n.º 14 do artigo 2.º do CIRS, no ano de 2017 é considerado o valor fixado para o mês de janeiro.\"",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          291.05,
+          387.96079999999995,
+          343.15456,
+          397.4407999999999
+        ],
+        "text": "Artigo 2.º-A",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.479999999999961
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          196.1,
+          398.88079999999997,
+          437.8305200000001,
+          408.3607999999999
+        ],
+        "text": "Delimitação negativa dos rendimentos da categoria A",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.479999999999961
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          413.98159999999996,
+          354.4401599999998,
+          423.9416
+        ],
+        "text": "1 - Não se consideram rendimentos do trabalho dependente:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          433.54159999999996,
+          548.5029599999997,
+          443.5016
+        ],
+        "text": "a) As prestações efetuadas pelas entidades patronais para regimes obrigatórios de segurança social,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          445.06159999999994,
+          548.6885599999999,
+          455.0216
+        ],
+        "text": "ainda que de natureza privada, que visem assegurar exclusivamente benefícios em caso de reforma,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          456.4616,
+          204.41484000000005,
+          466.4216
+        ],
+        "text": "invalidez ou sobrevivência;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          476.04159999999996,
+          548.4133199999998,
+          486.0016
+        ],
+        "text": "b) Os benefícios imputáveis à utilização e fruição de realizações de utilidade social e de lazer mantidas",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          487.56159999999994,
+          548.7965599999999,
+          497.5216
+        ],
+        "text": "pela entidade patronal, desde que observados os critérios estabelecidos no artigo 43.º do Código do IRC",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          499.0815999999999,
+          549.0052000000001,
+          509.04159999999996
+        ],
+        "text": "e os 'vales infância' emitidos e atribuídos nas condições previstas no Decreto-Lei n.º 26/99, de 28 de",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          510.48159999999996,
+          302.7983599999999,
+          520.4416
+        ],
+        "text": "janeiro; (Redação da Lei n.º 114/2017, de 29 de dezembro)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002,
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          530.0416,
+          548.6046799999998,
+          540.0016
+        ],
+        "text": "c) As prestações relacionadas exclusivamente com ações de formação profissional dos trabalhadores,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          541.5616,
+          548.4631199999998,
+          551.5216
+        ],
+        "text": "quer estas sejam ministradas pela entidade patronal, quer por organismos de direito público ou entidade",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          553.0816,
+          549.05908,
+          563.0416
+        ],
+        "text": "reconhecida como tendo competência nos domínios da formação e reabilitação profissionais pelos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          564.4816,
+          195.57036000000002,
+          574.4416
+        ],
+        "text": "ministérios competentes;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          584.0416,
+          548.30376,
+          594.0015999999999
+        ],
+        "text": "d) As importâncias suportadas pelas entidades patronais com a aquisição de passes sociais a favor dos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          595.4415999999999,
+          430.52676,
+          605.4015999999999
+        ],
+        "text": "seus trabalhadores, desde que a atribuição dos mesmos tenha carácter geral;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          615.0015999999999,
+          548.74736,
+          624.9616
+        ],
+        "text": "e) As importâncias suportadas pelas entidades patronais com seguros de saúde ou doença em benefício",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          626.4015999999999,
+          548.5926,
+          636.3616
+        ],
+        "text": "dos seus trabalhadores ou respetivos familiares desde que a atribuição dos mesmos tenha carácter geral;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          646.1116,
+          548.5527599999999,
+          656.0716
+        ],
+        "text": "f) As importâncias suportadas pelas entidades patronais com encargos, indemnizações ou",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          657.5115999999999,
+          548.6190799999998,
+          667.4716
+        ],
+        "text": "compensações, pagos no ano da deslocação, em dinheiro ou em espécie, devidos pela mudança do local",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          669.0315999999999,
+          548.7123199999997,
+          678.9916
+        ],
+        "text": "de trabalho, quando este passe a situar-se a uma distância superior a 100 km do local de trabalho anterior,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          680.4315999999999,
+          472.49176000000006,
+          690.3915999999999
+        ],
+        "text": "na parte que não exceda 10 % da remuneração anual, com o limite de € 4 200 por ano.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 27,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "26"
+    ],
+    "raw_text": "2 - Não constituem rendimentos do trabalho dependente os auferidos após a extinção do contrato de\ntrabalho, sempre que o titular seja colocado numa situação equivalente à de reforma, segundo o regime\nde segurança social que lhe seja aplicável.\n3 - Não constitui rendimento do trabalho dependente a percentagem dos rendimentos brutos da categoria\nA dos sujeitos passivos que se encontrem na situação prevista na alínea d) do n.º 1 do artigo 16.º, fixada\npor despacho dos membros do Governo responsáveis pelas áreas dos negócios estrangeiros e das\nfinanças, determinada para cada país de exercício de funções e adequada a ter em conta a relação de\nparidade de poder de compra entre Portugal e esse país. (Redação da Lei n.º 114/2017, de 29 de dezembro)\n4 - O disposto no número anterior é apenas aplicável aos sujeitos passivos que não aufiram de abono\nisento ou não sujeito a IRS que corresponda também àquela finalidade. (Redação da Lei n.º 114/2017, de 29 de\ndezembro)\n5 - Cada sujeito passivo apenas pode aproveitar da exclusão prevista na alínea f) do n.º 1 uma vez em\ncada período de três anos. (Redação da Lei n.º 114/2017, de 29 de dezembro; anterior n.º 3)\nArtigo 2.º-B\nIsenção de rendimentos da categoria A\n(Revogado pela alínea b) art.º 329.º da Lei n.º 12/2022 de 27 de junho)",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          85.104,
+          75.17160000000001,
+          548.44568,
+          85.13159999999993
+        ],
+        "text": "2 - Não constituem rendimentos do trabalho dependente os auferidos após a extinção do contrato de",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          86.71159999999998,
+          548.62248,
+          96.6715999999999
+        ],
+        "text": "trabalho, sempre que o titular seja colocado numa situação equivalente à de reforma, segundo o regime",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          98.11159999999995,
+          275.06768000000005,
+          108.07159999999988
+        ],
+        "text": "de segurança social que lhe seja aplicável.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          117.67160000000001,
+          548.6781599999998,
+          127.63159999999993
+        ],
+        "text": "3 - Não constitui rendimento do trabalho dependente a percentagem dos rendimentos brutos da categoria",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          129.1916,
+          548.5826400000002,
+          139.15159999999992
+        ],
+        "text": "A dos sujeitos passivos que se encontrem na situação prevista na alínea d) do n.º 1 do artigo 16.º, fixada",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          140.71159999999998,
+          548.6841199999999,
+          150.6715999999999
+        ],
+        "text": "por despacho dos membros do Governo responsáveis pelas áreas dos negócios estrangeiros e das",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          152.11159999999995,
+          548.5627199999999,
+          162.07159999999988
+        ],
+        "text": "finanças, determinada para cada país de exercício de funções e adequada a ter em conta a relação de",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          163.51160000000004,
+          523.69028,
+          173.47159999999997
+        ],
+        "text": "paridade de poder de compra entre Portugal e esse país. (Redação da Lei n.º 114/2017, de 29 de dezembro)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964,
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          183.1916,
+          548.4925999999999,
+          193.15159999999992
+        ],
+        "text": "4 - O disposto no número anterior é apenas aplicável aos sujeitos passivos que não aufiram de abono",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          194.71159999999998,
+          549.1074399999999,
+          204.6715999999999
+        ],
+        "text": "isento ou não sujeito a IRS que corresponda também àquela finalidade. (Redação da Lei n.º 114/2017, de 29 de",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964,
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          207.74839999999995,
+          123.40656,
+          215.7883999999999
+        ],
+        "text": "dezembro)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          225.4316,
+          548.4608000000003,
+          235.39159999999993
+        ],
+        "text": "5 - Cada sujeito passivo apenas pode aproveitar da exclusão prevista na alínea f) do n.º 1 uma vez em",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          236.83159999999998,
+          439.1251999999998,
+          246.7915999999999
+        ],
+        "text": "cada período de três anos. (Redação da Lei n.º 114/2017, de 29 de dezembro; anterior n.º 3)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964,
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          291.05,
+          256.1708,
+          343.03456,
+          265.6508
+        ],
+        "text": "Artigo 2.º-B",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          228.65,
+          267.09079999999994,
+          405.48992000000004,
+          276.57079999999996
+        ],
+        "text": "Isenção de rendimentos da categoria A",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          190.94,
+          283.85839999999996,
+          443.14732000000004,
+          291.8983999999999
+        ],
+        "text": "(Revogado pela alínea b) art.º 329.º da Lei n.º 12/2022 de 27 de junho)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 48,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "47"
+    ],
+    "raw_text": "Artigo 15.º\nÂmbito da sujeição\n1 - Sendo as pessoas residentes em território português, o IRS incide sobre a totalidade dos seus\nrendimentos, incluindo os obtidos fora desse território.\n2 - Tratando-se de não residentes, o IRS incide unicamente sobre os rendimentos obtidos em território\nportuguês.\n3 - O disposto nos números anteriores aplica-se aos casos de residência parcial previstos nos n.os 3 e 4\ndo artigo seguinte, relativamente a cada um dos estatutos de residência.\nArtigo 16.º\nResidência\n1 - São residentes em território português as pessoas que, no ano a que respeitam os rendimentos:\na) Hajam nele permanecido mais de 183 dias, seguidos ou interpolados, em qualquer período de 12\nmeses com início ou fim no ano em causa;\nb) Tendo permanecido por menos tempo, aí disponham, num qualquer dia do período referido na alínea\nanterior, de habitação em condições que façam supor intenção atual de a manter e ocupar como\nresidência habitual;\nc) Em 31 de dezembro, sejam tripulantes de navios ou aeronaves, desde que aqueles estejam ao serviço\nde entidades com residência, sede ou direção efetiva nesse território;\nd) Desempenhem no estrangeiro funções ou comissões de carácter público, ao serviço do Estado\nPortuguês.\n2 - Para efeitos do disposto no número anterior, considera-se como dia de presença em território\nportuguês qualquer dia, completo ou parcial, que inclua dormida no mesmo.\n3 - As pessoas que preencham as condições previstas nas alíneas a) ou b) do n.º 1 tornam-se residentes\ndesde o primeiro dia do período de permanência em território português, salvo quando tenham aí sido\nresidentes em qualquer dia do ano anterior, caso em que se consideram residentes neste território desde\no primeiro dia do ano em que se verifique qualquer uma das condições previstas no n.º 1.\n4 - A perda da qualidade de residente ocorre a partir do último dia de permanência em território português,\nsalvo nos casos previstos nos n.os 14 e 16.\n5 - A residência fiscal é aferida em relação a cada sujeito passivo do agregado.\n6 - São ainda havidos como residentes em território português as pessoas de nacionalidade portuguesa\nque deslocalizem a sua residência fiscal para país, território ou região, sujeito a um regime fiscal\nclaramente mais favorável constante de lista aprovada por portaria do membro do Governo responsável\npela área das finanças, no ano em que se verifique aquela mudança e nos quatro anos subsequentes,\nsalvo se o interessado provar que a mudança se deve a razões atendíveis, designadamente exercício\nnaquele território de atividade temporária por conta de entidade patronal domiciliada em território\nportuguês.\n7 - Sem prejuízo do período definido no número anterior, a condição de residente aí prevista subsiste\napenas enquanto se mantiver a deslocação da residência fiscal do sujeito passivo para país, território ou\nregião, sujeito a um regime fiscal claramente mais favorável constante de lista aprovada por portaria do",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          293.45,
+          159.93079999999998,
+          340.54663999999997,
+          169.4108
+        ],
+        "text": "Artigo 15.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          273.53,
+          170.85079999999994,
+          360.54692,
+          180.33079999999995
+        ],
+        "text": "Âmbito da sujeição",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          185.95159999999998,
+          548.3926399999998,
+          195.9115999999999
+        ],
+        "text": "1 - Sendo as pessoas residentes em território português, o IRS incide sobre a totalidade dos seus",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          197.47159999999997,
+          325.00055999999995,
+          207.4315999999999
+        ],
+        "text": "rendimentos, incluindo os obtidos fora desse território.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          217.03160000000003,
+          548.51024,
+          226.99159999999995
+        ],
+        "text": "2 - Tratando-se de não residentes, o IRS incide unicamente sobre os rendimentos obtidos em território",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          228.4316,
+          132.23472,
+          238.39159999999993
+        ],
+        "text": "português.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          247.74080000000004,
+          548.96896,
+          257.9516
+        ],
+        "text": "3 - O disposto nos números anteriores aplica-se aos casos de residência parcial previstos nos n.os 3 e 4",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          6.480000000000018,
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          259.39160000000004,
+          406.91884000000005,
+          269.35159999999996
+        ],
+        "text": "do artigo seguinte, relativamente a cada um dos estatutos de residência.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          293.45,
+          278.8808,
+          340.54663999999997,
+          288.36080000000004
+        ],
+        "text": "Artigo 16.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          292.01,
+          289.8008,
+          342.02648,
+          299.2808
+        ],
+        "text": "Residência",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          304.90160000000003,
+          526.6684799999998,
+          314.86159999999995
+        ],
+        "text": "1 - São residentes em território português as pessoas que, no ano a que respeitam os rendimentos:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          324.34159999999997,
+          548.4531599999999,
+          334.3016
+        ],
+        "text": "a) Hajam nele permanecido mais de 183 dias, seguidos ou interpolados, em qualquer período de 12",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          335.74159999999995,
+          274.67576,
+          345.7016
+        ],
+        "text": "meses com início ou fim no ano em causa;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          355.42159999999996,
+          548.4332399999996,
+          365.3816
+        ],
+        "text": "b) Tendo permanecido por menos tempo, aí disponham, num qualquer dia do período referido na alínea",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          366.94159999999994,
+          548.5926,
+          376.9016
+        ],
+        "text": "anterior, de habitação em condições que façam supor intenção atual de a manter e ocupar como",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          378.34159999999997,
+          171.08867999999998,
+          388.3016
+        ],
+        "text": "residência habitual;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          397.9016,
+          548.7346399999999,
+          407.8616
+        ],
+        "text": "c) Em 31 de dezembro, sejam tripulantes de navios ou aeronaves, desde que aqueles estejam ao serviço",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          409.30159999999995,
+          392.7385199999999,
+          419.2616
+        ],
+        "text": "de entidades com residência, sede ou direção efetiva nesse território;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          428.86159999999995,
+          548.6025600000002,
+          438.8216
+        ],
+        "text": "d) Desempenhem no estrangeiro funções ou comissões de carácter público, ao serviço do Estado",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          440.26159999999993,
+          133.33032,
+          450.22159999999997
+        ],
+        "text": "Português.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          459.9616,
+          548.81092,
+          469.9216
+        ],
+        "text": "2 - Para efeitos do disposto no número anterior, considera-se como dia de presença em território",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          471.36159999999995,
+          421.9611599999998,
+          481.3216
+        ],
+        "text": "português qualquer dia, completo ou parcial, que inclua dormida no mesmo.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          490.92159999999996,
+          549.0028,
+          500.8816
+        ],
+        "text": "3 - As pessoas que preencham as condições previstas nas alíneas a) ou b) do n.º 1 tornam-se residentes",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          502.44159999999994,
+          548.5129199999999,
+          512.4015999999999
+        ],
+        "text": "desde o primeiro dia do período de permanência em território português, salvo quando tenham aí sido",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          513.8416,
+          548.5925999999998,
+          523.8016
+        ],
+        "text": "residentes em qualquer dia do ano anterior, caso em que se consideram residentes neste território desde",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          525.2416,
+          482.0472799999999,
+          535.2016
+        ],
+        "text": "o primeiro dia do ano em que se verifique qualquer uma das condições previstas no n.º 1.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          544.9215999999999,
+          548.7061199999997,
+          554.8815999999999
+        ],
+        "text": "4 - A perda da qualidade de residente ocorre a partir do último dia de permanência em território português,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          556.0708,
+          274.71500000000003,
+          566.2816
+        ],
+        "text": "salvo nos casos previstos nos n.os 14 e 16.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          6.479999999999961,
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          575.7615999999999,
+          436.77968000000004,
+          585.7216
+        ],
+        "text": "5 - A residência fiscal é aferida em relação a cada sujeito passivo do agregado.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          595.4415999999999,
+          548.5425599999996,
+          605.4015999999999
+        ],
+        "text": "6 - São ainda havidos como residentes em território português as pessoas de nacionalidade portuguesa",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          606.8416,
+          548.6623200000001,
+          616.8016
+        ],
+        "text": "que deslocalizem a sua residência fiscal para país, território ou região, sujeito a um regime fiscal",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          618.3616,
+          548.68124,
+          628.3216
+        ],
+        "text": "claramente mais favorável constante de lista aprovada por portaria do membro do Governo responsável",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          629.8815999999999,
+          548.6324399999996,
+          639.8416
+        ],
+        "text": "pela área das finanças, no ano em que se verifique aquela mudança e nos quatro anos subsequentes,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          641.4015999999999,
+          548.9597200000001,
+          651.3616
+        ],
+        "text": "salvo se o interessado provar que a mudança se deve a razões atendíveis, designadamente exercício",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          652.9516,
+          548.5726799999999,
+          662.9115999999999
+        ],
+        "text": "naquele território de atividade temporária por conta de entidade patronal domiciliada em território",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          664.3516,
+          132.23472,
+          674.3116
+        ],
+        "text": "português.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          683.9115999999999,
+          548.51444,
+          693.8716
+        ],
+        "text": "7 - Sem prejuízo do período definido no número anterior, a condição de residente aí prevista subsiste",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          695.4315999999999,
+          548.7914,
+          705.3915999999999
+        ],
+        "text": "apenas enquanto se mantiver a deslocação da residência fiscal do sujeito passivo para país, território ou",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          706.9516,
+          548.3933999999999,
+          716.9115999999999
+        ],
+        "text": "região, sujeito a um regime fiscal claramente mais favorável constante de lista aprovada por portaria do",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000008
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 49,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "48"
+    ],
+    "raw_text": "membro do Governo responsável pela área das finanças, deixando de se aplicar no ano em que este se\ntorne residente fiscal em país, território ou região distinto daqueles.\n8 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)\n9 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)\n10 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)\n11 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)\n12 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)\n13 - Enquadra-se no disposto na alínea d) do n.º 1 o exercício de funções de deputado ao Parlamento\nEuropeu.\n14 - Sem prejuízo do disposto no número seguinte, um sujeito passivo considera-se residente em território\nportuguês durante a totalidade do ano no qual perca a qualidade de residente quando se verifiquem,\ncumulativamente, as seguintes condições:\na) Permaneça em território português mais de 183 dias, seguidos ou interpolados, nesse ano; e\nb) Obtenha, no decorrer desse ano e após o último dia de permanência em território português, quaisquer\nrendimentos que fossem sujeitos e não isentos de IRS, caso o sujeito passivo mantivesse a sua qualidade\nde residente em território português.\n15 - O disposto no número anterior não é aplicável caso o sujeito passivo demonstre que os rendimentos\na que se refere a alínea b) do mesmo número sejam tributados por um imposto sobre o rendimento\nidêntico ou substancialmente similar ao IRS aplicado devido ao domicílio ou residência:\na) Noutro Estado membro da União Europeia ou do Espaço Económico Europeu, desde que, neste último\ncaso, exista intercâmbio de informações em matéria fiscal e que se preveja a cooperação administrativa\nno domínio da fiscalidade; ou\nb) Noutro Estado, não abrangido na alínea anterior, em que a taxa de tributação aplicável àqueles\nrendimentos não seja inferior a 60 % daquela que lhes seria aplicável caso o sujeito passivo mantivesse\na sua residência em território português.\n16 - Um sujeito passivo considera-se, ainda, residente em território português durante a totalidade do ano\nsempre que volte a adquirir a qualidade de residente durante o ano subsequente àquele em que, nos\ntermos do n.º 4, perdeu aquela mesma qualidade.\nNota: Artigo 236.º da Lei n.º 82/2023, de 29 de dezembro:\n“Disposição transitória no âmbito do imposto sobre o rendimento das pessoas singulares\n[…]\n3 - O disposto nos n.os 8 a 12 do artigo 16.º, no artigo 22.º, nos n.os 10 e 12 do artigo 72.º, dos n.os 4 a 8 do artigo 81.º, no n.º 8 do\nartigo 99.º e na alínea d) do n.º 1 do artigo 101.º do Código do IRS, na redação anterior à introduzida pela presente lei, continua a\nser aplicável, até ao termo do prazo previsto no n.º 9 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente\nlei, contado da data em que o sujeito passivo se tornou residente em território português, ao sujeito passivo que:\na) À data da entrada em vigor da presente lei, já se encontre inscrito como residente não habitual no registo de contribuintes da AT,\nenquanto não estiver esgotado o período a que se referem os n.os 9 a 12 do artigo 16.º do Código do IRS;\nb) A 31 de dezembro de 2023, reúna as condições do artigo 16.º do Código do IRS para qualificação como residente para efeitos\nfiscais em território português;\nc) Se torne residente para efeitos fiscais até 31 de dezembro de 2024 e que declare, para efeitos da sua inscrição como residente\nnão habitual, dispor de um dos seguintes elementos:",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          85.104,
+          75.17160000000001,
+          548.95216,
+          85.13159999999993
+        ],
+        "text": "membro do Governo responsável pela área das finanças, deixando de se aplicar no ano em que este se",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          86.59159999999997,
+          382.70879999999977,
+          96.5515999999999
+        ],
+        "text": "torne residente fiscal em país, território ou região distinto daqueles.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          106.03160000000003,
+          287.9516,
+          115.99159999999995
+        ],
+        "text": "8 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964,
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          125.59159999999997,
+          287.9516,
+          135.5515999999999
+        ],
+        "text": "9 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964,
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          145.03160000000003,
+          293.59208,
+          154.99159999999995
+        ],
+        "text": "10 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964,
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          164.59159999999997,
+          293.47159999999997,
+          174.5515999999999
+        ],
+        "text": "11 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964,
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          184.03160000000003,
+          293.47159999999997,
+          193.99159999999995
+        ],
+        "text": "12 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964,
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          203.71159999999998,
+          548.6904799999998,
+          213.6715999999999
+        ],
+        "text": "13 - Enquadra-se no disposto na alínea d) do n.º 1 o exercício de funções de deputado ao Parlamento",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          215.11159999999995,
+          125.5416,
+          225.07159999999988
+        ],
+        "text": "Europeu.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          234.6716,
+          549.0221200000001,
+          244.63159999999993
+        ],
+        "text": "14 - Sem prejuízo do disposto no número seguinte, um sujeito passivo considera-se residente em território",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          246.1916,
+          548.7220799999998,
+          256.1515999999999
+        ],
+        "text": "português durante a totalidade do ano no qual perca a qualidade de residente quando se verifiquem,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          257.59159999999997,
+          272.74044,
+          267.5515999999999
+        ],
+        "text": "cumulativamente, as seguintes condições:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          277.0616,
+          509.0052799999998,
+          287.0215999999999
+        ],
+        "text": "a) Permaneça em território português mais de 183 dias, seguidos ou interpolados, nesse ano; e",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          296.74160000000006,
+          548.6523599999999,
+          306.7016
+        ],
+        "text": "b) Obtenha, no decorrer desse ano e após o último dia de permanência em território português, quaisquer",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          308.14160000000004,
+          548.94244,
+          318.10159999999996
+        ],
+        "text": "rendimentos que fossem sujeitos e não isentos de IRS, caso o sujeito passivo mantivesse a sua qualidade",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          319.5416,
+          246.12731999999997,
+          329.50159999999994
+        ],
+        "text": "de residente em território português.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          339.22159999999997,
+          548.5776799999998,
+          349.1816
+        ],
+        "text": "15 - O disposto no número anterior não é aplicável caso o sujeito passivo demonstre que os rendimentos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          350.74159999999995,
+          548.56272,
+          360.7016
+        ],
+        "text": "a que se refere a alínea b) do mesmo número sejam tributados por um imposto sobre o rendimento",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          362.1415999999999,
+          472.02283999999975,
+          372.10159999999996
+        ],
+        "text": "idêntico ou substancialmente similar ao IRS aplicado devido ao domicílio ou residência:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          381.7015999999999,
+          548.8714799999998,
+          391.66159999999996
+        ],
+        "text": "a) Noutro Estado membro da União Europeia ou do Espaço Económico Europeu, desde que, neste último",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          393.22159999999997,
+          548.95684,
+          403.1816
+        ],
+        "text": "caso, exista intercâmbio de informações em matéria fiscal e que se preveja a cooperação administrativa",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          404.62159999999994,
+          215.00232,
+          414.5816
+        ],
+        "text": "no domínio da fiscalidade; ou",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          424.18159999999995,
+          548.4929999999999,
+          434.1416
+        ],
+        "text": "b) Noutro Estado, não abrangido na alínea anterior, em que a taxa de tributação aplicável àqueles",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          435.7015999999999,
+          549.0973600000001,
+          445.66159999999996
+        ],
+        "text": "rendimentos não seja inferior a 60 % daquela que lhes seria aplicável caso o sujeito passivo mantivesse",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          447.10159999999996,
+          263.8859999999999,
+          457.0616
+        ],
+        "text": "a sua residência em território português.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          466.68159999999995,
+          548.89712,
+          476.6416
+        ],
+        "text": "16 - Um sujeito passivo considera-se, ainda, residente em território português durante a totalidade do ano",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          478.2015999999999,
+          548.4431999999997,
+          488.16159999999996
+        ],
+        "text": "sempre que volte a adquirir a qualidade de residente durante o ano subsequente àquele em que, nos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          489.60159999999996,
+          306.49399999999997,
+          499.5616
+        ],
+        "text": "termos do n.º 4, perdeu aquela mesma qualidade.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          509.55999999999995,
+          317.1979999999999,
+          518.56
+        ],
+        "text": "Nota: Artigo 236.º da Lei n.º 82/2023, de 29 de dezembro:",
+        "font_names": [
+          "Arial-BoldMT",
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          529.8783999999999,
+          428.4200399999999,
+          537.9184
+        ],
+        "text": "“Disposição transitória no âmbito do imposto sobre o rendimento das pessoas singulares",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          549.1984,
+          97.65444,
+          557.2384
+        ],
+        "text": "[…]",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          567.8883999999999,
+          549.1289199999999,
+          576.5583999999999
+        ],
+        "text": "3 - O disposto nos n.os 8 a 12 do artigo 16.º, no artigo 22.º, nos n.os 10 e 12 do artigo 72.º, dos n.os 4 a 8 do artigo 81.º, no n.º 8 do",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          5.0400000000000205,
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          579.7983999999999,
+          549.2416,
+          587.8384
+        ],
+        "text": "artigo 99.º e na alínea d) do n.º 1 do artigo 101.º do Código do IRS, na redação anterior à introduzida pela presente lei, continua a",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999992
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          591.0784,
+          549.0707599999997,
+          599.1184
+        ],
+        "text": "ser aplicável, até ao termo do prazo previsto no n.º 9 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999992
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          602.2384,
+          484.0889999999998,
+          610.2783999999999
+        ],
+        "text": "lei, contado da data em que o sujeito passivo se tornou residente em território português, ao sujeito passivo que:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999992
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          621.5584,
+          548.9460799999997,
+          629.5984
+        ],
+        "text": "a) À data da entrada em vigor da presente lei, já se encontre inscrito como residente não habitual no registo de contribuintes da AT,",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999992
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          632.0884,
+          460.23103999999995,
+          640.7583999999999
+        ],
+        "text": "enquanto não estiver esgotado o período a que se referem os n.os 9 a 12 do artigo 16.º do Código do IRS;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          5.039999999999992,
+          8.039999999999992
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          652.0684,
+          548.8880799999997,
+          660.1084
+        ],
+        "text": "b) A 31 de dezembro de 2023, reúna as condições do artigo 16.º do Código do IRS para qualificação como residente para efeitos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999992
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          663.2284,
+          192.22895999999997,
+          671.2683999999999
+        ],
+        "text": "fiscais em território português;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999992
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          682.5483999999999,
+          549.36916,
+          690.5884
+        ],
+        "text": "c) Se torne residente para efeitos fiscais até 31 de dezembro de 2024 e que declare, para efeitos da sua inscrição como residente",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999992
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          693.7084,
+          272.4644,
+          701.7484
+        ],
+        "text": "não habitual, dispor de um dos seguintes elementos:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999992
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 50,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "49"
+    ],
+    "raw_text": "i) Promessa ou contrato de trabalho, promessa ou acordo de destacamento celebrado até 31 de dezembro de 2023, cujo exercício\ndas funções deva ocorrer em território nacional;\nii) Contrato de arrendamento ou outro contrato que conceda o uso ou a posse de imóvel em território português celebrado até 10\nde outubro de 2023;\niii) Contrato de reserva ou contrato-promessa de aquisição de direito real sobre imóvel em território português celebrado até 10 de\noutubro de 2023;\niv) Matrícula ou inscrição para os dependentes, em estabelecimento de ensino domiciliado em território português, completada até\n10 de outubro de 2023;\nv) Visto de residência ou autorização de residência válidos até 31 de dezembro de 2023;\nvi) Procedimento, iniciado até 31 de dezembro de 2023, de concessão de visto de residência ou de autorização de residência, junto\ndas entidades competentes, de acordo com a legislação em vigor aplicável em matéria de imigração, designadamente através do\npedido de agendamento ou efetivo agendamento para submissão do pedido de concessão do visto de residência ou autorização de\nresidência ou, ainda, através da submissão do pedido para a concessão do visto de residência ou autorização de residência;\nd) Seja membro do agregado familiar dos sujeitos passivos referidos nas alíneas anteriores.\n4 - Para efeito do disposto nas alíneas c) e d) do número anterior, o sujeito passivo deve solicitar a inscrição como residente não\nhabitual, por via eletrónica, no Portal das Finanças, posteriormente ao ato da inscrição como residente em território português, nos\ntermos do previsto n.º 10 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente lei, por referência ao ano\nem que se tornou residente nesse território.\n5 - Nos casos em que a inscrição seja efetuada fora do prazo referido no n.º 4, a tributação nos termos salvaguardados no presente\nartigo produz efeitos a partir do ano em que a inscrição seja efetuada, pelo prazo remanescente, até ao termo do período previsto\nno n.º 9 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente lei, contado desde o ano em que se tornou\nresidente nesse território.\n6 - O limite previsto no n.º 1 do artigo 12.º-A do Código do IRS, na redação dada pela presente lei, aplica-se apenas aos sujeitos\npassivos que se tornem fiscalmente residentes no ano de 2024 ou posterior.”\nArtigo 17.º\nResidência em região autónoma\n1 - Para efeitos deste Código, considera-se que no ano a que respeitam os rendimentos as pessoas\nresidentes no território português são residentes numa região autónoma quando permaneçam no\nrespetivo território por mais de 183 dias.",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          85.104,
+          76.8084,
+          548.7708000000001,
+          84.84839999999997
+        ],
+        "text": "i) Promessa ou contrato de trabalho, promessa ou acordo de destacamento celebrado até 31 de dezembro de 2023, cujo exercício",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          87.98839999999996,
+          254.46659999999986,
+          96.02839999999992
+        ],
+        "text": "das funções deva ocorrer em território nacional;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          107.3084,
+          548.9465599999997,
+          115.34839999999997
+        ],
+        "text": "ii) Contrato de arrendamento ou outro contrato que conceda o uso ou a posse de imóvel em território português celebrado até 10",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          118.46839999999997,
+          156.77256,
+          126.50839999999994
+        ],
+        "text": "de outubro de 2023;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          137.78840000000002,
+          549.0493999999998,
+          145.8284
+        ],
+        "text": "iii) Contrato de reserva ou contrato-promessa de aquisição de direito real sobre imóvel em território português celebrado até 10 de",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          148.9484,
+          145.62108,
+          156.98839999999996
+        ],
+        "text": "outubro de 2023;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          168.26840000000004,
+          549.0066799999996,
+          176.3084
+        ],
+        "text": "iv) Matrícula ou inscrição para os dependentes, em estabelecimento de ensino domiciliado em território português, completada até",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          179.4284,
+          167.92404,
+          187.46839999999997
+        ],
+        "text": "10 de outubro de 2023;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          198.74839999999995,
+          399.81371999999976,
+          206.7883999999999
+        ],
+        "text": "v) Visto de residência ou autorização de residência válidos até 31 de dezembro de 2023;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          218.0684,
+          549.1463599999996,
+          226.10839999999996
+        ],
+        "text": "vi) Procedimento, iniciado até 31 de dezembro de 2023, de concessão de visto de residência ou de autorização de residência, junto",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          229.34839999999997,
+          548.7225599999997,
+          237.38839999999993
+        ],
+        "text": "das entidades competentes, de acordo com a legislação em vigor aplicável em matéria de imigração, designadamente através do",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          240.50840000000005,
+          549.0060799999998,
+          248.54840000000002
+        ],
+        "text": "pedido de agendamento ou efetivo agendamento para submissão do pedido de concessão do visto de residência ou autorização de",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          251.66840000000002,
+          527.8667999999998,
+          259.7084
+        ],
+        "text": "residência ou, ainda, através da submissão do pedido para a concessão do visto de residência ou autorização de residência;",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          270.98839999999996,
+          411.49748,
+          279.0283999999999
+        ],
+        "text": "d) Seja membro do agregado familiar dos sujeitos passivos referidos nas alíneas anteriores.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          290.3384,
+          549.24832,
+          298.37839999999994
+        ],
+        "text": "4 - Para efeito do disposto nas alíneas c) e d) do número anterior, o sujeito passivo deve solicitar a inscrição como residente não",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          301.61839999999995,
+          548.9887599999998,
+          309.6583999999999
+        ],
+        "text": "habitual, por via eletrónica, no Portal das Finanças, posteriormente ao ato da inscrição como residente em território português, nos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          312.77840000000003,
+          549.24556,
+          320.8184
+        ],
+        "text": "termos do previsto n.º 10 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente lei, por referência ao ano",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          323.9384,
+          239.86595999999992,
+          331.97839999999997
+        ],
+        "text": "em que se tornou residente nesse território.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          343.37839999999994,
+          548.9633599999996,
+          351.41839999999996
+        ],
+        "text": "5 - Nos casos em que a inscrição seja efetuada fora do prazo referido no n.º 4, a tributação nos termos salvaguardados no presente",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          354.53839999999997,
+          549.2347599999999,
+          362.5784
+        ],
+        "text": "artigo produz efeitos a partir do ano em que a inscrição seja efetuada, pelo prazo remanescente, até ao termo do período previsto",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          365.81839999999994,
+          548.9749999999998,
+          373.85839999999996
+        ],
+        "text": "no n.º 9 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente lei, contado desde o ano em que se tornou",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          376.97839999999997,
+          175.32083999999998,
+          385.0184
+        ],
+        "text": "residente nesse território.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          396.29839999999996,
+          549.24748,
+          404.3384
+        ],
+        "text": "6 - O limite previsto no n.º 1 do artigo 12.º-A do Código do IRS, na redação dada pela presente lei, aplica-se apenas aos sujeitos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          407.4583999999999,
+          358.4961599999997,
+          415.49839999999995
+        ],
+        "text": "passivos que se tornem fiscalmente residentes no ano de 2024 ou posterior.”",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          293.45,
+          425.0408,
+          340.54663999999997,
+          434.52079999999995
+        ],
+        "text": "Artigo 17.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.479999999999961
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          244.25,
+          435.96079999999995,
+          389.80592000000007,
+          445.4407999999999
+        ],
+        "text": "Residência em região autónoma",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.479999999999961
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          451.06159999999994,
+          548.67788,
+          461.0216
+        ],
+        "text": "1 - Para efeitos deste Código, considera-se que no ano a que respeitam os rendimentos as pessoas",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          462.60159999999996,
+          548.8686799999998,
+          472.5616
+        ],
+        "text": "residentes no território português são residentes numa região autónoma quando permaneçam no",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          474.00159999999994,
+          263.29836,
+          483.9616
+        ],
+        "text": "respetivo território por mais de 183 dias.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 81,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "80"
+    ],
+    "raw_text": "Artigo 67.º\nRevisão dos atos de fixação\nO sujeito passivo pode, salvo em caso de aplicação de regime simplificado de tributação em que não\nsejam efetuadas correções com base noutro método indireto, solicitar a revisão da matéria tributável\nfixada por métodos indiretos, nos termos do artigo 91.º e seguintes da lei geral tributária.\nCAPÍTULO III\nTaxas\nArtigo 68.º\nTaxas gerais\n1 - As taxas do imposto são as constantes da tabela seguinte:\nRendimento coletável Taxas\n(euros) (percentagem)\nNormal Média\n(A) (B)\nAté 8 342 12,50 12,500\nDe mais de 8 342 até 12 587 15,70 13,579\nDe mais de 12 587 até 17 838 21,20 15,823\nDe mais de 17 838 até 23 089 24,10 17,705\nDe mais de 23 089 até 29 397 31,10 20,579\nDe mais de 29 397 até 43 090 34,90 25,130\nDe mais de 43 090 até 46 566 43,10 26,472",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          293.45,
+          290.4008,
+          340.54663999999997,
+          299.8808
+        ],
+        "text": "Artigo 67.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          253.49,
+          301.32079999999996,
+          380.70212000000004,
+          310.8008
+        ],
+        "text": "Revisão dos atos de fixação",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          316.4216,
+          548.5231999999999,
+          326.38159999999993
+        ],
+        "text": "O sujeito passivo pode, salvo em caso de aplicação de regime simplificado de tributação em que não",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          327.9416,
+          548.4232800000001,
+          337.9016
+        ],
+        "text": "sejam efetuadas correções com base noutro método indireto, solicitar a revisão da matéria tributável",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.95999999999998
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          339.34159999999997,
+          477.74272,
+          349.3016
+        ],
+        "text": "fixada por métodos indiretos, nos termos do artigo 91.º e seguintes da lei geral tributária.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          285.89,
+          362.74159999999995,
+          348.04040000000003,
+          372.7016
+        ],
+        "text": "CAPÍTULO III",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          302.93,
+          374.26159999999993,
+          331.27616,
+          384.22159999999997
+        ],
+        "text": "Taxas",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          293.45,
+          388.6808,
+          340.54663999999997,
+          398.16079999999994
+        ],
+        "text": "Artigo 68.º",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.479999999999961
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          288.29,
+          399.6008,
+          345.8336,
+          409.08079999999995
+        ],
+        "text": "Taxas gerais",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.479999999999961
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          414.7015999999999,
+          360.02771999999993,
+          424.66159999999996
+        ],
+        "text": "1 - As taxas do imposto são as constantes da tabela seguinte:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          213.53,
+          496.35999999999996,
+          441.589,
+          505.35999999999996
+        ],
+        "text": "Rendimento coletável Taxas",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          242.57,
+          506.79999999999995,
+          458.767,
+          515.8
+        ],
+        "text": "(euros) (percentagem)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          386.95,
+          527.56,
+          473.76700000000005,
+          536.56
+        ],
+        "text": "Normal Média",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          395.47,
+          538.0,
+          467.593,
+          547.0
+        ],
+        "text": "(A) (B)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          150.86,
+          558.76,
+          475.45000000000005,
+          567.76
+        ],
+        "text": "Até 8 342 12,50 12,500",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          150.86,
+          589.9599999999999,
+          475.45000000000005,
+          598.9599999999999
+        ],
+        "text": "De mais de 8 342 até 12 587 15,70 13,579",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          150.86,
+          610.8399999999999,
+          475.45000000000005,
+          619.8399999999999
+        ],
+        "text": "De mais de 12 587 até 17 838 21,20 15,823",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          150.86,
+          631.7199999999999,
+          475.45000000000005,
+          640.7199999999999
+        ],
+        "text": "De mais de 17 838 até 23 089 24,10 17,705",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          150.86,
+          652.6299999999999,
+          475.45000000000005,
+          661.6299999999999
+        ],
+        "text": "De mais de 23 089 até 29 397 31,10 20,579",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          150.86,
+          673.39,
+          475.45000000000005,
+          682.39
+        ],
+        "text": "De mais de 29 397 até 43 090 34,90 25,130",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          150.86,
+          694.27,
+          475.45000000000005,
+          703.27
+        ],
+        "text": "De mais de 43 090 até 46 566 43,10 26,472",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [
+      {
+        "part_id": "p81-table1",
+        "table_id": "p81-table1",
+        "page_number": 81,
+        "bbox": [
+          144.49999999999997,
+          489.42999999999995,
+          489.58000000000004,
+          708.2200149999999
+        ],
+        "rows": [
+          [
+            "Rendimento coletável\n(euros)",
+            "Taxas\n(percentagem)",
+            null
+          ],
+          [
+            null,
+            "Normal\n(A)",
+            "Média\n(B)"
+          ],
+          [
+            "Até 8 342",
+            "12,50",
+            "12,500"
+          ],
+          [
+            "De mais de 8 342 até 12 587",
+            "15,70",
+            "13,579"
+          ],
+          [
+            "De mais de 12 587 até 17 838",
+            "21,20",
+            "15,823"
+          ],
+          [
+            "De mais de 17 838 até 23 089",
+            "24,10",
+            "17,705"
+          ],
+          [
+            "De mais de 23 089 até 29 397",
+            "31,10",
+            "20,579"
+          ],
+          [
+            "De mais de 29 397 até 43 090",
+            "34,90",
+            "25,130"
+          ],
+          [
+            "De mais de 43 090 até 46 566",
+            "43,10",
+            "26,472"
+          ]
+        ],
+        "cell_bboxes": [
+          [
+            [
+              144.49999999999997,
+              489.42999999999995,
+              369.07,
+              551.8299849999999
+            ],
+            [
+              369.07,
+              489.42999999999995,
+              489.58000000000004,
+              520.630015
+            ],
+            null
+          ],
+          [
+            null,
+            [
+              369.07,
+              520.630015,
+              433.75,
+              551.8299849999999
+            ],
+            [
+              433.75,
+              520.630015,
+              489.58000000000004,
+              551.8299849999999
+            ]
+          ],
+          [
+            [
+              144.49999999999997,
+              551.8299849999999,
+              369.07,
+              583.0299849999999
+            ],
+            [
+              369.07,
+              551.8299849999999,
+              433.75,
+              583.0299849999999
+            ],
+            [
+              433.75,
+              551.8299849999999,
+              489.58000000000004,
+              583.0299849999999
+            ]
+          ],
+          [
+            [
+              144.49999999999997,
+              583.0299849999999,
+              369.07,
+              603.9099849999999
+            ],
+            [
+              369.07,
+              583.0299849999999,
+              433.75,
+              603.9099849999999
+            ],
+            [
+              433.75,
+              583.0299849999999,
+              489.58000000000004,
+              603.9099849999999
+            ]
+          ],
+          [
+            [
+              144.49999999999997,
+              603.9099849999999,
+              369.07,
+              624.7900149999999
+            ],
+            [
+              369.07,
+              603.9099849999999,
+              433.75,
+              624.7900149999999
+            ],
+            [
+              433.75,
+              603.9099849999999,
+              489.58000000000004,
+              624.7900149999999
+            ]
+          ],
+          [
+            [
+              144.49999999999997,
+              624.7900149999999,
+              369.07,
+              645.670015
+            ],
+            [
+              369.07,
+              624.7900149999999,
+              433.75,
+              645.670015
+            ],
+            [
+              433.75,
+              624.7900149999999,
+              489.58000000000004,
+              645.670015
+            ]
+          ],
+          [
+            [
+              144.49999999999997,
+              645.670015,
+              369.07,
+              666.460015
+            ],
+            [
+              369.07,
+              645.670015,
+              433.75,
+              666.460015
+            ],
+            [
+              433.75,
+              645.670015,
+              489.58000000000004,
+              666.460015
+            ]
+          ],
+          [
+            [
+              144.49999999999997,
+              666.460015,
+              369.07,
+              687.3400149999999
+            ],
+            [
+              369.07,
+              666.460015,
+              433.75,
+              687.3400149999999
+            ],
+            [
+              433.75,
+              666.460015,
+              489.58000000000004,
+              687.3400149999999
+            ]
+          ],
+          [
+            [
+              144.49999999999997,
+              687.3400149999999,
+              369.07,
+              708.2200149999999
+            ],
+            [
+              369.07,
+              687.3400149999999,
+              433.75,
+              708.2200149999999
+            ],
+            [
+              433.75,
+              687.3400149999999,
+              489.58000000000004,
+              708.2200149999999
+            ]
+          ]
+        ],
+        "extraction_method": "pdfplumber"
+      }
+    ],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_number": 82,
+    "width": 595.32,
+    "height": 841.92,
+    "printed_page_labels": [
+      "81"
+    ],
+    "raw_text": "De mais de 46 566 até 86 634 44,60 34,856\nSuperior a 86 634 48,00 –\n(Redação da Lei n.º 73-A/2025, de 30 de dezembro)\n2 - O quantitativo do rendimento coletável, quando superior a 8059 €, é dividido em duas partes, nos\nseguintes termos: uma, igual ao limite do maior dos escalões que nele couber, à qual se aplica a taxa\nda coluna B correspondente a esse escalão; outra, igual ao excedente, a que se aplica a taxa da coluna\nA respeitante ao escalão imediatamente superior. (Redação da Lei n.º 45-A/2024, de 31 de dezembro)\nArtigo 68.º-A\nTaxa adicional de solidariedade\n1 - Sem prejuízo do disposto no artigo 68.º, ao quantitativo do rendimento coletável superior a € 80 000\nincidem as taxas adicionais de solidariedade constantes da tabela seguinte:\n2 - O quantitativo da parte do rendimento coletável que exceda € 80 000, quando superior a € 250 000, é\ndividido em duas partes: uma, igual a € 170 000, à qual se aplica a taxa de 2,5 %; outra, igual ao\nrendimento coletável que exceda € 250 000, à qual se aplica a taxa de 5 %.\n3 - No caso de tributação conjunta, o procedimento referido nos números anteriores aplica-se a metade\ndo rendimento coletável, sendo a coleta obtida pela multiplicação do resultado dessa operação por dois.\n(Redação da Lei n.º 7-A/2016, de 30 de março)\n4 - (Revogado pela Lei n.º 7-A/2016, de 30 de março)\n5 - (Revogado pela Lei n.º 7-A/2016, de 30 de março)\n6 - (Revogado pela Lei n.º 7-A/2016, de 30 de março)",
+    "text_normalized": "",
+    "blocks": [
+      {
+        "bbox": [
+          150.86,
+          80.96999999999991,
+          475.45000000000005,
+          89.96999999999991
+        ],
+        "text": "De mais de 46 566 até 86 634 44,60 34,856",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          150.86,
+          101.86999999999989,
+          464.074,
+          110.86999999999989
+        ],
+        "text": "Superior a 86 634 48,00 –",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.0
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          151.94,
+          119.3084,
+          337.54732,
+          127.34839999999997
+        ],
+        "text": "(Redação da Lei n.º 73-A/2025, de 30 de dezembro)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          144.0716,
+          530.3935199999999,
+          154.0315999999999
+        ],
+        "text": "2 - O quantitativo do rendimento coletável, quando superior a 8059 €, é dividido em duas partes, nos",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          155.59159999999997,
+          535.0312399999999,
+          165.5515999999999
+        ],
+        "text": "seguintes termos: uma, igual ao limite do maior dos escalões que nele couber, à qual se aplica a taxa",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          167.11159999999995,
+          546.0727200000001,
+          177.07159999999988
+        ],
+        "text": "da coluna B correspondente a esse escalão; outra, igual ao excedente, a que se aplica a taxa da coluna",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          178.63160000000005,
+          493.16344,
+          188.59159999999997
+        ],
+        "text": "A respeitante ao escalão imediatamente superior. (Redação da Lei n.º 45-A/2024, de 31 de dezembro)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.039999999999964,
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          288.41,
+          200.85079999999994,
+          345.79456,
+          210.33079999999995
+        ],
+        "text": "Artigo 68.º-A",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          245.45,
+          211.7708,
+          388.4558,
+          221.25080000000003
+        ],
+        "text": "Taxa adicional de solidariedade",
+        "font_names": [
+          "Arial-BoldMT"
+        ],
+        "font_sizes": [
+          9.480000000000018
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          226.87160000000006,
+          549.10612,
+          236.83159999999998
+        ],
+        "text": "1 - Sem prejuízo do disposto no artigo 68.º, ao quantitativo do rendimento coletável superior a € 80 000",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          238.27160000000003,
+          421.27888,
+          248.23159999999996
+        ],
+        "text": "incidem as taxas adicionais de solidariedade constantes da tabela seguinte:",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.959999999999923
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          337.06159999999994,
+          548.9407600000001,
+          347.0216
+        ],
+        "text": "2 - O quantitativo da parte do rendimento coletável que exceda € 80 000, quando superior a € 250 000, é",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          348.5815999999999,
+          548.7907999999999,
+          358.54159999999996
+        ],
+        "text": "dividido em duas partes: uma, igual a € 170 000, à qual se aplica a taxa de 2,5 %; outra, igual ao",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          359.98159999999996,
+          420.79388,
+          369.9416
+        ],
+        "text": "rendimento coletável que exceda € 250 000, à qual se aplica a taxa de 5 %.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          379.66159999999996,
+          548.96644,
+          389.6216
+        ],
+        "text": "3 - No caso de tributação conjunta, o procedimento referido nos números anteriores aplica-se a metade",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          391.06159999999994,
+          548.5228799999999,
+          401.0216
+        ],
+        "text": "do rendimento coletável, sendo a coleta obtida pela multiplicação do resultado dessa operação por dois.",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          404.0983999999999,
+          253.20451999999997,
+          412.13839999999993
+        ],
+        "text": "(Redação da Lei n.º 7-A/2016, de 30 de março)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          421.78159999999997,
+          278.14603999999997,
+          431.7416
+        ],
+        "text": "4 - (Revogado pela Lei n.º 7-A/2016, de 30 de março)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002,
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          441.22159999999997,
+          278.14603999999997,
+          451.1816
+        ],
+        "text": "5 - (Revogado pela Lei n.º 7-A/2016, de 30 de março)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002,
+          9.960000000000036
+        ],
+        "role": "body"
+      },
+      {
+        "bbox": [
+          85.104,
+          460.80159999999995,
+          278.14603999999997,
+          470.7616
+        ],
+        "text": "6 - (Revogado pela Lei n.º 7-A/2016, de 30 de março)",
+        "font_names": [
+          "ArialMT"
+        ],
+        "font_sizes": [
+          8.04000000000002,
+          9.960000000000036
+        ],
+        "role": "body"
+      }
+    ],
+    "tables": [
+      {
+        "part_id": "p82-table1",
+        "table_id": "p81-table1",
+        "page_number": 82,
+        "bbox": [
+          144.5,
+          74.03999999999996,
+          489.58000000000004,
+          115.82000499999992
+        ],
+        "rows": [
+          [
+            "De mais de 46 566 até 86 634",
+            "44,60",
+            "34,856"
+          ],
+          [
+            "Superior a 86 634",
+            "48,00",
+            "–"
+          ]
+        ],
+        "cell_bboxes": [
+          [
+            [
+              144.5,
+              74.03999999999996,
+              369.07,
+              94.93999999999994
+            ],
+            [
+              369.07,
+              74.03999999999996,
+              433.75,
+              94.93999999999994
+            ],
+            [
+              433.75,
+              74.03999999999996,
+              489.58000000000004,
+              94.93999999999994
+            ]
+          ],
+          [
+            [
+              144.5,
+              94.93999999999994,
+              369.07,
+              115.82000499999992
+            ],
+            [
+              369.07,
+              94.93999999999994,
+              433.75,
+              115.82000499999992
+            ],
+            [
+              433.75,
+              94.93999999999994,
+              489.58000000000004,
+              115.82000499999992
+            ]
+          ]
+        ],
+        "extraction_method": "pdfplumber"
+      },
+      {
+        "part_id": "p82-image2-table",
+        "table_id": "p82-image2-table",
+        "page_number": 82,
+        "bbox": [
+          197.88,
+          256.39929627261404,
+          471.18153719735994,
+          327.60127345807905
+        ],
+        "rows": [
+          [
+            "Rendimento coletável (euros)",
+            "Taxa (percentagem)"
+          ],
+          [
+            "De mais de 80 000 até 250 000",
+            "2,5"
+          ],
+          [
+            "Superior a 250 000",
+            "5"
+          ]
+        ],
+        "cell_bboxes": [],
+        "extraction_method": "manual_transcription"
+      }
+    ],
+    "images": [],
+    "extraction_method": "pdfplumber",
+    "issues": []
+  }
+]

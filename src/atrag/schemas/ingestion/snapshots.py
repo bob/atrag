@@ -1,7 +1,9 @@
 """Persisted shapes for immutable source snapshots."""
 
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal, Self
+from uuid import UUID
 
 from pydantic import (
     AwareDatetime,
@@ -12,7 +14,7 @@ from pydantic import (
     model_validator,
 )
 
-from atrag.ingestion.sources import SourceDefinition
+from atrag.schemas.ingestion.sources import SourceDefinition
 
 
 class SourceSnapshot(BaseModel):
@@ -33,3 +35,10 @@ class SourceSnapshot(BaseModel):
         if self.local_path != Path("raw") / self.snapshot_id / "source.pdf":
             raise ValueError("Snapshot path must match its content address")
         return self
+
+
+@dataclass(frozen=True)
+class SnapshotImport:
+    run_id: UUID
+    snapshot: SourceSnapshot
+    reused: bool

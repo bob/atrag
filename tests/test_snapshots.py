@@ -9,8 +9,8 @@ from uuid import UUID
 
 import pytest
 
-from atrag.ingestion.snapshots import import_snapshot
-from atrag.ingestion.sources import load_source_registry
+from atrag.ingestion.services.snapshots import import_snapshot
+from atrag.ingestion.services.sources import load_source_registry
 from atrag.settings import PROJECT_ROOT
 
 PDF_BYTES = b"%PDF-1.7\nlocal snapshot fixture\n%%EOF\n"
