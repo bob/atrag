@@ -4,11 +4,13 @@ import argparse
 import json
 from pathlib import Path
 
+from atrag.ingestion.services.chunks import chunk_parsed
 from atrag.ingestion.services.extract import extract_snapshot
 from atrag.ingestion.services.ocr import TesseractOCR
 from atrag.ingestion.services.snapshots import import_snapshot
 from atrag.ingestion.services.sources import load_source_registry
 from atrag.ingestion.services.structure import parse_extraction
+from atrag.schemas.ingestion.fragments import ChunkParameters
 from atrag.schemas.settings import Settings
 from atrag.settings import PROJECT_ROOT, load_settings
 
@@ -32,6 +34,12 @@ def _build_parser() -> argparse.ArgumentParser:
         required=True,
         help="Completed extraction manifest.json",
     )
+    chunk = actions.add_parser(
+        "chunk", help="Build search fragments from a completed parse"
+    )
+    chunk.add_argument(
+        "--parsed", type=Path, required=True, help="Completed parse manifest.json"
+    )
     inspect.add_argument(
         "--source",
         type=Path,
@@ -50,7 +58,7 @@ def _build_parser() -> argparse.ArgumentParser:
     inspect.add_argument(
         "--review", type=Path, help="Snapshot-specific manual table review JSON"
     )
-    for command in (check, snapshot, inspect, parse):
+    for command in (check, snapshot, inspect, parse, chunk):
         command.add_argument(
             "--registry", type=Path, default=PROJECT_ROOT / "data/sources/cirs.json"
         )
@@ -106,6 +114,24 @@ def _snapshot(source, settings, args):
     }
 
 
+def _chunk(source, settings, args):
+    result = chunk_parsed(
+        args.parsed,
+        settings.data_dir,
+        source,
+        ChunkParameters(
+            target_tokens=settings.chunk_target_tokens,
+            max_tokens=settings.chunk_max_tokens,
+        ),
+    )
+    return {
+        "run_id": str(result.run_id),
+        "directory": str(result.directory),
+        "fragment_count": result.fragment_count,
+        "review_status": result.review_status,
+    }
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = _build_parser()
     args = parser.parse_args(argv)
@@ -119,6 +145,10 @@ def main(argv: list[str] | None = None) -> None:
         )
     if args.command == "ingest":
         operation, failure = {
+            "chunk": (
+                _chunk,
+                "Fragment preparation failed; check parsed artifacts and run manifest.\n",
+            ),
             "parse": (
                 _parse,
                 "Structure parsing failed; check extraction and run manifest.\n",
