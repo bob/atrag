@@ -54,6 +54,26 @@ e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72
 
 Выпуски описывать в `corpus_releases`, их состав - в `release_fragments`, активный выпуск - в `corpus_state`. Неизменившиеся фрагменты и векторы использовать повторно между выпусками через связи. Происхождение и страницы каждого вхождения фрагмента сохранять отдельно со ссылкой на снимок. Первичные ключи, ограничения уникальности и проверки допустимых значений закрепить миграциями.
 
+### Библиотеки и взаимодействие с БД
+
+Набор согласован с пользователем 30.10.2026. Точные версии зафиксировать после проверки установки и интеграционных тестов на Python 3.14.
+
+| Библиотека / пакет | Роль |
+| --- | --- |
+| [SQLAlchemy 2.x](https://docs.sqlalchemy.org/en/21/dialects/postgresql.html#psycopg) | Типизированные ORM-модели таблиц, запросы, транзакции и пул соединений |
+| [Psycopg 3](https://www.psycopg.org/psycopg3/docs/basic/install.html), пакет `psycopg[binary,pool]` | Драйвер PostgreSQL; поддержка отдельного пула для checkpointer |
+| [pgvector для Python](https://github.com/pgvector/pgvector-python), пакет `pgvector` | Тип вектора и операции поиска в SQLAlchemy; серверное расширение `vector` устанавливается отдельно |
+| [Alembic](https://alembic.sqlalchemy.org/en/latest/tutorial.html) | Миграции схемы, ограничений и индексов; включение расширения `vector` |
+| [langgraph-checkpoint-postgres](https://docs.langchain.com/oss/python/langgraph/add-memory#use-in-production) | `PostgresSaver` для сохранения и восстановления состояния графа в служебных таблицах |
+| [python-dotenv](https://bbc2.github.io/python-dotenv/) | Единая загрузка настроек из `.env` |
+
+- Для первой версии выбрать синхронный доступ. `db.py` создаёт SQLAlchemy Engine и фабрику сессий; пул соединений переиспользуется внутри процесса. Каждая операция получает собственную сессию, которая закрывается после завершения. Между потоками и пользователями Streamlit изменяемая сессия не разделяется, согласно [правилам SQLAlchemy](https://docs.sqlalchemy.org/en/21/orm/session_basics.html#is-the-session-thread-safe-is-asyncsession-safe-to-share-in-concurrent-tasks).
+- Доступ к корпусу оформить узкими функциями сохранения снимка, загрузки фрагментов, поиска и публикации выпуска. Обычные операции используют ORM; FTS, векторный поиск и RRF - SQLAlchemy Core либо параметризованный SQL. Парсер и правила формирования фрагментов остаются чистыми преобразованиями данных.
+- Для пакетной загрузки использовать уникальные ключи и `INSERT ... ON CONFLICT`. Границы транзакций задавать явно для пакета записи и переключения активного выпуска; вызовы OpenAI выполнять вне транзакций БД.
+- Checkpointer подключается через собственный Psycopg-пул к той же базе и отдельным служебным таблицам. Не накладывать пул Psycopg на пул SQLAlchemy: это два независимых потребителя с ограниченным суммарным числом соединений.
+- Сохранить один канонический `DATABASE_URL` вида `postgresql://...` для приложения, миграций и checkpointer. В `db.py` для SQLAlchemy строить объект URL с явно выбранным драйвером `postgresql+psycopg`; `PostgresSaver` получает исходный PostgreSQL DSN. Не заводить второй адрес базы и не собирать строки подключения вручную.
+- Схему корпуса изменять через проверенные миграции Alembic; автогенерацию просматривать вручную. Инициализация служебных таблиц LangGraph остаётся отдельной частью команды настройки базы, описанной в шаге 9.
+
 ### Обязательные метаданные
 
 | Группа | Поля и смысл |
@@ -267,7 +287,8 @@ search_tax_documents(query, tax_year, event_date=None, document_types=None, limi
 ```text
 src/atrag/
   settings.py                # единственная точка чтения .env и окружения
-  db.py                      # подключения и транзакции PostgreSQL
+  db.py                      # SQLAlchemy Engine, фабрика сессий и адаптация DATABASE_URL
+  db_models.py               # типизированные ORM-модели таблиц корпуса
   ingestion/
     models.py                # снимок, юридическая единица, редакция, фрагмент
     sources.py               # импорт и сохранение исходных байтов
@@ -281,7 +302,7 @@ src/atrag/
     cli.py                   # команды управления конвейером
   retrieval/
     search.py                # SQL-фильтры, pgvector, FTS и RRF для CLI и инструмента
-migrations/                  # схема PostgreSQL, расширение vector и индексы
+migrations/                  # миграции Alembic: схема, расширение vector и индексы
 tests/
   fixtures/cirs/              # небольшой вручную проверенный образец
   ingestion/
