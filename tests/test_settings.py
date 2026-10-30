@@ -1,3 +1,5 @@
+import os
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pytest
@@ -100,3 +102,62 @@ def test_chunk_target_can_equal_maximum(project_root, monkeypatch):
     monkeypatch.setenv("ATRAG_CHUNK_TARGET_TOKENS", "1200")
     settings = load_settings(project_root)
     assert settings.chunk_target_tokens == settings.chunk_max_tokens == 1200
+
+
+def test_loading_settings_does_not_change_the_process_environment(project_root):
+    (project_root / ".env").write_text(
+        "OPENAI_API_KEY=file-secret\nUNRELATED_SETTING=local-value\n",
+        encoding="utf-8",
+    )
+    before = dict(os.environ)
+    assert (
+        load_settings(project_root).openai_api_key.get_secret_value() == "file-secret"
+    )
+    assert dict(os.environ) == before
+
+
+def test_each_load_reads_its_own_current_dotenv(tmp_path):
+    roots = [tmp_path / name for name in ("first", "second")]
+    for root, batch_size in zip(roots, (7, 12), strict=True):
+        root.mkdir()
+        (root / ".env").write_text(f"ATRAG_EMBEDDING_BATCH_SIZE={batch_size}\n")
+    assert [load_settings(root).embedding_batch_size for root in roots] == [7, 12]
+    (roots[0] / ".env").write_text("ATRAG_EMBEDDING_BATCH_SIZE=9\n")
+    assert load_settings(roots[0]).embedding_batch_size == 9
+
+
+def test_concurrent_settings_loads_are_independent(tmp_path):
+    roots = [tmp_path / str(index) for index in range(8)]
+    for index, root in enumerate(roots, start=1):
+        root.mkdir()
+        (root / ".env").write_text(f"ATRAG_EMBEDDING_BATCH_SIZE={index}\n")
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        settings = list(executor.map(load_settings, roots))
+    assert [value.embedding_batch_size for value in settings] == list(range(1, 9))
+    assert [value.data_dir for value in settings] == [root / "data" for root in roots]
+
+
+def test_dotenv_expansion_keeps_process_precedence_and_ignores_bare_keys(
+    project_root, monkeypatch
+):
+    (project_root / ".env").write_text(
+        "ATRAG_EMBEDDING_BATCH_SIZE=12\n"
+        "ATRAG_RRF_K=${ATRAG_EMBEDDING_BATCH_SIZE}\n"
+        "ATRAG_DATA_DIR=${REVIEW_OUTPUT_DIR:-artifacts}/cirs\n"
+        "ATRAG_CHUNK_TARGET_TOKENS\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("ATRAG_EMBEDDING_BATCH_SIZE", "7")
+    monkeypatch.setenv("REVIEW_OUTPUT_DIR", "external")
+    settings = load_settings(project_root)
+    assert settings.embedding_batch_size == settings.rrf_k == 7
+    assert settings.data_dir == project_root / "external/cirs"
+    assert settings.chunk_target_tokens == 700
+
+
+@pytest.mark.parametrize("disabled", ["1", "TRUE", "yes", "0"])
+def test_dotenv_disabled_flag_is_preserved(project_root, monkeypatch, disabled):
+    (project_root / ".env").write_text("ATRAG_RRF_K=77\n")
+    monkeypatch.setenv("PYTHON_DOTENV_DISABLED", disabled)
+    expected = 77 if disabled == "0" else 60
+    assert load_settings(project_root).rrf_k == expected
