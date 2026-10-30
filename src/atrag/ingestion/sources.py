@@ -1,4 +1,4 @@
-"""Source registration; snapshot creation belongs to the next ingestion step."""
+"""Source registration and provenance supplied to snapshot import."""
 
 from datetime import date
 from pathlib import Path
