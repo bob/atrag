@@ -1,0 +1,39 @@
+[project]
+name = "atrag"
+version = "0.1.0"
+description = "Preparation and retrieval of Portuguese tax documents"
+readme = "README.md"
+authors = [
+    { name = "Vadym Kalion", email = "1436+bob@users.noreply.github.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "alembic>=1.16,<2",
+    "langgraph-checkpoint-postgres>=3,<4",
+    "pgvector>=0.4,<1",
+    "psycopg[binary,pool]>=3.2,<4",
+    "pydantic>=2.12,<3",
+    "python-dotenv>=1.1,<2",
+    "sqlalchemy>=2.0,<3",
+]
+
+[project.scripts]
+atrag = "atrag.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["integration: requires a dedicated local PostgreSQL test database"]
+
+[tool.coverage.run]
+source = ["atrag"]
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.17.3",
+]
