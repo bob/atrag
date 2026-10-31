@@ -59,10 +59,20 @@ def _rank_candidates(connection, request, snapshot, client, usage, encoding):
             Ranking(fragment_id=identity, score=1 / (request.rrf_k + rank))
             for rank, identity in enumerate(identities, start=1)
         ]
-    vector = _query_vector(request.query, snapshot, client, usage, encoding)
-    vector_query = query.order_by(
-        FragmentRow.embedding.cosine_distance(vector), FragmentRow.fragment_id
-    ).limit(CANDIDATE_LIMIT)
+    vector_ids = []
+    if request.mode != "fts":
+        vector = _query_vector(request.query, snapshot, client, usage, encoding)
+        vector_query = query.order_by(
+            FragmentRow.embedding.cosine_distance(vector), FragmentRow.fragment_id
+        ).limit(CANDIDATE_LIMIT)
+        vector_ids = connection.scalars(vector_query).all()
+    text_ids = []
+    if request.mode != "vector":
+        text_ids = _text_candidates(connection, request, query)
+    return reciprocal_rank_fusion(vector_ids, text_ids, request.rrf_k)
+
+
+def _text_candidates(connection, request, query):
     tsquery = func.websearch_to_tsquery("portuguese", request.query)
     text_query = (
         query.where(FragmentRow.search_vector.op("@@")(tsquery))
@@ -72,11 +82,7 @@ def _rank_candidates(connection, request, snapshot, client, usage, encoding):
         )
         .limit(CANDIDATE_LIMIT)
     )
-    return reciprocal_rank_fusion(
-        connection.scalars(vector_query).all(),
-        connection.scalars(text_query).all(),
-        request.rrf_k,
-    )
+    return connection.scalars(text_query).all()
 
 
 def _load_evidence(connection, request, rankings):
@@ -176,6 +182,7 @@ def search_tax_documents(
     filters=None,
     context_tokens=6000,
     rrf_k=60,
+    mode="hybrid",
 ) -> SearchResult:
     request_values = {
         "query": query,
@@ -184,6 +191,7 @@ def search_tax_documents(
         "snapshot_id": snapshot_id,
         "context_tokens": context_tokens,
         "rrf_k": rrf_k,
+        "mode": mode,
     }
     if filters is not None:
         request_values["filters"] = filters

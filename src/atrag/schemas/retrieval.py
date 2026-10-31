@@ -10,6 +10,8 @@ from atrag.schemas.ingestion.packages import SHA256
 from atrag.schemas.ingestion.structure import LegalUnit
 from atrag.schemas.settings import SupportedLanguage
 
+RetrievalMode = Literal["vector", "fts", "hybrid"]
+
 
 class SearchFilters(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -30,6 +32,7 @@ class SearchRequest(BaseModel):
     query_language: SupportedLanguage | None = None
     context_tokens: int = Field(default=6000, gt=0, strict=True)
     rrf_k: int = Field(default=60, gt=0, strict=True)
+    mode: RetrievalMode = "hybrid"
     filters: SearchFilters = Field(default_factory=SearchFilters)
 
 

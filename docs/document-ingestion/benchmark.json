@@ -1,0 +1,737 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+  "review_note": "Manually checked against physical PDF pages 32-33, 42, 48-50, 75, 81-82 on 2026-10-31. Tables match data/sources/cirs-extraction-review.json. Omitted residency units are deliberately retained as expected targets. No tax-year filter.",
+  "unit_pages": {
+    "pt:cirs:code:article:11": [
+      42,
+      42
+    ],
+    "pt:cirs:code:article:11:paragraph:1": [
+      42,
+      42
+    ],
+    "pt:cirs:code:article:16": [
+      48,
+      49
+    ],
+    "pt:cirs:code:article:16:note:1": [
+      49,
+      50
+    ],
+    "pt:cirs:code:article:16:paragraph:1": [
+      48,
+      48
+    ],
+    "pt:cirs:code:article:16:paragraph:14": [
+      49,
+      49
+    ],
+    "pt:cirs:code:article:16:paragraph:15": [
+      49,
+      49
+    ],
+    "pt:cirs:code:article:16:paragraph:16": [
+      49,
+      49
+    ],
+    "pt:cirs:code:article:16:paragraph:4": [
+      48,
+      48
+    ],
+    "pt:cirs:code:article:16:paragraph:8": [
+      49,
+      49
+    ],
+    "pt:cirs:code:article:56": [
+      75,
+      75
+    ],
+    "pt:cirs:code:article:68": [
+      81,
+      82
+    ],
+    "pt:cirs:code:article:68-A": [
+      82,
+      82
+    ],
+    "pt:cirs:code:article:68-A:paragraph:1": [
+      82,
+      82
+    ],
+    "pt:cirs:code:article:68:paragraph:1": [
+      81,
+      82
+    ],
+    "pt:cirs:code:article:8": [
+      32,
+      33
+    ],
+    "pt:cirs:code:article:8:paragraph:1": [
+      32,
+      32
+    ]
+  },
+  "tables": {
+    "p81-table1": {
+      "header_rows": [
+        [
+          "Rendimento coletável\n(euros)",
+          "Taxas\n(percentagem)",
+          null
+        ],
+        [
+          null,
+          "Normal\n(A)",
+          "Média\n(B)"
+        ]
+      ],
+      "rows": [
+        [
+          "Até 8 342",
+          "12,50",
+          "12,500"
+        ],
+        [
+          "De mais de 8 342 até 12 587",
+          "15,70",
+          "13,579"
+        ],
+        [
+          "De mais de 12 587 até 17 838",
+          "21,20",
+          "15,823"
+        ],
+        [
+          "De mais de 17 838 até 23 089",
+          "24,10",
+          "17,705"
+        ],
+        [
+          "De mais de 23 089 até 29 397",
+          "31,10",
+          "20,579"
+        ],
+        [
+          "De mais de 29 397 até 43 090",
+          "34,90",
+          "25,130"
+        ],
+        [
+          "De mais de 43 090 até 46 566",
+          "43,10",
+          "26,472"
+        ],
+        [
+          "De mais de 46 566 até 86 634",
+          "44,60",
+          "34,856"
+        ],
+        [
+          "Superior a 86 634",
+          "48,00",
+          "–"
+        ]
+      ],
+      "pages": [
+        81,
+        82
+      ]
+    },
+    "p82-image2-table": {
+      "header_rows": [
+        [
+          "Rendimento coletável (euros)",
+          "Taxa (percentagem)"
+        ]
+      ],
+      "rows": [
+        [
+          "De mais de 80 000 até 250 000",
+          "2,5"
+        ],
+        [
+          "Superior a 250 000",
+          "5"
+        ]
+      ],
+      "pages": [
+        82
+      ]
+    }
+  },
+  "unit_checks": {
+    "pt:cirs:code:article:16:paragraph:1": {
+      "contains": [
+        "183 dias"
+      ]
+    },
+    "pt:cirs:code:article:16:paragraph:4": {
+      "contains": [
+        "salvo nos casos previstos nos n.os 14 e 16"
+      ]
+    },
+    "pt:cirs:code:article:16:paragraph:15": {
+      "contains": [
+        "não é aplicável"
+      ]
+    },
+    "pt:cirs:code:article:16:paragraph:8": {
+      "contains": [
+        "Revogado"
+      ],
+      "legal_status": "repealed"
+    },
+    "pt:cirs:code:article:56": {
+      "contains": [
+        "Revogado"
+      ],
+      "legal_status": "repealed"
+    },
+    "pt:cirs:code:article:16:note:1": {
+      "contains": [
+        "Disposição transitória"
+      ],
+      "role": "transitional"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "residency-ru",
+      "query": "Как определяется налоговое резидентство в Португалии?",
+      "language": "ru",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:note:1"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "residency-en",
+      "query": "How is tax residency determined in Portugal?",
+      "language": "en",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:note:1"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "residency-pt",
+      "query": "Como se determina a residência fiscal em Portugal?",
+      "language": "pt",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:note:1"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "leaving-residency-ru",
+      "query": "Когда прекращается налоговое резидентство после отъезда и какие есть исключения?",
+      "language": "ru",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:4"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:paragraph:14",
+        "pt:cirs:code:article:16:paragraph:15",
+        "pt:cirs:code:article:16:paragraph:16"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "leaving-residency-en",
+      "query": "When does tax residency end after leaving Portugal and what are the exceptions?",
+      "language": "en",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:4"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:paragraph:14",
+        "pt:cirs:code:article:16:paragraph:15",
+        "pt:cirs:code:article:16:paragraph:16"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "leaving-residency-pt",
+      "query": "Quando se perde a residência fiscal ao sair de Portugal e quais são as exceções?",
+      "language": "pt",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:4"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:paragraph:14",
+        "pt:cirs:code:article:16:paragraph:15",
+        "pt:cirs:code:article:16:paragraph:16"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "general-rates-ru",
+      "query": "Какие общие ставки налога на доходы указаны в таблице?",
+      "language": "ru",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p81-table1"
+      ]
+    },
+    {
+      "case_id": "general-rates-en",
+      "query": "What are the general personal income tax rates in the table?",
+      "language": "en",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p81-table1"
+      ]
+    },
+    {
+      "case_id": "general-rates-pt",
+      "query": "Quais são as taxas gerais do imposto sobre o rendimento na tabela?",
+      "language": "pt",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p81-table1"
+      ]
+    },
+    {
+      "case_id": "solidarity-ru",
+      "query": "Какие ставки дополнительного налога солидарности применяются к доходу свыше 80 000 евро?",
+      "language": "ru",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68-A:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68-A",
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p82-image2-table"
+      ]
+    },
+    {
+      "case_id": "solidarity-en",
+      "query": "What additional solidarity tax rates apply to taxable income above 80,000 euros?",
+      "language": "en",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68-A:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68-A",
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p82-image2-table"
+      ]
+    },
+    {
+      "case_id": "solidarity-pt",
+      "query": "Quais são as taxas adicionais de solidariedade para rendimento coletável superior a 80 000 euros?",
+      "language": "pt",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68-A:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68-A",
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p82-image2-table"
+      ]
+    },
+    {
+      "case_id": "pensions-ru",
+      "query": "Какие выплаты относятся к пенсионным доходам категории H?",
+      "language": "ru",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:11:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:11"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "pensions-en",
+      "query": "Which payments are classified as category H pension income?",
+      "language": "en",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:11:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:11"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "pensions-pt",
+      "query": "Quais são as prestações consideradas pensões da categoria H?",
+      "language": "pt",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:11:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:11"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "rental-income-ru",
+      "query": "Как определяется доход от аренды недвижимости категории F?",
+      "language": "ru",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:8:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:8"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "rental-income-en",
+      "query": "How is category F rental income from real estate defined?",
+      "language": "en",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:8:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:8"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "rental-income-pt",
+      "query": "Como são definidos os rendimentos prediais da categoria F?",
+      "language": "pt",
+      "detect_language": true,
+      "kind": "semantic",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:8:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:8"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "exact-residency-ru",
+      "query": "CIRS 16",
+      "language": "ru",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:note:1"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "exact-residency-en",
+      "query": "art. 16 CIRS",
+      "language": "en",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:note:1"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "exact-residency-pt",
+      "query": "artigo 16.º CIRS",
+      "language": "pt",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:note:1"
+      ],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "exact-rates-ru",
+      "query": "CIRS 68",
+      "language": "ru",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p81-table1"
+      ]
+    },
+    {
+      "case_id": "exact-rates-en",
+      "query": "art. 68 CIRS",
+      "language": "en",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p81-table1"
+      ]
+    },
+    {
+      "case_id": "exact-rates-pt",
+      "query": "artigo 68.º CIRS",
+      "language": "pt",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p81-table1"
+      ]
+    },
+    {
+      "case_id": "exact-solidarity-ru",
+      "query": "CIRS 68-A",
+      "language": "ru",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68-A:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68-A",
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p82-image2-table"
+      ]
+    },
+    {
+      "case_id": "exact-solidarity-en",
+      "query": "art. 68-A CIRS",
+      "language": "en",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68-A:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68-A",
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p82-image2-table"
+      ]
+    },
+    {
+      "case_id": "exact-solidarity-pt",
+      "query": "artigo 68.º-A CIRS",
+      "language": "pt",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:68-A:paragraph:1"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:68-A",
+        "pt:cirs:code:article:68"
+      ],
+      "required_table_ids": [
+        "p82-image2-table"
+      ]
+    },
+    {
+      "case_id": "exact-repeal-ru",
+      "query": "CIRS 56",
+      "language": "ru",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:56"
+      ],
+      "required_context_ids": [],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "exact-repeal-en",
+      "query": "art. 56 CIRS",
+      "language": "en",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:56"
+      ],
+      "required_context_ids": [],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "exact-repeal-pt",
+      "query": "artigo 56.º CIRS",
+      "language": "pt",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:56"
+      ],
+      "required_context_ids": [],
+      "required_table_ids": []
+    },
+    {
+      "case_id": "exact-transitional-note-ru",
+      "query": "CIRS 16",
+      "language": "ru",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:8"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:note:1"
+      ],
+      "required_table_ids": [],
+      "filters": {
+        "paragraph": "8"
+      }
+    },
+    {
+      "case_id": "exact-transitional-note-en",
+      "query": "art. 16 CIRS",
+      "language": "en",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:8"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:note:1"
+      ],
+      "required_table_ids": [],
+      "filters": {
+        "paragraph": "8"
+      }
+    },
+    {
+      "case_id": "exact-transitional-note-pt",
+      "query": "artigo 16.º CIRS",
+      "language": "pt",
+      "detect_language": false,
+      "kind": "exact",
+      "expected_unit_ids": [
+        "pt:cirs:code:article:16:paragraph:8"
+      ],
+      "required_context_ids": [
+        "pt:cirs:code:article:16",
+        "pt:cirs:code:article:16:note:1"
+      ],
+      "required_table_ids": [],
+      "filters": {
+        "paragraph": "8"
+      }
+    },
+    {
+      "case_id": "missing-civa-ru",
+      "query": "CIVA 53",
+      "language": "ru",
+      "kind": "exact",
+      "expected_status": "no_match",
+      "expected_reason": "document_not_loaded:CIVA"
+    },
+    {
+      "case_id": "missing-civa-en",
+      "query": "art. 53 CIVA",
+      "language": "en",
+      "kind": "exact",
+      "expected_status": "no_match",
+      "expected_reason": "document_not_loaded:CIVA"
+    },
+    {
+      "case_id": "missing-civa-pt",
+      "query": "artigo 53.º CIVA",
+      "language": "pt",
+      "kind": "exact",
+      "expected_status": "no_match",
+      "expected_reason": "document_not_loaded:CIVA"
+    }
+  ]
+}

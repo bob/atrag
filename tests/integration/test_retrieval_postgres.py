@@ -13,6 +13,101 @@ from atrag.schemas.retrieval import SearchFilters
 pytestmark = pytest.mark.integration
 
 
+@pytest.mark.parametrize("mode", ["vector", "fts", "hybrid"])
+def test_retrieval_modes_are_independent(indexed, engine, mode):
+    calls = []
+
+    def create(**kwargs):
+        calls.append(kwargs)
+        raw = {
+            "model": kwargs["model"],
+            "data": [{"index": 0, "embedding": [1.0] + [0.0] * 1535}],
+            "usage": {"prompt_tokens": 2, "total_tokens": 2},
+        }
+        return SimpleNamespace(model_dump=lambda: raw)
+
+    result = search_tax_documents(
+        "residência",
+        query_language="pt",
+        snapshot_id=indexed,
+        engine=engine,
+        mode=mode,
+        client=SimpleNamespace(embeddings=SimpleNamespace(create=create)),
+    )
+    assert result.status == "ok"
+    assert len(calls) == (0 if mode == "fts" else 1)
+    if mode == "fts":
+        assert all(
+            h.vector_rank is None and h.text_rank is not None for h in result.hits
+        )
+    if mode == "vector":
+        assert all(
+            h.text_rank is None and h.vector_rank is not None for h in result.hits
+        )
+
+
+def test_evaluate_command_records_all_modes_without_live_model(
+    indexed, engine, prepared_document, tmp_path, monkeypatch, capsys, database_dsn
+):
+    import json
+    from pathlib import Path
+
+    import httpx
+    from openai import OpenAI
+
+    from atrag.cli import main
+    from atrag.ingestion.services.packages import load_package
+
+    data, parsed, chunked, embedded = prepared_document
+    package = build_package(parsed, chunked, embedded, data, tmp_path / "eval-package")
+    document = load_package(package)
+    fragment = next(f for f in document.fragments if f.paragraph == "1")
+    identities = fragment.legal_unit_ids + fragment.context_unit_ids
+    path = tmp_path / "benchmark.json"
+    path.write_text(
+        json.dumps(
+            {
+                "snapshot_id": indexed,
+                "unit_pages": {
+                    u.legal_unit_id: [u.page_start, u.page_end]
+                    for u in document.units
+                    if u.legal_unit_id in identities
+                },
+                "cases": [
+                    {
+                        "case_id": "address",
+                        "query": "CIRS 16",
+                        "language": "pt",
+                        "kind": "exact",
+                        "expected_unit_ids": fragment.legal_unit_ids,
+                        "required_context_ids": fragment.context_unit_ids,
+                    }
+                ],
+            }
+        )
+    )
+    monkeypatch.setenv("DATABASE_URL", database_dsn)
+    monkeypatch.setenv("ATRAG_DATA_DIR", str(tmp_path / "eval-output"))
+    monkeypatch.setenv("OPENAI_API_KEY", "")
+    main(["evaluate", "--package", str(package), "--benchmark", str(path)])
+    output = json.loads(capsys.readouterr().out)
+    report = json.loads(Path(output["report"]).read_bytes())
+    assert len(report["records"]) == 3
+    assert all(r["passed"] for r in report["records"])
+    assert all(r["usage"]["requests"] == 0 for r in report["records"])
+    client = OpenAI(
+        api_key="synthetic-key",
+        http_client=httpx.Client(
+            transport=httpx.MockTransport(
+                lambda request: pytest.fail("Exact evaluation must not call API")
+            )
+        ),
+    )
+    monkeypatch.setattr("atrag.cli.create_openai_client", lambda settings: client)
+    main(["evaluate", "--package", str(package), "--benchmark", str(path)])
+    assert Path(json.loads(capsys.readouterr().out)["report"]).is_file()
+
+
 @pytest.fixture
 def indexed(empty_corpus_schema, engine, prepared_document, tmp_path):
     data, parsed, chunked, embedded = prepared_document
