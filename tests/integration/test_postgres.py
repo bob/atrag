@@ -1,36 +1,13 @@
 """Run only against a disposable database named atrag_test_* with vector enabled."""
 
-import os
-
 import psycopg
 import pytest
 from langgraph.checkpoint.postgres import PostgresSaver
 from pgvector.sqlalchemy import Vector
-from psycopg.conninfo import conninfo_to_dict
 from psycopg_pool import ConnectionPool
 from sqlalchemy import Column, Integer, MetaData, Table, select, text
 
-from atrag.db import create_db_engine
-from atrag.schemas.settings import Settings
-
 pytestmark = pytest.mark.integration
-
-
-@pytest.fixture
-def database_dsn():
-    dsn = os.environ.get("ATRAG_TEST_DATABASE_URL")
-    if not dsn:
-        pytest.skip("Set ATRAG_TEST_DATABASE_URL to a disposable local database")
-    if not conninfo_to_dict(dsn)["dbname"].startswith("atrag_test_"):
-        pytest.fail("Integration tests require an atrag_test_* database")
-    return dsn
-
-
-@pytest.fixture
-def engine(database_dsn):
-    engine = create_db_engine(Settings(database_url=database_dsn))
-    yield engine
-    engine.dispose()
 
 
 def test_sqlalchemy_psycopg_vector_roundtrip_and_rollback(engine):

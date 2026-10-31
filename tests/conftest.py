@@ -4,6 +4,16 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
+def no_live_model_http(monkeypatch):
+    import httpx
+
+    def reject(self, request):
+        pytest.fail("Live HTTP is disabled in tests; use httpx.MockTransport")
+
+    monkeypatch.setattr(httpx.HTTPTransport, "handle_request", reject)
+
+
+@pytest.fixture(autouse=True)
 def clean_settings_environment(monkeypatch):
     for name in os.environ:
         if name == "ATRAG_TEST_DATABASE_URL":

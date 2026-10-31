@@ -17,7 +17,13 @@ from sqlalchemy.exc import ArgumentError
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 SupportedLanguage = Literal["ru", "en", "pt"]
+EmbeddingModel = Literal["text-embedding-3-small", "text-embedding-3-large"]
 EMBEDDING_DIMENSIONS = {"text-embedding-3-small": 1536, "text-embedding-3-large": 3072}
+
+
+def validate_embedding_dimensions(model: EmbeddingModel, dimensions: int) -> None:
+    if dimensions > EMBEDDING_DIMENSIONS[model]:
+        raise ValueError("Embedding dimensions exceed the selected model's dimensions")
 
 
 class Settings(BaseModel):
@@ -26,8 +32,8 @@ class Settings(BaseModel):
     )
 
     openai_api_key: SecretStr | None = Field(default=None, alias="OPENAI_API_KEY")
-    embedding_model: Literal["text-embedding-3-small", "text-embedding-3-large"] = (
-        Field(default="text-embedding-3-small", alias="OPENAI_EMBEDDING_MODEL")
+    embedding_model: EmbeddingModel = Field(
+        default="text-embedding-3-small", alias="OPENAI_EMBEDDING_MODEL"
     )
     embedding_dimensions: PositiveInt = Field(
         default=1536, alias="OPENAI_EMBEDDING_DIMENSIONS"
@@ -55,7 +61,7 @@ class Settings(BaseModel):
             return None
         try:
             url = make_url(value.get_secret_value())
-        except ValueError, ArgumentError:
+        except (ValueError, ArgumentError):
             raise ValueError("DATABASE_URL must be a valid PostgreSQL URL") from None
         if url.drivername != "postgresql" or not url.database:
             raise ValueError("DATABASE_URL must use postgresql:// and name a database")
@@ -65,8 +71,5 @@ class Settings(BaseModel):
     def consistent_limits(self) -> Self:
         if self.chunk_target_tokens > self.chunk_max_tokens:
             raise ValueError("Chunk target must not exceed chunk maximum")
-        if self.embedding_dimensions > EMBEDDING_DIMENSIONS[self.embedding_model]:
-            raise ValueError(
-                "Embedding dimensions exceed the selected model's dimensions"
-            )
+        validate_embedding_dimensions(self.embedding_model, self.embedding_dimensions)
         return self

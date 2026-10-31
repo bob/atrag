@@ -2,14 +2,22 @@
 
 import argparse
 import json
+from contextlib import ExitStack
 from pathlib import Path
 
+from openai import OpenAI
+from sqlalchemy.exc import SQLAlchemyError
+
+from atrag.db import create_db_engine
 from atrag.ingestion.services.chunks import chunk_parsed
+from atrag.ingestion.services.embedding_cache import PostgresEmbeddingCache
+from atrag.ingestion.services.embeddings import embed_chunked
 from atrag.ingestion.services.extract import extract_snapshot
 from atrag.ingestion.services.ocr import TesseractOCR
 from atrag.ingestion.services.snapshots import import_snapshot
 from atrag.ingestion.services.sources import load_source_registry
 from atrag.ingestion.services.structure import parse_extraction
+from atrag.migrations import migrate_database
 from atrag.schemas.ingestion.fragments import ChunkParameters
 from atrag.schemas.settings import Settings
 from atrag.settings import PROJECT_ROOT, load_settings
@@ -18,6 +26,8 @@ from atrag.settings import PROJECT_ROOT, load_settings
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="atrag")
     commands = parser.add_subparsers(dest="command", required=True)
+    database = commands.add_parser("db", help="Manage the PostgreSQL schema")
+    database.add_subparsers(dest="action", required=True).add_parser("migrate")
     config = commands.add_parser("config", help="Validate local configuration")
     checks = config.add_subparsers(dest="action", required=True)
     check = checks.add_parser("check")
@@ -40,6 +50,10 @@ def _build_parser() -> argparse.ArgumentParser:
     chunk.add_argument(
         "--parsed", type=Path, required=True, help="Completed parse manifest.json"
     )
+    embed = actions.add_parser("embed", help="Cache embeddings for completed chunks")
+    embed.add_argument(
+        "--chunked", type=Path, required=True, help="Completed chunk manifest.json"
+    )
     inspect.add_argument(
         "--source",
         type=Path,
@@ -58,7 +72,7 @@ def _build_parser() -> argparse.ArgumentParser:
     inspect.add_argument(
         "--review", type=Path, help="Snapshot-specific manual table review JSON"
     )
-    for command in (check, snapshot, inspect, parse, chunk):
+    for command in (check, snapshot, inspect, parse, chunk, embed):
         command.add_argument(
             "--registry", type=Path, default=PROJECT_ROOT / "data/sources/cirs.json"
         )
@@ -132,19 +146,75 @@ def _chunk(source, settings, args):
     }
 
 
+def _embedding_client(settings):
+    if settings.openai_api_key is None:
+        return None
+    return OpenAI(
+        api_key=settings.openai_api_key.get_secret_value(),
+        base_url="https://api.openai.com/v1",
+        max_retries=0,
+        timeout=30,
+    )
+
+
+def _embed(source, settings, args):
+    with ExitStack() as stack:
+        engine = create_db_engine(settings)
+        stack.callback(engine.dispose)
+        client = _embedding_client(settings)
+        if client is not None:
+            stack.enter_context(client)
+        result = embed_chunked(
+            args.chunked,
+            settings,
+            source,
+            cache=PostgresEmbeddingCache(engine),
+            client=client,
+        )
+    return {
+        "run_id": str(result.run_id),
+        "directory": str(result.directory),
+        "fragment_count": result.fragment_count,
+        "model": settings.embedding_model,
+        "dimensions": settings.embedding_dimensions,
+    }
+
+
+def _migrate(parser, settings):
+    try:
+        engine = create_db_engine(settings)
+        try:
+            migrate_database(engine)
+        finally:
+            engine.dispose()
+    except (ValueError, SQLAlchemyError):
+        parser.exit(
+            2,
+            "Database migration failed; check DATABASE_URL and database permissions.\n",
+        )
+    print(json.dumps({"status": "succeeded", "action": "migrate"}))
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = _build_parser()
     args = parser.parse_args(argv)
     try:
         settings = load_settings()
+        if args.command == "db":
+            _migrate(parser, settings)
+            return
         source = load_source_registry(args.registry)
-    except ValueError, OSError:
+    except (ValueError, OSError):
         parser.exit(
             2,
             "Invalid configuration or source registry; check .env and registry fields.\n",
         )
     if args.command == "ingest":
         operation, failure = {
+            "embed": (
+                _embed,
+                "Embedding preparation failed; check configuration, chunk artifacts, database migrations and run report.\n",
+            ),
             "chunk": (
                 _chunk,
                 "Fragment preparation failed; check parsed artifacts and run manifest.\n",
@@ -164,7 +234,7 @@ def main(argv: list[str] | None = None) -> None:
         }[args.action]
         try:
             summary = operation(source, settings, args)
-        except ValueError, OSError:
+        except (ValueError, OSError, SQLAlchemyError):
             parser.exit(2, failure)
     else:
         summary = {
