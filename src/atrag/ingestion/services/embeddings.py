@@ -6,9 +6,9 @@ from importlib.metadata import version
 
 import tiktoken
 
+from atrag.ingestion.api.embeddings import request_embeddings
 from atrag.ingestion.embeddings import input_batches, match_response, prepare_input
 from atrag.ingestion.services.artifacts import write_json, write_jsonl
-from atrag.ingestion.services.embedding_api import request_embeddings
 from atrag.ingestion.services.runs import record_run
 from atrag.ingestion.services.snapshots import read_snapshot
 from atrag.schemas.ingestion.embeddings import (

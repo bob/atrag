@@ -363,7 +363,7 @@ def test_embed_command_reports_safe_summary(chunked, cache, api, monkeypatch, ca
         }
         return client
 
-    monkeypatch.setattr("atrag.cli.OpenAI", make_client)
+    monkeypatch.setattr("atrag.ingestion.client.openai.OpenAI", make_client)
     main(["ingest", "embed", "--chunked", str(path), "--registry", str(registry)])
     output = capsys.readouterr().out
     summary = json.loads(output)

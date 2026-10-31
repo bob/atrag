@@ -6,10 +6,10 @@ from contextlib import ExitStack
 from pathlib import Path
 from typing import get_args
 
-from openai import OpenAI
 from sqlalchemy.exc import SQLAlchemyError
 
 from atrag.db import create_db_engine
+from atrag.ingestion.client.openai import create_openai_client
 from atrag.ingestion.services.chunks import chunk_parsed
 from atrag.ingestion.services.embedding_cache import PostgresEmbeddingCache
 from atrag.ingestion.services.embeddings import embed_chunked
@@ -176,22 +176,11 @@ def _chunk(source, settings, args):
     }
 
 
-def _embedding_client(settings):
-    if settings.openai_api_key is None:
-        return None
-    return OpenAI(
-        api_key=settings.openai_api_key.get_secret_value(),
-        base_url="https://api.openai.com/v1",
-        max_retries=0,
-        timeout=30,
-    )
-
-
 def _embed(source, settings, args):
     with ExitStack() as stack:
         engine = create_db_engine(settings)
         stack.callback(engine.dispose)
-        client = _embedding_client(settings)
+        client = create_openai_client(settings)
         if client is not None:
             stack.enter_context(client)
         result = embed_chunked(
@@ -244,7 +233,7 @@ def _search_command(source, settings, args):
     with ExitStack() as stack:
         engine = create_db_engine(settings)
         stack.callback(engine.dispose)
-        client = _embedding_client(settings)
+        client = create_openai_client(settings)
         if client is not None:
             stack.enter_context(client)
         result = search_tax_documents(

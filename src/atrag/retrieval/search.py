@@ -6,8 +6,8 @@ import tiktoken
 from sqlalchemy import func, select
 
 from atrag.db_models import DocumentTableRow, FragmentRow, LegalUnitRow, SnapshotRow
+from atrag.ingestion.api.embeddings import request_embeddings
 from atrag.ingestion.embeddings import match_response, prepare_input
-from atrag.ingestion.services.embedding_api import request_embeddings
 from atrag.retrieval.context import assemble_hits
 from atrag.retrieval.query import (
     merge_filters,

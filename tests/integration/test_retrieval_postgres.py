@@ -198,7 +198,7 @@ def test_commands_index_and_search_without_source_registry(
         api_key="synthetic-key",
         http_client=httpx.Client(transport=httpx.MockTransport(handler)),
     )
-    monkeypatch.setattr("atrag.cli._embedding_client", lambda settings: client)
+    monkeypatch.setattr("atrag.cli.create_openai_client", lambda settings: client)
     main(["search", "Residência fiscal", "--snapshot", indexed, "--language", "pt"])
     assert json.loads(capsys.readouterr().out)["status"] == "ok"
 

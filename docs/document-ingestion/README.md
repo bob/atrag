@@ -210,7 +210,7 @@ ATRAG_RRF_K=60
 
 ### Шаг 6. Embeddings через OpenAI API
 
-Реализован 31.10.2026: схемы `schemas/ingestion/embeddings.py`, чистые правила `ingestion/embeddings.py`, сервисы `embedding_api.py`, `embedding_cache.py`, `embeddings.py`, миграция `0001_embedding_cache` и команды `db migrate` / `ingest embed --chunked <manifest.json>`. Кеш создаётся отдельной миграцией до схемы корпуса Шага 7. Ключ `(model, dimensions, input_hash)` уникален в PostgreSQL; пакет сохраняется в отдельной транзакции. Один писатель пространства удерживает advisory lock, но не транзакцию на время HTTP. Повтор использует готовые пакеты; полностью закешированный набор не требует API-ключа.
+Реализован 31.10.2026: схемы `schemas/ingestion/embeddings.py`, чистые правила `ingestion/embeddings.py`, API-адаптер `ingestion/api/embeddings.py`, фабрика клиента `ingestion/client/openai.py`, сервисы `embedding_cache.py`, `embeddings.py`, миграция `0001_embedding_cache` и команды `db migrate` / `ingest embed --chunked <manifest.json>`. Кеш создаётся отдельной миграцией до схемы корпуса Шага 7. Ключ `(model, dimensions, input_hash)` уникален в PostgreSQL; пакет сохраняется в отдельной транзакции. Один писатель пространства удерживает advisory lock, но не транзакцию на время HTTP. Повтор использует готовые пакеты; полностью закешированный набор не требует API-ключа.
 
 Перед API проверяются успешный chunk-манифест, SHA-256 обоих артефактов, исходный снимок, происхождение фрагментов, точный UTF-8 хеш и пересчитанные токены. Проверяются границы 8192 токена на текст, 2048 текстов и 300 000 токенов на пакет. Ответ сопоставляется по полному набору уникальных `index`; проверяются модель, число и размерность, конечность и ненулевой вектор. До экспорта векторы приводятся к float32, как в pgvector. При 408/409/429, 5xx и сетевой ошибке — до трёх попыток с экспоненциальной задержкой и jitter; ошибки авторизации, данных и `insufficient_quota` завершают этап. Встроенные повторы SDK отключены.
 
@@ -328,6 +328,10 @@ src/atrag/
     settings.py              # схема настроек приложения
     ingestion/               # источники, снимки, извлечение, OCR, структура и фрагменты
   ingestion/
+    api/
+      embeddings.py          # OpenAI API и ограниченные повторы
+    client/
+      openai.py              # создание клиента OpenAI из настроек приложения
     services/
       sources.py             # загрузка реестра источника
       snapshots.py           # импорт и сохранение исходных байтов
@@ -336,7 +340,6 @@ src/atrag/
       structure.py           # файловый этап структурного разбора
       chunks.py              # проверка готового разбора и запись фрагментов
       embeddings.py          # проверка chunk и сохранение embeddings-артефактов
-      embedding_api.py       # OpenAI API и ограниченные повторы
       embedding_cache.py     # PostgreSQL-кеш и единственный писатель пространства
       index.py               # загрузка одного подготовленного снимка в PostgreSQL
     extraction.py            # чистые преобразования страниц и таблиц

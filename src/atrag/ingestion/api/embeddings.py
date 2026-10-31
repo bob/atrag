@@ -1,4 +1,4 @@
-"""One retry policy; the SDK's implicit retries are disabled by the caller."""
+"""OpenAI embedding requests with one retry policy; SDK retries are disabled."""
 
 import random
 
