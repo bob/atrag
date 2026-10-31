@@ -4,6 +4,7 @@ import argparse
 import json
 from contextlib import ExitStack
 from pathlib import Path
+from typing import get_args
 
 from openai import OpenAI
 from sqlalchemy.exc import SQLAlchemyError
@@ -13,19 +14,24 @@ from atrag.ingestion.services.chunks import chunk_parsed
 from atrag.ingestion.services.embedding_cache import PostgresEmbeddingCache
 from atrag.ingestion.services.embeddings import embed_chunked
 from atrag.ingestion.services.extract import extract_snapshot
+from atrag.ingestion.services.index import index_package
 from atrag.ingestion.services.ocr import TesseractOCR
+from atrag.ingestion.services.packages import build_package, load_package
 from atrag.ingestion.services.snapshots import import_snapshot
 from atrag.ingestion.services.sources import load_source_registry
 from atrag.ingestion.services.structure import parse_extraction
 from atrag.migrations import migrate_database
+from atrag.retrieval.search import search_tax_documents
 from atrag.schemas.ingestion.fragments import ChunkParameters
-from atrag.schemas.settings import Settings
+from atrag.schemas.retrieval import SearchFilters
+from atrag.schemas.settings import Settings, SupportedLanguage
 from atrag.settings import PROJECT_ROOT, load_settings
 
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="atrag")
     commands = parser.add_subparsers(dest="command", required=True)
+    _search_parser(commands)
     database = commands.add_parser("db", help="Manage the PostgreSQL schema")
     database.add_subparsers(dest="action", required=True).add_parser("migrate")
     config = commands.add_parser("config", help="Validate local configuration")
@@ -33,6 +39,7 @@ def _build_parser() -> argparse.ArgumentParser:
     check = checks.add_parser("check")
     ingest = commands.add_parser("ingest", help="Prepare registered local documents")
     actions = ingest.add_subparsers(dest="action", required=True)
+    _corpus_parsers(actions)
     snapshot = actions.add_parser("snapshot", help="Save an immutable PDF snapshot")
     inspect = actions.add_parser("inspect", help="Extract located pages and tables")
     parse = actions.add_parser(
@@ -77,6 +84,29 @@ def _build_parser() -> argparse.ArgumentParser:
             "--registry", type=Path, default=PROJECT_ROOT / "data/sources/cirs.json"
         )
     return parser
+
+
+def _corpus_parsers(actions):
+    package = actions.add_parser("package", help="Export a checked portable document")
+    for name in ("parsed", "chunked", "embedded", "output"):
+        package.add_argument(f"--{name}", type=Path, required=True)
+    package.add_argument("--review", type=Path, action="append", default=[])
+    index = actions.add_parser("index", help="Atomically index a prepared package")
+    index.add_argument(
+        "--package", type=Path, required=True, help="Package manifest.json"
+    )
+
+
+def _search_parser(commands):
+    search = commands.add_parser("search", help="Search one indexed snapshot")
+    search.add_argument("query")
+    search.add_argument("--snapshot", required=True)
+    search.add_argument("--language", choices=get_args(SupportedLanguage))
+    search.add_argument("--limit", type=int, default=5)
+    search.add_argument("--context-tokens", type=int, default=6000)
+    search.add_argument("--code")
+    search.add_argument("--article")
+    search.add_argument("--scope", choices=("code", "approving_decree", "preamble"))
 
 
 def _inspect(source, settings: Settings, args) -> dict:
@@ -180,6 +210,59 @@ def _embed(source, settings, args):
     }
 
 
+def _package(source, settings, args):
+    path = build_package(
+        args.parsed,
+        args.chunked,
+        args.embedded,
+        settings.data_dir,
+        args.output,
+        reviews=args.review,
+    )
+    document = load_package(path)
+    return {
+        "manifest": str(path),
+        "snapshot_id": document.snapshot.snapshot_id,
+        "fragment_count": len(document.fragments),
+    }
+
+
+def _index(source, settings, args):
+    engine = create_db_engine(settings)
+    try:
+        result = index_package(args.package, engine, settings.data_dir)
+    finally:
+        engine.dispose()
+    return {
+        "snapshot_id": result.snapshot_id,
+        "fragment_count": result.fragment_count,
+        "directory": str(result.directory),
+    }
+
+
+def _search_command(source, settings, args):
+    with ExitStack() as stack:
+        engine = create_db_engine(settings)
+        stack.callback(engine.dispose)
+        client = _embedding_client(settings)
+        if client is not None:
+            stack.enter_context(client)
+        result = search_tax_documents(
+            args.query,
+            args.limit,
+            args.language,
+            snapshot_id=args.snapshot,
+            engine=engine,
+            client=client,
+            rrf_k=settings.rrf_k,
+            context_tokens=args.context_tokens,
+            filters=SearchFilters(
+                code=args.code, article=args.article, document_scope=args.scope
+            ),
+        )
+    return result.model_dump(mode="json")
+
+
 def _migrate(parser, settings):
     try:
         engine = create_db_engine(settings)
@@ -203,14 +286,31 @@ def main(argv: list[str] | None = None) -> None:
         if args.command == "db":
             _migrate(parser, settings)
             return
-        source = load_source_registry(args.registry)
+        source = _command_source(args)
     except (ValueError, OSError):
         parser.exit(
             2,
             "Invalid configuration or source registry; check .env and registry fields.\n",
         )
-    if args.command == "ingest":
+    if args.command == "search":
+        summary = _execute(
+            parser,
+            _search_command,
+            "Search failed; check snapshot, query, language and database.\n",
+            source,
+            settings,
+            args,
+        )
+    elif args.command == "ingest":
         operation, failure = {
+            "package": (
+                _package,
+                "Package preparation failed; check prepared artifacts and output path.\n",
+            ),
+            "index": (
+                _index,
+                "Indexing failed; check package, database migrations and run report.\n",
+            ),
             "embed": (
                 _embed,
                 "Embedding preparation failed; check configuration, chunk artifacts, database migrations and run report.\n",
@@ -232,13 +332,25 @@ def main(argv: list[str] | None = None) -> None:
                 "Snapshot import failed; check source and stored artifacts.\n",
             ),
         }[args.action]
-        try:
-            summary = operation(source, settings, args)
-        except (ValueError, OSError, SQLAlchemyError):
-            parser.exit(2, failure)
+        summary = _execute(parser, operation, failure, source, settings, args)
     else:
         summary = {
             "settings": _settings_summary(settings),
             "source": source.model_dump(mode="json"),
         }
     print(json.dumps(summary, ensure_ascii=False, indent=2))
+
+
+def _command_source(args):
+    if args.command == "search":
+        return None
+    if args.action in ("index", "package"):
+        return None
+    return load_source_registry(args.registry)
+
+
+def _execute(parser, operation, failure, source, settings, args):
+    try:
+        return operation(source, settings, args)
+    except (ValueError, OSError, SQLAlchemyError):
+        parser.exit(2, failure)
