@@ -43,7 +43,7 @@ class TesseractOCR:
             )
             if result.returncode == 0:
                 metadata["version"] = result.stdout.splitlines()[0]
-        except OSError, subprocess.TimeoutExpired:
+        except (OSError, subprocess.TimeoutExpired):
             pass
         if self.tessdata_dir is not None:
             path = self.tessdata_dir / "por.traineddata"
