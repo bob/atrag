@@ -75,3 +75,10 @@ def pdf_text():
         return f"BT /F1 10 Tf {x} {842 - top - 10} Td <{value.encode('cp1252').hex()}> Tj ET\n"
 
     return text
+
+
+@pytest.fixture
+def prepared_document(tmp_path):
+    from fixtures.prepared import prepare_document
+
+    return prepare_document(tmp_path)

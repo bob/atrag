@@ -18,15 +18,9 @@ pytestmark = pytest.mark.integration
 
 
 @pytest.fixture(autouse=True)
-def clean_cache_schema(engine):
+def clean_cache_schema(empty_corpus_schema):
     # Always execute the migration being tested, including in mutation workers.
-    with engine.begin() as connection:
-        connection.execute(text("DROP TABLE IF EXISTS embeddings"))
-        connection.execute(text("DROP TABLE IF EXISTS alembic_version"))
     yield
-    with engine.begin() as connection:
-        connection.execute(text("DROP TABLE IF EXISTS embeddings"))
-        connection.execute(text("DROP TABLE IF EXISTS alembic_version"))
 
 
 def test_migration_is_idempotent_and_cache_survives_reopening(engine):
@@ -37,8 +31,6 @@ def test_migration_is_idempotent_and_cache_survives_reopening(engine):
         **space.model_dump(), input_hash="a" * 64, embedding=[0.1, 0.2]
     )
     second = row.model_copy(update={"input_hash": "e" * 64})
-    with engine.begin() as connection:
-        connection.execute(text("TRUNCATE embeddings"))
     with PostgresEmbeddingCache(engine).writer(space) as cache:
         assert cache.get([row.input_hash]) == {}
         cache.save([row, second])

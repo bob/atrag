@@ -10,6 +10,22 @@ from atrag.schemas.settings import Settings
 
 
 @pytest.fixture
+def empty_corpus_schema(engine):
+    from sqlalchemy import text
+
+    from atrag.db_models import Base
+
+    def clear():
+        with engine.begin() as connection:
+            Base.metadata.drop_all(connection)
+            connection.execute(text("DROP TABLE IF EXISTS alembic_version"))
+
+    clear()
+    yield
+    clear()
+
+
+@pytest.fixture
 def database_dsn():
     dsn = os.environ.get("ATRAG_TEST_DATABASE_URL")
     if not dsn:
