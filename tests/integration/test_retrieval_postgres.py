@@ -3,7 +3,9 @@
 from types import SimpleNamespace
 
 import pytest
+from sqlalchemy import select, update
 
+from atrag.db_models import SnapshotRow
 from atrag.ingestion.services.index import index_package
 from atrag.ingestion.services.packages import build_package
 from atrag.migrations import migrate_database
@@ -130,6 +132,114 @@ def indexed(empty_corpus_schema, engine, prepared_document, tmp_path):
     migrate_database(engine)
     package = build_package(parsed, chunked, embedded, data, tmp_path / "package")
     return index_package(package, engine, tmp_path / "server").snapshot_id
+
+
+@pytest.fixture
+def diagnostics_report(indexed, engine):
+    first = "pt:cirs:code:article:16:paragraph:1"
+    second = "pt:cirs:code:article:16:paragraph:2"
+    target = "pt:cirs:code:article:68-A:paragraph:1"
+    units = [first, second, target, "pt:cirs:code:article:16"]
+    report = {
+        "extraction_issues": [
+            {"page_number": 1, "issues": ["image_needs_review:p1-image1"]},
+            {"page_number": 117, "issues": ["image_needs_review:p117-image2"]},
+        ],
+        "unresolved_references": [
+            {"legal_unit_id": identity, "reference": {"raw_text": identity}}
+            for identity in units
+        ],
+        "structure_issues": [
+            {"legal_unit_id": identity, "issues": ["unresolved_reference"]}
+            for identity in units
+        ],
+        "omissions": [
+            {
+                "legal_unit_id": identity,
+                "reason": "over_token_limit",
+                "table_ids": [],
+                "token_count": 1201,
+            }
+            for identity in units
+        ],
+        "uncovered_unit_ids": units,
+        "table_issues": ["rates"],
+    }
+    with engine.begin() as connection:
+        reports = connection.scalar(
+            select(SnapshotRow.reports).where(SnapshotRow.snapshot_id == indexed)
+        )
+        reports["chunk"].update(report)
+        connection.execute(
+            update(SnapshotRow)
+            .where(SnapshotRow.snapshot_id == indexed)
+            .values(reports=reports)
+        )
+    return report
+
+
+@pytest.mark.parametrize("budget_limited", [False, True])
+def test_search_diagnostics_describe_only_returned_hits(
+    indexed, engine, diagnostics_report, budget_limited
+):
+    import tiktoken
+
+    from atrag.db_models import FragmentRow
+    from atrag.retrieval.context import evidence_cost
+    from atrag.schemas.ingestion.fragments import SearchFragment
+
+    budget = 6000
+    if budget_limited:
+        with engine.connect() as connection:
+            payload = connection.scalar(
+                select(FragmentRow.payload).where(FragmentRow.paragraph == "2")
+            )
+        budget = evidence_cost(
+            SearchFragment.model_validate(payload),
+            [],
+            [],
+            tiktoken.get_encoding("cl100k_base"),
+        )
+    result = search_tax_documents(
+        "CIRS 16",
+        limit=1,
+        query_language="pt",
+        snapshot_id=indexed,
+        engine=engine,
+        context_tokens=budget,
+    )
+    expected_unit = f"pt:cirs:code:article:16:paragraph:{2 if budget_limited else 1}"
+    assert [hit.fragment.legal_unit_id for hit in result.hits] == [expected_unit]
+    assert result.extraction_issues == diagnostics_report["extraction_issues"][:1]
+    for name in ("unresolved_references", "structure_issues", "omissions"):
+        assert getattr(result, name) == [
+            row
+            for row in diagnostics_report[name]
+            if row["legal_unit_id"] == expected_unit
+        ]
+    assert result.uncovered_unit_ids == [expected_unit]
+    assert result.table_issues == []
+    with engine.connect() as connection:
+        stored = connection.scalar(select(SnapshotRow.reports))["chunk"]
+    assert all(stored[key] == value for key, value in diagnostics_report.items())
+
+
+@pytest.mark.parametrize(
+    ("query", "budget"), [("CIRS 999", 6000), ("CIVA 53", 6000), ("CIRS 16", 1)]
+)
+def test_search_without_returned_text_has_no_corpus_diagnostics(
+    indexed, engine, diagnostics_report, query, budget
+):
+    result = search_tax_documents(
+        query,
+        query_language="pt",
+        snapshot_id=indexed,
+        engine=engine,
+        context_tokens=budget,
+    )
+    assert result.status == "no_match"
+    assert not result.hits
+    assert all(not getattr(result, field) for field in diagnostics_report)
 
 
 def test_exact_search_preserves_citations_context_and_does_not_need_model(

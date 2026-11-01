@@ -62,6 +62,7 @@ class SearchResult(BaseModel):
     consolidation_label: str | None = None
     hits: list[SearchHit] = Field(default_factory=list)
     reason: str | None = None
+    # These describe returned evidence; complete corpus diagnostics stay stored.
     extraction_issues: list[dict] = Field(default_factory=list)
     unresolved_references: list[dict] = Field(default_factory=list)
     omissions: list[dict] = Field(default_factory=list)

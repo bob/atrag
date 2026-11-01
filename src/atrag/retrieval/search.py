@@ -9,6 +9,7 @@ from atrag.db_models import FragmentRow, LegalUnitRow, SnapshotRow
 from atrag.ingestion.api.embeddings import request_embeddings
 from atrag.ingestion.embeddings import match_response, prepare_input
 from atrag.retrieval.context import assemble_hits
+from atrag.retrieval.diagnostics import hit_diagnostics
 from atrag.retrieval.parts import hit_coverage
 from atrag.retrieval.query import (
     merge_filters,
@@ -107,16 +108,9 @@ def _search(connection, request, client, usage):
     )
     if snapshot is None:
         return SearchResult(status="no_match", reason="snapshot_not_indexed", **base)
-    report = snapshot["reports"]["chunk"]
     base.update(
         document_title=snapshot["document_title"],
         consolidation_label=snapshot["consolidation_label"],
-        extraction_issues=report.get("extraction_issues", []),
-        unresolved_references=report.get("unresolved_references", []),
-        omissions=report.get("omissions", []),
-        uncovered_unit_ids=report.get("uncovered_unit_ids", []),
-        table_issues=report.get("table_issues", []),
-        structure_issues=report.get("structure_issues", []),
     )
     missing = _missing_document(connection, request)
     if missing:
@@ -136,6 +130,7 @@ def _search(connection, request, client, usage):
         context_tokens_used=used,
         unit_coverage=hit_coverage(hits),
         limitations=["context_budget_exceeded"] if limited else [],
+        **hit_diagnostics(hits, snapshot["reports"]["chunk"]),
         **base,
     )
 
