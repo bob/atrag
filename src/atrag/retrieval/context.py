@@ -33,22 +33,26 @@ def _reference_group(target, units):
 
 
 def _cost(hit, encoding):
+    return evidence_cost(hit.fragment, hit.related_units, hit.related_tables, encoding)
+
+
+def evidence_cost(fragment, related_units, related_tables, encoding):
     # The budget covers legal evidence; PDF geometry and processing metadata
     # remain available to the caller without displacing the actual source text.
     content = {
-        "text": hit.fragment.embedding_text,
-        "notes": [n.raw_text for n in hit.fragment.editorial_notes],
+        "text": fragment.embedding_text,
+        "notes": [n.raw_text for n in fragment.editorial_notes],
         "related_units": [
             {
                 "citation": u.citation_label,
                 "text": u.text_original,
                 "notes": [n.raw_text for n in u.editorial_notes],
             }
-            for u in hit.related_units
+            for u in related_units
         ],
         "tables": [
             {"headers": t.header_rows, "rows": t.rows}
-            for t in [*hit.fragment.tables, *hit.related_tables]
+            for t in [*fragment.tables, *related_tables]
         ],
     }
     return len(encoding.encode_ordinary(json.dumps(content, ensure_ascii=False)))

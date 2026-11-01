@@ -123,6 +123,42 @@ def test_quality_report_fields_are_checked_before_indexing(document):
         validate_document(replace(document, reports=reports))
 
 
+@pytest.mark.parametrize(
+    "updates",
+    [
+        {"source_start": 1},
+        {"source_end": 999999},
+        {"part_index": 1},
+        {"part_count": 2},
+        {"text_original": "not the original"},
+        {"locators": []},
+    ],
+)
+def test_rehashed_parts_still_have_to_match_the_original(document, updates):
+    fragment = document.fragments[0].model_copy(update=updates)
+    with pytest.raises(ValueError):
+        validate_document(with_fragment(document, fragment))
+
+
+def test_fragment_limit_is_checked_even_with_a_correct_hash(document):
+    first = document.fragments[0]
+    from atrag.schemas.ingestion.fragments import ChunkParameters
+
+    fragment = first.model_copy(
+        update={"parameters": ChunkParameters(target_tokens=1, max_tokens=1)}
+    )
+    with pytest.raises(ValueError, match="limit"):
+        validate_document(with_fragment(document, fragment))
+    at_limit = first.model_copy(
+        update={
+            "parameters": ChunkParameters(
+                target_tokens=first.token_count, max_tokens=first.token_count
+            )
+        }
+    )
+    validate_document(with_fragment(document, at_limit))
+
+
 def test_table_values_match_the_checked_table(document):
     last = document.fragments[-1]
     wrong = last.tables[0].model_copy(update={"rows": [["wrong"]]})

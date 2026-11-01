@@ -1,0 +1,3324 @@
+[
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16",
+    "parent_id": "pt:cirs:code:chapter:I:section:II",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "article",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": null,
+    "subparagraph": null,
+    "label": "16",
+    "unit_title": "Residência",
+    "citation_label": "CIRS, artigo 16.º",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 49,
+    "printed_page_labels": [
+      "47",
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          293.45,
+          278.8808,
+          340.54663999999997,
+          288.36080000000004
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          292.01,
+          289.8008,
+          342.02648,
+          299.2808
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          304.90160000000003,
+          526.6684799999998,
+          314.86159999999995
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          324.34159999999997,
+          548.4531599999999,
+          334.3016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          335.74159999999995,
+          274.67576,
+          345.7016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          355.42159999999996,
+          548.4332399999996,
+          365.3816
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          366.94159999999994,
+          548.5926,
+          376.9016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          378.34159999999997,
+          171.08867999999998,
+          388.3016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          397.9016,
+          548.7346399999999,
+          407.8616
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          409.30159999999995,
+          392.7385199999999,
+          419.2616
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          428.86159999999995,
+          548.6025600000002,
+          438.8216
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          440.26159999999993,
+          133.33032,
+          450.22159999999997
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          459.9616,
+          548.81092,
+          469.9216
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          471.36159999999995,
+          421.9611599999998,
+          481.3216
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          490.92159999999996,
+          549.0028,
+          500.8816
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          502.44159999999994,
+          548.5129199999999,
+          512.4015999999999
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          513.8416,
+          548.5925999999998,
+          523.8016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          525.2416,
+          482.0472799999999,
+          535.2016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          544.9215999999999,
+          548.7061199999997,
+          554.8815999999999
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          556.0708,
+          274.71500000000003,
+          566.2816
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          575.7615999999999,
+          436.77968000000004,
+          585.7216
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          595.4415999999999,
+          548.5425599999996,
+          605.4015999999999
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          606.8416,
+          548.6623200000001,
+          616.8016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          618.3616,
+          548.68124,
+          628.3216
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          629.8815999999999,
+          548.6324399999996,
+          639.8416
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          641.4015999999999,
+          548.9597200000001,
+          651.3616
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          652.9516,
+          548.5726799999999,
+          662.9115999999999
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          664.3516,
+          132.23472,
+          674.3116
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          683.9115999999999,
+          548.51444,
+          693.8716
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          695.4315999999999,
+          548.7914,
+          705.3915999999999
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          706.9516,
+          548.3933999999999,
+          716.9115999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          75.17160000000001,
+          548.95216,
+          85.13159999999993
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          86.59159999999997,
+          382.70879999999977,
+          96.5515999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          106.03160000000003,
+          287.9516,
+          115.99159999999995
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          125.59159999999997,
+          287.9516,
+          135.5515999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          145.03160000000003,
+          293.59208,
+          154.99159999999995
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          164.59159999999997,
+          293.47159999999997,
+          174.5515999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          184.03160000000003,
+          293.47159999999997,
+          193.99159999999995
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          203.71159999999998,
+          548.6904799999998,
+          213.6715999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          215.11159999999995,
+          125.5416,
+          225.07159999999988
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          234.6716,
+          549.0221200000001,
+          244.63159999999993
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          246.1916,
+          548.7220799999998,
+          256.1515999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          257.59159999999997,
+          272.74044,
+          267.5515999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          277.0616,
+          509.0052799999998,
+          287.0215999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          296.74160000000006,
+          548.6523599999999,
+          306.7016
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          308.14160000000004,
+          548.94244,
+          318.10159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          319.5416,
+          246.12731999999997,
+          329.50159999999994
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          339.22159999999997,
+          548.5776799999998,
+          349.1816
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          350.74159999999995,
+          548.56272,
+          360.7016
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          362.1415999999999,
+          472.02283999999975,
+          372.10159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          381.7015999999999,
+          548.8714799999998,
+          391.66159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          393.22159999999997,
+          548.95684,
+          403.1816
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          404.62159999999994,
+          215.00232,
+          414.5816
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          424.18159999999995,
+          548.4929999999999,
+          434.1416
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          435.7015999999999,
+          549.0973600000001,
+          445.66159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          447.10159999999996,
+          263.8859999999999,
+          457.0616
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          466.68159999999995,
+          548.89712,
+          476.6416
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          478.2015999999999,
+          548.4431999999997,
+          488.16159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          489.60159999999996,
+          306.49399999999997,
+          499.5616
+        ]
+      }
+    ],
+    "text_original": "Artigo 16.º\nResidência\n1 - São residentes em território português as pessoas que, no ano a que respeitam os rendimentos:\na) Hajam nele permanecido mais de 183 dias, seguidos ou interpolados, em qualquer período de 12\nmeses com início ou fim no ano em causa;\nb) Tendo permanecido por menos tempo, aí disponham, num qualquer dia do período referido na alínea\nanterior, de habitação em condições que façam supor intenção atual de a manter e ocupar como\nresidência habitual;\nc) Em 31 de dezembro, sejam tripulantes de navios ou aeronaves, desde que aqueles estejam ao serviço\nde entidades com residência, sede ou direção efetiva nesse território;\nd) Desempenhem no estrangeiro funções ou comissões de carácter público, ao serviço do Estado\nPortuguês.\n2 - Para efeitos do disposto no número anterior, considera-se como dia de presença em território\nportuguês qualquer dia, completo ou parcial, que inclua dormida no mesmo.\n3 - As pessoas que preencham as condições previstas nas alíneas a) ou b) do n.º 1 tornam-se residentes\ndesde o primeiro dia do período de permanência em território português, salvo quando tenham aí sido\nresidentes em qualquer dia do ano anterior, caso em que se consideram residentes neste território desde\no primeiro dia do ano em que se verifique qualquer uma das condições previstas no n.º 1.\n4 - A perda da qualidade de residente ocorre a partir do último dia de permanência em território português,\nsalvo nos casos previstos nos n.os 14 e 16.\n5 - A residência fiscal é aferida em relação a cada sujeito passivo do agregado.\n6 - São ainda havidos como residentes em território português as pessoas de nacionalidade portuguesa\nque deslocalizem a sua residência fiscal para país, território ou região, sujeito a um regime fiscal\nclaramente mais favorável constante de lista aprovada por portaria do membro do Governo responsável\npela área das finanças, no ano em que se verifique aquela mudança e nos quatro anos subsequentes,\nsalvo se o interessado provar que a mudança se deve a razões atendíveis, designadamente exercício\nnaquele território de atividade temporária por conta de entidade patronal domiciliada em território\nportuguês.\n7 - Sem prejuízo do período definido no número anterior, a condição de residente aí prevista subsiste\napenas enquanto se mantiver a deslocação da residência fiscal do sujeito passivo para país, território ou\nregião, sujeito a um regime fiscal claramente mais favorável constante de lista aprovada por portaria do\nmembro do Governo responsável pela área das finanças, deixando de se aplicar no ano em que este se\ntorne residente fiscal em país, território ou região distinto daqueles.\n8 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)\n9 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)\n10 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)\n11 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)\n12 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)\n13 - Enquadra-se no disposto na alínea d) do n.º 1 o exercício de funções de deputado ao Parlamento\nEuropeu.\n14 - Sem prejuízo do disposto no número seguinte, um sujeito passivo considera-se residente em território\nportuguês durante a totalidade do ano no qual perca a qualidade de residente quando se verifiquem,\ncumulativamente, as seguintes condições:\na) Permaneça em território português mais de 183 dias, seguidos ou interpolados, nesse ano; e\nb) Obtenha, no decorrer desse ano e após o último dia de permanência em território português, quaisquer\nrendimentos que fossem sujeitos e não isentos de IRS, caso o sujeito passivo mantivesse a sua qualidade\nde residente em território português.\n15 - O disposto no número anterior não é aplicável caso o sujeito passivo demonstre que os rendimentos\na que se refere a alínea b) do mesmo número sejam tributados por um imposto sobre o rendimento\nidêntico ou substancialmente similar ao IRS aplicado devido ao domicílio ou residência:\na) Noutro Estado membro da União Europeia ou do Espaço Económico Europeu, desde que, neste último\ncaso, exista intercâmbio de informações em matéria fiscal e que se preveja a cooperação administrativa\nno domínio da fiscalidade; ou\nb) Noutro Estado, não abrangido na alínea anterior, em que a taxa de tributação aplicável àqueles\nrendimentos não seja inferior a 60 % daquela que lhes seria aplicável caso o sujeito passivo mantivesse\na sua residência em território português.\n16 - Um sujeito passivo considera-se, ainda, residente em território português durante a totalidade do ano\nsempre que volte a adquirir a qualidade de residente durante o ano subsequente àquele em que, nos\ntermos do n.º 4, perdeu aquela mesma qualidade.",
+    "text_normalized": "Artigo 16.º Residência 1 - São residentes em território português as pessoas que, no ano a que respeitam os rendimentos: a) Hajam nele permanecido mais de 183 dias, seguidos ou interpolados, em qualquer período de 12 meses com início ou fim no ano em causa; b) Tendo permanecido por menos tempo, aí disponham, num qualquer dia do período referido na alínea anterior, de habitação em condições que façam supor intenção atual de a manter e ocupar como residência habitual; c) Em 31 de dezembro, sejam tripulantes de navios ou aeronaves, desde que aqueles estejam ao serviço de entidades com residência, sede ou direção efetiva nesse território; d) Desempenhem no estrangeiro funções ou comissões de carácter público, ao serviço do Estado Português. 2 - Para efeitos do disposto no número anterior, considera-se como dia de presença em território português qualquer dia, completo ou parcial, que inclua dormida no mesmo. 3 - As pessoas que preencham as condições previstas nas alíneas a) ou b) do n.º 1 tornam-se residentes desde o primeiro dia do período de permanência em território português, salvo quando tenham aí sido residentes em qualquer dia do ano anterior, caso em que se consideram residentes neste território desde o primeiro dia do ano em que se verifique qualquer uma das condições previstas no n.º 1. 4 - A perda da qualidade de residente ocorre a partir do último dia de permanência em território português, salvo nos casos previstos nos n.os 14 e 16. 5 - A residência fiscal é aferida em relação a cada sujeito passivo do agregado. 6 - São ainda havidos como residentes em território português as pessoas de nacionalidade portuguesa que deslocalizem a sua residência fiscal para país, território ou região, sujeito a um regime fiscal claramente mais favorável constante de lista aprovada por portaria do membro do Governo responsável pela área das finanças, no ano em que se verifique aquela mudança e nos quatro anos subsequentes, salvo se o interessado provar que a mudança se deve a razões atendíveis, designadamente exercício naquele território de atividade temporária por conta de entidade patronal domiciliada em território português. 7 - Sem prejuízo do período definido no número anterior, a condição de residente aí prevista subsiste apenas enquanto se mantiver a deslocação da residência fiscal do sujeito passivo para país, território ou região, sujeito a um regime fiscal claramente mais favorável constante de lista aprovada por portaria do membro do Governo responsável pela área das finanças, deixando de se aplicar no ano em que este se torne residente fiscal em país, território ou região distinto daqueles. 8 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro) 9 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro) 10 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro) 11 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro) 12 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro) 13 - Enquadra-se no disposto na alínea d) do n.º 1 o exercício de funções de deputado ao Parlamento Europeu. 14 - Sem prejuízo do disposto no número seguinte, um sujeito passivo considera-se residente em território português durante a totalidade do ano no qual perca a qualidade de residente quando se verifiquem, cumulativamente, as seguintes condições: a) Permaneça em território português mais de 183 dias, seguidos ou interpolados, nesse ano; e b) Obtenha, no decorrer desse ano e após o último dia de permanência em território português, quaisquer rendimentos que fossem sujeitos e não isentos de IRS, caso o sujeito passivo mantivesse a sua qualidade de residente em território português. 15 - O disposto no número anterior não é aplicável caso o sujeito passivo demonstre que os rendimentos a que se refere a alínea b) do mesmo número sejam tributados por um imposto sobre o rendimento idêntico ou substancialmente similar ao IRS aplicado devido ao domicílio ou residência: a) Noutro Estado membro da União Europeia ou do Espaço Económico Europeu, desde que, neste último caso, exista intercâmbio de informações em matéria fiscal e que se preveja a cooperação administrativa no domínio da fiscalidade; ou b) Noutro Estado, não abrangido na alínea anterior, em que a taxa de tributação aplicável àqueles rendimentos não seja inferior a 60 % daquela que lhes seria aplicável caso o sujeito passivo mantivesse a sua residência em território português. 16 - Um sujeito passivo considera-se, ainda, residente em território português durante a totalidade do ano sempre que volte a adquirir a qualidade de residente durante o ano subsequente àquele em que, nos termos do n.º 4, perdeu aquela mesma qualidade.",
+    "editorial_notes": [],
+    "references": [],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:1",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "1",
+    "subparagraph": null,
+    "label": "1",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 1",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 48,
+    "printed_page_labels": [
+      "47"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          304.90160000000003,
+          526.6684799999998,
+          314.86159999999995
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          324.34159999999997,
+          548.4531599999999,
+          334.3016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          335.74159999999995,
+          274.67576,
+          345.7016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          355.42159999999996,
+          548.4332399999996,
+          365.3816
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          366.94159999999994,
+          548.5926,
+          376.9016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          378.34159999999997,
+          171.08867999999998,
+          388.3016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          397.9016,
+          548.7346399999999,
+          407.8616
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          409.30159999999995,
+          392.7385199999999,
+          419.2616
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          428.86159999999995,
+          548.6025600000002,
+          438.8216
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          440.26159999999993,
+          133.33032,
+          450.22159999999997
+        ]
+      }
+    ],
+    "text_original": "1 - São residentes em território português as pessoas que, no ano a que respeitam os rendimentos:\na) Hajam nele permanecido mais de 183 dias, seguidos ou interpolados, em qualquer período de 12\nmeses com início ou fim no ano em causa;\nb) Tendo permanecido por menos tempo, aí disponham, num qualquer dia do período referido na alínea\nanterior, de habitação em condições que façam supor intenção atual de a manter e ocupar como\nresidência habitual;\nc) Em 31 de dezembro, sejam tripulantes de navios ou aeronaves, desde que aqueles estejam ao serviço\nde entidades com residência, sede ou direção efetiva nesse território;\nd) Desempenhem no estrangeiro funções ou comissões de carácter público, ao serviço do Estado\nPortuguês.",
+    "text_normalized": "1 - São residentes em território português as pessoas que, no ano a que respeitam os rendimentos: a) Hajam nele permanecido mais de 183 dias, seguidos ou interpolados, em qualquer período de 12 meses com início ou fim no ano em causa; b) Tendo permanecido por menos tempo, aí disponham, num qualquer dia do período referido na alínea anterior, de habitação em condições que façam supor intenção atual de a manter e ocupar como residência habitual; c) Em 31 de dezembro, sejam tripulantes de navios ou aeronaves, desde que aqueles estejam ao serviço de entidades com residência, sede ou direção efetiva nesse território; d) Desempenhem no estrangeiro funções ou comissões de carácter público, ao serviço do Estado Português.",
+    "editorial_notes": [],
+    "references": [],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:1:subparagraph:a",
+    "parent_id": "pt:cirs:code:article:16:paragraph:1",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "subparagraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "1",
+    "subparagraph": "a",
+    "label": "a",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 1, alínea a",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 48,
+    "printed_page_labels": [
+      "47"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          324.34159999999997,
+          548.4531599999999,
+          334.3016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          335.74159999999995,
+          274.67576,
+          345.7016
+        ]
+      }
+    ],
+    "text_original": "a) Hajam nele permanecido mais de 183 dias, seguidos ou interpolados, em qualquer período de 12\nmeses com início ou fim no ano em causa;",
+    "text_normalized": "a) Hajam nele permanecido mais de 183 dias, seguidos ou interpolados, em qualquer período de 12 meses com início ou fim no ano em causa;",
+    "editorial_notes": [],
+    "references": [],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:1:subparagraph:b",
+    "parent_id": "pt:cirs:code:article:16:paragraph:1",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "subparagraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "1",
+    "subparagraph": "b",
+    "label": "b",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 1, alínea b",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 48,
+    "printed_page_labels": [
+      "47"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          355.42159999999996,
+          548.4332399999996,
+          365.3816
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          366.94159999999994,
+          548.5926,
+          376.9016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          378.34159999999997,
+          171.08867999999998,
+          388.3016
+        ]
+      }
+    ],
+    "text_original": "b) Tendo permanecido por menos tempo, aí disponham, num qualquer dia do período referido na alínea\nanterior, de habitação em condições que façam supor intenção atual de a manter e ocupar como\nresidência habitual;",
+    "text_normalized": "b) Tendo permanecido por menos tempo, aí disponham, num qualquer dia do período referido na alínea anterior, de habitação em condições que façam supor intenção atual de a manter e ocupar como residência habitual;",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "alínea anterior",
+        "kind": "subparagraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:1:subparagraph:a"
+        ],
+        "reason": null
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:1:subparagraph:c",
+    "parent_id": "pt:cirs:code:article:16:paragraph:1",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "subparagraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "1",
+    "subparagraph": "c",
+    "label": "c",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 1, alínea c",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 48,
+    "printed_page_labels": [
+      "47"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          397.9016,
+          548.7346399999999,
+          407.8616
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          409.30159999999995,
+          392.7385199999999,
+          419.2616
+        ]
+      }
+    ],
+    "text_original": "c) Em 31 de dezembro, sejam tripulantes de navios ou aeronaves, desde que aqueles estejam ao serviço\nde entidades com residência, sede ou direção efetiva nesse território;",
+    "text_normalized": "c) Em 31 de dezembro, sejam tripulantes de navios ou aeronaves, desde que aqueles estejam ao serviço de entidades com residência, sede ou direção efetiva nesse território;",
+    "editorial_notes": [],
+    "references": [],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:1:subparagraph:d",
+    "parent_id": "pt:cirs:code:article:16:paragraph:1",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "subparagraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "1",
+    "subparagraph": "d",
+    "label": "d",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 1, alínea d",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 48,
+    "printed_page_labels": [
+      "47"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          428.86159999999995,
+          548.6025600000002,
+          438.8216
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          440.26159999999993,
+          133.33032,
+          450.22159999999997
+        ]
+      }
+    ],
+    "text_original": "d) Desempenhem no estrangeiro funções ou comissões de carácter público, ao serviço do Estado\nPortuguês.",
+    "text_normalized": "d) Desempenhem no estrangeiro funções ou comissões de carácter público, ao serviço do Estado Português.",
+    "editorial_notes": [],
+    "references": [],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:2",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "2",
+    "subparagraph": null,
+    "label": "2",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 2",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 48,
+    "printed_page_labels": [
+      "47"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          459.9616,
+          548.81092,
+          469.9216
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          471.36159999999995,
+          421.9611599999998,
+          481.3216
+        ]
+      }
+    ],
+    "text_original": "2 - Para efeitos do disposto no número anterior, considera-se como dia de presença em território\nportuguês qualquer dia, completo ou parcial, que inclua dormida no mesmo.",
+    "text_normalized": "2 - Para efeitos do disposto no número anterior, considera-se como dia de presença em território português qualquer dia, completo ou parcial, que inclua dormida no mesmo.",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "número anterior",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:1"
+        ],
+        "reason": null
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:3",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "3",
+    "subparagraph": null,
+    "label": "3",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 3",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 48,
+    "printed_page_labels": [
+      "47"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          490.92159999999996,
+          549.0028,
+          500.8816
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          502.44159999999994,
+          548.5129199999999,
+          512.4015999999999
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          513.8416,
+          548.5925999999998,
+          523.8016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          525.2416,
+          482.0472799999999,
+          535.2016
+        ]
+      }
+    ],
+    "text_original": "3 - As pessoas que preencham as condições previstas nas alíneas a) ou b) do n.º 1 tornam-se residentes\ndesde o primeiro dia do período de permanência em território português, salvo quando tenham aí sido\nresidentes em qualquer dia do ano anterior, caso em que se consideram residentes neste território desde\no primeiro dia do ano em que se verifique qualquer uma das condições previstas no n.º 1.",
+    "text_normalized": "3 - As pessoas que preencham as condições previstas nas alíneas a) ou b) do n.º 1 tornam-se residentes desde o primeiro dia do período de permanência em território português, salvo quando tenham aí sido residentes em qualquer dia do ano anterior, caso em que se consideram residentes neste território desde o primeiro dia do ano em que se verifique qualquer uma das condições previstas no n.º 1.",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "alíneas a)",
+        "kind": "subparagraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "n.º 1",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:1"
+        ],
+        "reason": null
+      },
+      {
+        "raw_text": "n.º 1",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:1"
+        ],
+        "reason": null
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:4",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "4",
+    "subparagraph": null,
+    "label": "4",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 4",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 48,
+    "printed_page_labels": [
+      "47"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          544.9215999999999,
+          548.7061199999997,
+          554.8815999999999
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          556.0708,
+          274.71500000000003,
+          566.2816
+        ]
+      }
+    ],
+    "text_original": "4 - A perda da qualidade de residente ocorre a partir do último dia de permanência em território português,\nsalvo nos casos previstos nos n.os 14 e 16.",
+    "text_normalized": "4 - A perda da qualidade de residente ocorre a partir do último dia de permanência em território português, salvo nos casos previstos nos n.os 14 e 16.",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "n.os 14 e 16",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:5",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "5",
+    "subparagraph": null,
+    "label": "5",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 5",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 48,
+    "printed_page_labels": [
+      "47"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          575.7615999999999,
+          436.77968000000004,
+          585.7216
+        ]
+      }
+    ],
+    "text_original": "5 - A residência fiscal é aferida em relação a cada sujeito passivo do agregado.",
+    "text_normalized": "5 - A residência fiscal é aferida em relação a cada sujeito passivo do agregado.",
+    "editorial_notes": [],
+    "references": [],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:6",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "6",
+    "subparagraph": null,
+    "label": "6",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 6",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 48,
+    "printed_page_labels": [
+      "47"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          595.4415999999999,
+          548.5425599999996,
+          605.4015999999999
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          606.8416,
+          548.6623200000001,
+          616.8016
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          618.3616,
+          548.68124,
+          628.3216
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          629.8815999999999,
+          548.6324399999996,
+          639.8416
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          641.4015999999999,
+          548.9597200000001,
+          651.3616
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          652.9516,
+          548.5726799999999,
+          662.9115999999999
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          664.3516,
+          132.23472,
+          674.3116
+        ]
+      }
+    ],
+    "text_original": "6 - São ainda havidos como residentes em território português as pessoas de nacionalidade portuguesa\nque deslocalizem a sua residência fiscal para país, território ou região, sujeito a um regime fiscal\nclaramente mais favorável constante de lista aprovada por portaria do membro do Governo responsável\npela área das finanças, no ano em que se verifique aquela mudança e nos quatro anos subsequentes,\nsalvo se o interessado provar que a mudança se deve a razões atendíveis, designadamente exercício\nnaquele território de atividade temporária por conta de entidade patronal domiciliada em território\nportuguês.",
+    "text_normalized": "6 - São ainda havidos como residentes em território português as pessoas de nacionalidade portuguesa que deslocalizem a sua residência fiscal para país, território ou região, sujeito a um regime fiscal claramente mais favorável constante de lista aprovada por portaria do membro do Governo responsável pela área das finanças, no ano em que se verifique aquela mudança e nos quatro anos subsequentes, salvo se o interessado provar que a mudança se deve a razões atendíveis, designadamente exercício naquele território de atividade temporária por conta de entidade patronal domiciliada em território português.",
+    "editorial_notes": [],
+    "references": [],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:7",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "7",
+    "subparagraph": null,
+    "label": "7",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 7",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 48,
+    "page_end": 49,
+    "printed_page_labels": [
+      "47",
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          683.9115999999999,
+          548.51444,
+          693.8716
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          695.4315999999999,
+          548.7914,
+          705.3915999999999
+        ]
+      },
+      {
+        "page_number": 48,
+        "printed_page_labels": [
+          "47"
+        ],
+        "bbox": [
+          85.104,
+          706.9516,
+          548.3933999999999,
+          716.9115999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          75.17160000000001,
+          548.95216,
+          85.13159999999993
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          86.59159999999997,
+          382.70879999999977,
+          96.5515999999999
+        ]
+      }
+    ],
+    "text_original": "7 - Sem prejuízo do período definido no número anterior, a condição de residente aí prevista subsiste\napenas enquanto se mantiver a deslocação da residência fiscal do sujeito passivo para país, território ou\nregião, sujeito a um regime fiscal claramente mais favorável constante de lista aprovada por portaria do\nmembro do Governo responsável pela área das finanças, deixando de se aplicar no ano em que este se\ntorne residente fiscal em país, território ou região distinto daqueles.",
+    "text_normalized": "7 - Sem prejuízo do período definido no número anterior, a condição de residente aí prevista subsiste apenas enquanto se mantiver a deslocação da residência fiscal do sujeito passivo para país, território ou região, sujeito a um regime fiscal claramente mais favorável constante de lista aprovada por portaria do membro do Governo responsável pela área das finanças, deixando de se aplicar no ano em que este se torne residente fiscal em país, território ou região distinto daqueles.",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "número anterior",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:6"
+        ],
+        "reason": null
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:8",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "8",
+    "subparagraph": null,
+    "label": "8",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 8",
+    "legal_status": "repealed",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          106.03160000000003,
+          287.9516,
+          115.99159999999995
+        ]
+      }
+    ],
+    "text_original": "8 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+    "text_normalized": "8 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+    "editorial_notes": [
+      {
+        "kind": "repeal",
+        "raw_text": "(Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+        "locators": [
+          {
+            "page_number": 49,
+            "printed_page_labels": [
+              "48"
+            ],
+            "bbox": [
+              85.104,
+              106.03160000000003,
+              287.9516,
+              115.99159999999995
+            ]
+          }
+        ]
+      }
+    ],
+    "references": [
+      {
+        "raw_text": "n.º 82",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:9",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "9",
+    "subparagraph": null,
+    "label": "9",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 9",
+    "legal_status": "repealed",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          125.59159999999997,
+          287.9516,
+          135.5515999999999
+        ]
+      }
+    ],
+    "text_original": "9 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+    "text_normalized": "9 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+    "editorial_notes": [
+      {
+        "kind": "repeal",
+        "raw_text": "(Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+        "locators": [
+          {
+            "page_number": 49,
+            "printed_page_labels": [
+              "48"
+            ],
+            "bbox": [
+              85.104,
+              125.59159999999997,
+              287.9516,
+              135.5515999999999
+            ]
+          }
+        ]
+      }
+    ],
+    "references": [
+      {
+        "raw_text": "n.º 82",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:10",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "10",
+    "subparagraph": null,
+    "label": "10",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 10",
+    "legal_status": "repealed",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          145.03160000000003,
+          293.59208,
+          154.99159999999995
+        ]
+      }
+    ],
+    "text_original": "10 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+    "text_normalized": "10 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+    "editorial_notes": [
+      {
+        "kind": "repeal",
+        "raw_text": "(Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+        "locators": [
+          {
+            "page_number": 49,
+            "printed_page_labels": [
+              "48"
+            ],
+            "bbox": [
+              85.104,
+              145.03160000000003,
+              293.59208,
+              154.99159999999995
+            ]
+          }
+        ]
+      }
+    ],
+    "references": [
+      {
+        "raw_text": "n.º 82",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:11",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "11",
+    "subparagraph": null,
+    "label": "11",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 11",
+    "legal_status": "repealed",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          164.59159999999997,
+          293.47159999999997,
+          174.5515999999999
+        ]
+      }
+    ],
+    "text_original": "11 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+    "text_normalized": "11 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+    "editorial_notes": [
+      {
+        "kind": "repeal",
+        "raw_text": "(Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+        "locators": [
+          {
+            "page_number": 49,
+            "printed_page_labels": [
+              "48"
+            ],
+            "bbox": [
+              85.104,
+              164.59159999999997,
+              293.47159999999997,
+              174.5515999999999
+            ]
+          }
+        ]
+      }
+    ],
+    "references": [
+      {
+        "raw_text": "n.º 82",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:12",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "12",
+    "subparagraph": null,
+    "label": "12",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 12",
+    "legal_status": "repealed",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          184.03160000000003,
+          293.47159999999997,
+          193.99159999999995
+        ]
+      }
+    ],
+    "text_original": "12 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+    "text_normalized": "12 - (Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+    "editorial_notes": [
+      {
+        "kind": "repeal",
+        "raw_text": "(Revogado pela Lei n.º 82/2023, de 29 de dezembro)",
+        "locators": [
+          {
+            "page_number": 49,
+            "printed_page_labels": [
+              "48"
+            ],
+            "bbox": [
+              85.104,
+              184.03160000000003,
+              293.47159999999997,
+              193.99159999999995
+            ]
+          }
+        ]
+      }
+    ],
+    "references": [
+      {
+        "raw_text": "n.º 82",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:13",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "13",
+    "subparagraph": null,
+    "label": "13",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 13",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          203.71159999999998,
+          548.6904799999998,
+          213.6715999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          215.11159999999995,
+          125.5416,
+          225.07159999999988
+        ]
+      }
+    ],
+    "text_original": "13 - Enquadra-se no disposto na alínea d) do n.º 1 o exercício de funções de deputado ao Parlamento\nEuropeu.",
+    "text_normalized": "13 - Enquadra-se no disposto na alínea d) do n.º 1 o exercício de funções de deputado ao Parlamento Europeu.",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "alínea d) do n.º 1",
+        "kind": "subparagraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:1:subparagraph:d"
+        ],
+        "reason": null
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:14",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "14",
+    "subparagraph": null,
+    "label": "14",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 14",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          234.6716,
+          549.0221200000001,
+          244.63159999999993
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          246.1916,
+          548.7220799999998,
+          256.1515999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          257.59159999999997,
+          272.74044,
+          267.5515999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          277.0616,
+          509.0052799999998,
+          287.0215999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          296.74160000000006,
+          548.6523599999999,
+          306.7016
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          308.14160000000004,
+          548.94244,
+          318.10159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          319.5416,
+          246.12731999999997,
+          329.50159999999994
+        ]
+      }
+    ],
+    "text_original": "14 - Sem prejuízo do disposto no número seguinte, um sujeito passivo considera-se residente em território\nportuguês durante a totalidade do ano no qual perca a qualidade de residente quando se verifiquem,\ncumulativamente, as seguintes condições:\na) Permaneça em território português mais de 183 dias, seguidos ou interpolados, nesse ano; e\nb) Obtenha, no decorrer desse ano e após o último dia de permanência em território português, quaisquer\nrendimentos que fossem sujeitos e não isentos de IRS, caso o sujeito passivo mantivesse a sua qualidade\nde residente em território português.",
+    "text_normalized": "14 - Sem prejuízo do disposto no número seguinte, um sujeito passivo considera-se residente em território português durante a totalidade do ano no qual perca a qualidade de residente quando se verifiquem, cumulativamente, as seguintes condições: a) Permaneça em território português mais de 183 dias, seguidos ou interpolados, nesse ano; e b) Obtenha, no decorrer desse ano e após o último dia de permanência em território português, quaisquer rendimentos que fossem sujeitos e não isentos de IRS, caso o sujeito passivo mantivesse a sua qualidade de residente em território português.",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "número seguinte",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:15"
+        ],
+        "reason": null
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:14:subparagraph:a",
+    "parent_id": "pt:cirs:code:article:16:paragraph:14",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "subparagraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "14",
+    "subparagraph": "a",
+    "label": "a",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 14, alínea a",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          277.0616,
+          509.0052799999998,
+          287.0215999999999
+        ]
+      }
+    ],
+    "text_original": "a) Permaneça em território português mais de 183 dias, seguidos ou interpolados, nesse ano; e",
+    "text_normalized": "a) Permaneça em território português mais de 183 dias, seguidos ou interpolados, nesse ano; e",
+    "editorial_notes": [],
+    "references": [],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:14:subparagraph:b",
+    "parent_id": "pt:cirs:code:article:16:paragraph:14",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "subparagraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "14",
+    "subparagraph": "b",
+    "label": "b",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 14, alínea b",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          296.74160000000006,
+          548.6523599999999,
+          306.7016
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          308.14160000000004,
+          548.94244,
+          318.10159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          319.5416,
+          246.12731999999997,
+          329.50159999999994
+        ]
+      }
+    ],
+    "text_original": "b) Obtenha, no decorrer desse ano e após o último dia de permanência em território português, quaisquer\nrendimentos que fossem sujeitos e não isentos de IRS, caso o sujeito passivo mantivesse a sua qualidade\nde residente em território português.",
+    "text_normalized": "b) Obtenha, no decorrer desse ano e após o último dia de permanência em território português, quaisquer rendimentos que fossem sujeitos e não isentos de IRS, caso o sujeito passivo mantivesse a sua qualidade de residente em território português.",
+    "editorial_notes": [],
+    "references": [],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:15",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "15",
+    "subparagraph": null,
+    "label": "15",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 15",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          339.22159999999997,
+          548.5776799999998,
+          349.1816
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          350.74159999999995,
+          548.56272,
+          360.7016
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          362.1415999999999,
+          472.02283999999975,
+          372.10159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          381.7015999999999,
+          548.8714799999998,
+          391.66159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          393.22159999999997,
+          548.95684,
+          403.1816
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          404.62159999999994,
+          215.00232,
+          414.5816
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          424.18159999999995,
+          548.4929999999999,
+          434.1416
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          435.7015999999999,
+          549.0973600000001,
+          445.66159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          447.10159999999996,
+          263.8859999999999,
+          457.0616
+        ]
+      }
+    ],
+    "text_original": "15 - O disposto no número anterior não é aplicável caso o sujeito passivo demonstre que os rendimentos\na que se refere a alínea b) do mesmo número sejam tributados por um imposto sobre o rendimento\nidêntico ou substancialmente similar ao IRS aplicado devido ao domicílio ou residência:\na) Noutro Estado membro da União Europeia ou do Espaço Económico Europeu, desde que, neste último\ncaso, exista intercâmbio de informações em matéria fiscal e que se preveja a cooperação administrativa\nno domínio da fiscalidade; ou\nb) Noutro Estado, não abrangido na alínea anterior, em que a taxa de tributação aplicável àqueles\nrendimentos não seja inferior a 60 % daquela que lhes seria aplicável caso o sujeito passivo mantivesse\na sua residência em território português.",
+    "text_normalized": "15 - O disposto no número anterior não é aplicável caso o sujeito passivo demonstre que os rendimentos a que se refere a alínea b) do mesmo número sejam tributados por um imposto sobre o rendimento idêntico ou substancialmente similar ao IRS aplicado devido ao domicílio ou residência: a) Noutro Estado membro da União Europeia ou do Espaço Económico Europeu, desde que, neste último caso, exista intercâmbio de informações em matéria fiscal e que se preveja a cooperação administrativa no domínio da fiscalidade; ou b) Noutro Estado, não abrangido na alínea anterior, em que a taxa de tributação aplicável àqueles rendimentos não seja inferior a 60 % daquela que lhes seria aplicável caso o sujeito passivo mantivesse a sua residência em território português.",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "número anterior",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:14"
+        ],
+        "reason": null
+      },
+      {
+        "raw_text": "alínea b)",
+        "kind": "subparagraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:15:subparagraph:b"
+        ],
+        "reason": null
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:15:subparagraph:a",
+    "parent_id": "pt:cirs:code:article:16:paragraph:15",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "subparagraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "15",
+    "subparagraph": "a",
+    "label": "a",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 15, alínea a",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          381.7015999999999,
+          548.8714799999998,
+          391.66159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          393.22159999999997,
+          548.95684,
+          403.1816
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          404.62159999999994,
+          215.00232,
+          414.5816
+        ]
+      }
+    ],
+    "text_original": "a) Noutro Estado membro da União Europeia ou do Espaço Económico Europeu, desde que, neste último\ncaso, exista intercâmbio de informações em matéria fiscal e que se preveja a cooperação administrativa\nno domínio da fiscalidade; ou",
+    "text_normalized": "a) Noutro Estado membro da União Europeia ou do Espaço Económico Europeu, desde que, neste último caso, exista intercâmbio de informações em matéria fiscal e que se preveja a cooperação administrativa no domínio da fiscalidade; ou",
+    "editorial_notes": [],
+    "references": [],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:15:subparagraph:b",
+    "parent_id": "pt:cirs:code:article:16:paragraph:15",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "subparagraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "15",
+    "subparagraph": "b",
+    "label": "b",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 15, alínea b",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          424.18159999999995,
+          548.4929999999999,
+          434.1416
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          435.7015999999999,
+          549.0973600000001,
+          445.66159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          447.10159999999996,
+          263.8859999999999,
+          457.0616
+        ]
+      }
+    ],
+    "text_original": "b) Noutro Estado, não abrangido na alínea anterior, em que a taxa de tributação aplicável àqueles\nrendimentos não seja inferior a 60 % daquela que lhes seria aplicável caso o sujeito passivo mantivesse\na sua residência em território português.",
+    "text_normalized": "b) Noutro Estado, não abrangido na alínea anterior, em que a taxa de tributação aplicável àqueles rendimentos não seja inferior a 60 % daquela que lhes seria aplicável caso o sujeito passivo mantivesse a sua residência em território português.",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "alínea anterior",
+        "kind": "subparagraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:15:subparagraph:a"
+        ],
+        "reason": null
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:paragraph:16",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "paragraph",
+    "role": "norm",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": "16",
+    "subparagraph": null,
+    "label": "16",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, n.º 16",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 49,
+    "printed_page_labels": [
+      "48"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          466.68159999999995,
+          548.89712,
+          476.6416
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          478.2015999999999,
+          548.4431999999997,
+          488.16159999999996
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          489.60159999999996,
+          306.49399999999997,
+          499.5616
+        ]
+      }
+    ],
+    "text_original": "16 - Um sujeito passivo considera-se, ainda, residente em território português durante a totalidade do ano\nsempre que volte a adquirir a qualidade de residente durante o ano subsequente àquele em que, nos\ntermos do n.º 4, perdeu aquela mesma qualidade.",
+    "text_normalized": "16 - Um sujeito passivo considera-se, ainda, residente em território português durante a totalidade do ano sempre que volte a adquirir a qualidade de residente durante o ano subsequente àquele em que, nos termos do n.º 4, perdeu aquela mesma qualidade.",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "n.º 4",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:4"
+        ],
+        "reason": null
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  },
+  {
+    "schema_version": 1,
+    "legal_unit_id": "pt:cirs:code:article:16:note:1",
+    "parent_id": "pt:cirs:code:article:16",
+    "instrument_id": "pt:cirs",
+    "code": "CIRS",
+    "document_scope": "code",
+    "kind": "note",
+    "role": "transitional",
+    "chapter": "I",
+    "section": "II",
+    "article": "16",
+    "paragraph": null,
+    "subparagraph": null,
+    "label": "1",
+    "unit_title": "",
+    "citation_label": "CIRS, artigo 16.º, note 1",
+    "legal_status": "unknown",
+    "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "page_start": 49,
+    "page_end": 50,
+    "printed_page_labels": [
+      "48",
+      "49"
+    ],
+    "locators": [
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          509.55999999999995,
+          317.1979999999999,
+          518.56
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          529.8783999999999,
+          428.4200399999999,
+          537.9184
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          549.1984,
+          97.65444,
+          557.2384
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          567.8883999999999,
+          549.1289199999999,
+          576.5583999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          579.7983999999999,
+          549.2416,
+          587.8384
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          591.0784,
+          549.0707599999997,
+          599.1184
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          602.2384,
+          484.0889999999998,
+          610.2783999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          621.5584,
+          548.9460799999997,
+          629.5984
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          632.0884,
+          460.23103999999995,
+          640.7583999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          652.0684,
+          548.8880799999997,
+          660.1084
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          663.2284,
+          192.22895999999997,
+          671.2683999999999
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          682.5483999999999,
+          549.36916,
+          690.5884
+        ]
+      },
+      {
+        "page_number": 49,
+        "printed_page_labels": [
+          "48"
+        ],
+        "bbox": [
+          85.104,
+          693.7084,
+          272.4644,
+          701.7484
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          76.8084,
+          548.7708000000001,
+          84.84839999999997
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          87.98839999999996,
+          254.46659999999986,
+          96.02839999999992
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          107.3084,
+          548.9465599999997,
+          115.34839999999997
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          118.46839999999997,
+          156.77256,
+          126.50839999999994
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          137.78840000000002,
+          549.0493999999998,
+          145.8284
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          148.9484,
+          145.62108,
+          156.98839999999996
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          168.26840000000004,
+          549.0066799999996,
+          176.3084
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          179.4284,
+          167.92404,
+          187.46839999999997
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          198.74839999999995,
+          399.81371999999976,
+          206.7883999999999
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          218.0684,
+          549.1463599999996,
+          226.10839999999996
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          229.34839999999997,
+          548.7225599999997,
+          237.38839999999993
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          240.50840000000005,
+          549.0060799999998,
+          248.54840000000002
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          251.66840000000002,
+          527.8667999999998,
+          259.7084
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          270.98839999999996,
+          411.49748,
+          279.0283999999999
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          290.3384,
+          549.24832,
+          298.37839999999994
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          301.61839999999995,
+          548.9887599999998,
+          309.6583999999999
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          312.77840000000003,
+          549.24556,
+          320.8184
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          323.9384,
+          239.86595999999992,
+          331.97839999999997
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          343.37839999999994,
+          548.9633599999996,
+          351.41839999999996
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          354.53839999999997,
+          549.2347599999999,
+          362.5784
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          365.81839999999994,
+          548.9749999999998,
+          373.85839999999996
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          376.97839999999997,
+          175.32083999999998,
+          385.0184
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          396.29839999999996,
+          549.24748,
+          404.3384
+        ]
+      },
+      {
+        "page_number": 50,
+        "printed_page_labels": [
+          "49"
+        ],
+        "bbox": [
+          85.104,
+          407.4583999999999,
+          358.4961599999997,
+          415.49839999999995
+        ]
+      }
+    ],
+    "text_original": "Nota: Artigo 236.º da Lei n.º 82/2023, de 29 de dezembro:\n“Disposição transitória no âmbito do imposto sobre o rendimento das pessoas singulares\n[…]\n3 - O disposto nos n.os 8 a 12 do artigo 16.º, no artigo 22.º, nos n.os 10 e 12 do artigo 72.º, dos n.os 4 a 8 do artigo 81.º, no n.º 8 do\nartigo 99.º e na alínea d) do n.º 1 do artigo 101.º do Código do IRS, na redação anterior à introduzida pela presente lei, continua a\nser aplicável, até ao termo do prazo previsto no n.º 9 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente\nlei, contado da data em que o sujeito passivo se tornou residente em território português, ao sujeito passivo que:\na) À data da entrada em vigor da presente lei, já se encontre inscrito como residente não habitual no registo de contribuintes da AT,\nenquanto não estiver esgotado o período a que se referem os n.os 9 a 12 do artigo 16.º do Código do IRS;\nb) A 31 de dezembro de 2023, reúna as condições do artigo 16.º do Código do IRS para qualificação como residente para efeitos\nfiscais em território português;\nc) Se torne residente para efeitos fiscais até 31 de dezembro de 2024 e que declare, para efeitos da sua inscrição como residente\nnão habitual, dispor de um dos seguintes elementos:\ni) Promessa ou contrato de trabalho, promessa ou acordo de destacamento celebrado até 31 de dezembro de 2023, cujo exercício\ndas funções deva ocorrer em território nacional;\nii) Contrato de arrendamento ou outro contrato que conceda o uso ou a posse de imóvel em território português celebrado até 10\nde outubro de 2023;\niii) Contrato de reserva ou contrato-promessa de aquisição de direito real sobre imóvel em território português celebrado até 10 de\noutubro de 2023;\niv) Matrícula ou inscrição para os dependentes, em estabelecimento de ensino domiciliado em território português, completada até\n10 de outubro de 2023;\nv) Visto de residência ou autorização de residência válidos até 31 de dezembro de 2023;\nvi) Procedimento, iniciado até 31 de dezembro de 2023, de concessão de visto de residência ou de autorização de residência, junto\ndas entidades competentes, de acordo com a legislação em vigor aplicável em matéria de imigração, designadamente através do\npedido de agendamento ou efetivo agendamento para submissão do pedido de concessão do visto de residência ou autorização de\nresidência ou, ainda, através da submissão do pedido para a concessão do visto de residência ou autorização de residência;\nd) Seja membro do agregado familiar dos sujeitos passivos referidos nas alíneas anteriores.\n4 - Para efeito do disposto nas alíneas c) e d) do número anterior, o sujeito passivo deve solicitar a inscrição como residente não\nhabitual, por via eletrónica, no Portal das Finanças, posteriormente ao ato da inscrição como residente em território português, nos\ntermos do previsto n.º 10 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente lei, por referência ao ano\nem que se tornou residente nesse território.\n5 - Nos casos em que a inscrição seja efetuada fora do prazo referido no n.º 4, a tributação nos termos salvaguardados no presente\nartigo produz efeitos a partir do ano em que a inscrição seja efetuada, pelo prazo remanescente, até ao termo do período previsto\nno n.º 9 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente lei, contado desde o ano em que se tornou\nresidente nesse território.\n6 - O limite previsto no n.º 1 do artigo 12.º-A do Código do IRS, na redação dada pela presente lei, aplica-se apenas aos sujeitos\npassivos que se tornem fiscalmente residentes no ano de 2024 ou posterior.”",
+    "text_normalized": "Nota: Artigo 236.º da Lei n.º 82/2023, de 29 de dezembro: “Disposição transitória no âmbito do imposto sobre o rendimento das pessoas singulares […] 3 - O disposto nos n.os 8 a 12 do artigo 16.º, no artigo 22.º, nos n.os 10 e 12 do artigo 72.º, dos n.os 4 a 8 do artigo 81.º, no n.º 8 do artigo 99.º e na alínea d) do n.º 1 do artigo 101.º do Código do IRS, na redação anterior à introduzida pela presente lei, continua a ser aplicável, até ao termo do prazo previsto no n.º 9 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente lei, contado da data em que o sujeito passivo se tornou residente em território português, ao sujeito passivo que: a) À data da entrada em vigor da presente lei, já se encontre inscrito como residente não habitual no registo de contribuintes da AT, enquanto não estiver esgotado o período a que se referem os n.os 9 a 12 do artigo 16.º do Código do IRS; b) A 31 de dezembro de 2023, reúna as condições do artigo 16.º do Código do IRS para qualificação como residente para efeitos fiscais em território português; c) Se torne residente para efeitos fiscais até 31 de dezembro de 2024 e que declare, para efeitos da sua inscrição como residente não habitual, dispor de um dos seguintes elementos: i) Promessa ou contrato de trabalho, promessa ou acordo de destacamento celebrado até 31 de dezembro de 2023, cujo exercício das funções deva ocorrer em território nacional; ii) Contrato de arrendamento ou outro contrato que conceda o uso ou a posse de imóvel em território português celebrado até 10 de outubro de 2023; iii) Contrato de reserva ou contrato-promessa de aquisição de direito real sobre imóvel em território português celebrado até 10 de outubro de 2023; iv) Matrícula ou inscrição para os dependentes, em estabelecimento de ensino domiciliado em território português, completada até 10 de outubro de 2023; v) Visto de residência ou autorização de residência válidos até 31 de dezembro de 2023; vi) Procedimento, iniciado até 31 de dezembro de 2023, de concessão de visto de residência ou de autorização de residência, junto das entidades competentes, de acordo com a legislação em vigor aplicável em matéria de imigração, designadamente através do pedido de agendamento ou efetivo agendamento para submissão do pedido de concessão do visto de residência ou autorização de residência ou, ainda, através da submissão do pedido para a concessão do visto de residência ou autorização de residência; d) Seja membro do agregado familiar dos sujeitos passivos referidos nas alíneas anteriores. 4 - Para efeito do disposto nas alíneas c) e d) do número anterior, o sujeito passivo deve solicitar a inscrição como residente não habitual, por via eletrónica, no Portal das Finanças, posteriormente ao ato da inscrição como residente em território português, nos termos do previsto n.º 10 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente lei, por referência ao ano em que se tornou residente nesse território. 5 - Nos casos em que a inscrição seja efetuada fora do prazo referido no n.º 4, a tributação nos termos salvaguardados no presente artigo produz efeitos a partir do ano em que a inscrição seja efetuada, pelo prazo remanescente, até ao termo do período previsto no n.º 9 do artigo 16.º do Código do IRS, na redação anterior à introduzida pela presente lei, contado desde o ano em que se tornou residente nesse território. 6 - O limite previsto no n.º 1 do artigo 12.º-A do Código do IRS, na redação dada pela presente lei, aplica-se apenas aos sujeitos passivos que se tornem fiscalmente residentes no ano de 2024 ou posterior.”",
+    "editorial_notes": [],
+    "references": [
+      {
+        "raw_text": "Artigo 236.º",
+        "kind": "article",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "external_instrument"
+      },
+      {
+        "raw_text": "n.º 82",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "n.os 8 a 12 do artigo 16.º",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "artigo 22.º",
+        "kind": "article",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "n.os 10 e 12 do artigo 72.º",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "n.os 4 a 8 do artigo 81.º",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "n.º 8 do artigo 99.º",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "alínea d) do n.º 1 do artigo 101.º",
+        "kind": "subparagraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:101:paragraph:1:subparagraph:d"
+        ],
+        "reason": null
+      },
+      {
+        "raw_text": "n.º 9 do artigo 16.º",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:9"
+        ],
+        "reason": null
+      },
+      {
+        "raw_text": "n.os 9 a 12 do artigo 16.º",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "artigo 16.º",
+        "kind": "article",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16"
+        ],
+        "reason": null
+      },
+      {
+        "raw_text": "alíneas anterior",
+        "kind": "subparagraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "alíneas c)",
+        "kind": "subparagraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "número anterior",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "n.º 10 do artigo 16.º",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:10"
+        ],
+        "reason": null
+      },
+      {
+        "raw_text": "n.º 4",
+        "kind": "paragraph",
+        "status": "unresolved",
+        "target_ids": [],
+        "reason": "missing_or_ambiguous_target"
+      },
+      {
+        "raw_text": "n.º 9 do artigo 16.º",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:16:paragraph:9"
+        ],
+        "reason": null
+      },
+      {
+        "raw_text": "n.º 1 do artigo 12.º-A",
+        "kind": "paragraph",
+        "status": "resolved",
+        "target_ids": [
+          "pt:cirs:code:article:12-A:paragraph:1"
+        ],
+        "reason": null
+      }
+    ],
+    "table_ids": [],
+    "issues": []
+  }
+]

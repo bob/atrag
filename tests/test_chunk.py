@@ -92,7 +92,11 @@ def test_manual_paragraphs_tables_and_distinct_instruments(sample):
     assert by_id["pt:cirs:code:article:16:paragraph:8"].editorial_notes
     assert (
         "Disposição transitória"
-        in by_id["pt:cirs:code:article:16:paragraph:1"].embedding_text
+        not in by_id["pt:cirs:code:article:16:paragraph:1"].embedding_text
+    )
+    assert any(
+        f.role == "transitional" and "Disposição transitória" in f.embedding_text
+        for f in result.fragments
     )
     closing = [f for f in result.fragments if f.role == "closing"]
     assert len(closing) == 1
@@ -100,11 +104,14 @@ def test_manual_paragraphs_tables_and_distinct_instruments(sample):
     assert all(
         f.kind in ("article", "paragraph", "document", "note") for f in result.fragments
     )
-    assert all(f.role == "closing" for f in result.fragments if f.kind == "note")
+    assert {f.role for f in result.fragments if f.kind == "note"} == {
+        "closing",
+        "transitional",
+    }
     assert len(by_id) == len(result.fragments)
 
 
-def test_long_paragraph_splits_at_subparagraphs_with_intro_and_exceptions():
+def test_long_paragraph_splits_with_intro_and_preserves_exception_in_source():
     result = synthetic(
         "1 - Só se aplica nas seguintes condições:",
         "a) " + "Rendimentos de trabalho. " * 35,
@@ -112,27 +119,41 @@ def test_long_paragraph_splits_at_subparagraphs_with_intro_and_exceptions():
         "c) Exceto quando não há rendimento.",
     )
     output = chunk(result, target=250, maximum=500)
-    assert len(output.fragments) == 3
+    assert len(output.fragments) > 1
     for fragment in output.fragments:
         assert "Só se aplica nas seguintes condições:" in fragment.embedding_text
-        assert "Exceto quando não há rendimento." in fragment.embedding_text
         assert fragment.token_count == len(
             ENCODING.encode_ordinary(fragment.embedding_text)
         )
         assert fragment.token_count <= 500
         assert fragment.legal_unit_id not in fragment.context_unit_ids
     assert not output.omissions
-    assert output.fragments[0].text_original.startswith("a)")
-    assert "b)" not in output.fragments[0].text_original
+    assert output.fragments[0].text_original.startswith("1 -")
+    assert (
+        "".join(f.text_original for f in output.fragments)
+        == result.units[2].text_original
+    )
+    assert "Exceto quando não há rendimento." in output.fragments[-1].text_original
+    units = {u.legal_unit_id: u for u in result.units}
+    for part in output.fragments:
+        assert len(part.legal_unit_ids) == len(set(part.legal_unit_ids))
+        assert all(
+            units[i].text_original in part.text_original
+            for i in part.legal_unit_ids
+            if i != part.legal_unit_id
+        )
 
 
-def test_oversize_indivisible_text_is_reported_without_truncation():
+def test_oversize_text_is_split_without_truncation():
     result = synthetic("1 - Não se aplica. " + "Condição indivisível; " * 150)
     output = chunk(result, target=100, maximum=150)
-    assert output.fragments == []
-    assert output.omissions[0].legal_unit_id.endswith("paragraph:1")
-    assert output.omissions[0].reason == "over_token_limit"
-    assert output.omissions[0].token_count > 150
+    assert len(output.fragments) > 1
+    assert not output.omissions
+    assert all(f.token_count <= 150 for f in output.fragments)
+    assert (
+        "".join(f.text_original for f in output.fragments)
+        == result.units[2].text_original
+    )
 
 
 def test_unverified_table_excludes_only_affected_unit(sample):
@@ -218,14 +239,19 @@ def test_exact_token_boundaries_keep_the_complete_paragraph():
     assert output.fragments[0].text_original == result.units[2].text_original
 
 
-def test_explicit_exception_in_another_paragraph_is_kept():
+def test_exception_in_another_paragraph_remains_available_as_original():
     result = synthetic(
         "1 - A regra aplica-se.", "2 - O número anterior não se aplica aos residentes."
     )
     output = chunk(result)
     first = next(f for f in output.fragments if f.paragraph == "1")
-    assert "não se aplica aos residentes" in first.embedding_text
-    assert any(i.endswith("paragraph:2") for i in first.context_unit_ids)
+    assert "não se aplica aos residentes" not in first.embedding_text
+    from atrag.retrieval.parts import unit_text
+
+    exception = next(u for u in result.units if u.paragraph == "2")
+    explicit = unit_text(exception, SOURCE, {u.legal_unit_id: u for u in result.units})
+    assert "não se aplica aos residentes" in explicit.text_original
+    assert explicit.complete
 
 
 def test_primary_issues_and_technical_source_dates_do_not_enter_embedding():

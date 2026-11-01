@@ -86,7 +86,7 @@ def test_reference_context_preserves_parent_notes_and_tables(
 
 @pytest.mark.parametrize(
     "budget,count,used,limited",
-    [(223, 2, 223, False), (222, 1, 88, True), (1, 0, 0, True)],
+    [(230, 2, 230, False), (229, 1, 88, True), (1, 0, 0, True)],
 )
 def test_primary_budget_includes_its_boundary(
     prepared_document, tmp_path, budget, count, used, limited

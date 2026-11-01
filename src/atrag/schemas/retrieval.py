@@ -7,7 +7,8 @@ from pydantic import BaseModel, ConfigDict, Field
 from atrag.schemas.ingestion.extraction import ExtractedTable
 from atrag.schemas.ingestion.fragments import SearchFragment
 from atrag.schemas.ingestion.packages import SHA256
-from atrag.schemas.ingestion.structure import LegalUnit
+from atrag.schemas.ingestion.sources import SourceDefinition
+from atrag.schemas.ingestion.structure import LegalUnit, SourceLocator
 from atrag.schemas.settings import SupportedLanguage
 
 RetrievalMode = Literal["vector", "fts", "hybrid"]
@@ -50,6 +51,14 @@ class SearchHit(Ranking):
     omitted_reference_ids: list[str] = Field(default_factory=list)
 
 
+class UnitCoverage(BaseModel):
+    legal_unit_id: str
+    part_count: int
+    returned_part_indices: list[int]
+    source_ranges: list[tuple[int, int]]
+    complete: bool
+
+
 class SearchResult(BaseModel):
     status: Literal["ok", "no_match"]
     snapshot_id: str
@@ -66,4 +75,33 @@ class SearchResult(BaseModel):
     structure_issues: list[dict] = Field(default_factory=list)
     limitations: list[str] = Field(default_factory=list)
     context_tokens_used: int = 0
+    unit_coverage: list[UnitCoverage] = Field(default_factory=list)
     usage: dict
+
+
+class UnitText(BaseModel):
+    snapshot_id: str
+    legal_unit_id: str
+    citation_label: str
+    role: str
+    legal_status: str
+    source: SourceDefinition
+    locators: list[SourceLocator]
+    source_start: int
+    source_end: int
+    source_length: int
+    text_original: str
+    complete: bool
+    next_start: int | None
+    available_note_ids: list[str]
+    available_reference_ids: list[str]
+    context_tokens_used: int
+
+
+class NeighborParts(BaseModel):
+    snapshot_id: str
+    legal_unit_id: str
+    parts: list[SearchFragment]
+    omitted_part_indices: list[int]
+    complete: bool
+    context_tokens_used: int

@@ -1,11 +1,19 @@
-"""Pure structural chunking: preserve a legal block or report its omission."""
+"""Bounded search parts referencing complete, unchanged legal units."""
 
 import hashlib
-import re
 from collections import defaultdict
 from collections.abc import Callable
 
 from atrag.ingestion.extraction import normalize_text
+from atrag.ingestion.table_parts import (
+    TableRowTooLarge,
+    bounded_table_ranges,
+    select_tables,
+    table_header_text,
+    table_rows,
+    table_text,
+)
+from atrag.ingestion.text_parts import text_ranges
 from atrag.schemas.ingestion.fragments import (
     ChunkParameters,
     ChunkResult,
@@ -15,12 +23,6 @@ from atrag.schemas.ingestion.fragments import (
 )
 from atrag.schemas.ingestion.sources import SourceDefinition
 from atrag.schemas.ingestion.structure import LegalUnit, StructureResult
-
-EXCEPTION = re.compile(
-    r"\b(salvo|exceto|excepto|exceção|excepção|sem prejuízo|ressalv\w*|"
-    r"não se aplica|não [ée] aplic[áa]vel)\b",
-    re.IGNORECASE,
-)
 
 
 def _unique(values):
@@ -64,22 +66,6 @@ class _Structure:
             text = before + after
         return text.strip()
 
-    def own_unit(self, unit):
-        children = [c for c in self.children[unit.legal_unit_id] if c.kind != "note"]
-        excluded = {l.model_dump_json() for c in children for l in c.locators}
-        tables = {i for c in children for i in c.table_ids}
-        text = self.own_text(unit)
-        return unit.model_copy(
-            update={
-                "text_original": text,
-                "text_normalized": normalize_text(text),
-                "locators": [
-                    l for l in unit.locators if l.model_dump_json() not in excluded
-                ],
-                "table_ids": [i for i in unit.table_ids if i not in tables],
-            }
-        )
-
     def ancestry(self, unit):
         parents = []
         parent = self.by_id.get(unit.parent_id)
@@ -94,25 +80,8 @@ class _Structure:
 
     def context(self, unit):
         parents = self.ancestry(unit)
-        context = [(self.own_unit(p), self.own_text(p)) for p in parents]
-        for owner in [*parents, *self.embedded(unit)]:
-            context.extend(
-                (note, note.text_original)
-                for note in self.children[owner.legal_unit_id]
-                if note.kind == "note" and note.role != "closing"
-            )
-        context.extend(self.exceptions(unit))
+        context = [(p, self.own_text(p)) for p in parents]
         return list({u.legal_unit_id: (u, text) for u, text in context}.values())
-
-    def exceptions(self, unit):
-        for sibling in self.children[unit.parent_id]:
-            if sibling == unit or sibling.kind == "note":
-                continue
-            if not EXCEPTION.search(sibling.text_normalized):
-                continue
-            targets = {i for r in sibling.references for i in r.target_ids}
-            if unit.kind in ("subparagraph", "item") or unit.legal_unit_id in targets:
-                yield sibling, sibling.text_original
 
     def candidates(self):
         for unit in self.by_id.values():
@@ -123,40 +92,52 @@ class _Structure:
                     if c.kind == "paragraph"
                 ]
                 yield from paragraphs or [unit]
-            elif unit.kind == "document" and unit.role != "code":
-                yield self.own_unit(unit)
-            elif unit.kind == "note" and unit.role == "closing":
+            elif unit.kind == "document" and unit.role != "code" or unit.kind == "note":
                 yield unit
 
 
-def _embedding_text(unit, source, context):
+def _embedding_text(unit, source, context, text, repeated_intro="", tables=()):
     scope = {
         "code": "Código CIRS",
         "approving_decree": "Decreto-Lei n.º 442-A/88 — diploma de aprovação",
         "preamble": "Preâmbulo",
     }[unit.document_scope]
     return "\n\n".join(
-        [
+        text
+        for text in [
             source.document_title,
             scope,
             unit.citation_label,
             *(text for _, text in context if text),
-            unit.text_original,
+            repeated_intro,
+            table_header_text(tables),
+            text,
         ]
+        if text
     )
 
 
-def _fragment(unit, tree, source, parser_version, parameters, count_tokens):
+def _fragment(unit, tree, source, parser_version, parameters, count_tokens, part, rows):
+    index, total, start, end, intro = part
     context = tree.context(unit)
-    members = [unit] if unit.kind == "document" else list(tree.embedded(unit))
+    text_original = unit.text_original[start:end]
+    members = [
+        unit,
+        *[
+            u
+            for u in tree.embedded(unit)
+            if u != unit and u.text_original in text_original
+        ],
+    ]
     evidence = {u.legal_unit_id: u for u in [*members, *(u for u, _ in context)]}
-    locators = _unique(l for u in evidence.values() for l in u.locators)
-    references = _unique(r for u in evidence.values() for r in u.references)
+    locators = unit.locators
+    references = _unique(r for u in tree.embedded(unit) for r in u.references)
     issues = sorted({i for u in evidence.values() for i in u.issues})
     if any(r.status == "unresolved" for r in references):
         issues.append("unresolved_reference")
-    text = _embedding_text(unit, source, context)
-    table_ids = sorted({i for u in evidence.values() for i in u.table_ids})
+    tables, table_ranges = select_tables(rows, tree.tables, start, end)
+    text = _embedding_text(unit, source, context, text_original, intro, tables)
+    table_ids = [t.table_id for t in tables]
     fragment = SearchFragment(
         **unit.model_dump(
             exclude={
@@ -168,8 +149,17 @@ def _fragment(unit, tree, source, parser_version, parameters, count_tokens):
                 "references",
                 "issues",
                 "table_ids",
+                "text_original",
+                "text_normalized",
             }
         ),
+        text_original=text_original,
+        text_normalized=normalize_text(text_original),
+        part_index=index,
+        part_count=total,
+        source_start=start,
+        source_end=end,
+        repeated_intro=intro,
         fragment_id="0" * 64,
         parser_version=parser_version,
         parameters=parameters,
@@ -196,7 +186,8 @@ def _fragment(unit, tree, source, parser_version, parameters, count_tokens):
         ),
         references=references,
         table_ids=table_ids,
-        tables=[tree.tables[i] for i in table_ids],
+        tables=tables,
+        table_ranges=table_ranges,
         issues=issues,
         review_status="needs_review" if issues else "ready",
     )
@@ -206,28 +197,81 @@ def _fragment(unit, tree, source, parser_version, parameters, count_tokens):
 
 
 def _chunks(unit, tree, source, parser_version, parameters, count_tokens):
-    fragment = _fragment(unit, tree, source, parser_version, parameters, count_tokens)
+    unsafe = [i for i in unit.table_ids if tree.tables[i].review_status != "verified"]
+    if unsafe:
+        yield FragmentOmission(
+            legal_unit_id=unit.legal_unit_id,
+            reason="unverified_table",
+            token_count=None,
+            table_ids=unsafe,
+        )
+        return
+    context = tree.context(unit)
+    intro = _intro(unit, tree)
+    rows = table_rows(unit, tree.tables)
+
+    def measure(start, end):
+        tables, _ = select_tables(rows, tree.tables, start, end)
+        text = _embedding_text(
+            unit,
+            source,
+            context,
+            unit.text_original[start:end],
+            intro if start else "",
+            tables,
+        )
+        return max(count_tokens(text), count_tokens(table_text(tables)))
+
+    try:
+        ranges = (
+            bounded_table_ranges(
+                unit.text_original,
+                rows,
+                measure,
+                parameters.target_tokens,
+                parameters.max_tokens,
+            )
+            if rows
+            else text_ranges(
+                unit.text_original,
+                measure,
+                parameters.target_tokens,
+                parameters.max_tokens,
+            )
+        )
+    except TableRowTooLarge as error:
+        yield FragmentOmission(
+            legal_unit_id=unit.legal_unit_id,
+            reason="table_row_over_token_limit",
+            token_count=error.token_count,
+            table_ids=[error.table_id],
+        )
+        return
+    for index, (start, end) in enumerate(ranges):
+        yield _fragment(
+            unit,
+            tree,
+            source,
+            parser_version,
+            parameters,
+            count_tokens,
+            (index, len(ranges), start, end, intro if start else ""),
+            rows,
+        )
+
+
+def _intro(unit, tree):
+    # Repeat the condition before the first subparagraph, without trailing notes.
     children = [
         c
         for c in tree.children[unit.legal_unit_id]
         if c.kind in ("subparagraph", "item")
     ]
-    if fragment.token_count > parameters.target_tokens and children:
-        for child in children:
-            yield from _chunks(
-                child, tree, source, parser_version, parameters, count_tokens
-            )
-        return
-    unsafe = [t.table_id for t in fragment.tables if t.review_status != "verified"]
-    if unsafe or fragment.token_count > parameters.max_tokens:
-        yield FragmentOmission(
-            legal_unit_id=unit.legal_unit_id,
-            reason="unverified_table" if unsafe else "over_token_limit",
-            token_count=fragment.token_count,
-            table_ids=unsafe,
-        )
-    else:
-        yield fragment
+    if not children:
+        return ""
+    return unit.text_original[
+        : unit.text_original.index(children[0].text_original)
+    ].strip()
 
 
 def chunk_structure(

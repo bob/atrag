@@ -1,12 +1,14 @@
 """Validate a completed parse and publish isolated, deterministic fragments."""
 
 import hashlib
+from collections import defaultdict
 from importlib.metadata import version
 from pathlib import Path
 
 import tiktoken
 
 from atrag.ingestion.chunk import chunk_structure
+from atrag.ingestion.part_validation import reassemble_unit
 from atrag.ingestion.services.artifacts import write_json, write_jsonl
 from atrag.ingestion.services.runs import record_run
 from atrag.ingestion.services.snapshots import read_snapshot
@@ -60,20 +62,26 @@ def _load_inputs(raw, data_dir, source):
     return parent, snapshot, result
 
 
+def _descendant_coverage(structure, output):
+    covered = {f.legal_unit_id for f in output.fragments}
+    children = defaultdict(list)
+    for unit in structure.units:
+        if unit.kind != "note":
+            children[unit.parent_id].append(unit.legal_unit_id)
+            if unit.parent_id in covered:
+                covered.add(unit.legal_unit_id)
+    return covered, children
+
+
 def _coverage(structure, output):
-    covered = {
-        i for f in output.fragments for i in [*f.legal_unit_ids, *f.context_unit_ids]
-    }
-    by_id = {u.legal_unit_id: u for u in structure.units}
-    for fragment in output.fragments:
-        for context in fragment.context:
-            unit = by_id[context.legal_unit_id]
-            if context.text_original == unit.text_original:
-                covered.update(
-                    u.legal_unit_id
-                    for u in structure.units
-                    if u.legal_unit_id.startswith(unit.legal_unit_id + ":")
-                )
+    covered, children = _descendant_coverage(structure, output)
+    headers = {c.legal_unit_id for f in output.fragments for c in f.context}
+    for unit in reversed(structure.units):
+        if (
+            unit.legal_unit_id in headers
+            and set(children[unit.legal_unit_id]) <= covered
+        ):
+            covered.add(unit.legal_unit_id)
     required = [
         u for u in structure.units if u.kind not in ("chapter", "section", "subsection")
     ]
@@ -109,6 +117,7 @@ def _report(structure, output):
         "article_count": sum(u.kind == "article" for u in structure.units),
         "paragraph_count": sum(u.kind == "paragraph" for u in structure.units),
         "token_counts": lengths,
+        "source_part_coverage": _source_part_coverage(structure, output),
         "uncovered_unit_ids": uncovered,
         "omissions": [o.model_dump(mode="json") for o in output.omissions],
         "extraction_issues": structure.extraction_issues,
@@ -130,6 +139,24 @@ def _report(structure, output):
         ),
         "validity_status": "unknown",
     }
+
+
+def _source_part_coverage(structure, output):
+    groups = defaultdict(list)
+    units = {u.legal_unit_id: u for u in structure.units}
+    for part in output.fragments:
+        groups[part.legal_unit_id].append(part)
+    coverage = []
+    for identity, parts in groups.items():
+        reassemble_unit(units[identity], parts)
+        coverage.append(
+            {
+                "legal_unit_id": identity,
+                "complete": True,
+                "ranges": [[p.source_start, p.source_end] for p in parts],
+            }
+        )
+    return coverage
 
 
 def chunk_parsed(

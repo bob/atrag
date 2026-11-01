@@ -11,7 +11,7 @@ from atrag.schemas.ingestion.extraction import Artifact, ExtractedTable
 from atrag.schemas.ingestion.sources import SourceDefinition
 from atrag.schemas.ingestion.structure import LegalUnit, SourceLocator
 
-CHUNKER_VERSION = "1"
+CHUNKER_VERSION = "2"
 
 
 class ChunkParameters(Artifact):
@@ -32,11 +32,24 @@ class FragmentContext(Artifact):
     locators: list[SourceLocator]
 
 
+class TableRange(Artifact):
+    table_id: str
+    row_start: int = Field(ge=0)
+    row_end: PositiveInt
+
+
 class SearchFragment(LegalUnit):
     fragment_id: str = Field(pattern=r"^[0-9a-f]{64}$")
     chunker_version: str = CHUNKER_VERSION
     parser_version: str
     parameters: ChunkParameters
+    # Zero-based ordinal and half-open offsets in the complete LegalUnit.
+    part_index: int = Field(ge=0)
+    part_count: PositiveInt
+    source_start: int = Field(ge=0)
+    source_end: PositiveInt
+    locator_precision: Literal["legal_unit"] = "legal_unit"
+    repeated_intro: str = ""
     source: SourceDefinition
     legal_unit_ids: list[str]
     context_unit_ids: list[str]
@@ -45,13 +58,16 @@ class SearchFragment(LegalUnit):
     embedding_input_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
     token_count: PositiveInt
     tables: list[ExtractedTable]
+    table_ranges: list[TableRange] = Field(default_factory=list)
     review_status: Literal["ready", "needs_review"]
 
 
 class FragmentOmission(Artifact):
     legal_unit_id: str
-    reason: Literal["over_token_limit", "unverified_table"]
-    token_count: int
+    reason: Literal[
+        "over_token_limit", "unverified_table", "table_row_over_token_limit"
+    ]
+    token_count: int | None
     table_ids: list[str]
 
 

@@ -94,13 +94,20 @@ def test_chunk_run_is_reproducible_and_preserves_input(parsed):
     assert report["article_count"] == report["paragraph_count"] == 1
     assert report["schema_version"] == 1
     assert report["uncovered_unit_ids"] == []
+    assert report["source_part_coverage"] == [
+        {
+            "legal_unit_id": "pt:cirs:code:article:1:paragraph:1",
+            "complete": True,
+            "ranges": [[0, len("1 - Não se aplica.")]],
+        }
+    ]
     assert report["extraction_issues"][0]["page_number"] == 1
     assert report["review_status"] == "needs_review"
     manifest = json.loads((first.directory / "manifest.json").read_text())
     assert (manifest["stage"], manifest["status"], manifest["chunker_version"]) == (
         "chunk",
         "succeeded",
-        "1",
+        "2",
     )
     assert manifest["tokenizer_version"]
     assert manifest["parameters"]["max_tokens"] == 1200
@@ -229,7 +236,7 @@ def test_context_coverage_accounts_for_whole_notes(parsed):
     assert child["legal_unit_id"] not in report["uncovered_unit_ids"]
 
 
-def test_partial_parent_context_does_not_hide_an_oversize_sibling(parsed):
+def test_long_sibling_is_covered_by_actual_source_parts(parsed):
     data, parent, source, _ = parsed
     path = parent.parent / "legal_units.jsonl"
     units = [json.loads(l) for l in path.read_text().splitlines()]
@@ -249,9 +256,67 @@ def test_partial_parent_context_does_not_hide_an_oversize_sibling(parsed):
     )
     run = chunk_parsed(parent, data, source, ChunkParameters())
     report = json.loads((run.directory / "report.json").read_text())
-    assert sibling["legal_unit_id"] in report["uncovered_unit_ids"]
-    assert report["omissions"][0]["legal_unit_id"] == sibling["legal_unit_id"]
+    assert sibling["legal_unit_id"] not in report["uncovered_unit_ids"]
+    assert report["omissions"] == []
+    parts = [
+        json.loads(line)
+        for line in (run.directory / "fragments.jsonl").read_text().splitlines()
+    ]
+    assert (
+        "".join(
+            p["text_original"]
+            for p in parts
+            if p["legal_unit_id"] == sibling["legal_unit_id"]
+        )
+        == text
+    )
     assert report["review_status"] == "needs_review"
+
+
+def test_parent_header_does_not_cover_an_omitted_child(parsed):
+    data, parent, source, _ = parsed
+    units = [
+        json.loads(line)
+        for line in (parent.parent / "legal_units.jsonl").read_text().splitlines()
+    ]
+    text = "2 - A tabela carece de verificação."
+    sibling = {
+        **units[-1],
+        "legal_unit_id": units[-1]["legal_unit_id"].removesuffix("1") + "2",
+        "paragraph": "2",
+        "text_original": text,
+        "table_ids": ["unsafe"],
+    }
+    units[1]["text_original"] += "\n" + text
+    update_artifact(
+        parent,
+        "legal_units.jsonl",
+        "\n".join(json.dumps(u) for u in [*units, sibling]) + "\n",
+    )
+    update_artifact(
+        parent,
+        "tables.json",
+        json.dumps(
+            {
+                "tables": [
+                    {
+                        "table_id": "unsafe",
+                        "parts": [],
+                        "header_rows": [],
+                        "rows": [["1000", "12,50"]],
+                        "context": "Taxas",
+                        "review_status": "needs_review",
+                    }
+                ]
+            }
+        ),
+    )
+    run = chunk_parsed(parent, data, source, ChunkParameters())
+    report = json.loads((run.directory / "report.json").read_text())
+    assert set(report["uncovered_unit_ids"]) == {
+        units[1]["legal_unit_id"],
+        sibling["legal_unit_id"],
+    }
 
 
 def test_report_preserves_unresolved_references_and_unverified_tables(parsed):

@@ -9,6 +9,7 @@ from atrag.db_models import DocumentTableRow, FragmentRow, LegalUnitRow, Snapsho
 from atrag.ingestion.api.embeddings import request_embeddings
 from atrag.ingestion.embeddings import match_response, prepare_input
 from atrag.retrieval.context import assemble_hits
+from atrag.retrieval.parts import hit_coverage
 from atrag.retrieval.query import (
     merge_filters,
     normalize_address,
@@ -52,6 +53,7 @@ def _rank_candidates(connection, request, snapshot, client, usage, encoding):
             query.order_by(
                 FragmentRow.page_start,
                 FragmentRow.legal_unit_id,
+                FragmentRow.payload["part_index"].as_integer(),
                 FragmentRow.fragment_id,
             )
         ).all()
@@ -166,6 +168,7 @@ def _search(connection, request, client, usage):
         else "address_not_found",
         hits=hits,
         context_tokens_used=used,
+        unit_coverage=hit_coverage(hits),
         limitations=["context_budget_exceeded"] if limited else [],
         **base,
     )

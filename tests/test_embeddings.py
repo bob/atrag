@@ -64,6 +64,10 @@ def chunked(tmp_path):
         encoding = tiktoken.get_encoding("cl100k_base")
         fragments = [
             SearchFragment(
+                part_index=0,
+                part_count=1,
+                source_start=0,
+                source_end=max(1, len(text)),
                 fragment_id=hashlib.sha256(str(i).encode()).hexdigest(),
                 legal_unit_id=f"pt:cirs:code:article:{i + 1}",
                 parent_id=None,

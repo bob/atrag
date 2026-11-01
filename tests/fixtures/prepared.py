@@ -32,7 +32,7 @@ def refresh_manifest(path, group="output_sha256"):
     write_json(path, manifest)
 
 
-def prepare_document(tmp_path):
+def prepare_document(tmp_path, *, second_paragraph=None):
     tmp_path.mkdir(parents=True, exist_ok=True)
     data = tmp_path / "local"
     pdf = tmp_path / "original.pdf"
@@ -58,6 +58,8 @@ def prepare_document(tmp_path):
         "Taxa adicional de solidariedade",
         "1 - A taxa aplica-se ao rendimento coletável.",
     ]
+    if second_paragraph is not None:
+        texts[5] = second_paragraph
     part = TablePart(
         part_id="rates:1",
         table_id="rates",
@@ -129,6 +131,12 @@ def prepare_document(tmp_path):
     ]
     embedded = tmp_path / "embedded"
     embedded.mkdir()
+    input_indices = {
+        value: index
+        for index, value in enumerate(
+            dict.fromkeys(f.embedding_input_hash for f in fragments)
+        )
+    }
     write_jsonl(
         embedded / "embeddings.jsonl",
         [
@@ -136,11 +144,14 @@ def prepare_document(tmp_path):
                 model="text-embedding-3-small",
                 dimensions=1536,
                 input_hash=f.embedding_input_hash,
-                embedding=[float(i == j) for j in range(1536)],
+                embedding=[
+                    float(input_indices[f.embedding_input_hash] == j)
+                    for j in range(1536)
+                ],
                 snapshot_id=f.snapshot_id,
                 fragment_id=f.fragment_id,
             )
-            for i, f in enumerate(fragments)
+            for f in fragments
         ],
     )
     write_json(

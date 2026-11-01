@@ -1,10 +1,18 @@
 """Validate relationships once, before any corpus transaction is opened."""
 
 import hashlib
+from collections import defaultdict
 from graphlib import CycleError, TopologicalSorter
 
 import tiktoken
 
+from atrag.ingestion.part_validation import reassemble_unit, validate_part
+from atrag.ingestion.table_parts import (
+    select_tables,
+    table_rows,
+    table_text,
+    validate_table_boundaries,
+)
 from atrag.schemas.ingestion.packages import ChunkQuality
 
 
@@ -62,14 +70,21 @@ def validate_fragment(fragment, document, units, tables, encoding):
         raise ValueError("Fragment content must include its primary legal unit")
     if [c.legal_unit_id for c in fragment.context] != fragment.context_unit_ids:
         raise ValueError("Fragment context relationships differ")
-    validate_fragment_tables(fragment, tables)
+    unit = units[fragment.legal_unit_id]
+    validate_part(unit, fragment)
+    validate_fragment_tables(fragment, unit, tables)
     validate_fragment_identity(fragment, document.manifest, encoding)
 
 
-def validate_fragment_tables(fragment, tables):
+def validate_fragment_tables(fragment, unit, tables):
     if {t.table_id for t in fragment.tables} != set(fragment.table_ids):
         raise ValueError("Fragment tables do not match its table identifiers")
-    if any(tables.get(t.table_id) != t for t in fragment.tables):
+    rows = table_rows(unit, tables)
+    validate_table_boundaries(rows, fragment.source_start, fragment.source_end)
+    selected, ranges = select_tables(
+        rows, tables, fragment.source_start, fragment.source_end
+    )
+    if fragment.tables != selected or fragment.table_ranges != ranges:
         raise ValueError("Fragment tables differ from prepared tables")
 
 
@@ -88,9 +103,25 @@ def validate_fragment_identity(fragment, manifest, encoding):
         raise ValueError("Fragment embedding input hash mismatch")
     if fragment.token_count != len(encoding.encode_ordinary(fragment.embedding_text)):
         raise ValueError("Fragment token count mismatch")
+    if (
+        max(
+            fragment.token_count,
+            len(encoding.encode_ordinary(table_text(fragment.tables))),
+        )
+        > fragment.parameters.max_tokens
+    ):
+        raise ValueError("Fragment exceeds its token limit")
     identity = fragment.model_dump_json(exclude={"fragment_id", "source"})
     if fragment.fragment_id != digest(identity.encode()):
         raise ValueError("Fragment identity mismatch")
+
+
+def validate_part_groups(fragments, units):
+    groups = defaultdict(list)
+    for part in fragments:
+        groups[part.legal_unit_id].append(part)
+    for identity, parts in groups.items():
+        reassemble_unit(units[identity], sorted(parts, key=lambda p: p.part_index))
 
 
 def validate_embeddings(document, fragments):
@@ -131,4 +162,5 @@ def validate_document(document):
     encoding = tiktoken.get_encoding("cl100k_base")
     for fragment in fragments.values():
         validate_fragment(fragment, document, units, tables, encoding)
+    validate_part_groups(fragments.values(), units)
     validate_embeddings(document, fragments)
