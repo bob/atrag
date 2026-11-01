@@ -13,7 +13,7 @@ from atrag.schemas.ingestion.structure import (
     StructureResult,
 )
 
-PARSER_VERSION = "2"
+PARSER_VERSION = "3"
 CODE_TITLE = "Código do Imposto sobre o Rendimento das Pessoas Singulares"
 ARTICLE_HEADING = re.compile(r"Artigo\s+(\d+\.º(?:-[A-Z])?|único)", re.IGNORECASE)
 DIVISION = re.compile(r"(CAPÍTULO|SECÇÃO|SUBSECÇÃO)\s+([IVXLCDM]+)", re.IGNORECASE)
@@ -356,7 +356,7 @@ class _Parser:
 
     def consume(self, segment: _Segment):
         text = segment.block.text.strip()
-        if re.search(r"\.{3,}", text):
+        if re.search(r"\.{3,}\s*\d+\s*$", text):
             self.excluded += 1
             return
         heading = _heading(segment)

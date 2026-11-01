@@ -198,7 +198,11 @@ def test_relative_exact_external_and_ambiguous_references():
     assert third[0].reason == "external_instrument"
     assert third[1].target_ids == ["pt:cirs:code:article:2-A"]
     fourth = units["pt:cirs:code:article:1:paragraph:4"].references
-    assert all(r.status == "unresolved" for r in fourth)
+    assert fourth[0].target_ids == [
+        "pt:cirs:code:article:1:paragraph:1",
+        "pt:cirs:code:article:1:paragraph:2",
+    ]
+    assert fourth[1].status == "unresolved"
     assert "n.os 1 e 2" in [r.raw_text for r in fourth]
     last = units["pt:cirs:code:article:2-A"].references
     assert last[0].target_ids == ["pt:cirs:code:article:1:paragraph:2"]
@@ -318,7 +322,7 @@ def test_qualified_and_plural_references_do_not_resolve_to_the_wrong_unit():
     )
     refs = units["pt:cirs:code:article:1:paragraph:2"].references
     assert refs[0].target_ids == ["pt:cirs:code:article:1:paragraph:1:subparagraph:a"]
-    assert refs[1].status == "unresolved"
+    assert refs[1].target_ids == ["pt:cirs:code:article:1", "pt:cirs:code:article:2"]
     assert refs[1].raw_text == "artigos 1.º e 2.º"
     assert units["pt:cirs:code:article:1:note:1"].references[0].status == "unresolved"
 
@@ -490,6 +494,22 @@ def test_excluded_blocks_and_mixed_snapshot_boundary():
         parse_cirs(
             [p, p.model_copy(update={"snapshot_id": "b" * 64, "page_number": 2})], []
         )
+
+
+def test_ellipsis_in_a_source_quotation_is_preserved():
+    result = parse(
+        block("Artigo 1.º", 100, heading=True),
+        block("Nota: Norma transitória:", 130),
+        block('"[...]', 150),
+        block("2 - Regra citada.", 170),
+        block('[...]"', 190),
+    )
+    note = next(u for u in result.units if u.kind == "note")
+    assert (
+        note.text_original
+        == 'Nota: Norma transitória:\n"[...]\n2 - Regra citada.\n[...]"'
+    )
+    assert result.excluded_block_count == 0
 
 
 def test_relative_paragraph_does_not_jump_into_previous_article():
