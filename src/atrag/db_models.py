@@ -4,7 +4,6 @@ from datetime import date, datetime
 
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import (
-    Computed,
     DateTime,
     ForeignKey,
     ForeignKeyConstraint,
@@ -13,7 +12,7 @@ from sqlalchemy import (
     Text,
     UniqueConstraint,
 )
-from sqlalchemy.dialects.postgresql import JSONB, TSVECTOR
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from atrag.ingestion.services.embedding_cache import EMBEDDINGS
@@ -135,7 +134,6 @@ class FragmentRow(AddressColumns, Base):
             "article",
             "legal_status",
         ),
-        Index("ix_search_fragments_fts", "search_vector", postgresql_using="gin"),
     )
     fragment_id: Mapped[str] = mapped_column(String(64), primary_key=True)
     document_title: Mapped[str] = mapped_column(Text)
@@ -144,15 +142,6 @@ class FragmentRow(AddressColumns, Base):
     embedding_dimensions: Mapped[int]
     embedding_input_hash: Mapped[str] = mapped_column(String(64))
     embedding: Mapped[list[float]] = mapped_column(Vector(1536))
-    search_vector: Mapped[str] = mapped_column(
-        TSVECTOR,
-        Computed(
-            "setweight(to_tsvector('portuguese', unit_title), 'A') || "
-            "setweight(to_tsvector('portuguese', document_title), 'B') || "
-            "setweight(to_tsvector('portuguese', text_normalized), 'D')",
-            persisted=True,
-        ),
-    )
 
 
 class FragmentUnitRow(Base):

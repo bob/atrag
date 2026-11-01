@@ -13,15 +13,14 @@ from atrag.schemas.retrieval import SearchFilters
 pytestmark = pytest.mark.integration
 
 
-@pytest.mark.parametrize("mode", ["vector", "fts", "hybrid"])
-def test_retrieval_modes_are_independent(indexed, engine, mode):
+def test_semantic_search_returns_cosine_similarity_and_vector_order(indexed, engine):
     calls = []
 
     def create(**kwargs):
         calls.append(kwargs)
         raw = {
             "model": kwargs["model"],
-            "data": [{"index": 0, "embedding": [1.0] + [0.0] * 1535}],
+            "data": [{"index": 0, "embedding": [0.6, 0.8] + [0.0] * 1534}],
             "usage": {"prompt_tokens": 2, "total_tokens": 2},
         }
         return SimpleNamespace(model_dump=lambda: raw)
@@ -31,22 +30,17 @@ def test_retrieval_modes_are_independent(indexed, engine, mode):
         query_language="pt",
         snapshot_id=indexed,
         engine=engine,
-        mode=mode,
         client=SimpleNamespace(embeddings=SimpleNamespace(create=create)),
     )
     assert result.status == "ok"
-    assert len(calls) == (0 if mode == "fts" else 1)
-    if mode == "fts":
-        assert all(
-            h.vector_rank is None and h.text_rank is not None for h in result.hits
-        )
-    if mode == "vector":
-        assert all(
-            h.text_rank is None and h.vector_rank is not None for h in result.hits
-        )
+    assert len(calls) == 1
+    assert [h.fragment.paragraph for h in result.hits[:2]] == ["2", "1"]
+    assert [h.score for h in result.hits] == pytest.approx([0.8, 0.6, 0.0])
+    assert [h.vector_rank for h in result.hits] == [1, 2, 3]
+    assert all("text_rank" not in h.model_dump() for h in result.hits)
 
 
-def test_evaluate_command_records_all_modes_without_live_model(
+def test_evaluate_command_records_each_case_once_without_live_model(
     indexed, engine, prepared_document, tmp_path, monkeypatch, capsys, database_dsn
 ):
     import json
@@ -112,7 +106,7 @@ def test_evaluate_command_records_all_modes_without_live_model(
     main(["evaluate", "--package", str(package), "--benchmark", str(path)])
     output = json.loads(capsys.readouterr().out)
     report = json.loads(Path(output["report"]).read_bytes())
-    assert len(report["records"]) == 3
+    assert len(report["records"]) == 1
     assert all(r["passed"] for r in report["records"])
     assert report["expansion_records"][0]["passed"]
     assert report["expansion_records"][0]["citations_correct"]
@@ -149,7 +143,8 @@ def test_exact_search_preserves_citations_context_and_does_not_need_model(
     assert result.snapshot_id == indexed
     assert result.consolidation_label
     assert len(result.hits) == 2
-    assert [h.score for h in result.hits] == pytest.approx([1 / 61, 1 / 62])
+    assert [h.score for h in result.hits] == [1.0, 1.0]
+    assert all(h.vector_rank is None for h in result.hits)
     assert all(
         h.fragment.article == "16" and h.fragment.snapshot_id == indexed
         for h in result.hits
@@ -188,7 +183,7 @@ def test_absent_document_is_explicit_and_never_returns_cirs(indexed, engine):
         ("pt", "Como se determina a residência fiscal?"),
     ],
 )
-def test_hybrid_uses_indexed_model_and_returns_portuguese(
+def test_vector_search_uses_indexed_model_and_returns_portuguese(
     indexed, engine, language, query
 ):
     calls = []
@@ -321,7 +316,7 @@ def test_commands_index_and_search_without_source_registry(
     assert json.loads(capsys.readouterr().out)["status"] == "ok"
 
 
-def test_semantic_filters_apply_to_both_candidate_lists(indexed, engine):
+def test_semantic_filters_restrict_vector_candidates(indexed, engine):
     def create(**kwargs):
         raw = {
             "model": kwargs["model"],
@@ -340,7 +335,6 @@ def test_semantic_filters_apply_to_both_candidate_lists(indexed, engine):
     )
     assert len(result.hits) == 1
     assert result.hits[0].fragment.article == "68-A"
-    assert result.hits[0].text_rank is None
 
 
 def test_search_never_crosses_snapshot_boundaries(indexed, engine, tmp_path):

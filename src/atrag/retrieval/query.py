@@ -1,9 +1,9 @@
-"""Pure address normalization, conservative language hints and rank fusion."""
+"""Pure address normalization and conservative language hints."""
 
 import re
 
 from atrag.ingestion.legal_references import article_number
-from atrag.schemas.retrieval import Ranking, SearchFilters
+from atrag.schemas.retrieval import SearchFilters
 
 CODE = r"(?:CIRS|CIVA|CIRC|EBF|LGT|RGIT)"
 NUMBER = r"\d+(?:\.º)?(?:-[a-z])?"
@@ -49,19 +49,3 @@ def merge_filters(explicit, address):
                 raise ValueError("Query address conflicts with explicit filters")
             values[key] = value
     return SearchFilters(**values)
-
-
-def reciprocal_rank_fusion(vector_ids, text_ids, k):
-    ranks = {}
-    for branch, identities in (("vector_rank", vector_ids), ("text_rank", text_ids)):
-        for rank, identity in enumerate(identities, start=1):
-            ranks.setdefault(identity, {})[branch] = rank
-    result = [
-        Ranking(
-            fragment_id=identity,
-            score=sum(1 / (k + rank) for rank in branches.values()),
-            **branches,
-        )
-        for identity, branches in ranks.items()
-    ]
-    return sorted(result, key=lambda item: (-item.score, item.fragment_id))

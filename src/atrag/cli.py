@@ -24,7 +24,7 @@ from atrag.migrations import migrate_database
 from atrag.retrieval.evaluate import evaluate_search
 from atrag.retrieval.search import search_tax_documents
 from atrag.schemas.ingestion.fragments import ChunkParameters
-from atrag.schemas.retrieval import RetrievalMode, SearchFilters
+from atrag.schemas.retrieval import SearchFilters
 from atrag.schemas.settings import Settings, SupportedLanguage
 from atrag.settings import PROJECT_ROOT, load_settings
 
@@ -111,7 +111,6 @@ def _search_parser(commands):
     search.add_argument("--language", choices=get_args(SupportedLanguage))
     search.add_argument("--limit", type=int, default=5)
     search.add_argument("--context-tokens", type=int, default=6000)
-    search.add_argument("--mode", choices=get_args(RetrievalMode), default="hybrid")
     search.add_argument("--code")
     search.add_argument("--article")
     search.add_argument("--scope", choices=("code", "approving_decree", "preamble"))
@@ -251,9 +250,7 @@ def _search_command(source, settings, args):
             snapshot_id=args.snapshot,
             engine=engine,
             client=client,
-            rrf_k=settings.rrf_k,
             context_tokens=args.context_tokens,
-            mode=args.mode,
             filters=SearchFilters(
                 code=args.code, article=args.article, document_scope=args.scope
             ),
@@ -275,7 +272,6 @@ def _evaluate_command(source, settings, args):
             settings.data_dir,
             client=client,
             context_tokens=args.context_tokens,
-            rrf_k=settings.rrf_k,
         )
     return {"directory": str(directory), "report": str(directory / "report.json")}
 

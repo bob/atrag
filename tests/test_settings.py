@@ -29,7 +29,7 @@ def test_explicit_root_environment_precedence_and_paths(project_root, monkeypatc
     assert "file-password" not in repr(settings)
     assert "file-password" not in settings.model_dump_json()
     with pytest.raises(ValidationError):
-        settings.rrf_k = 4
+        settings.embedding_batch_size = 4
 
 
 def test_local_defaults_do_not_require_database_or_api_key(project_root):
@@ -42,7 +42,6 @@ def test_local_defaults_do_not_require_database_or_api_key(project_root):
     assert settings.embedding_batch_size == 32
     assert settings.chunk_target_tokens == 700
     assert settings.chunk_max_tokens == 1200
-    assert settings.rrf_k == 60
     assert settings.data_dir == project_root / "data"
 
 
@@ -50,7 +49,6 @@ def test_local_defaults_do_not_require_database_or_api_key(project_root):
     ("name", "value"),
     [
         ("ATRAG_EMBEDDING_BATCH_SIZE", "0"),
-        ("ATRAG_RRF_K", "-1"),
         ("ATRAG_CHUNK_TARGET_TOKENS", "0"),
         ("ATRAG_CHUNK_MAX_TOKENS", "699"),
         ("OPENAI_EMBEDDING_DIMENSIONS", "0"),
@@ -142,7 +140,7 @@ def test_dotenv_expansion_keeps_process_precedence_and_ignores_bare_keys(
 ):
     (project_root / ".env").write_text(
         "ATRAG_EMBEDDING_BATCH_SIZE=12\n"
-        "ATRAG_RRF_K=${ATRAG_EMBEDDING_BATCH_SIZE}\n"
+        "OPENAI_EMBEDDING_DIMENSIONS=${ATRAG_EMBEDDING_BATCH_SIZE}\n"
         "ATRAG_DATA_DIR=${REVIEW_OUTPUT_DIR:-artifacts}/cirs\n"
         "ATRAG_CHUNK_TARGET_TOKENS\n",
         encoding="utf-8",
@@ -150,14 +148,14 @@ def test_dotenv_expansion_keeps_process_precedence_and_ignores_bare_keys(
     monkeypatch.setenv("ATRAG_EMBEDDING_BATCH_SIZE", "7")
     monkeypatch.setenv("REVIEW_OUTPUT_DIR", "external")
     settings = load_settings(project_root)
-    assert settings.embedding_batch_size == settings.rrf_k == 7
+    assert settings.embedding_batch_size == settings.embedding_dimensions == 7
     assert settings.data_dir == project_root / "external/cirs"
     assert settings.chunk_target_tokens == 700
 
 
 @pytest.mark.parametrize("disabled", ["1", "TRUE", "yes", "0"])
 def test_dotenv_disabled_flag_is_preserved(project_root, monkeypatch, disabled):
-    (project_root / ".env").write_text("ATRAG_RRF_K=77\n")
+    (project_root / ".env").write_text("ATRAG_EMBEDDING_BATCH_SIZE=77\n")
     monkeypatch.setenv("PYTHON_DOTENV_DISABLED", disabled)
-    expected = 77 if disabled == "0" else 60
-    assert load_settings(project_root).rrf_k == expected
+    expected = 77 if disabled == "0" else 32
+    assert load_settings(project_root).embedding_batch_size == expected

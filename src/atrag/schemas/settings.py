@@ -47,7 +47,6 @@ class Settings(BaseModel):
         default=700, alias="ATRAG_CHUNK_TARGET_TOKENS"
     )
     chunk_max_tokens: PositiveInt = Field(default=1200, alias="ATRAG_CHUNK_MAX_TOKENS")
-    rrf_k: PositiveInt = Field(default=60, alias="ATRAG_RRF_K")
 
     @field_validator("openai_api_key", "database_url", mode="before")
     @classmethod

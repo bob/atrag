@@ -3,7 +3,6 @@ import pytest
 from atrag.retrieval.query import (
     normalize_address,
     query_language,
-    reciprocal_rank_fusion,
 )
 
 
@@ -24,14 +23,6 @@ def test_letter_suffix_is_preserved_and_unqualified_article_is_ambiguous():
     assert normalize_address("artigo 68.º-A CIRS").article == "68-A"
     assert normalize_address("artigo 1") is None
     assert normalize_address("Como se determina a residência fiscal?") is None
-
-
-def test_rrf_combines_ranks_and_breaks_ties_deterministically():
-    ranked = reciprocal_rank_fusion(["a", "b", "c"], ["b", "d", "a"], 60)
-    assert [r.fragment_id for r in ranked] == ["b", "a", "d", "c"]
-    assert ranked[0].score == pytest.approx(1 / 62 + 1 / 61)
-    assert (ranked[0].vector_rank, ranked[0].text_rank) == (2, 1)
-    assert reciprocal_rank_fusion([], [], 60) == []
 
 
 @pytest.mark.parametrize(

@@ -5,6 +5,18 @@ import pytest
 from atrag.cli import main
 
 
+@pytest.mark.parametrize("mode", ["fts", "hybrid"])
+def test_search_rejects_obsolete_modes_before_configuration(mode, monkeypatch, capsys):
+    monkeypatch.setattr(
+        "atrag.cli.load_settings",
+        lambda: pytest.fail("Removed modes must be rejected before configuration"),
+    )
+    with pytest.raises(SystemExit) as error:
+        main(["search", "residência", "--snapshot", "b" * 64, "--mode", mode])
+    assert error.value.code == 2
+    assert "unrecognized arguments" in capsys.readouterr().err
+
+
 def test_package_command_uses_prepared_inputs(
     prepared_document, tmp_path, monkeypatch, capsys
 ):

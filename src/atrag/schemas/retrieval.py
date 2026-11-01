@@ -11,8 +11,6 @@ from atrag.schemas.ingestion.sources import SourceDefinition
 from atrag.schemas.ingestion.structure import LegalUnit, SourceLocator
 from atrag.schemas.settings import SupportedLanguage
 
-RetrievalMode = Literal["vector", "fts", "hybrid"]
-
 
 class SearchFilters(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -26,14 +24,12 @@ class SearchFilters(BaseModel):
 
 
 class SearchRequest(BaseModel):
-    model_config = ConfigDict(str_strip_whitespace=True)
+    model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
     query: str = Field(min_length=1, max_length=32000)
     snapshot_id: SHA256
     limit: int = Field(default=5, ge=1, le=50, strict=True)
     query_language: SupportedLanguage | None = None
     context_tokens: int = Field(default=6000, gt=0, strict=True)
-    rrf_k: int = Field(default=60, gt=0, strict=True)
-    mode: RetrievalMode = "hybrid"
     filters: SearchFilters = Field(default_factory=SearchFilters)
 
 
@@ -41,7 +37,6 @@ class Ranking(BaseModel):
     fragment_id: str
     score: float
     vector_rank: int | None = None
-    text_rank: int | None = None
 
 
 class SearchHit(Ranking):

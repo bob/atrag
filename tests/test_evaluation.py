@@ -163,7 +163,7 @@ def test_summary_keeps_languages_modes_and_failures_separate():
             "case_id": "a",
             "kind": "semantic",
             "language": "ru",
-            "mode": "hybrid",
+            "mode": "vector",
             "target_found": True,
             "passed": True,
             "citations_correct": True,
@@ -175,7 +175,7 @@ def test_summary_keeps_languages_modes_and_failures_separate():
             "case_id": "b",
             "kind": "semantic",
             "language": "ru",
-            "mode": "hybrid",
+            "mode": "vector",
             "target_found": False,
             "passed": False,
             "citations_correct": True,
@@ -187,7 +187,7 @@ def test_summary_keeps_languages_modes_and_failures_separate():
             "case_id": "c",
             "kind": "exact",
             "language": "en",
-            "mode": "fts",
+            "mode": "vector",
             "target_found": True,
             "passed": True,
             "citations_correct": True,
@@ -197,18 +197,18 @@ def test_summary_keeps_languages_modes_and_failures_separate():
         },
     ]
     summary = summarize(records)
-    assert summary["hybrid:ru"]["semantic_hit_at_5"] == 0.5
-    assert summary["hybrid:ru"]["context_recall"] == 0.5
-    assert summary["hybrid:ru"]["total_tokens"] == 12
-    assert summary["hybrid:ru"]["p95_seconds"] == 3
-    assert summary["hybrid:ru"]["failed_case_ids"] == ["b"]
-    assert summary["fts:en"]["semantic_hit_at_5"] is None
-    assert summary["fts:en"]["exact_pass_rate"] == 1
-    assert summary["fts:en"]["exact_cases"] == 1
-    assert summary["hybrid:ru"]["exact_pass_rate"] is None
+    assert summary["vector:ru"]["semantic_hit_at_5"] == 0.5
+    assert summary["vector:ru"]["context_recall"] == 0.5
+    assert summary["vector:ru"]["total_tokens"] == 12
+    assert summary["vector:ru"]["p95_seconds"] == 3
+    assert summary["vector:ru"]["failed_case_ids"] == ["b"]
+    assert summary["vector:en"]["semantic_hit_at_5"] is None
+    assert summary["vector:en"]["exact_pass_rate"] == 1
+    assert summary["vector:en"]["exact_cases"] == 1
+    assert summary["vector:ru"]["exact_pass_rate"] is None
     assert json.loads(json.dumps(summary)) == summary
     records.append({**records[-1], "case_id": "d", "passed": False})
-    assert summarize(records)["fts:en"]["exact_pass_rate"] == 0.5
+    assert summarize(records)["vector:en"]["exact_pass_rate"] == 0.5
 
 
 @pytest.mark.parametrize(
@@ -597,7 +597,10 @@ def test_evaluation_saves_outputs_and_completed_results_on_failure(
     ids = case.expected_unit_ids + case.required_context_ids
     benchmark = Benchmark(
         snapshot_id=document.snapshot.snapshot_id,
-        cases=[case],
+        cases=[
+            case,
+            case.model_copy(update={"case_id": "second", "detect_language": True}),
+        ],
         unit_pages={
             u.legal_unit_id: (u.page_start, u.page_end)
             for u in document.units
@@ -631,25 +634,24 @@ def test_evaluation_saves_outputs_and_completed_results_on_failure(
     assert manifest["package_sha256"] == digest(package.read_bytes())
     assert report["limit"] == 5
     assert report["context_tokens"] == 6000
-    assert report["rrf_k"] == 60
     assert report["embedding_model"] == document.manifest.model
     assert report["embedding_dimensions"] == 1536
-    assert report["schema_version"] == 1
+    assert report["schema_version"] == 2
     assert report["snapshot_id"] == document.snapshot.snapshot_id
     assert report["corpus_issues"] == document.reports["chunk"]
     assert "unverified" in report["vector_provenance"]
-    assert len(report["records"]) == (1 if fail else 3)
+    assert len(report["records"]) == (1 if fail else 2)
     assert report["records"][0]["passed"] is True
     assert report["records"][0]["usage"] == result.usage
     assert calls[0][:3] == (case.query, 5, case.language)
     assert calls[0][3]["snapshot_id"] == document.snapshot.snapshot_id
     assert calls[0][3]["context_tokens"] == 6000
-    assert calls[0][3]["rrf_k"] == 60
     assert calls[0][3]["filters"] == case.filters
     assert json.loads(
         (directory / f"{case.case_id}-vector.json").read_bytes()
     ) == result.model_dump(mode="json")
     if not fail:
-        assert [c[3]["mode"] for c in calls] == ["vector", "fts", "hybrid"]
+        assert len(calls) == 2
+        assert calls[1][2] is None
         for name, sha256 in manifest["output_sha256"].items():
             assert digest((directory / name).read_bytes()) == sha256

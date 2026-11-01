@@ -1,9 +1,9 @@
-"""Exact SQL addresses or cosine/Portuguese FTS candidates combined by RRF."""
+"""Exact SQL addresses or cosine similarity within one indexed snapshot."""
 
 import time
 
 import tiktoken
-from sqlalchemy import func, select
+from sqlalchemy import select
 
 from atrag.db_models import FragmentRow, LegalUnitRow, SnapshotRow
 from atrag.ingestion.api.embeddings import request_embeddings
@@ -13,7 +13,6 @@ from atrag.retrieval.parts import hit_coverage
 from atrag.retrieval.query import (
     merge_filters,
     normalize_address,
-    reciprocal_rank_fusion,
 )
 from atrag.retrieval.query import (
     query_language as detect_query_language,
@@ -55,34 +54,18 @@ def _rank_candidates(connection, request, snapshot, client, usage, encoding):
                 FragmentRow.fragment_id,
             )
         ).all()
-        return [
-            Ranking(fragment_id=identity, score=1 / (request.rrf_k + rank))
-            for rank, identity in enumerate(identities, start=1)
-        ]
-    vector_ids = []
-    if request.mode != "fts":
-        vector = _query_vector(request.query, snapshot, client, usage, encoding)
-        vector_query = query.order_by(
-            FragmentRow.embedding.cosine_distance(vector), FragmentRow.fragment_id
-        ).limit(CANDIDATE_LIMIT)
-        vector_ids = connection.scalars(vector_query).all()
-    text_ids = []
-    if request.mode != "vector":
-        text_ids = _text_candidates(connection, request, query)
-    return reciprocal_rank_fusion(vector_ids, text_ids, request.rrf_k)
-
-
-def _text_candidates(connection, request, query):
-    tsquery = func.websearch_to_tsquery("portuguese", request.query)
-    text_query = (
-        query.where(FragmentRow.search_vector.op("@@")(tsquery))
-        .order_by(
-            func.ts_rank_cd(FragmentRow.search_vector, tsquery).desc(),
-            FragmentRow.fragment_id,
-        )
+        return [Ranking(fragment_id=identity, score=1.0) for identity in identities]
+    vector = _query_vector(request.query, snapshot, client, usage, encoding)
+    distance = FragmentRow.embedding.cosine_distance(vector)
+    candidates = connection.execute(
+        query.add_columns(distance)
+        .order_by(distance, FragmentRow.fragment_id)
         .limit(CANDIDATE_LIMIT)
     )
-    return connection.scalars(text_query).all()
+    return [
+        Ranking(fragment_id=identity, score=1 - value, vector_rank=rank)
+        for rank, (identity, value) in enumerate(candidates, start=1)
+    ]
 
 
 def _load_evidence(connection, request, rankings):
@@ -167,8 +150,6 @@ def search_tax_documents(
     client=None,
     filters=None,
     context_tokens=6000,
-    rrf_k=60,
-    mode="hybrid",
 ) -> SearchResult:
     request_values = {
         "query": query,
@@ -176,8 +157,6 @@ def search_tax_documents(
         "query_language": query_language,
         "snapshot_id": snapshot_id,
         "context_tokens": context_tokens,
-        "rrf_k": rrf_k,
-        "mode": mode,
     }
     if filters is not None:
         request_values["filters"] = filters

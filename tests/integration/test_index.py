@@ -3,7 +3,7 @@
 import json
 
 import pytest
-from sqlalchemy import event, select, text
+from sqlalchemy import event, inspect, select, text
 from sqlalchemy.exc import IntegrityError
 
 from atrag.db_models import FragmentRow, SnapshotRow
@@ -50,26 +50,13 @@ def test_index_roundtrip_is_complete_idempotent_and_typed(package, engine, tmp_p
             f.fragment_id for f in document.fragments
         }
         assert all(len(row["embedding"]) == 1536 for row in rows)
-        assert (
-            connection.scalar(
-                text(
-                    "SELECT count(*) FROM search_fragments WHERE search_vector @@ plainto_tsquery('portuguese', 'residentes')"
-                )
-            )
-            == 2
-        )
-        assert (
-            connection.scalar(
-                text(
-                    "SELECT count(*) FROM search_fragments WHERE search_vector @@ plainto_tsquery('portuguese', 'de e os')"
-                )
-            )
-            == 0
-        )
+        assert "search_vector" not in {
+            c["name"] for c in inspect(connection).get_columns("search_fragments")
+        }
         indexes = connection.scalars(
             text("SELECT indexdef FROM pg_indexes WHERE tablename = 'search_fragments'")
         ).all()
-        assert any("USING gin (search_vector)" in definition for definition in indexes)
+        assert not any("USING gin" in definition for definition in indexes)
         assert not any("hnsw" in definition.lower() for definition in indexes)
     assert (data / document.snapshot.local_path).read_bytes() == document.files[
         "source.pdf"
@@ -77,6 +64,47 @@ def test_index_roundtrip_is_complete_idempotent_and_typed(package, engine, tmp_p
     report = json.loads((second.directory / "manifest.json").read_bytes())
     assert report["status"] == "succeeded"
     assert report["stage"] == "index"
+
+
+def test_upgrade_removes_legacy_lexical_index_without_changing_corpus(
+    package, engine, tmp_path
+):
+    from pathlib import Path
+
+    from alembic import command
+    from alembic.config import Config
+
+    index_package(package, engine, tmp_path / "server")
+    config = Config()
+    config.set_main_option(
+        "script_location", str(Path("src/atrag/migrations").resolve())
+    )
+    with engine.begin() as connection:
+        config.attributes["connection"] = connection
+        command.downgrade(config, "0002_corpus")
+        before = connection.execute(
+            text(
+                "SELECT fragment_id, embedding::text, payload FROM search_fragments ORDER BY fragment_id"
+            )
+        ).all()
+        assert "search_vector" in {
+            c["name"] for c in inspect(connection).get_columns("search_fragments")
+        }
+    migrate_database(engine)
+    migrate_database(engine)
+    with engine.connect() as connection:
+        assert "search_vector" not in {
+            c["name"] for c in inspect(connection).get_columns("search_fragments")
+        }
+        assert (
+            connection.execute(
+                text(
+                    "SELECT fragment_id, embedding::text, payload FROM search_fragments ORDER BY fragment_id"
+                )
+            ).all()
+            == before
+        )
+        assert connection.scalar(text("SELECT count(*) FROM embeddings")) == 3
 
 
 def test_transaction_failure_preserves_previous_searchable_index(
