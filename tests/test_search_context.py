@@ -5,7 +5,7 @@ import tiktoken
 
 from atrag.ingestion.services.packages import build_package, load_package
 from atrag.retrieval.context import assemble_hits
-from atrag.schemas.ingestion.structure import EditorialNote
+from atrag.schemas.ingestion.structure import EditorialNote, SourceLocator
 from atrag.schemas.retrieval import Ranking, SearchHit, SearchRequest, SearchResult
 
 
@@ -67,6 +67,75 @@ def test_search_response_omits_pdf_coordinates(prepared_document, tmp_path, mode
     assert fragment.locators[0].bbox
     assert fragment.context[0].locators[0].bbox
     assert part.model_dump()["cell_bboxes"] == [[(85, 290, 200, 330), None]]
+
+
+@pytest.mark.parametrize("mode", ["python", "json", "json_string"])
+def test_search_response_deduplicates_page_locators(prepared_document, tmp_path, mode):
+    data, parsed, chunked, embedded = prepared_document
+    document = load_package(
+        build_package(parsed, chunked, embedded, data, tmp_path / "package")
+    )
+    first = SourceLocator(
+        page_number=48, printed_page_labels=["47"], bbox=(85, 100, 500, 110)
+    )
+    same_page = first.model_copy(update={"bbox": (85, 120, 500, 130)})
+    next_page = first.model_copy(
+        update={"page_number": 49, "printed_page_labels": ["48"]}
+    )
+    other_labels = first.model_copy(update={"printed_page_labels": ["47", "47-A"]})
+    locators = [first, same_page, next_page, first, other_labels, next_page]
+    note = EditorialNote(
+        kind="amendment", raw_text="Redação de teste", locators=locators
+    )
+    fragment = document.fragments[0]
+    fragment = fragment.model_copy(
+        update={
+            "locators": locators,
+            "editorial_notes": [note],
+            "context": [
+                context.model_copy(update={"locators": locators})
+                for context in fragment.context
+            ],
+        }
+    )
+    unit = document.units[0].model_copy(
+        update={"locators": locators, "editorial_notes": [note]}
+    )
+    result = SearchResult(
+        status="ok",
+        snapshot_id=document.snapshot.snapshot_id,
+        query_language="pt",
+        hits=[
+            SearchHit(
+                fragment_id=fragment.fragment_id,
+                score=1,
+                fragment=fragment,
+                related_units=[unit],
+                related_tables=[],
+            )
+        ],
+        usage={},
+    )
+    original = fragment.model_dump()
+    if mode == "json_string":
+        response = json.loads(result.model_dump_json())
+    else:
+        response = result.model_dump(mode=mode)
+    hit = response["hits"][0]
+    for evidence in (
+        hit["fragment"],
+        *hit["fragment"]["context"],
+        hit["fragment"]["editorial_notes"][0],
+        hit["related_units"][0],
+        hit["related_units"][0]["editorial_notes"][0],
+    ):
+        assert evidence["locators"] == [
+            {"page_number": 48, "printed_page_labels": ["47"]},
+            {"page_number": 49, "printed_page_labels": ["48"]},
+            {"page_number": 48, "printed_page_labels": ["47", "47-A"]},
+        ]
+    assert fragment.model_dump() == original
+    assert unit.locators == note.locators == locators
 
 
 def test_primary_evidence_survives_oversize_reference_context(

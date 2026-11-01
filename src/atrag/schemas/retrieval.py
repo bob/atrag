@@ -18,15 +18,27 @@ from atrag.schemas.ingestion.structure import LegalUnit, SourceLocator
 from atrag.schemas.settings import SupportedLanguage
 
 
-def _without_pdf_coordinates(value):
+def _unique_page_locators(locators):
+    unique = {}
+    for locator in locators:
+        labels = locator.get("printed_page_labels")
+        key = (locator.get("page_number"), None if labels is None else tuple(labels))
+        unique.setdefault(key, locator)
+    return list(unique.values())
+
+
+def _compact_pdf_locations(value):
     if isinstance(value, dict):
-        return {
-            key: _without_pdf_coordinates(item)
+        compact = {
+            key: _compact_pdf_locations(item)
             for key, item in value.items()
             if key not in {"bbox", "cell_bboxes"}
         }
+        if "locators" in compact:
+            compact["locators"] = _unique_page_locators(compact["locators"])
+        return compact
     if isinstance(value, list):
-        return [_without_pdf_coordinates(item) for item in value]
+        return [_compact_pdf_locations(item) for item in value]
     return value
 
 
@@ -95,7 +107,7 @@ class SearchResult(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_response(self, handler: SerializerFunctionWrapHandler) -> dict:
         # Keep geometry in source artifacts, outside the response sent to an LLM.
-        return _without_pdf_coordinates(handler(self))
+        return _compact_pdf_locations(handler(self))
 
 
 class UnitText(BaseModel):
