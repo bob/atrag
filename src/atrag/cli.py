@@ -6,6 +6,7 @@ from contextlib import ExitStack
 from pathlib import Path
 from typing import get_args
 
+from psycopg import Error as PsycopgError
 from sqlalchemy.exc import SQLAlchemyError
 
 from atrag.db import create_db_engine
@@ -143,6 +144,8 @@ def _settings_summary(settings: Settings) -> dict:
         "data_dir": str(settings.data_dir),
         "database_configured": settings.database_url is not None,
         "openai_configured": settings.openai_api_key is not None,
+        "chat_model": settings.chat_model,
+        "chat_snapshot_id": settings.chat_snapshot_id,
     }
 
 
@@ -283,7 +286,7 @@ def _migrate(parser, settings):
             migrate_database(engine)
         finally:
             engine.dispose()
-    except (ValueError, SQLAlchemyError):
+    except (ValueError, SQLAlchemyError, PsycopgError):
         parser.exit(
             2,
             "Database migration failed; check DATABASE_URL and database permissions.\n",

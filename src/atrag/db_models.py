@@ -1,6 +1,7 @@
 """Relational corpus addresses with JSONB evidence and a single vector space."""
 
 from datetime import date, datetime
+from uuid import UUID
 
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import (
@@ -11,11 +12,14 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
+    func,
+    text,
 )
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from atrag.ingestion.services.embedding_cache import EMBEDDINGS
+from atrag.schemas.settings import SupportedLanguage
 
 
 class Base(DeclarativeBase):
@@ -23,6 +27,59 @@ class Base(DeclarativeBase):
 
 
 EMBEDDINGS.to_metadata(Base.metadata)
+
+
+class ChatUserRow(Base):
+    __tablename__ = "chat_users"
+    __table_args__ = (UniqueConstraint("issuer", "subject"),)
+
+    id: Mapped[UUID] = mapped_column(primary_key=True)
+    issuer: Mapped[str] = mapped_column(Text)
+    subject: Mapped[str] = mapped_column(Text)
+    email: Mapped[str] = mapped_column(Text)
+    language: Mapped[SupportedLanguage] = mapped_column(Text, server_default="ru")
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+
+class ChatConversationRow(Base):
+    __tablename__ = "chat_conversations"
+
+    id: Mapped[UUID] = mapped_column(primary_key=True)
+    user_id: Mapped[UUID] = mapped_column(ForeignKey("chat_users.id"), index=True)
+    snapshot_id: Mapped[str] = mapped_column(
+        String(64), ForeignKey("source_snapshots.snapshot_id")
+    )
+    title: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+
+class ChatTurnRow(Base):
+    __tablename__ = "chat_turns"
+
+    # Assigned once by the caller, including retries and resume.
+    id: Mapped[UUID] = mapped_column(primary_key=True)
+    conversation_id: Mapped[UUID] = mapped_column(
+        ForeignKey("chat_conversations.id"), index=True
+    )
+    language: Mapped[SupportedLanguage] = mapped_column(Text)
+    question: Mapped[str] = mapped_column(Text)
+    answer: Mapped[str] = mapped_column(Text, server_default="")
+    sources: Mapped[list[dict]] = mapped_column(
+        JSONB, server_default=text("'[]'::jsonb")
+    )
+    status: Mapped[str] = mapped_column(Text, server_default="pending")
+    model_usage: Mapped[dict] = mapped_column(JSONB, server_default=text("'{}'::jsonb"))
+    embedding_usage: Mapped[dict] = mapped_column(
+        JSONB, server_default=text("'{}'::jsonb")
+    )
+    error: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
 
 
 class SnapshotRow(Base):

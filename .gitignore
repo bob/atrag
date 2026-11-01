@@ -11,6 +11,7 @@ wheels/
 
 # Local settings and generated ingestion artifacts
 .env
+.streamlit/secrets.toml
 .env.*
 !.env.example
 data/*

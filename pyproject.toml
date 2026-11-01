@@ -9,6 +9,9 @@ authors = [
 requires-python = ">=3.14"
 dependencies = [
     "alembic>=1.16,<2",
+    "langchain>=1.4.7",
+    "langchain-openai>=1.7.3",
+    "langgraph>=1.2.19",
     "langgraph-checkpoint-postgres>=3,<4",
     "openai>=2,<3",
     "pdfplumber>=0.11,<0.12",
@@ -17,6 +20,7 @@ dependencies = [
     "pydantic>=2.12,<3",
     "python-dotenv>=1.1,<2",
     "sqlalchemy>=2.0,<3",
+    "streamlit[auth]>=1.66.1",
     "tiktoken>=0.12,<1",
 ]
 
@@ -43,4 +47,5 @@ dev = [
     "pytest>=9.2.0",
     "pytest-cov>=7.1.0",
     "ruff>=0.17.3",
+    "ty>=0.0.95",
 ]

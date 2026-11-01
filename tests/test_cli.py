@@ -18,6 +18,8 @@ def test_config_check_outputs_safe_summary(monkeypatch, capsys):
     assert summary["settings"]["embedding_dimensions"] == 1536
     assert summary["settings"]["database_configured"] is True
     assert summary["settings"]["openai_configured"] is True
+    assert summary["settings"]["chat_model"] == "gpt-6-luna"
+    assert "chat_snapshot_id" in summary["settings"]
     assert "api-secret" not in output
     assert "db-secret" not in output
     assert "postgresql://" not in output
@@ -34,6 +36,23 @@ def test_invalid_config_reports_no_secrets(monkeypatch, capsys):
     assert "configuration" in output.lower()
 
 
+def test_checkpoint_migration_failure_is_sanitized(monkeypatch, capsys):
+    from psycopg import OperationalError
+
+    def fail(_):
+        raise OperationalError("checkpoint-password-secret")
+
+    monkeypatch.setenv("DATABASE_URL", "postgresql://user:db-secret@localhost/atrag")
+    monkeypatch.setattr("atrag.cli.migrate_database", fail)
+    with pytest.raises(SystemExit) as error:
+        main(["db", "migrate"])
+    assert error.value.code == 2
+    output = capsys.readouterr()
+    assert output.out == ""
+    assert "secret" not in output.err
+    assert "migration failed" in output.err
+
+
 def test_missing_registry_is_reported(capsys, tmp_path):
     with pytest.raises(SystemExit) as error:
         main(["config", "check", "--registry", str(tmp_path / "missing.json")])
@@ -46,6 +65,32 @@ def test_command_is_required(arguments):
     with pytest.raises(SystemExit) as error:
         main(arguments)
     assert error.value.code == 2
+
+
+@pytest.mark.parametrize(
+    ("arguments", "missing"),
+    [
+        (["evaluate", "--benchmark", "benchmark.json"], "--package"),
+        (["evaluate", "--package", "package.json"], "--benchmark"),
+        (["ingest", "parse"], "--extracted"),
+        (["ingest", "chunk"], "--parsed"),
+        (["ingest", "embed"], "--chunked"),
+        (["ingest", "index"], "--package"),
+    ],
+)
+def test_missing_required_input_is_reported_before_io(
+    arguments, missing, monkeypatch, capsys
+):
+    def reject_io():
+        pytest.fail("Missing arguments must be rejected before configuration or IO")
+
+    monkeypatch.setattr("atrag.cli.load_settings", reject_io)
+    with pytest.raises(SystemExit) as error:
+        main(arguments)
+    assert error.value.code == 2
+    output = capsys.readouterr().err
+    assert "required" in output
+    assert missing in output
 
 
 @pytest.fixture

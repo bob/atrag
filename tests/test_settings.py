@@ -22,6 +22,7 @@ def test_explicit_root_environment_precedence_and_paths(project_root, monkeypatc
 
     settings = load_settings(project_root)
 
+    assert settings.openai_api_key is not None
     assert settings.openai_api_key.get_secret_value() == "process-secret"
     assert settings.embedding_batch_size == 7
     assert settings.data_dir == project_root / "artifacts"
@@ -29,7 +30,7 @@ def test_explicit_root_environment_precedence_and_paths(project_root, monkeypatc
     assert "file-password" not in repr(settings)
     assert "file-password" not in settings.model_dump_json()
     with pytest.raises(ValidationError):
-        settings.embedding_batch_size = 4
+        settings.__setattr__("embedding_batch_size", 4)
 
 
 def test_local_defaults_do_not_require_database_or_api_key(project_root):
@@ -108,9 +109,9 @@ def test_loading_settings_does_not_change_the_process_environment(project_root):
         encoding="utf-8",
     )
     before = dict(os.environ)
-    assert (
-        load_settings(project_root).openai_api_key.get_secret_value() == "file-secret"
-    )
+    key = load_settings(project_root).openai_api_key
+    assert key is not None
+    assert key.get_secret_value() == "file-secret"
     assert dict(os.environ) == before
 
 
@@ -159,3 +160,42 @@ def test_dotenv_disabled_flag_is_preserved(project_root, monkeypatch, disabled):
     monkeypatch.setenv("PYTHON_DOTENV_DISABLED", disabled)
     expected = 77 if disabled == "0" else 32
     assert load_settings(project_root).embedding_batch_size == expected
+
+
+def test_chat_defaults_do_not_require_a_configured_chat(project_root):
+    settings = load_settings(project_root)
+    assert settings.chat_model == "gpt-6-luna"
+    assert settings.chat_snapshot_id is None
+
+
+def test_chat_settings_use_dotenv_and_process_precedence(project_root, monkeypatch):
+    (project_root / ".env").write_text(
+        f"ATRAG_CHAT_MODEL=file-model\nATRAG_CHAT_SNAPSHOT_ID={'a' * 64}\n"
+    )
+    monkeypatch.setenv("ATRAG_CHAT_MODEL", "process-model")
+    settings = load_settings(project_root)
+    assert settings.chat_model == "process-model"
+    assert settings.chat_snapshot_id == "a" * 64
+    monkeypatch.setenv("ATRAG_CHAT_SNAPSHOT_ID", "b" * 64)
+    assert load_settings(project_root).chat_snapshot_id == "b" * 64
+    monkeypatch.setenv("ATRAG_CHAT_SNAPSHOT_ID", "")
+    assert load_settings(project_root).chat_snapshot_id is None
+
+
+@pytest.mark.parametrize(
+    ("name", "value"),
+    [
+        ("ATRAG_CHAT_MODEL", ""),
+        ("ATRAG_CHAT_MODEL", "   "),
+        ("ATRAG_CHAT_SNAPSHOT_ID", "not-a-snapshot"),
+        ("ATRAG_CHAT_SNAPSHOT_ID", "a" * 63),
+        ("ATRAG_CHAT_SNAPSHOT_ID", "A" * 64),
+        ("ATRAG_CHAT_SNAPSHOT_ID", "a" * 65),
+    ],
+)
+def test_invalid_chat_settings_fail_at_the_boundary(
+    project_root, monkeypatch, name, value
+):
+    monkeypatch.setenv(name, value)
+    with pytest.raises(ValueError):
+        load_settings(project_root)
