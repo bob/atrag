@@ -1,9 +1,72 @@
+import json
+
 import pytest
 import tiktoken
 
 from atrag.ingestion.services.packages import build_package, load_package
 from atrag.retrieval.context import assemble_hits
-from atrag.schemas.retrieval import Ranking, SearchRequest
+from atrag.schemas.ingestion.structure import EditorialNote
+from atrag.schemas.retrieval import Ranking, SearchHit, SearchRequest, SearchResult
+
+
+@pytest.mark.parametrize("mode", ["python", "json", "json_string"])
+def test_search_response_omits_pdf_coordinates(prepared_document, tmp_path, mode):
+    data, parsed, chunked, embedded = prepared_document
+    document = load_package(
+        build_package(parsed, chunked, embedded, data, tmp_path / "package")
+    )
+    fragment = next(f for f in document.fragments if f.tables)
+    original_table = fragment.tables[0]
+    part = original_table.parts[0].model_copy(
+        update={"cell_bboxes": [[(85, 290, 200, 330), None]]}
+    )
+    table = original_table.model_copy(update={"parts": [part]})
+    note = EditorialNote(
+        kind="amendment", raw_text="Redação de teste", locators=fragment.locators
+    )
+    fragment = fragment.model_copy(
+        update={"tables": [table], "editorial_notes": [note]}
+    )
+    result = SearchResult(
+        status="ok",
+        snapshot_id=document.snapshot.snapshot_id,
+        query_language="pt",
+        hits=[
+            SearchHit(
+                fragment_id=fragment.fragment_id,
+                score=1,
+                fragment=fragment,
+                related_units=[document.units[0]],
+                related_tables=[table],
+            )
+        ],
+        usage={"requests": 0},
+    )
+    if mode == "json_string":
+        response = json.loads(result.model_dump_json())
+    else:
+        response = result.model_dump(mode=mode)
+    serialized = json.dumps(response, ensure_ascii=False, default=str)
+    assert '"bbox":' not in serialized
+    assert '"cell_bboxes":' not in serialized
+    hit = response["hits"][0]
+    assert response["status"] == "ok"
+    assert response["snapshot_id"] == document.snapshot.snapshot_id
+    assert hit["score"] == 1
+    assert hit["fragment"]["text_original"] == fragment.text_original
+    assert hit["fragment"]["citation_label"] == fragment.citation_label
+    assert hit["fragment"]["locators"][0]["page_number"] == part.page_number
+    assert (
+        hit["fragment"]["context"][0]["text_original"]
+        == fragment.context[0].text_original
+    )
+    assert hit["fragment"]["editorial_notes"][0]["raw_text"] == note.raw_text
+    assert hit["fragment"]["tables"][0]["rows"] == table.rows
+    assert hit["related_tables"][0]["header_rows"] == table.header_rows
+    assert hit["related_units"][0]["text_original"] == document.units[0].text_original
+    assert fragment.locators[0].bbox
+    assert fragment.context[0].locators[0].bbox
+    assert part.model_dump()["cell_bboxes"] == [[(85, 290, 200, 330), None]]
 
 
 def test_primary_evidence_survives_oversize_reference_context(

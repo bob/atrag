@@ -17,8 +17,8 @@ def reference_targets(fragment):
 
 
 def evidence_cost(fragment, related_units, related_tables, encoding):
-    # The budget covers legal evidence; PDF geometry and processing metadata
-    # remain available to the caller without displacing the actual source text.
+    # The budget covers legal evidence; processing metadata does not displace
+    # source text. PDF geometry is omitted when serializing the search response.
     content = {
         "text": fragment.embedding_text,
         "notes": [n.raw_text for n in fragment.editorial_notes],

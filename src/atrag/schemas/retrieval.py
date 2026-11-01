@@ -2,7 +2,13 @@
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    SerializerFunctionWrapHandler,
+    model_serializer,
+)
 
 from atrag.schemas.ingestion.extraction import ExtractedTable
 from atrag.schemas.ingestion.fragments import SearchFragment
@@ -10,6 +16,18 @@ from atrag.schemas.ingestion.packages import SHA256
 from atrag.schemas.ingestion.sources import SourceDefinition
 from atrag.schemas.ingestion.structure import LegalUnit, SourceLocator
 from atrag.schemas.settings import SupportedLanguage
+
+
+def _without_pdf_coordinates(value):
+    if isinstance(value, dict):
+        return {
+            key: _without_pdf_coordinates(item)
+            for key, item in value.items()
+            if key not in {"bbox", "cell_bboxes"}
+        }
+    if isinstance(value, list):
+        return [_without_pdf_coordinates(item) for item in value]
+    return value
 
 
 class SearchFilters(BaseModel):
@@ -73,6 +91,11 @@ class SearchResult(BaseModel):
     context_tokens_used: int = 0
     unit_coverage: list[UnitCoverage] = Field(default_factory=list)
     usage: dict
+
+    @model_serializer(mode="wrap")
+    def serialize_response(self, handler: SerializerFunctionWrapHandler) -> dict:
+        # Keep geometry in source artifacts, outside the response sent to an LLM.
+        return _without_pdf_coordinates(handler(self))
 
 
 class UnitText(BaseModel):
