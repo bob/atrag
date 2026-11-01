@@ -1,6 +1,41 @@
 {
   "version": 1,
   "skills": {
+    "developing-with-streamlit": {
+      "source": "streamlit/streamlit",
+      "ref": "develop",
+      "sourceType": "github",
+      "skillPath": "lib/streamlit/.agents/skills/developing-with-streamlit/SKILL.md",
+      "computedHash": "73f8e3c2f43a752b33af5c5e8722159b539514015182ef2c4971d20c8dd7a024"
+    },
+    "langgraph-cli": {
+      "source": "langchain-ai/langchain-skills",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "config/skills/langgraph-cli/SKILL.md",
+      "computedHash": "dec48033a9a80c8d8826d0d4303dfc339a0a9145f3266035663104357b2d9c8f"
+    },
+    "langgraph-fundamentals": {
+      "source": "langchain-ai/langchain-skills",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "config/skills/langgraph-fundamentals/SKILL.md",
+      "computedHash": "71a81a229a520f2a887e12d9114684243eae6d910e951a316c4c8f81b3444dd8"
+    },
+    "langgraph-human-in-the-loop": {
+      "source": "langchain-ai/langchain-skills",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "config/skills/langgraph-human-in-the-loop/SKILL.md",
+      "computedHash": "283821ddcbdefb404d5e9c95149364c0962857a6f1e90db33ee5a0062500a88a"
+    },
+    "langgraph-persistence": {
+      "source": "langchain-ai/langchain-skills",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "config/skills/langgraph-persistence/SKILL.md",
+      "computedHash": "0e14611b0310a7a30e9977ba99b00a11b7ea63ebdd7b0c490d03040349ead0ed"
+    },
     "ub-mode": {
       "source": "unclebob/ub-mode",
       "ref": "master",
