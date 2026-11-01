@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-01",
+  "retrieval": "vector",
+  "model": "text-embedding-3-large",
+  "dimensions": 1536,
+  "schema_revision": "0003_vector_search",
+  "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+  "benchmark": "docs/document-ingestion/benchmark-v2.json",
+  "benchmark_sha256": "a2e1ad77c34716f09200e5b5287b73a16ddb95ddd7f1151dac38bed365231250",
+  "source_package": "target/live-acceptance-large-20261101/package/manifest.json",
+  "source_package_sha256": "584fd99b206876df9a9471b45c81277e89b136eda96b82a3933aa6328f8c2318",
+  "source_provenance": "target/live-acceptance-large-20261101/provenance.json",
+  "source_provenance_sha256": "f349d5d0c01bf3e2d77826c79ee73252518ac47877240da409bff4486008b5a5",
+  "query_response_sha256": "dbfb8e55ce36f8a2cd83443b299f9f4560cdfde199157635ecbe433bac043cb3",
+  "report": "target/vector-mvp-acceptance-20261101/evaluation/runs/81ee839f-823a-43e4-8dcb-33165eafb87e/report.json",
+  "report_sha256": "0ae4586c93b4b8b29bf9cde355fd8d165b1311bef81a4e3e998ccf892f9cd38d",
+  "replayed_real_query_embeddings": 18,
+  "synthetic_vectors": false,
+  "new_http_requests": 0,
+  "new_paid_api_tokens": 0,
+  "rankings_match_previous_live_vector_run": true,
+  "counts": {
+    "source_snapshots": 1,
+    "legal_units": 1789,
+    "search_fragments": 1032,
+    "embeddings": 1032
+  },
+  "search_checks_passed": 36,
+  "search_checks_total": 36,
+  "exact_checks_passed": 18,
+  "expansion_checks_passed": 18,
+  "semantic_hit_at_5": {
+    "ru": 1.0,
+    "en": 1.0,
+    "pt": 1.0
+  },
+  "citations_correct": true,
+  "mvp_benchmark_passed": true
+}

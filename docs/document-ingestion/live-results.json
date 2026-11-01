@@ -1,0 +1,225 @@
+{
+  "date": "2026-11-01",
+  "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+  "parser_version": "3",
+  "chunker_version": "2",
+  "legal_units": 1789,
+  "fragments": 1032,
+  "benchmark": "docs/document-ingestion/benchmark-v2.json",
+  "benchmark_unchanged_from_git": true,
+  "selected_model": "text-embedding-3-large",
+  "selected_dimensions": 1536,
+  "selected_mode": "hybrid",
+  "selected_rrf_k": 60,
+  "selected_candidate_window": 50,
+  "hnsw_added": false,
+  "mvp_benchmark_passed": true,
+  "models": [
+    {
+      "model": "text-embedding-3-small",
+      "dimensions": 1536,
+      "package": "target/live-acceptance-20261101/package/manifest.json",
+      "report": "target/live-acceptance-20261101/evaluation/runs/525bbaad-bde0-4c6c-989b-1c10cfeba873/report.json",
+      "provenance": "target/live-acceptance-20261101/provenance.json",
+      "provenance_sha256": "005840f7c9741de1fae999142ae158663525d6be1b8326b593111b1a869f90ca",
+      "benchmark_sha256": "a2e1ad77c34716f09200e5b5287b73a16ddb95ddd7f1151dac38bed365231250",
+      "package_sha256": "fdc3c5cc7eec62163c2af1feed455f08e6f5c12475bc158bb3532a4bc1d07314",
+      "api_requests": 69,
+      "api_retries": 0,
+      "corpus_tokens": 199081,
+      "query_tokens": 706,
+      "total_tokens": 199787,
+      "usd_per_million_tokens": 0.02,
+      "estimated_cost_usd_excluding_tax": 0.00399574,
+      "embed_seconds": 27.095713750022696,
+      "index_seconds": 4.560260874975938,
+      "warm_cache_hits": 1032,
+      "warm_api_requests": 0,
+      "semantic_hit_at_5": {
+        "vector": {
+          "ru": 0.8333333333333334,
+          "en": 1.0,
+          "pt": 1.0
+        },
+        "fts": {
+          "ru": 0.0,
+          "en": 0.0,
+          "pt": 0.0
+        },
+        "hybrid": {
+          "ru": 0.8333333333333334,
+          "en": 1.0,
+          "pt": 1.0
+        }
+      },
+      "semantic_cases_per_language": 6,
+      "exact_checks_passed": 54,
+      "exact_checks_total": 54,
+      "expansion_checks_passed": 18,
+      "expansion_checks_total": 18,
+      "citations_correct": true,
+      "semantic_latency": {
+        "vector": {
+          "samples": 18,
+          "median_ms": 347.38591650966555,
+          "p95_ms": 832.2757080022711
+        },
+        "fts": {
+          "samples": 18,
+          "median_ms": 32.074853996164165,
+          "p95_ms": 39.19929199037142
+        },
+        "hybrid": {
+          "samples": 18,
+          "median_ms": 355.33760450198315,
+          "p95_ms": 421.4597920072265
+        }
+      },
+      "sql_latency": {
+        "fts_original": {
+          "median_ms": 0.2615834819152951,
+          "p95_ms": 0.39354199543595314,
+          "samples": 90
+        },
+        "fts_prepared_pt": {
+          "median_ms": 0.3751454933080822,
+          "p95_ms": 0.9345000144094229,
+          "samples": 90
+        },
+        "vector": {
+          "median_ms": 6.254458494368009,
+          "p95_ms": 11.084833007771522,
+          "samples": 90
+        }
+      },
+      "leaving_residency_ru_vector_rank": 7,
+      "grid": {
+        "rrf_k": [
+          10,
+          60,
+          100
+        ],
+        "candidate_window": [
+          10,
+          25,
+          50,
+          100
+        ],
+        "measurement_count": 864,
+        "saved_real_query_vectors": true,
+        "api_calls": 0
+      }
+    },
+    {
+      "model": "text-embedding-3-large",
+      "dimensions": 1536,
+      "package": "target/live-acceptance-large-20261101/package/manifest.json",
+      "report": "target/live-acceptance-large-20261101/evaluation/runs/3651bc7f-0a03-46d9-a2b5-9de60f1aea5b/report.json",
+      "provenance": "target/live-acceptance-large-20261101/provenance.json",
+      "provenance_sha256": "f349d5d0c01bf3e2d77826c79ee73252518ac47877240da409bff4486008b5a5",
+      "benchmark_sha256": "a2e1ad77c34716f09200e5b5287b73a16ddb95ddd7f1151dac38bed365231250",
+      "package_sha256": "584fd99b206876df9a9471b45c81277e89b136eda96b82a3933aa6328f8c2318",
+      "api_requests": 69,
+      "api_retries": 0,
+      "corpus_tokens": 199081,
+      "query_tokens": 706,
+      "total_tokens": 199787,
+      "usd_per_million_tokens": 0.13,
+      "estimated_cost_usd_excluding_tax": 0.02597231,
+      "embed_seconds": 31.967386625008658,
+      "index_seconds": 5.218465667014243,
+      "warm_cache_hits": 1032,
+      "warm_api_requests": 0,
+      "semantic_hit_at_5": {
+        "vector": {
+          "ru": 1.0,
+          "en": 1.0,
+          "pt": 1.0
+        },
+        "fts": {
+          "ru": 0.0,
+          "en": 0.0,
+          "pt": 0.0
+        },
+        "hybrid": {
+          "ru": 1.0,
+          "en": 1.0,
+          "pt": 1.0
+        }
+      },
+      "semantic_cases_per_language": 6,
+      "exact_checks_passed": 54,
+      "exact_checks_total": 54,
+      "expansion_checks_passed": 18,
+      "expansion_checks_total": 18,
+      "citations_correct": true,
+      "semantic_latency": {
+        "vector": {
+          "samples": 18,
+          "median_ms": 395.4975210072007,
+          "p95_ms": 1123.453124979278
+        },
+        "fts": {
+          "samples": 18,
+          "median_ms": 13.984520992380567,
+          "p95_ms": 23.647916998015717
+        },
+        "hybrid": {
+          "samples": 18,
+          "median_ms": 371.4668544998858,
+          "p95_ms": 475.29575001681224
+        }
+      },
+      "sql_latency": {
+        "fts_original": {
+          "median_ms": 0.2808959980029613,
+          "p95_ms": 0.4625839937943965,
+          "samples": 90
+        },
+        "fts_prepared_pt": {
+          "median_ms": 0.3452705132076517,
+          "p95_ms": 0.8716660086065531,
+          "samples": 90
+        },
+        "vector": {
+          "median_ms": 6.154520495329052,
+          "p95_ms": 10.532874992350116,
+          "samples": 90
+        }
+      },
+      "leaving_residency_ru_vector_rank": 1,
+      "grid": {
+        "rrf_k": [
+          10,
+          60,
+          100
+        ],
+        "candidate_window": [
+          10,
+          25,
+          50,
+          100
+        ],
+        "measurement_count": 864,
+        "saved_real_query_vectors": true,
+        "api_calls": 0
+      }
+    }
+  ],
+  "total_api_requests": 138,
+  "total_api_tokens": 399574,
+  "total_estimated_cost_usd_excluding_tax": 0.02996805,
+  "validation": {
+    "python_runtime": "3.14.6",
+    "unit_tests_passed": 444,
+    "integration_tests_passed": 37,
+    "test_database": "atrag_test_context_20261101",
+    "production_python_changed": false
+  },
+  "limitations": [
+    "Six semantic cases per language; passing does not establish quality on unseen questions.",
+    "FTS alone misses all semantic targets for original full questions and is not an independent MVP gate.",
+    "The article 100 table and 400 unresolved references remain explicit corpus limitations.",
+    "The application DATABASE_URL references an unavailable atrag role; the acceptance used the existing local test database and preserved portable packages."
+  ]
+}
