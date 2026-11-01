@@ -27,7 +27,7 @@ def example(document):
         language="en",
         kind="semantic",
         expected_unit_ids=fragment.legal_unit_ids,
-        required_context_ids=fragment.context_unit_ids,
+        required_context_ids=[fragment.legal_unit_id],
     )
     hit = SearchHit(
         **Ranking(fragment_id=fragment.fragment_id, score=1 / 61).model_dump(),
@@ -61,6 +61,29 @@ def test_assessment_checks_original_evidence_and_context(document, example):
     assert assessed["missing_context_ids"] == []
 
 
+def test_parent_address_and_intro_do_not_count_as_full_context(document, example):
+    case, result = example
+    case.required_context_ids = result.hits[0].fragment.context_unit_ids
+    assessed = assess_case(case, result, document)
+    assert assessed["context_recall"] == 0
+    assert assessed["missing_context_ids"] == case.required_context_ids
+    assert not assessed["passed"]
+
+
+def test_wrong_part_of_the_expected_unit_does_not_count_as_a_hit(document, example):
+    case, result = example
+    case = EvaluationCase(
+        **{
+            **case.model_dump(),
+            "expected_quotes": {case.expected_unit_ids[0]: ["São residentes"]},
+        }
+    )
+    assert assess_case(case, result, document)["target_found"]
+    part = result.hits[0].fragment
+    result.hits[0].fragment = part.model_copy(update={"text_original": "a) Exceto"})
+    assert not assess_case(case, result, document)["target_found"]
+
+
 def test_missing_target_is_not_found_through_an_unrelated_reference(document, example):
     case, result = example
     case = case.model_copy(update={"expected_unit_ids": ["pt:cirs:code:article:999"]})
@@ -74,12 +97,13 @@ def test_missing_context_and_corrupt_quote_fail_independently(document, example)
     case = case.model_copy(
         update={"required_context_ids": ["missing", *case.required_context_ids]}
     )
+    assert assess_case(case, result, document)["context_recall"] == 0.5
     result.hits[0].fragment = result.hits[0].fragment.model_copy(
         update={"text_original": "invented"}
     )
     assessed = assess_case(case, result, document)
     assert assessed["target_found"] is True
-    assert assessed["missing_context_ids"] == ["missing"]
+    assert assessed["missing_context_ids"] == ["missing", case.required_context_ids[1]]
     assert assessed["context_recall"] < 1
     assert assessed["citations_correct"] is False
     assert assessed["passed"] is False
@@ -183,6 +207,8 @@ def test_summary_keeps_languages_modes_and_failures_separate():
     assert summary["fts:en"]["exact_cases"] == 1
     assert summary["hybrid:ru"]["exact_pass_rate"] is None
     assert json.loads(json.dumps(summary)) == summary
+    records.append({**records[-1], "case_id": "d", "passed": False})
+    assert summarize(records)["fts:en"]["exact_pass_rate"] == 0.5
 
 
 @pytest.mark.parametrize(
@@ -190,6 +216,16 @@ def test_summary_keeps_languages_modes_and_failures_separate():
     [
         {"expected_unit_ids": []},
         {"expected_status": "no_match"},
+        {
+            "expected_status": "no_match",
+            "expected_reason": "address_not_found",
+            "required_context_ids": ["absent"],
+        },
+        {
+            "expected_status": "no_match",
+            "expected_reason": "address_not_found",
+            "required_table_ids": ["absent"],
+        },
     ],
 )
 def test_invalid_expectation_is_rejected(values):
@@ -324,6 +360,230 @@ def test_unsafe_case_filename_and_duplicate_cases_are_rejected(example):
         EvaluationCase(**{**case.model_dump(), "case_id": "../overwrite"})
     with pytest.raises(ValueError, match="Duplicate"):
         Benchmark(snapshot_id=result.snapshot_id, unit_pages={}, cases=[case, case])
+
+
+def test_reviewed_quotes_and_expansion_expectations_are_validated(document, example):
+    from atrag.schemas.evaluation import ExpansionCase, UnitCheck
+    from atrag.schemas.retrieval import ContextRequest
+
+    case, _ = example
+    identity = case.expected_unit_ids[0]
+    units = {u.legal_unit_id: u for u in document.units}
+    benchmark = Benchmark(
+        snapshot_id=document.snapshot.snapshot_id,
+        cases=[case],
+        unit_pages={i: (u.page_start, u.page_end) for i, u in units.items()},
+    )
+    for quotes in [[], [""], ["Invented legal evidence"]]:
+        case.expected_quotes = {identity: quotes}
+        with pytest.raises(ValueError, match="quote"):
+            validate_benchmark(benchmark, document)
+    case.expected_quotes = {identity: [units[identity].text_original]}
+    validate_benchmark(benchmark, document)
+    benchmark.unit_checks[identity] = UnitCheck(contains=["São residentes"])
+    validate_benchmark(benchmark, document)
+    with pytest.raises(ValueError, match="expected target"):
+        EvaluationCase(**{**case.model_dump(), "expected_quotes": {"absent": ["text"]}})
+    expansion = ExpansionCase(
+        case_id="original",
+        language="pt",
+        kind="original",
+        request=ContextRequest(
+            snapshot_id=document.snapshot.snapshot_id, legal_unit_id=identity
+        ),
+        required_unit_ids=[identity],
+    )
+    benchmark.expansion_cases = [expansion]
+    validate_benchmark(benchmark, document)
+    expansion.request.snapshot_id = "b" * 64
+    with pytest.raises(ValueError, match="snapshot"):
+        validate_benchmark(benchmark, document)
+    expansion.request.snapshot_id = benchmark.snapshot_id
+    expansion.required_unit_ids = ["absent"]
+    with pytest.raises(ValueError, match="unit pages"):
+        validate_benchmark(benchmark, document)
+    expansion.required_unit_ids = [identity]
+    expansion.required_table_ids = ["absent"]
+    with pytest.raises(ValueError, match="expansion table"):
+        validate_benchmark(benchmark, document)
+
+
+def test_all_reviewed_units_can_be_required_by_one_expansion(document, example):
+    from atrag.schemas.evaluation import ExpansionCase
+    from atrag.schemas.retrieval import ContextRequest
+
+    case, _ = example
+    identity = case.expected_unit_ids[0]
+    unit = next(u for u in document.units if u.legal_unit_id == identity)
+    case.expected_unit_ids = [identity]
+    case.required_context_ids = [identity]
+    benchmark = Benchmark(
+        snapshot_id=unit.snapshot_id,
+        cases=[case],
+        unit_pages={identity: (unit.page_start, unit.page_end)},
+        expansion_cases=[
+            ExpansionCase(
+                case_id="all",
+                language="pt",
+                kind="original",
+                request=ContextRequest(
+                    snapshot_id=unit.snapshot_id, legal_unit_id=identity
+                ),
+                required_unit_ids=[identity],
+            )
+        ],
+    )
+    validate_benchmark(benchmark, document)
+
+
+def test_context_requires_every_adjacent_part_not_just_a_unit_address(tmp_path):
+    from fixtures.prepared import prepare_document
+
+    data, parsed, chunked, embedded = prepare_document(
+        tmp_path / "split", second_paragraph="2 - " + "Condição fiscal. " * 220
+    )
+    document = load_package(
+        build_package(parsed, chunked, embedded, data, tmp_path / "split-pkg")
+    )
+    parts = [f for f in document.fragments if f.paragraph == "2"]
+    assert 1 < len(parts) <= 5
+    identity = parts[0].legal_unit_id
+    case = EvaluationCase(
+        case_id="split",
+        query="CIRS 16",
+        language="pt",
+        kind="exact",
+        expected_unit_ids=[identity],
+        expected_quotes={identity: ["2 - "]},
+        required_context_ids=[identity],
+    )
+    result = SearchResult(
+        status="ok",
+        snapshot_id=document.snapshot.snapshot_id,
+        query_language="pt",
+        document_title=document.snapshot.source.document_title,
+        consolidation_label=document.snapshot.source.consolidation_label,
+        usage={},
+        hits=[
+            SearchHit(
+                fragment_id=p.fragment_id,
+                score=1,
+                fragment=p,
+                related_units=[],
+                related_tables=[],
+            )
+            for p in parts
+        ],
+    )
+    assert assess_case(case, result, document)["context_recall"] == 1
+    result.hits = result.hits[:1]
+    assert assess_case(case, result, document)["context_recall"] == 0
+    result.hits *= len(parts)
+    assert assess_case(case, result, document)["context_recall"] == 0
+
+
+def test_expanded_table_citations_match_reviewed_cells(document):
+    from atrag.retrieval.evaluation import assess_expansion
+    from atrag.retrieval.expansion import expand_context
+    from atrag.schemas.evaluation import ExpansionCase
+    from atrag.schemas.retrieval import ContextRequest
+
+    units = {u.legal_unit_id: u for u in document.units}
+    selected = ContextRequest(
+        snapshot_id=document.snapshot.snapshot_id,
+        legal_unit_id="pt:cirs:code:article:68-A",
+    )
+    case = ExpansionCase(
+        case_id="table",
+        language="pt",
+        kind="original",
+        request=selected,
+        required_unit_ids=[selected.legal_unit_id],
+        required_table_ids=["rates"],
+    )
+    result = expand_context(
+        selected,
+        document.snapshot.source,
+        units,
+        {t.table_id: t for t in document.tables},
+    )
+    assert assess_expansion(case, result, document)["passed"]
+    result.tables[0] = result.tables[0].model_copy(update={"rows": [["1000", "99"]]})
+    assessed = assess_expansion(case, result, document)
+    assert not assessed["passed"]
+    assert not assessed["citations_correct"]
+
+
+@pytest.mark.parametrize("fail", [False, True])
+def test_expansion_report_preserves_outputs_timing_and_completed_work(
+    document, example, tmp_path, monkeypatch, fail
+):
+    from itertools import count
+
+    from atrag.retrieval.evaluate import evaluate_search
+    from atrag.retrieval.expansion import expand_context
+    from atrag.schemas.evaluation import ExpansionCase
+    from atrag.schemas.retrieval import ContextRequest
+
+    case, search_result = example
+    units = {u.legal_unit_id: u for u in document.units}
+    selected = ContextRequest(
+        snapshot_id=document.snapshot.snapshot_id,
+        legal_unit_id=case.expected_unit_ids[0],
+    )
+    expanded = expand_context(selected, document.snapshot.source, units, {})
+    cases = [
+        ExpansionCase(
+            case_id=name,
+            kind="original",
+            language="en",
+            request=selected,
+            required_unit_ids=[selected.legal_unit_id],
+        )
+        for name in ("one", "two")
+    ]
+    benchmark = Benchmark(
+        snapshot_id=document.snapshot.snapshot_id,
+        cases=[case],
+        unit_pages={i: (u.page_start, u.page_end) for i, u in units.items()},
+        expansion_cases=cases,
+    )
+    path = tmp_path / "benchmark.json"
+    path.write_text(benchmark.model_dump_json())
+    package = tmp_path / "manifest.json"
+    package.write_text("{}")
+    calls = []
+
+    def load(request, *, engine):
+        calls.append(request)
+        if fail and len(calls) == 2:
+            raise ValueError("interrupted expansion")
+        return expanded
+
+    clock = count(1)
+    monkeypatch.setattr("atrag.retrieval.evaluate.perf_counter", lambda: next(clock))
+    monkeypatch.setattr("atrag.retrieval.evaluate.load_package", lambda p: document)
+    monkeypatch.setattr(
+        "atrag.retrieval.evaluate.search_tax_documents", lambda *a, **k: search_result
+    )
+    monkeypatch.setattr("atrag.retrieval.evaluate.load_context", load)
+    if fail:
+        with pytest.raises(ValueError, match="interrupted"):
+            evaluate_search(package, path, None, tmp_path / "out")
+        directory = next((tmp_path / "out/runs").iterdir())
+    else:
+        directory = evaluate_search(package, path, None, tmp_path / "out")
+    report = json.loads((directory / "report.json").read_bytes())
+    assert len(report["expansion_records"]) == (1 if fail else 2)
+    assert all(
+        r["seconds"] == 1 for r in report["records"] + report["expansion_records"]
+    )
+    assert all(r["passed"] for r in report["expansion_records"])
+    assert json.loads(
+        (directory / "one-context.json").read_bytes()
+    ) == expanded.model_dump(mode="json")
+    manifest = json.loads((directory / "manifest.json").read_bytes())
+    assert manifest["status"] == ("failed" if fail else "succeeded")
 
 
 @pytest.mark.parametrize("fail", [False, True])

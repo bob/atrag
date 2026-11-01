@@ -10,7 +10,7 @@ def validate_benchmark(benchmark, document):
     units = {u.legal_unit_id: u for u in document.units}
     _validate_unit_pages(benchmark, units)
     _validate_unit_checks(benchmark, units)
-    _validate_cases(benchmark)
+    _validate_cases(benchmark, units)
     _validate_tables(benchmark, {t.table_id: t for t in document.tables})
 
 
@@ -35,7 +35,7 @@ def _validate_unit_checks(benchmark, units):
                 raise ValueError(f"Benchmark {key} differs: {identity}")
 
 
-def _validate_cases(benchmark):
+def _validate_cases(benchmark, units):
     for case in benchmark.cases:
         for identity in case.expected_unit_ids + case.required_context_ids:
             if identity not in benchmark.unit_pages:
@@ -43,6 +43,26 @@ def _validate_cases(benchmark):
         for identity in case.required_table_ids:
             if identity not in benchmark.tables:
                 raise ValueError(f"Missing reviewed table: {identity}")
+        _validate_quotes(case, units)
+    _validate_expansions(benchmark)
+
+
+def _validate_quotes(case, units):
+    for identity, quotes in case.expected_quotes.items():
+        if not quotes or any(not quote for quote in quotes):
+            raise ValueError(f"Search quotes must be nonempty: {identity}")
+        if any(quote not in units[identity].text_original for quote in quotes):
+            raise ValueError(f"Search quote differs from source: {identity}")
+
+
+def _validate_expansions(benchmark):
+    for case in benchmark.expansion_cases:
+        if case.request.snapshot_id != benchmark.snapshot_id:
+            raise ValueError("Expansion snapshot differs from the benchmark")
+        if not set(case.required_unit_ids) <= benchmark.unit_pages.keys():
+            raise ValueError("Missing reviewed expansion unit pages")
+        if not set(case.required_table_ids) <= benchmark.tables.keys():
+            raise ValueError("Missing reviewed expansion table")
 
 
 def _validate_tables(benchmark, tables):
@@ -85,23 +105,121 @@ def _hit_matches(hit, fragments, units, tables):
     )
 
 
-def _matching_evidence(case, result):
+def _matching_evidence(case, result, document):
     matches = [
         hit
         for hit in result.hits[:5]
         if set(case.expected_unit_ids).intersection(hit.fragment.legal_unit_ids)
+        and _expected_quote_present(case, hit.fragment)
     ]
-    present = set()
+    present = _delivered_units(
+        result.hits[:5], {u.legal_unit_id: u for u in document.units}
+    )
     tables = set()
-    for hit in matches:
-        present.update(hit.fragment.legal_unit_ids + hit.fragment.context_unit_ids)
-        present.update(u.legal_unit_id for u in hit.related_units)
+    for hit in result.hits[:5]:
         tables.update(t.table_id for t in hit.fragment.tables + hit.related_tables)
     return matches, present, tables
 
 
+def _delivered_units(hits, units):
+    present, groups = set(), {}
+    for hit in hits:
+        fragment = hit.fragment
+        groups.setdefault(fragment.legal_unit_id, []).append(fragment)
+        evidence = [(i, fragment.text_original) for i in fragment.legal_unit_ids]
+        evidence.extend((c.legal_unit_id, c.text_original) for c in fragment.context)
+        evidence.extend((u.legal_unit_id, u.text_original) for u in hit.related_units)
+        present.update(
+            i for i, text in evidence if i in units and units[i].text_original in text
+        )
+    for identity, parts in groups.items():
+        if _complete_parts(parts, units[identity]):
+            present.add(identity)
+    return present
+
+
+def _complete_parts(parts, unit):
+    cursor = 0
+    for part in sorted(parts, key=lambda p: p.source_start):
+        if (
+            part.source_start != cursor
+            or part.text_original
+            != unit.text_original[part.source_start : part.source_end]
+        ):
+            return False
+        cursor = part.source_end
+    return cursor == len(unit.text_original)
+
+
+def assess_expansion(case, result, document):
+    units = {u.legal_unit_id: u for u in document.units}
+    tables = {t.table_id: t for t in document.tables}
+    delivered = _complete_text_ids(result.units, units)
+    missing = sorted(set(case.required_unit_ids) - delivered)
+    missing_tables = sorted(
+        set(case.required_table_ids) - {t.table_id for t in result.tables}
+    )
+    citations = (
+        result.snapshot_id == document.snapshot.snapshot_id
+        and result.legal_unit_id == case.request.legal_unit_id
+        and all(_text_matches(t, units, document.snapshot.source) for t in result.units)
+        and all(t == tables.get(t.table_id) for t in result.tables)
+    )
+    return {
+        "passed": result.complete and not missing and not missing_tables and citations,
+        "complete": result.complete,
+        "citations_correct": citations,
+        "missing_unit_ids": missing,
+        "missing_table_ids": missing_tables,
+        "context_tokens_used": result.context_tokens_used,
+    }
+
+
+def _complete_text_ids(texts, units):
+    return {
+        t.legal_unit_id
+        for t in texts
+        if t.complete
+        and t.legal_unit_id in units
+        and t.text_original == units[t.legal_unit_id].text_original
+    }
+
+
+def _text_matches(text, units, source):
+    unit = units.get(text.legal_unit_id)
+    if unit is None:
+        return False
+    metadata = ("snapshot_id", "citation_label", "role", "legal_status", "locators")
+    if any(getattr(text, key) != getattr(unit, key) for key in metadata):
+        return False
+    return all(
+        (
+            text.source.model_dump(exclude={"local_path", "expected_sha256"})
+            == source.model_dump(exclude={"local_path", "expected_sha256"}),
+            0 <= text.source_start < text.source_end <= len(unit.text_original),
+            text.source_length == len(unit.text_original),
+            text.text_original
+            == unit.text_original[text.source_start : text.source_end],
+            text.complete
+            == (text.source_start == 0 and text.source_end == len(unit.text_original)),
+            text.next_start
+            == (text.source_end if text.source_end < len(unit.text_original) else None),
+        )
+    )
+
+
+def _expected_quote_present(case, fragment):
+    if not case.expected_quotes:
+        return True
+    return any(
+        identity in fragment.legal_unit_ids
+        and all(quote in fragment.text_original for quote in quotes)
+        for identity, quotes in case.expected_quotes.items()
+    )
+
+
 def assess_case(case, result, document):
-    matches, present, tables = _matching_evidence(case, result)
+    matches, present, tables = _matching_evidence(case, result, document)
     missing_context = sorted(set(case.required_context_ids) - present)
     missing_tables = sorted(set(case.required_table_ids) - tables)
     recall = (

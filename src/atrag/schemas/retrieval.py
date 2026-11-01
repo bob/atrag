@@ -48,7 +48,7 @@ class SearchHit(Ranking):
     fragment: SearchFragment
     related_units: list[LegalUnit]
     related_tables: list[ExtractedTable]
-    omitted_reference_ids: list[str] = Field(default_factory=list)
+    available_reference_ids: list[str] = Field(default_factory=list)
 
 
 class UnitCoverage(BaseModel):
@@ -103,5 +103,27 @@ class NeighborParts(BaseModel):
     legal_unit_id: str
     parts: list[SearchFragment]
     omitted_part_indices: list[int]
+    complete: bool
+    context_tokens_used: int
+
+
+class ContextRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    snapshot_id: SHA256
+    legal_unit_id: str
+    reference_ids: list[str] = Field(default_factory=list)
+    note_ids: list[str] = Field(default_factory=list)
+    # Caller-reviewed dependencies; an edge must also exist in the source graph.
+    dependency_edges: list[tuple[str, str]] = Field(default_factory=list)
+    context_tokens: int = Field(default=6000, gt=0, strict=True)
+
+
+class ExpandedContext(BaseModel):
+    snapshot_id: str
+    legal_unit_id: str
+    units: list[UnitText]
+    tables: list[ExtractedTable]
+    omitted_unit_ids: list[str]
+    omitted_table_ids: list[str]
     complete: bool
     context_tokens_used: int

@@ -62,7 +62,11 @@ def test_evaluate_command_records_all_modes_without_live_model(
     package = build_package(parsed, chunked, embedded, data, tmp_path / "eval-package")
     document = load_package(package)
     fragment = next(f for f in document.fragments if f.paragraph == "1")
-    identities = fragment.legal_unit_ids + fragment.context_unit_ids
+    identities = (
+        fragment.legal_unit_ids
+        + fragment.context_unit_ids
+        + ["pt:cirs:code:article:68-A"]
+    )
     path = tmp_path / "benchmark.json"
     path.write_text(
         json.dumps(
@@ -80,7 +84,23 @@ def test_evaluate_command_records_all_modes_without_live_model(
                         "language": "pt",
                         "kind": "exact",
                         "expected_unit_ids": fragment.legal_unit_ids,
-                        "required_context_ids": fragment.context_unit_ids,
+                        "required_context_ids": [fragment.legal_unit_id],
+                    }
+                ],
+                "expansion_cases": [
+                    {
+                        "case_id": "reference",
+                        "language": "pt",
+                        "kind": "references",
+                        "request": {
+                            "snapshot_id": indexed,
+                            "legal_unit_id": fragment.legal_unit_id,
+                            "reference_ids": ["pt:cirs:code:article:68-A"],
+                        },
+                        "required_unit_ids": [
+                            fragment.legal_unit_id,
+                            "pt:cirs:code:article:68-A",
+                        ],
                     }
                 ],
             }
@@ -94,6 +114,8 @@ def test_evaluate_command_records_all_modes_without_live_model(
     report = json.loads(Path(output["report"]).read_bytes())
     assert len(report["records"]) == 3
     assert all(r["passed"] for r in report["records"])
+    assert report["expansion_records"][0]["passed"]
+    assert report["expansion_records"][0]["citations_correct"]
     assert all(r["usage"]["requests"] == 0 for r in report["records"])
     client = OpenAI(
         api_key="synthetic-key",
@@ -135,7 +157,8 @@ def test_exact_search_preserves_citations_context_and_does_not_need_model(
     assert all(h.fragment.page_start == h.fragment.page_end == 1 for h in result.hits)
     first = next(h for h in result.hits if h.fragment.paragraph == "1")
     assert "Exceto" in first.fragment.text_original
-    assert any(u.article == "68-A" for u in first.related_units)
+    assert first.available_reference_ids == ["pt:cirs:code:article:68-A"]
+    assert not first.related_units
     assert result.extraction_issues
     assert result.usage == {
         "requests": 0,

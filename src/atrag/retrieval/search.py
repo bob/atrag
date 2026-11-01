@@ -5,7 +5,7 @@ import time
 import tiktoken
 from sqlalchemy import func, select
 
-from atrag.db_models import DocumentTableRow, FragmentRow, LegalUnitRow, SnapshotRow
+from atrag.db_models import FragmentRow, LegalUnitRow, SnapshotRow
 from atrag.ingestion.api.embeddings import request_embeddings
 from atrag.ingestion.embeddings import match_response, prepare_input
 from atrag.retrieval.context import assemble_hits
@@ -19,9 +19,7 @@ from atrag.retrieval.query import (
     query_language as detect_query_language,
 )
 from atrag.schemas.ingestion.embeddings import EmbeddingSpace
-from atrag.schemas.ingestion.extraction import ExtractedTable
 from atrag.schemas.ingestion.fragments import SearchFragment
-from atrag.schemas.ingestion.structure import LegalUnit
 from atrag.schemas.retrieval import Ranking, SearchRequest, SearchResult
 
 # Initial exact-search window; tune only after evaluating retrieval quality.
@@ -94,20 +92,7 @@ def _load_evidence(connection, request, rankings):
             FragmentRow.fragment_id.in_([r.fragment_id for r in rankings]),
         )
     )
-    fragments = {f.fragment_id: f for f in map(SearchFragment.model_validate, rows)}
-    units = connection.scalars(
-        select(LegalUnitRow.payload).where(
-            LegalUnitRow.snapshot_id == request.snapshot_id
-        )
-    )
-    by_id = {u.legal_unit_id: u for u in map(LegalUnit.model_validate, units)}
-    tables = connection.scalars(
-        select(DocumentTableRow.payload).where(
-            DocumentTableRow.snapshot_id == request.snapshot_id
-        )
-    )
-    by_table = {t.table_id: t for t in map(ExtractedTable.model_validate, tables)}
-    return fragments, by_id, by_table
+    return {f.fragment_id: f for f in map(SearchFragment.model_validate, rows)}
 
 
 def _missing_document(connection, request):
@@ -155,10 +140,8 @@ def _search(connection, request, client, usage):
         return SearchResult(status="no_match", reason=missing, **base)
     encoding = tiktoken.get_encoding("cl100k_base")
     rankings = _rank_candidates(connection, request, snapshot, client, usage, encoding)
-    fragments, units, tables = _load_evidence(connection, request, rankings)
-    hits, used, limited = assemble_hits(
-        rankings, fragments, units, tables, request, encoding
-    )
+    fragments = _load_evidence(connection, request, rankings)
+    hits, used, limited = assemble_hits(rankings, fragments, request, encoding)
     return SearchResult(
         status="ok" if hits else "no_match",
         reason=None

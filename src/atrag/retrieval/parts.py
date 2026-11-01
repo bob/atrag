@@ -26,7 +26,7 @@ def hit_coverage(hits):
     ]
 
 
-def _available_notes(unit, units):
+def available_notes(unit, units):
     owners = {unit.legal_unit_id}
     parent = units.get(unit.parent_id)
     while parent is not None:
@@ -39,7 +39,7 @@ def _available_notes(unit, units):
     ]
 
 
-def _available_references(unit, units):
+def available_references(unit, units):
     children = defaultdict(list)
     for child in units.values():
         if child.kind != "note":
@@ -48,7 +48,10 @@ def _available_references(unit, units):
     while pending:
         current = pending.pop()
         targets.update(
-            i for reference in current.references for i in reference.target_ids
+            i
+            for reference in current.references
+            if reference.status == "resolved"
+            for i in reference.target_ids
         )
         pending.extend(children[current.legal_unit_id])
     return sorted(targets)
@@ -79,8 +82,8 @@ def unit_text(unit, source, units, *, start=0, context_tokens=6000):
         text_original=text[:length],
         complete=start == 0 and end == len(unit.text_original),
         next_start=end if end < len(unit.text_original) else None,
-        available_note_ids=_available_notes(unit, units),
-        available_reference_ids=_available_references(unit, units),
+        available_note_ids=available_notes(unit, units),
+        available_reference_ids=available_references(unit, units),
         context_tokens_used=measure(0, length),
     )
 

@@ -7,7 +7,8 @@ from atrag.ingestion.services.index import index_package
 from atrag.ingestion.services.packages import build_package
 from atrag.migrations import migrate_database
 from atrag.retrieval.search import search_tax_documents
-from atrag.retrieval.text import load_neighbor_parts, load_unit_text
+from atrag.retrieval.text import load_context, load_neighbor_parts, load_unit_text
+from atrag.schemas.retrieval import ContextRequest
 
 pytestmark = pytest.mark.integration
 
@@ -51,6 +52,26 @@ def test_split_unit_search_order_original_and_neighbors(
     assert not neighbors.complete
     assert not neighbors.omitted_part_indices
     assert neighbors.parts[0] == part
+    expanded = load_context(
+        ContextRequest(
+            snapshot_id=first.snapshot_id,
+            legal_unit_id="pt:cirs:code:article:16:paragraph:1",
+            reference_ids=["pt:cirs:code:article:68-A"],
+        ),
+        engine=engine,
+    )
+    assert expanded.complete
+    assert [u.legal_unit_id for u in expanded.units] == [
+        "pt:cirs:code:article:16:paragraph:1",
+        "pt:cirs:code:article:68-A",
+    ]
+    assert expanded.tables[0].rows == [["1000", "2,5"]]
+    assert all(u.snapshot_id == first.snapshot_id for u in expanded.units)
+    with pytest.raises(ValueError, match="Snapshot"):
+        load_context(
+            ContextRequest(snapshot_id="b" * 64, legal_unit_id=part.legal_unit_id),
+            engine=engine,
+        )
     defaults = load_neighbor_parts(
         result.hits[1].fragment.fragment_id,
         snapshot_id=first.snapshot_id,

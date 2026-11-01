@@ -7,8 +7,14 @@ from atrag.ingestion.package_validation import digest
 from atrag.ingestion.services.artifacts import write_json
 from atrag.ingestion.services.packages import load_package
 from atrag.ingestion.services.runs import record_run
-from atrag.retrieval.evaluation import assess_case, summarize, validate_benchmark
+from atrag.retrieval.evaluation import (
+    assess_case,
+    assess_expansion,
+    summarize,
+    validate_benchmark,
+)
 from atrag.retrieval.search import search_tax_documents
+from atrag.retrieval.text import load_context
 from atrag.schemas.evaluation import Benchmark
 from atrag.schemas.retrieval import RetrievalMode
 
@@ -35,6 +41,7 @@ def evaluate_search(
         )
         report = {
             "schema_version": 1,
+            "benchmark_schema_version": benchmark.schema_version,
             "snapshot_id": benchmark.snapshot_id,
             "embedding_model": document.manifest.model,
             "embedding_dimensions": document.manifest.dimensions,
@@ -45,6 +52,7 @@ def evaluate_search(
             "corpus_issues": document.reports["chunk"],
             "records": [],
             "summary": {},
+            "expansion_records": [],
         }
         try:
             for case in benchmark.cases:
@@ -81,6 +89,7 @@ def evaluate_search(
                     )
                     report["summary"] = summarize(report["records"])
                     write_json(run.directory / "report.json", report)
+            _evaluate_expansions(benchmark, engine, document, run.directory, report)
         finally:
             write_json(run.directory / "report.json", report)
         run.manifest["output_sha256"] = {
@@ -89,3 +98,22 @@ def evaluate_search(
             if path.name != "manifest.json"
         }
     return run.directory
+
+
+def _evaluate_expansions(benchmark, engine, document, directory, report):
+    for case in benchmark.expansion_cases:
+        started = perf_counter()
+        result = load_context(case.request, engine=engine)
+        report["expansion_records"].append(
+            {
+                "case_id": case.case_id,
+                "language": case.language,
+                "kind": case.kind,
+                "seconds": perf_counter() - started,
+                **assess_expansion(case, result, document),
+            }
+        )
+        write_json(
+            directory / f"{case.case_id}-context.json", result.model_dump(mode="json")
+        )
+        write_json(directory / "report.json", report)
