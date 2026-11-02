@@ -37,6 +37,11 @@ class RagService:
         self.conversation_id, self.turn_id = conversation_id, turn_id
         self.client = client
 
+    def sources(self):
+        with self.engine.begin() as connection:
+            turn = lock_turn(connection, self.user, self.conversation_id, self.turn_id)
+            return list(turn["sources"])
+
     def run(self, name, args):
         with self.engine.begin() as connection:
             turn = lock_turn(connection, self.user, self.conversation_id, self.turn_id)

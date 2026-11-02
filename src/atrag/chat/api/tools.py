@@ -51,4 +51,7 @@ class RagTools:
 
     def _run(self, name, **values):
         schema, _ = TOOL_SCHEMAS[name]
-        return self.service.run(name, schema.model_validate(values))
+        return {
+            "turn_id": str(self.turn_id),
+            **self.service.run(name, schema.model_validate(values)),
+        }

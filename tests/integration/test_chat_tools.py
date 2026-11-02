@@ -553,13 +553,187 @@ def test_split_text_preserves_notes_issues_and_shared_budget(chat, engine, tmp_p
 
 
 def test_empty_published_corpus_is_explicit(chat, engine):
-    result = invoke(start(chat, engine), "search_tax_documents", query="CIRS 16")
+    rag = start(chat, engine)
+    result = invoke(rag, "search_tax_documents", query="CIRS 16")
     assert result == {
+        "turn_id": str(rag.turn_id),
         "status": "no_match",
         "reason": "empty_corpus",
         "sources": [],
         "context_tokens_used": 0,
     }
+
+
+def test_agent_reads_and_continues_with_original_citations_after_publication(
+    chat, materials, engine, database_dsn
+):
+    from fixtures.chat import ScriptedModel, call
+    from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+    from langgraph.checkpoint.postgres import PostgresSaver
+
+    from atrag.chat.api.agent import build_agent
+
+    service, user, conversation = chat
+    rag = start(chat, engine)
+    config = {"configurable": {"thread_id": str(conversation)}}
+
+    def script():
+        yield call(args={"query": "CIRS 16", "source_ids": ["first"], "limit": 1})
+        source = rag.service.sources()[0]
+        yield call("load_unit_text", {"address": source["address"]}, "unit")
+        yield call("load_neighbor_parts", {"address": source["address"]}, "neighbors")
+        yield call(
+            "load_context",
+            {
+                "address": source["address"],
+                "reference_ids": source["available_reference_ids"],
+            },
+            "context",
+        )
+        yield AIMessage("São residentes, com as ressalvas indicadas [1] [2].")
+
+    with PostgresSaver.from_conn_string(database_dsn) as saver:
+        graph = build_agent(
+            ScriptedModel(messages=script()), rag, "pt", checkpointer=saver
+        )
+        first = graph.invoke({"messages": [HumanMessage("Residência?")]}, config)
+        assert len(first["sources"]) == 2
+        assert first["model_usage"]["requests"] == 5
+        assert {source["address"]["snapshot_id"] for source in first["sources"]} == {
+            materials["first"]
+        }
+        history_tool = next(
+            message for message in first["messages"] if isinstance(message, ToolMessage)
+        )
+        historic = json.loads(history_tool.content)
+        assert historic["turn_id"] == str(rag.turn_id)
+    with engine.begin() as connection:
+        connection.execute(
+            update(ChatTurnRow)
+            .where(ChatTurnRow.id == rag.turn_id)
+            .values(answer=first["answer"], status="completed")
+        )
+    publish_corpus(engine, {"first": None})
+    next_turn = uuid4()
+    service.start_turn(
+        user, conversation, next_turn, "Explain the previous citation", "en"
+    )
+    next_rag = RagTools(engine, user, conversation, next_turn)
+    model = ScriptedModel(
+        messages=iter(
+            [
+                call(
+                    "load_unit_text",
+                    {
+                        "address": {
+                            "kind": "citation",
+                            "turn_id": historic["turn_id"],
+                            "citation_id": 1,
+                        }
+                    },
+                    "historical",
+                ),
+                AIMessage("The previous material says [1]."),
+            ]
+        )
+    )
+    with PostgresSaver.from_conn_string(database_dsn) as saver:
+        try:
+            graph = build_agent(model, next_rag, "en", checkpointer=saver)
+            second = graph.invoke(
+                {"messages": [HumanMessage("Explain the previous citation")]}, config
+            )
+            assert second["sources"][0]["address"]["snapshot_id"] == materials["first"]
+            assert second["model_usage"] == {
+                "requests": 2,
+                "input_tokens": 10,
+                "output_tokens": 2,
+                "total_tokens": 12,
+            }
+            assert "Answer in en" in model.seen[0][0].text
+            assert any(message.text == first["answer"] for message in model.seen[0])
+            assert (
+                len(graph.get_state(config).values["messages"])
+                == len(first["messages"]) + 4
+            )
+            assert service.load_history(user, conversation)[0].answer == first["answer"]
+        finally:
+            saver.delete_thread(str(conversation))
+
+
+def test_agent_rejects_foreign_turn_before_calling_model(chat, engine):
+    from fixtures.chat import ScriptedModel
+
+    from atrag.chat.api.agent import build_agent
+
+    rag = start(chat, engine)
+    stranger = chat[0].authenticate(
+        {
+            "iss": "accounts.google.com",
+            "sub": "stranger",
+            "email": "a@b",
+            "email_verified": True,
+        },
+        ["a@b"],
+    )
+    model = ScriptedModel(messages=iter([]))
+    with pytest.raises(PermissionError):
+        build_agent(model, RagTools(engine, stranger, chat[2], rag.turn_id), "en")
+    assert model.seen == []
+
+
+def test_agent_reports_an_empty_corpus_without_fabricating_sources(chat, engine):
+    from fixtures.chat import ScriptedModel, call
+    from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+
+    from atrag.chat.api.agent import build_agent
+
+    rag = start(chat, engine)
+    model = ScriptedModel(
+        messages=iter(
+            [
+                call(),
+                AIMessage("No documents are published. Which source should be added?"),
+            ]
+        )
+    )
+    result = build_agent(model, rag, "en").invoke(
+        {"messages": [HumanMessage("Tax question")]}
+    )
+    tool_result = next(
+        message for message in result["messages"] if isinstance(message, ToolMessage)
+    )
+    assert json.loads(tool_result.content)["reason"] == "empty_corpus"
+    assert result["sources"] == []
+    assert result["answer"].startswith("No documents")
+
+
+def test_agent_can_correct_invalid_tool_arguments(chat, materials, engine):
+    from fixtures.chat import ScriptedModel, call
+    from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+
+    from atrag.chat.api.agent import build_agent
+
+    model = ScriptedModel(
+        messages=iter(
+            [
+                call(args={"query": ""}),
+                call(identifier="corrected"),
+                AIMessage("Evidence [1]."),
+            ]
+        )
+    )
+    result = build_agent(model, start(chat, engine), "en").invoke(
+        {"messages": [HumanMessage("Residência?")]}
+    )
+    statuses = [
+        json.loads(message.content)["status"]
+        for message in result["messages"]
+        if isinstance(message, ToolMessage)
+    ]
+    assert statuses == ["invalid_arguments", "ok"]
+    assert result["answer"] == "Evidence [1]."
+    assert result["model_usage"]["requests"] == 3
 
 
 def test_remaining_budget_caps_a_partial_read(chat, materials, engine):
