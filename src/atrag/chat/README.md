@@ -2,12 +2,13 @@
 
 Контракты находятся в `atrag.schemas.chat`: `identity` описывает доверенные
 OIDC claims, `conversations` — значения пользователя, диалога и хода,
-`tools` — аргументы RAG-инструментов.
+`tools` — аргументы RAG-инструментов, `execution` — события выполнения и
+протокол backend с checkpoints.
 
 | Пакет | Назначение |
 | --- | --- |
-| `api` | Адаптеры LangChain: `RagTools`, `build_agent`, ограничение передаваемой истории |
-| `services` | Сценарии `ChatService` и `RagService`, валидация входа и управление извлечением |
+| `api` | Адаптеры LangChain: `RagTools`, `build_agent`, `LangGraphBackend`, ограничение передаваемой истории |
+| `services` | Сценарии `ChatService`, `RagService` и `TurnService`: допуск, извлечение и жизненный цикл выполнения |
 | `core` | Чистые операции допуска, регистрации/проверки цитат и учёта usage |
 | `db` | SQL, проверки владельца, блокировка хода и сохранение данных |
 | `client` | `create_chat_model`: ChatOpenAI с Responses API и ограничениями транспорта |
@@ -29,3 +30,9 @@ OIDC claims, `conversations` — значения пользователя, ди
 и usage текущего хода. Полный transcript сохраняется через переданный
 checkpointer; сокращается только запрос модели. Контракт и границы
 исполнения: [AGENT.md](../../../docs/interface/AGENT.md).
+
+`TurnService.stream_turn` проверяет владельца до истории/checkpoint, держит
+advisory lock диалога, сохраняет статусы, текст и usage. Повтор завершённого
+UUID возвращает сохранённый ход; незавершённый требует явного `resume=True`.
+Сервис зависит от протокола backend, а LangGraph остаётся в `api`.
+Контракт событий, ошибки и восстановление: [EXECUTION.md](../../../docs/interface/EXECUTION.md).

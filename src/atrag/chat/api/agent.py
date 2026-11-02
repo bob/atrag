@@ -41,6 +41,7 @@ class AgentLimitExceeded(RuntimeError):
 
 
 class GroundedState(AgentState, total=False):
+    turn_id: str
     answer: str
     sources: list[dict]
     model_usage: dict
