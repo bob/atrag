@@ -1,6 +1,6 @@
 # Инструменты RAG и источники
 
-Шаг 3 предоставляет `atrag.chat.tools.RagTools`, независимый от Streamlit.
+Шаг 3 предоставляет `atrag.chat.api.tools.RagTools`, независимый от Streamlit.
 После `ChatService.start_turn(...)` сервер создаёт экземпляр:
 
 ```python

@@ -1,10 +1,5 @@
-"""Authorize claims supplied by the application's trusted OIDC authentication layer.
+"""Validated claims supplied by the trusted Google OIDC adapter."""
 
-This boundary does not decode or verify raw tokens. The OIDC adapter must verify
-the token signature, audience, expiry and session before passing its claims here.
-"""
-
-from collections.abc import Mapping
 from typing import Annotated, Literal
 
 from pydantic import (
@@ -13,8 +8,6 @@ from pydantic import (
     Field,
     StrictBool,
     StringConstraints,
-    TypeAdapter,
-    ValidationError,
     field_validator,
 )
 
@@ -24,7 +17,6 @@ Email = Annotated[
         strict=True, strip_whitespace=True, to_lower=True, pattern=r"^[^@\s]+@[^@\s]+$"
     ),
 ]
-ALLOWLIST = TypeAdapter(frozenset[Email])
 
 
 class GoogleIdentity(BaseModel):
@@ -47,17 +39,3 @@ class GoogleIdentity(BaseModel):
     @classmethod
     def canonical_issuer(cls, value: str) -> Literal["https://accounts.google.com"]:
         return "https://accounts.google.com"
-
-
-def parse_google_identity(
-    claims: Mapping[str, object], allowed_emails: object
-) -> GoogleIdentity:
-    """Fail closed; email grants admission, while issuer/subject identify the user."""
-    try:
-        identity = GoogleIdentity.model_validate(claims)
-        allowed = ALLOWLIST.validate_python(allowed_emails)
-    except ValidationError:
-        raise PermissionError("Access denied") from None
-    if not identity.email_verified or identity.email not in allowed:
-        raise PermissionError("Access denied")
-    return identity

@@ -10,8 +10,8 @@ import pytest
 from fixtures.prepared import prepare_document, prepare_revision
 from sqlalchemy import select, update
 
-from atrag.chat.service import ChatService
-from atrag.chat.tools import RagTools
+from atrag.chat.api.tools import RagTools
+from atrag.chat.services.chat import ChatService
 from atrag.corpus import publish_corpus
 from atrag.db_models import ChatTurnRow, FragmentRow, LegalUnitRow, SnapshotRow
 from atrag.ingestion.services.index import index_package

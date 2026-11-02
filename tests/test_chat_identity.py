@@ -2,7 +2,7 @@
 
 import pytest
 
-from atrag.chat.identity import parse_google_identity
+from atrag.chat.core.identity import parse_google_identity
 
 
 def claims(**changes):

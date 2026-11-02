@@ -7,7 +7,7 @@ from uuid import uuid4
 import pytest
 from sqlalchemy import insert, select, update
 
-from atrag.chat.service import ChatService
+from atrag.chat.services.chat import ChatService
 from atrag.corpus import publish_corpus
 from atrag.db_models import ChatConversationRow, ChatTurnRow, ChatUserRow
 from atrag.ingestion.services.index import index_package

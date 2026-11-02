@@ -5,8 +5,8 @@ from types import SimpleNamespace
 import pytest
 import tiktoken
 
-from atrag.chat.sources import register_sources
-from atrag.chat.tools import RagTools
+from atrag.chat.api.tools import RagTools
+from atrag.chat.core.sources import register_sources
 from atrag.retrieval.parts import unit_text
 from atrag.schemas.ingestion.structure import EditorialNote
 

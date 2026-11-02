@@ -1,56 +1,25 @@
 """Server-side users and owned conversations; all writes have one transaction."""
 
-from collections.abc import Mapping
 from uuid import UUID, uuid4
 
-from pydantic import TypeAdapter
-from sqlalchemy import Engine, and_, insert, select, update
+from sqlalchemy import Engine, insert, select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from atrag import corpus
-from atrag.chat.identity import parse_google_identity
-from atrag.chat.models import Conversation, Turn, User
+from atrag.chat.db.access import owned_conversation, required_row, user_identity
 from atrag.db_models import ChatConversationRow, ChatTurnRow, ChatUserRow
-from atrag.schemas.materials import Nonempty
+from atrag.schemas.chat.conversations import Conversation, Turn, User
+from atrag.schemas.chat.identity import GoogleIdentity
 from atrag.schemas.settings import SupportedLanguage
 
-LANGUAGE = TypeAdapter(SupportedLanguage)
-QUESTION = TypeAdapter(Nonempty)
 
-
-def _identity(user: User):
-    return and_(
-        ChatUserRow.id == user.id,
-        ChatUserRow.issuer == user.issuer,
-        ChatUserRow.subject == user.subject,
-    )
-
-
-def _required(result):
-    row = result.mappings().one_or_none()
-    if row is None:
-        raise PermissionError("Access denied")
-    return row
-
-
-def _conversation(user: User, conversation_id: UUID):
-    return (
-        select(ChatConversationRow)
-        .join(ChatUserRow)
-        .where(ChatConversationRow.id == conversation_id, _identity(user))
-    )
-
-
-class ChatService:
-    """User arguments come from authenticate(), never from URL or form fields."""
+class ChatStore:
+    """Persist validated chat values; each write uses one transaction."""
 
     def __init__(self, engine: Engine):
         self.engine = engine
 
-    def authenticate(
-        self, claims: Mapping[str, object], allowed_emails: object
-    ) -> User:
-        identity = parse_google_identity(claims, allowed_emails)
+    def save_user(self, identity: GoogleIdentity) -> User:
         statement = pg_insert(ChatUserRow).values(
             id=uuid4(),
             issuer=identity.issuer,
@@ -66,19 +35,18 @@ class ChatService:
     def get_user(self, user: User) -> User:
         with self.engine.connect() as connection:
             return User(
-                **_required(
-                    connection.execute(select(ChatUserRow).where(_identity(user)))
+                **required_row(
+                    connection.execute(select(ChatUserRow).where(user_identity(user)))
                 )
             )
 
     def set_language(self, user: User, language: SupportedLanguage) -> User:
-        language = LANGUAGE.validate_python(language)
         with self.engine.begin() as connection:
             return User(
-                **_required(
+                **required_row(
                     connection.execute(
                         update(ChatUserRow)
-                        .where(_identity(user))
+                        .where(user_identity(user))
                         .values(language=language)
                         .returning(ChatUserRow)
                     )
@@ -87,7 +55,9 @@ class ChatService:
 
     def create_conversation(self, user: User) -> Conversation:
         with self.engine.begin() as connection:
-            _required(connection.execute(select(ChatUserRow.id).where(_identity(user))))
+            required_row(
+                connection.execute(select(ChatUserRow.id).where(user_identity(user)))
+            )
             return Conversation(
                 **connection.execute(
                     insert(ChatConversationRow)
@@ -103,7 +73,7 @@ class ChatService:
             rows = connection.execute(
                 select(ChatConversationRow)
                 .join(ChatUserRow)
-                .where(_identity(user))
+                .where(user_identity(user))
                 .order_by(
                     ChatConversationRow.created_at.desc(), ChatConversationRow.id.desc()
                 )
@@ -113,12 +83,14 @@ class ChatService:
     def get_conversation(self, user: User, conversation_id: UUID) -> Conversation:
         with self.engine.connect() as connection:
             return Conversation(
-                **_required(connection.execute(_conversation(user, conversation_id)))
+                **required_row(
+                    connection.execute(owned_conversation(user, conversation_id))
+                )
             )
 
     def load_history(self, user: User, conversation_id: UUID) -> tuple[Turn, ...]:
         with self.engine.connect() as connection:
-            _required(connection.execute(_conversation(user, conversation_id)))
+            required_row(connection.execute(owned_conversation(user, conversation_id)))
             rows = connection.execute(
                 select(ChatTurnRow)
                 .where(ChatTurnRow.conversation_id == conversation_id)
@@ -131,15 +103,13 @@ class ChatService:
         user: User,
         conversation_id: UUID,
         turn_id: UUID,
-        text: str,
+        question: str,
         language: SupportedLanguage,
     ) -> corpus.CorpusComposition:
-        question = QUESTION.validate_python(text, strict=True)
-        language = LANGUAGE.validate_python(language)
         with self.engine.begin() as connection:
-            _required(
+            required_row(
                 connection.execute(
-                    _conversation(user, conversation_id).with_for_update(
+                    owned_conversation(user, conversation_id).with_for_update(
                         of=ChatConversationRow
                     )
                 )
@@ -171,8 +141,8 @@ class ChatService:
         self, user: User, conversation_id: UUID, turn_id: UUID
     ) -> corpus.CorpusComposition:
         with self.engine.connect() as connection:
-            _required(connection.execute(_conversation(user, conversation_id)))
-            _required(
+            required_row(connection.execute(owned_conversation(user, conversation_id)))
+            required_row(
                 connection.execute(
                     select(ChatTurnRow.id).where(
                         ChatTurnRow.id == turn_id,

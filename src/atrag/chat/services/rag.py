@@ -1,75 +1,31 @@
-"""Four LangChain tools bound to one authenticated, persisted chat turn."""
-
-from functools import partial
-
-from langchain_core.tools import StructuredTool
-from sqlalchemy import select, update
+"""Retrieval, citations and shared budgets for one authenticated chat turn."""
 
 from atrag import corpus
-from atrag.chat.rag_models import (
-    BlockAddress,
-    CitationAddress,
-    ContextArguments,
-    NeighborArguments,
-    SearchArguments,
-    UnitArguments,
+from atrag.chat.core.sources import register_sources
+from atrag.chat.core.usage import add_usage, new_usage
+from atrag.chat.db.evidence import (
+    citation_sources,
+    fragment_unit_id,
+    lock_turn,
+    save_evidence,
 )
-from atrag.chat.service import _conversation, _required
-from atrag.chat.sources import register_sources, source_record
-from atrag.db_models import ChatTurnRow, FragmentRow
+from atrag.chat.db.sources import source_record
 from atrag.ingestion.api.embeddings import EmbeddingRequestError
 from atrag.retrieval.corpus import search_corpus
 from atrag.retrieval.text import load_context, load_neighbor_parts, load_unit_text
+from atrag.schemas.chat.tools import BlockAddress, CitationAddress
 from atrag.schemas.retrieval import (
     ContextRequest,
     SearchRequest,
     _compact_pdf_locations,
 )
 
-TOOL_SCHEMAS = {
-    "search_tax_documents": (
-        SearchArguments,
-        "Search the turn's tax documents. source_ids and legal filters only narrow the search. Cite returned citation_id values; follow available references and notes.",
-    ),
-    "load_unit_text": (
-        UnitArguments,
-        "Read original unit text by document/version/block address or a saved citation. Use start to continue an incomplete result.",
-    ),
-    "load_neighbor_parts": (
-        NeighborArguments,
-        "Read adjacent parts of a fragment or saved fragment citation, within the same document and version.",
-    ),
-    "load_context": (
-        ContextArguments,
-        "Read a unit and explicitly selected available references/notes. Dependency edges must exist in the source graph.",
-    ),
-}
-
 
 def _empty(status, reason):
     return {"status": status, "reason": reason, "sources": [], "context_tokens_used": 0}
 
 
-def _new_usage():
-    return {
-        "requests": 0,
-        "retries": 0,
-        "usage": {"prompt_tokens": 0, "total_tokens": 0},
-    }
-
-
-def _add_usage(previous, current):
-    return {
-        "requests": previous.get("requests", 0) + current["requests"],
-        "retries": previous.get("retries", 0) + current["retries"],
-        "usage": {
-            key: previous.get("usage", {}).get(key, 0) + value
-            for key, value in current["usage"].items()
-        },
-    }
-
-
-class RagTools:
+class RagService:
     """Construct on the server with a User from ChatService.authenticate().
 
     All mutable evidence and budget state lives in the locked database row,
@@ -80,41 +36,17 @@ class RagTools:
         self.engine, self.user = engine, user
         self.conversation_id, self.turn_id = conversation_id, turn_id
         self.client = client
-        self.tools = tuple(
-            StructuredTool.from_function(
-                func=partial(self._run, name),
-                name=name,
-                description=description,
-                args_schema=schema,
-                handle_validation_error='{"status":"invalid_arguments","reason":"Invalid tool arguments"}',
-            )
-            for name, (schema, description) in TOOL_SCHEMAS.items()
-        )
 
-    def _run(self, name, **values):
-        schema, _ = TOOL_SCHEMAS[name]
-        args = schema.model_validate(values)
+    def run(self, name, args):
         with self.engine.begin() as connection:
-            _required(
-                connection.execute(_conversation(self.user, self.conversation_id))
-            )
-            turn = _required(
-                connection.execute(
-                    select(ChatTurnRow)
-                    .where(
-                        ChatTurnRow.id == self.turn_id,
-                        ChatTurnRow.conversation_id == self.conversation_id,
-                    )
-                    .with_for_update()
-                )
-            )
+            turn = lock_turn(connection, self.user, self.conversation_id, self.turn_id)
             remaining = 24000 - turn["retrieval_tokens"]
             if remaining == 0:
                 return _empty("budget_exhausted", "turn_budget_exhausted")
             args = args.model_copy(
                 update={"context_tokens": min(args.context_tokens, remaining)}
             )
-            usage = _new_usage()
+            usage = new_usage()
             execute = {
                 "search_tax_documents": self._search,
                 "load_unit_text": self._unit,
@@ -129,15 +61,13 @@ class RagTools:
                 return _empty("invalid_arguments", str(error))
             registry = list(turn["sources"])
             result["sources"] = register_sources(registry, records)
-            connection.execute(
-                update(ChatTurnRow)
-                .where(ChatTurnRow.id == self.turn_id)
-                .values(
-                    sources=registry,
-                    retrieval_tokens=turn["retrieval_tokens"]
-                    + result["context_tokens_used"],
-                    embedding_usage=_add_usage(turn["embedding_usage"], usage),
-                )
+            save_evidence(
+                connection,
+                self.turn_id,
+                sources=registry,
+                retrieval_tokens=turn["retrieval_tokens"]
+                + result["context_tokens_used"],
+                embedding_usage=add_usage(turn["embedding_usage"], usage),
             )
             return result
 
@@ -171,11 +101,8 @@ class RagTools:
 
     def _address(self, connection, argument):
         if isinstance(argument, CitationAddress):
-            sources = connection.scalar(
-                select(ChatTurnRow.sources).where(
-                    ChatTurnRow.id == argument.turn_id,
-                    ChatTurnRow.conversation_id == self.conversation_id,
-                )
+            sources = citation_sources(
+                connection, self.conversation_id, argument.turn_id
             )
             for source in sources or []:
                 if source.get("citation_id") == argument.citation_id:
@@ -189,12 +116,7 @@ class RagTools:
     def _unit_address(self, connection, argument):
         address = self._address(connection, argument)
         if address.kind == "fragment":
-            unit_id = connection.scalar(
-                select(FragmentRow.legal_unit_id).where(
-                    FragmentRow.snapshot_id == address.snapshot_id,
-                    FragmentRow.fragment_id == address.block_id,
-                )
-            )
+            unit_id = fragment_unit_id(connection, address)
             if unit_id is None:
                 raise ValueError("Fragment is absent from the selected snapshot")
             return address.model_copy(update={"kind": "unit", "block_id": unit_id})
