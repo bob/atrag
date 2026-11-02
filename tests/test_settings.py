@@ -165,21 +165,13 @@ def test_dotenv_disabled_flag_is_preserved(project_root, monkeypatch, disabled):
 def test_chat_defaults_do_not_require_a_configured_chat(project_root):
     settings = load_settings(project_root)
     assert settings.chat_model == "gpt-6-luna"
-    assert settings.chat_snapshot_id is None
 
 
 def test_chat_settings_use_dotenv_and_process_precedence(project_root, monkeypatch):
-    (project_root / ".env").write_text(
-        f"ATRAG_CHAT_MODEL=file-model\nATRAG_CHAT_SNAPSHOT_ID={'a' * 64}\n"
-    )
+    (project_root / ".env").write_text("ATRAG_CHAT_MODEL=file-model\n")
+    assert load_settings(project_root).chat_model == "file-model"
     monkeypatch.setenv("ATRAG_CHAT_MODEL", "process-model")
-    settings = load_settings(project_root)
-    assert settings.chat_model == "process-model"
-    assert settings.chat_snapshot_id == "a" * 64
-    monkeypatch.setenv("ATRAG_CHAT_SNAPSHOT_ID", "b" * 64)
-    assert load_settings(project_root).chat_snapshot_id == "b" * 64
-    monkeypatch.setenv("ATRAG_CHAT_SNAPSHOT_ID", "")
-    assert load_settings(project_root).chat_snapshot_id is None
+    assert load_settings(project_root).chat_model == "process-model"
 
 
 @pytest.mark.parametrize(
@@ -187,10 +179,6 @@ def test_chat_settings_use_dotenv_and_process_precedence(project_root, monkeypat
     [
         ("ATRAG_CHAT_MODEL", ""),
         ("ATRAG_CHAT_MODEL", "   "),
-        ("ATRAG_CHAT_SNAPSHOT_ID", "not-a-snapshot"),
-        ("ATRAG_CHAT_SNAPSHOT_ID", "a" * 63),
-        ("ATRAG_CHAT_SNAPSHOT_ID", "A" * 64),
-        ("ATRAG_CHAT_SNAPSHOT_ID", "a" * 65),
     ],
 )
 def test_invalid_chat_settings_fail_at_the_boundary(

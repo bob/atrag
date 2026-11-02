@@ -48,9 +48,6 @@ class ChatConversationRow(Base):
 
     id: Mapped[UUID] = mapped_column(primary_key=True)
     user_id: Mapped[UUID] = mapped_column(ForeignKey("chat_users.id"), index=True)
-    snapshot_id: Mapped[str] = mapped_column(
-        String(64), ForeignKey("source_snapshots.snapshot_id")
-    )
     title: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
@@ -64,6 +61,10 @@ class ChatTurnRow(Base):
     id: Mapped[UUID] = mapped_column(primary_key=True)
     conversation_id: Mapped[UUID] = mapped_column(
         ForeignKey("chat_conversations.id"), index=True
+    )
+    # Only provenance migrated from snapshot-bound conversations, not corpus selection.
+    legacy_snapshot_id: Mapped[str | None] = mapped_column(
+        String(64), ForeignKey("source_snapshots.snapshot_id")
     )
     language: Mapped[SupportedLanguage] = mapped_column(Text)
     question: Mapped[str] = mapped_column(Text)

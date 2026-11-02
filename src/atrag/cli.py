@@ -145,7 +145,6 @@ def _settings_summary(settings: Settings) -> dict:
         "database_configured": settings.database_url is not None,
         "openai_configured": settings.openai_api_key is not None,
         "chat_model": settings.chat_model,
-        "chat_snapshot_id": settings.chat_snapshot_id,
     }
 
 

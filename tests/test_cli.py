@@ -19,7 +19,14 @@ def test_config_check_outputs_safe_summary(monkeypatch, capsys):
     assert summary["settings"]["database_configured"] is True
     assert summary["settings"]["openai_configured"] is True
     assert summary["settings"]["chat_model"] == "gpt-6-luna"
-    assert "chat_snapshot_id" in summary["settings"]
+    assert set(summary["settings"]) == {
+        "embedding_model",
+        "embedding_dimensions",
+        "data_dir",
+        "database_configured",
+        "openai_configured",
+        "chat_model",
+    }
     assert "api-secret" not in output
     assert "db-secret" not in output
     assert "postgresql://" not in output
@@ -60,8 +67,12 @@ def test_missing_registry_is_reported(capsys, tmp_path):
     assert "registry" in capsys.readouterr().err.lower()
 
 
-@pytest.mark.parametrize("arguments", [[], ["config"], ["ingest"]])
-def test_command_is_required(arguments):
+@pytest.mark.parametrize("arguments", [[], ["config"], ["ingest"], ["db"]])
+def test_command_is_required(arguments, monkeypatch):
+    monkeypatch.setattr(
+        "atrag.cli.load_settings",
+        lambda: pytest.fail("Missing command must be rejected before configuration"),
+    )
     with pytest.raises(SystemExit) as error:
         main(arguments)
     assert error.value.code == 2

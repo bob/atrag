@@ -50,13 +50,8 @@ class Settings(BaseModel):
     chat_model: str = Field(
         default="gpt-6-luna", alias="ATRAG_CHAT_MODEL", pattern=r"^\S+$"
     )
-    chat_snapshot_id: str | None = Field(
-        default=None, alias="ATRAG_CHAT_SNAPSHOT_ID", pattern=r"^[0-9a-f]{64}$"
-    )
 
-    @field_validator(
-        "openai_api_key", "database_url", "chat_snapshot_id", mode="before"
-    )
+    @field_validator("openai_api_key", "database_url", mode="before")
     @classmethod
     def empty_secret(cls, value):
         return None if value == "" else value
