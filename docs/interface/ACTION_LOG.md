@@ -133,3 +133,8 @@
 `.metrics/interface-step1-2-mutator-index.txt` (12/12),
 `.metrics/interface-step1-2-mutator-cli.txt` (20/20),
 `target/coverage/python/lcov.info`.
+
+## Шаг 2: доступ и собственные диалоги — 02.11.2026
+
+Полный журнал действий, причин и проверок: [STEP2_LOG.md](STEP2_LOG.md).
+Сервисный контракт и граница доверия OIDC: [ACCESS.md](ACCESS.md).
