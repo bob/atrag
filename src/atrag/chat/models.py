@@ -39,4 +39,5 @@ class Turn:
     error: str | None
     legacy_snapshot_id: str | None
     corpus_release_id: str | None
+    retrieval_tokens: int
     created_at: datetime

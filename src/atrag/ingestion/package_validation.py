@@ -89,6 +89,14 @@ def validate_fragment_tables(fragment, unit, tables):
 
 
 def validate_pages(unit):
+    if unit.page_start is None or unit.page_end is None:
+        if unit.page_start is not None or unit.page_end is not None:
+            raise ValueError("Incomplete physical page range")
+        if unit.location is None or unit.location.kind == "pdf" or unit.locators:
+            raise ValueError(
+                "Non-PDF material needs a typed location without PDF locators"
+            )
+        return
     if unit.page_end < unit.page_start:
         raise ValueError("Invalid physical page range")
 

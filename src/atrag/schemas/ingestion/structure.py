@@ -8,6 +8,7 @@ from uuid import UUID
 from pydantic import Field, PositiveInt
 
 from atrag.schemas.ingestion.extraction import Artifact, BBox, ExtractedTable
+from atrag.schemas.materials import Location
 
 
 class SourceLocator(Artifact):
@@ -68,8 +69,12 @@ class LegalUnit(Artifact):
     # A repeal marker is evidence of a printed status, never of its period.
     legal_status: Literal["unknown", "repealed"] = "unknown"
     snapshot_id: str = Field(pattern=r"^[0-9a-f]{64}$")
-    page_start: PositiveInt
-    page_end: PositiveInt
+    page_start: PositiveInt | None = None
+    page_end: PositiveInt | None = None
+    # Omitted for legacy PDF artifacts so their content hashes remain valid.
+    location: Location | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
     printed_page_labels: list[str]
     locators: list[SourceLocator]
     text_original: str

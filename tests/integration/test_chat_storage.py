@@ -404,6 +404,7 @@ def test_upgrade_preserves_legacy_history_and_each_turn_origin(engine, stored_ch
     for turn in before["turns"]:
         turn["legacy_snapshot_id"] = origins[turn["conversation_id"]]
         turn["corpus_release_id"] = None
+        turn["retrieval_tokens"] = 0
     migrate_database(engine)
     migrate_database(engine)
     engine.dispose()
@@ -504,7 +505,7 @@ def test_downgrade_refuses_to_invent_snapshot_and_preserves_data(
     assert _chat_rows(engine) == before
     with engine.connect() as connection:
         assert connection.scalar(text("SELECT version_num FROM alembic_version")) == (
-            "0006_corpus_publication"
+            "0007_rag_evidence"
         )
 
 
@@ -513,6 +514,32 @@ def test_empty_provenance_schema_can_be_downgraded_and_upgraded(engine):
     _change_schema(engine, command.downgrade, "0004_chat")
     migrate_database(engine)
     assert _chat_rows(engine) == {"users": [], "conversations": [], "turns": []}
+
+
+@pytest.mark.parametrize("stored_chat", ["0006_corpus_publication"], indirect=True)
+def test_rag_migration_preserves_sources_and_initializes_bounded_budget(
+    engine, stored_chat
+):
+    before = _chat_rows(engine)
+    for turn in before["turns"]:
+        turn["retrieval_tokens"] = 0
+    migrate_database(engine)
+    migrate_database(engine)
+    assert _chat_rows(engine) == before
+    _, _, _, turn_id, _ = stored_chat
+    turns = Table("chat_turns", MetaData(), autoload_with=engine)
+    with engine.begin() as connection:
+        connection.execute(
+            update(turns).where(turns.c.id == turn_id).values(retrieval_tokens=24000)
+        )
+    for value in (-1, 24001):
+        with pytest.raises(IntegrityError), engine.begin() as connection:
+            connection.execute(
+                update(turns)
+                .where(turns.c.id == turn_id)
+                .values(retrieval_tokens=value)
+            )
+    assert _chat_rows(engine)["turns"][0]["retrieval_tokens"] == 24000
 
 
 def test_migration_initializes_durable_checkpoints(engine, database_dsn):
@@ -555,7 +582,7 @@ def test_checkpoint_failure_is_retryable_and_releases_the_migration_lock(
     with psycopg.connect(database_dsn, autocommit=True) as connection:
         assert connection.execute(
             "SELECT version_num FROM alembic_version"
-        ).fetchone() == ("0006_corpus_publication",)
+        ).fetchone() == ("0007_rag_evidence",)
         assert connection.execute(
             "SELECT pg_try_advisory_lock(6174726167)"
         ).fetchone() == (True,)

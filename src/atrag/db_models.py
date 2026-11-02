@@ -69,6 +69,7 @@ class ChatTurnRow(Base):
     corpus_release_id: Mapped[str | None] = mapped_column(
         String(64), ForeignKey("corpus_releases.release_id")
     )
+    retrieval_tokens: Mapped[int] = mapped_column(server_default="0")
     language: Mapped[SupportedLanguage] = mapped_column(Text)
     question: Mapped[str] = mapped_column(Text)
     answer: Mapped[str] = mapped_column(Text, server_default="")
@@ -175,8 +176,8 @@ class AddressColumns:
     legal_status: Mapped[str] = mapped_column(Text)
     unit_title: Mapped[str] = mapped_column(Text)
     citation_label: Mapped[str] = mapped_column(Text)
-    page_start: Mapped[int]
-    page_end: Mapped[int]
+    page_start: Mapped[int | None]
+    page_end: Mapped[int | None]
     text_original: Mapped[str] = mapped_column(Text)
     text_normalized: Mapped[str] = mapped_column(Text)
     payload: Mapped[dict] = mapped_column(JSONB)
