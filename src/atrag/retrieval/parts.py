@@ -57,14 +57,23 @@ def available_references(unit, units):
     return sorted(targets)
 
 
+def unit_text_cost(unit, text, encoding):
+    content = "\n\n".join(
+        [
+            unit.citation_label,
+            *[note.raw_text for note in unit.editorial_notes],
+            text,
+        ]
+    )
+    return len(encoding.encode_ordinary(content))
+
+
 def unit_text(unit, source, units, *, start=0, context_tokens=6000):
     if not 0 <= start < len(unit.text_original):
         raise ValueError("Invalid original-text start")
     encoding = tiktoken.get_encoding("cl100k_base")
     text = unit.text_original[start:]
-    measure = lambda a, b: len(
-        encoding.encode_ordinary(unit.citation_label + "\n\n" + text[a:b])
-    )
+    measure = lambda a, b: unit_text_cost(unit, text[a:b], encoding)
     ranges = text_ranges(text, measure, context_tokens, context_tokens)
     _, length = ranges[0]
     end = start + length

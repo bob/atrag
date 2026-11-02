@@ -17,6 +17,10 @@ def _returned_scope(hits):
 
 def hit_diagnostics(hits, report):
     unit_ids, pages, table_ids = _returned_scope(hits)
+    return scope_diagnostics(unit_ids, pages, table_ids, report)
+
+
+def scope_diagnostics(unit_ids, pages, table_ids, report):
     selected = {
         key: [row for row in report.get(key, []) if row["legal_unit_id"] in unit_ids]
         for key in ("unresolved_references", "structure_issues", "omissions")

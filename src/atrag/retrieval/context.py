@@ -39,17 +39,27 @@ def evidence_cost(fragment, related_units, related_tables, encoding):
 
 
 def assemble_hits(rankings, fragments, request, encoding):
+    return fit_hits(
+        (make_hit(ranking, fragments[ranking.fragment_id]) for ranking in rankings),
+        request,
+        encoding,
+    )
+
+
+def make_hit(ranking, fragment):
+    return SearchHit(
+        **ranking.model_dump(),
+        fragment=fragment,
+        related_units=[],
+        related_tables=[],
+        available_reference_ids=reference_targets(fragment),
+    )
+
+
+def fit_hits(candidates, request, encoding):
     hits, used, limited = [], 0, False
-    for ranking in rankings:
-        fragment = fragments[ranking.fragment_id]
-        hit = SearchHit(
-            **ranking.model_dump(),
-            fragment=fragment,
-            related_units=[],
-            related_tables=[],
-            available_reference_ids=reference_targets(fragment),
-        )
-        cost = evidence_cost(fragment, [], [], encoding)
+    for hit in candidates:
+        cost = evidence_cost(hit.fragment, [], [], encoding)
         if used + cost > request.context_tokens:
             limited = True
             continue

@@ -9,6 +9,10 @@ from atrag.schemas.ingestion.embeddings import APIUsage
 MAX_ATTEMPTS = 3
 
 
+class EmbeddingRequestError(ValueError):
+    """Operational failure, distinct from an invalid retrieval argument."""
+
+
 def _temporary(error):
     if isinstance(error, APIConnectionError):
         return True
@@ -19,7 +23,9 @@ def _temporary(error):
 
 def request_embeddings(client, space, batch, report, sleep):
     if client is None:
-        raise ValueError("OPENAI_API_KEY is required for uncached embeddings")
+        raise EmbeddingRequestError(
+            "OPENAI_API_KEY is required for uncached embeddings"
+        )
     for attempt in range(MAX_ATTEMPTS):
         report["requests"] += 1
         try:
@@ -32,11 +38,15 @@ def request_embeddings(client, space, batch, report, sleep):
             break
         except (APIConnectionError, APIStatusError) as error:
             if not _temporary(error) or attempt == MAX_ATTEMPTS - 1:
-                raise ValueError("Embedding request failed; see run report") from None
+                raise EmbeddingRequestError(
+                    "Embedding request failed; see run report"
+                ) from None
             report["retries"] += 1
             sleep(2**attempt + random.random())
         except APIError:
-            raise ValueError("Embedding request failed; invalid API response") from None
+            raise EmbeddingRequestError(
+                "Embedding request failed; invalid API response"
+            ) from None
     raw = response.model_dump()
     usage = APIUsage.model_validate(raw.get("usage"))
     report["usage"]["prompt_tokens"] += usage.prompt_tokens

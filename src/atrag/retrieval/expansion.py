@@ -5,7 +5,12 @@ from collections import defaultdict, deque
 
 import tiktoken
 
-from atrag.retrieval.parts import available_notes, available_references, unit_text
+from atrag.retrieval.parts import (
+    available_notes,
+    available_references,
+    unit_text,
+    unit_text_cost,
+)
 from atrag.schemas.retrieval import ExpandedContext
 
 
@@ -63,9 +68,7 @@ def table_cost(table, encoding):
 
 
 def _text(unit, source, units, remaining, encoding):
-    minimum = len(
-        encoding.encode_ordinary(unit.citation_label + "\n\n" + unit.text_original[0])
-    )
+    minimum = unit_text_cost(unit, unit.text_original[0], encoding)
     if remaining < minimum:
         return None
     return unit_text(unit, source, units, context_tokens=remaining)

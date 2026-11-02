@@ -35,9 +35,11 @@ def _query_vector(query, snapshot, client, usage, encoding):
     return next(iter(match_response(raw, space, [item]))).embedding
 
 
-def _filtered_query(request):
+def _filtered_query(request, snapshot_ids=None):
     query = select(FragmentRow.fragment_id).where(
-        FragmentRow.snapshot_id == request.snapshot_id
+        FragmentRow.snapshot_id.in_(
+            [request.snapshot_id] if snapshot_ids is None else snapshot_ids
+        )
     )
     for key, value in request.filters.model_dump(exclude_none=True).items():
         query = query.where(getattr(FragmentRow, key) == value)
@@ -155,7 +157,7 @@ def search_tax_documents(
     }
     if filters is not None:
         request_values["filters"] = filters
-    request = SearchRequest(**request_values)
+    request = SearchRequest.model_validate(request_values)
     language = detect_query_language(request.query, request.query_language)
     request = request.model_copy(
         update={

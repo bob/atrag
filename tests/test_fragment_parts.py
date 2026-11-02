@@ -240,7 +240,15 @@ def test_explicit_original_and_continuation_include_citation_and_note_address(
     assert full.source.source_url == SOURCE.source_url
     assert full.locators == unit.locators
     assert full.context_tokens_used == len(
-        ENCODING.encode_ordinary(full.citation_label + "\n\n" + full.text_original)
+        ENCODING.encode_ordinary(
+            "\n\n".join(
+                [
+                    full.citation_label,
+                    *[n.raw_text for n in unit.editorial_notes],
+                    full.text_original,
+                ]
+            )
+        )
     )
     note = article16.units[-1]
     start, delivered = 0, []
