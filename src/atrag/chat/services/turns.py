@@ -1,7 +1,7 @@
 """Own a turn's lifecycle independently of UI reruns and agent implementation."""
 
 import logging
-from collections.abc import Iterator
+from collections.abc import Generator
 from uuid import UUID
 
 from atrag.chat.db.execution import ExecutionStore
@@ -32,7 +32,7 @@ class TurnService:
         language: SupportedLanguage,
         *,
         resume: bool = False,
-    ) -> Iterator[TurnEvent]:
+    ) -> Generator[TurnEvent]:
         question = QUESTION.validate_python(text, strict=True)
         language = LANGUAGE.validate_python(language)
         with self.store.conversation_lock(user, conversation_id) as acquired:
