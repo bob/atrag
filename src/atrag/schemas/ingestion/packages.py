@@ -16,9 +16,11 @@ SHA256 = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
 
 
 class PackageManifest(EmbeddingSpace):
-    schema_version: Literal[1] = 1
+    schema_version: Literal[1, 2] = 2
     dimensions: Literal[1536] = 1536
     snapshot_id: SHA256
+    raw_snapshot_id: SHA256 | None = None
+    preparation_version: Literal["1"] = "1"
     parser_version: str
     chunker_version: str
     fragment_count: int = Field(gt=0)

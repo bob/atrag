@@ -7,6 +7,7 @@ from uuid import uuid4
 import pytest
 from alembic import command
 from alembic.config import Config
+from fixtures.prepared import index_legacy_document
 from langchain_core.runnables import RunnableConfig
 from langgraph.checkpoint.base import empty_checkpoint
 from langgraph.checkpoint.postgres import PostgresSaver
@@ -25,7 +26,6 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from atrag.db_models import ChatConversationRow, ChatTurnRow, ChatUserRow
-from atrag.ingestion.services.index import index_package
 from atrag.ingestion.services.packages import build_package
 from atrag.migrations import migrate_database
 
@@ -68,10 +68,12 @@ def _chat_tables(engine):
 @pytest.fixture
 def stored_chat(engine, prepared_document, tmp_path, request):
     revision = getattr(request, "param", "head")
-    _change_schema(engine, command.upgrade, revision)
+    _change_schema(engine, command.upgrade, "head")
     data, parsed, chunked, embedded = prepared_document
     package = build_package(parsed, chunked, embedded, data, tmp_path / "package")
-    snapshot = index_package(package, engine, tmp_path / "indexed").snapshot_id
+    snapshot = index_legacy_document(package, engine)
+    if revision != "head":
+        _change_schema(engine, command.downgrade, revision)
     tables = _chat_tables(engine)
     user_id, conversation_id, turn_id = uuid4(), uuid4(), uuid4()
     with engine.begin() as connection:
@@ -401,6 +403,7 @@ def test_upgrade_preserves_legacy_history_and_each_turn_origin(engine, stored_ch
     origins = {row["id"]: row.pop("snapshot_id") for row in before["conversations"]}
     for turn in before["turns"]:
         turn["legacy_snapshot_id"] = origins[turn["conversation_id"]]
+        turn["corpus_release_id"] = None
     migrate_database(engine)
     migrate_database(engine)
     engine.dispose()
@@ -501,7 +504,7 @@ def test_downgrade_refuses_to_invent_snapshot_and_preserves_data(
     assert _chat_rows(engine) == before
     with engine.connect() as connection:
         assert connection.scalar(text("SELECT version_num FROM alembic_version")) == (
-            "0005_chat_provenance"
+            "0006_corpus_publication"
         )
 
 
@@ -552,7 +555,7 @@ def test_checkpoint_failure_is_retryable_and_releases_the_migration_lock(
     with psycopg.connect(database_dsn, autocommit=True) as connection:
         assert connection.execute(
             "SELECT version_num FROM alembic_version"
-        ).fetchone() == ("0005_chat_provenance",)
+        ).fetchone() == ("0006_corpus_publication",)
         assert connection.execute(
             "SELECT pg_try_advisory_lock(6174726167)"
         ).fetchone() == (True,)

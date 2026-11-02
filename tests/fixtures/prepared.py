@@ -32,7 +32,7 @@ def refresh_manifest(path, group="output_sha256"):
     write_json(path, manifest)
 
 
-def prepare_document(tmp_path, *, second_paragraph=None):
+def prepare_document(tmp_path, *, second_paragraph=None, source_id="pt-at-cirs"):
     tmp_path.mkdir(parents=True, exist_ok=True)
     data = tmp_path / "local"
     pdf = tmp_path / "original.pdf"
@@ -42,6 +42,7 @@ def prepare_document(tmp_path, *, second_paragraph=None):
     source = load_source_registry(Path("data/sources/cirs.json")).model_copy(
         update={
             "local_path": pdf,
+            "source_id": source_id,
             "expected_sha256": None,
             "revision_publication_date": date(2026, 6, 3),
         }
@@ -181,3 +182,96 @@ def prepare_document(tmp_path, *, second_paragraph=None):
         chunk.directory / "manifest.json",
         embedded / "manifest.json",
     )
+
+
+def prepare_revision(prepared, output, *, source_updates=None):
+    """Change preparation with identical source bytes and cached synthetic vectors."""
+    from atrag.ingestion.services.packages import build_package
+    from atrag.schemas.ingestion.sources import SourceDefinition
+
+    data, parsed, _chunked, embedded = prepared
+    raw = next((data / "raw").glob("*/manifest.json"))
+    source = SourceDefinition.model_validate(json.loads(raw.read_bytes())["source"])
+    source = SourceDefinition.model_validate(
+        {**source.model_dump(), **(source_updates or {})}
+    )
+    chunk = chunk_parsed(parsed, data, source, ChunkParameters(target_tokens=701))
+    fragments = [
+        SearchFragment.model_validate_json(line)
+        for line in (chunk.directory / "fragments.jsonl").read_bytes().splitlines()
+    ]
+    vectors = {
+        v["input_hash"]: v
+        for v in (
+            json.loads(line)
+            for line in (embedded.parent / "embeddings.jsonl").read_bytes().splitlines()
+        )
+    }
+    output.mkdir(parents=True)
+    write_jsonl(
+        output / "embeddings.jsonl",
+        [
+            FragmentEmbedding.model_validate(
+                {
+                    **vectors.get(f.embedding_input_hash, next(iter(vectors.values()))),
+                    "input_hash": f.embedding_input_hash,
+                    "fragment_id": f.fragment_id,
+                }
+            )
+            for f in fragments
+        ],
+    )
+    (output / "report.json").write_bytes((embedded.parent / "report.json").read_bytes())
+    manifest = json.loads(embedded.read_bytes())
+    manifest["input_sha256"] = {
+        n: digest((chunk.directory / n).read_bytes())
+        for n in ("manifest.json", "fragments.jsonl", "report.json")
+    }
+    write_json(output / "manifest.json", manifest)
+    refresh_manifest(output / "manifest.json")
+    return build_package(
+        parsed,
+        chunk.directory / "manifest.json",
+        output / "manifest.json",
+        data,
+        output / "package",
+    )
+
+
+def index_legacy_document(package, engine):
+    """Reproduce the pre-1.2 raw-hash corpus for migration compatibility tests."""
+    from dataclasses import replace
+
+    from atrag.ingestion.services.index import _insert_corpus
+    from atrag.ingestion.services.packages import load_package
+    from atrag.schemas.ingestion.snapshots import SourceSnapshot
+    from atrag.schemas.ingestion.structure import LegalUnit
+
+    document = load_package(package)
+    snapshot = SourceSnapshot.model_validate_json(document.files["snapshot.json"])
+    original = replace(
+        document,
+        snapshot=snapshot,
+        manifest=document.manifest.model_copy(
+            update={"snapshot_id": snapshot.snapshot_id}
+        ),
+        units=[
+            LegalUnit.model_validate_json(l)
+            for l in document.files["legal_units.jsonl"].splitlines()
+        ],
+        fragments=[
+            SearchFragment.model_validate_json(l)
+            for l in document.files["fragments.jsonl"].splitlines()
+        ],
+        embeddings=[
+            FragmentEmbedding.model_validate_json(l)
+            for l in document.files["embeddings.jsonl"].splitlines()
+        ],
+        reports={
+            stage: json.loads(document.files[f"{stage}/report.json"])
+            for stage in ("parse", "chunk", "embed")
+        },
+    )
+    with engine.begin() as connection:
+        _insert_corpus(connection, original)
+    return snapshot.snapshot_id

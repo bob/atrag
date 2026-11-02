@@ -9,6 +9,7 @@ from typing import get_args
 from psycopg import Error as PsycopgError
 from sqlalchemy.exc import SQLAlchemyError
 
+from atrag.corpus import publish_corpus, resolve_corpus
 from atrag.db import create_db_engine
 from atrag.ingestion.client.openai import create_openai_client
 from atrag.ingestion.services.chunks import chunk_parsed
@@ -34,6 +35,17 @@ def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="atrag")
     commands = parser.add_subparsers(dest="command", required=True)
     _search_parser(commands)
+    corpus = commands.add_parser("corpus", help="Explicit corpus publication")
+    publications = corpus.add_subparsers(dest="action", required=True)
+    publish = publications.add_parser("publish")
+    publish.add_argument(
+        "--changes",
+        type=Path,
+        required=True,
+        help="JSON object: source_id to snapshot_id, or null to remove",
+    )
+    show = publications.add_parser("show")
+    show.add_argument("--release")
     evaluation = commands.add_parser(
         "evaluate", help="Evaluate retrieval against reviewed expectations"
     )
@@ -238,6 +250,22 @@ def _index(source, settings, args):
     }
 
 
+def _corpus_command(source, settings, args):
+    engine = create_db_engine(settings)
+    try:
+        if args.action == "publish":
+            composition = publish_corpus(engine, json.loads(args.changes.read_bytes()))
+        else:
+            with engine.connect() as connection:
+                composition = resolve_corpus(connection, args.release)
+        return {
+            "release_id": composition.release_id,
+            "members": dict(composition.members),
+        }
+    finally:
+        engine.dispose()
+
+
 def _search_command(source, settings, args):
     with ExitStack() as stack:
         engine = create_db_engine(settings)
@@ -307,8 +335,12 @@ def main(argv: list[str] | None = None) -> None:
             2,
             "Invalid configuration or source registry; check .env and registry fields.\n",
         )
-    if args.command in ("search", "evaluate"):
+    if args.command in ("search", "evaluate", "corpus"):
         operation, failure = {
+            "corpus": (
+                _corpus_command,
+                "Corpus operation failed; check changes, indexed versions and database.\n",
+            ),
             "search": (
                 _search_command,
                 "Search failed; check snapshot, query, language and database.\n",
@@ -367,7 +399,7 @@ def main(argv: list[str] | None = None) -> None:
 
 
 def _command_source(args):
-    if args.command in ("search", "evaluate"):
+    if args.command in ("search", "evaluate", "corpus"):
         return None
     if args.action in ("index", "package"):
         return None

@@ -1,10 +1,12 @@
 """Publish and verify a portable prepared document, without PDF/OCR processing."""
 
 import json
+from dataclasses import replace
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from atrag.ingestion.package_validation import digest, validate_document
+from atrag.ingestion.preparation import preparation_identity, prepared_document
 from atrag.ingestion.services.artifacts import write_json
 from atrag.ingestion.services.snapshots import _publish_snapshot
 from atrag.schemas.ingestion.embeddings import FragmentEmbedding
@@ -47,8 +49,7 @@ def _check_stages(files):
     return stages
 
 
-def _read_document(manifest, files):
-    stages = _check_stages(files)
+def _check_provenance(manifest, files, stages):
     snapshot = SourceSnapshot.model_validate_json(files["snapshot.json"])
     pdf = files["source.pdf"]
     if not pdf.startswith(b"%PDF-"):
@@ -57,7 +58,8 @@ def _read_document(manifest, files):
         raise ValueError("Package PDF size mismatch")
     if digest(pdf) != snapshot.snapshot_id:
         raise ValueError("Package snapshot checksum mismatch")
-    if {s.snapshot_id for s in stages.values()} != {manifest.snapshot_id}:
+    raw_id = manifest.raw_snapshot_id or manifest.snapshot_id
+    if {s.snapshot_id for s in stages.values()} != {raw_id}:
         raise ValueError("Prepared stages belong to different snapshots")
     expected = (
         snapshot.snapshot_id,
@@ -68,7 +70,7 @@ def _read_document(manifest, files):
         stages["embed"].fragment_count,
     )
     actual = (
-        manifest.snapshot_id,
+        raw_id,
         manifest.parser_version,
         manifest.chunker_version,
         manifest.model,
@@ -77,12 +79,22 @@ def _read_document(manifest, files):
     )
     if actual != expected:
         raise ValueError("Package processing versions or identity mismatch")
+    _check_reviews(files, snapshot.snapshot_id)
+    return snapshot
+
+
+def _check_reviews(files, snapshot_id):
     for name, raw in files.items():
         if name.startswith("reviews/") and (
-            ExtractionReview.model_validate_json(raw).snapshot_id
-            != snapshot.snapshot_id
+            ExtractionReview.model_validate_json(raw).snapshot_id != snapshot_id
         ):
             raise ValueError("Manual review belongs to another snapshot")
+
+
+def _read_document(manifest, files):
+    stages = _check_stages(files)
+    snapshot = _check_provenance(manifest, files, stages)
+    raw_id = manifest.raw_snapshot_id or manifest.snapshot_id
     document = PreparedDocument(
         manifest=manifest,
         snapshot=snapshot,
@@ -104,8 +116,10 @@ def _read_document(manifest, files):
         },
         files=files,
     )
-    validate_document(document)
-    return document
+    validate_document(
+        replace(document, manifest=manifest.model_copy(update={"snapshot_id": raw_id}))
+    )
+    return prepared_document(document)
 
 
 def _read_files(path, manifest):
@@ -142,6 +156,17 @@ def _collect(parsed, chunked, embedded, data_dir, reviews):
             "snapshot.json": (raw / "manifest.json").read_bytes(),
         }
     )
+    # Raw bytes keep their first import manifest. Prepared metadata belongs to
+    # this preparation, whose fragments all carry the same checked source.
+    snapshot = SourceSnapshot.model_validate_json(files["snapshot.json"])
+    fragment = SearchFragment.model_validate_json(
+        next(iter(files["fragments.jsonl"].splitlines()), b"{}")
+    )
+    files["snapshot.json"] = (
+        snapshot.model_copy(update={"source": fragment.source})
+        .model_dump_json()
+        .encode()
+    )
     for i, review in enumerate(reviews):
         files[f"reviews/{i}.json"] = review.read_bytes()
     return files, stages
@@ -159,12 +184,16 @@ def build_package(
     files, stages = _collect(parsed, chunked, embedded, data_dir, reviews)
     manifest = PackageManifest(
         snapshot_id=stages["parse"].snapshot_id,
+        raw_snapshot_id=stages["parse"].snapshot_id,
         parser_version=stages["parse"].parser_version,
         chunker_version=stages["chunk"].chunker_version,
         model=stages["embed"].model,
         dimensions=stages["embed"].dimensions,
         fragment_count=stages["embed"].fragment_count,
         files={name: digest(content) for name, content in sorted(files.items())},
+    )
+    manifest = manifest.model_copy(
+        update={"snapshot_id": preparation_identity(manifest)}
     )
     _read_document(manifest, files)
     output.parent.mkdir(parents=True, exist_ok=True)

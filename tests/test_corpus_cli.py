@@ -83,3 +83,16 @@ def test_database_command_failures_do_not_leak_secrets(
     output = capsys.readouterr().err
     assert message in output
     assert "secret" not in output
+
+
+@pytest.mark.parametrize(
+    "args,required", [(["corpus"], "action"), (["corpus", "publish"], "--changes")]
+)
+def test_publication_requires_explicit_changes(args, required, monkeypatch, capsys):
+    monkeypatch.setattr(
+        "atrag.cli.load_settings", lambda: pytest.fail("Parse before IO")
+    )
+    with pytest.raises(SystemExit) as error:
+        main(args)
+    assert error.value.code == 2
+    assert required in capsys.readouterr().err

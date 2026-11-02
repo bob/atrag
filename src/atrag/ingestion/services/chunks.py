@@ -173,11 +173,11 @@ def chunk_parsed(
         run.manifest["input_sha256"] = {
             name: _digest(content) for name, content in raw.items()
         }
-        parent, snapshot, structure = _load_inputs(raw, data_dir, source)
+        parent, _snapshot, structure = _load_inputs(raw, data_dir, source)
         encoding = tiktoken.get_encoding(parameters.token_encoding)
         result = chunk_structure(
             structure,
-            snapshot.source,
+            source,
             parser_version=parent.parser_version,
             parameters=parameters,
             count_tokens=lambda text: len(encoding.encode_ordinary(text)),

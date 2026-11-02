@@ -151,7 +151,7 @@ def test_missing_file_and_symlink_are_rejected(prepared_document, tmp_path):
     [
         ("stage", "Wrong prepared stage"),
         ("output", "checksum"),
-        ("snapshot", "different snapshots"),
+        ("snapshot", "prepared snapshots"),
         ("versions", "versions"),
     ],
 )
@@ -213,3 +213,114 @@ def test_snapshot_size_matches_even_when_pdf_checksum_is_valid(
     snapshot.write_text(json.dumps(manifest))
     with pytest.raises(ValueError, match="PDF size"):
         build_package(parsed, chunked, embedded, data, tmp_path / "package")
+
+
+def test_preparation_identity_differs_from_file_hash_and_changes_with_metadata(
+    prepared_document, tmp_path
+):
+    data, parsed, chunked, embedded = prepared_document
+    first = load_package(
+        build_package(parsed, chunked, embedded, data, tmp_path / "first")
+    )
+    assert first.snapshot.snapshot_id != first.snapshot.source_sha256
+    raw = next((data / "raw").glob("*/manifest.json"))
+    provenance = json.loads(raw.read_bytes())
+    provenance["source"]["document_title"] = "Another title"
+    raw.write_text(json.dumps(provenance))
+    # Raw import provenance does not override prepared fragment metadata.
+    second = load_package(
+        build_package(parsed, chunked, embedded, data, tmp_path / "second")
+    )
+    assert second.snapshot.source == first.snapshot.source
+    assert second.snapshot.snapshot_id == first.snapshot.snapshot_id
+
+
+@pytest.mark.parametrize(
+    "metadata",
+    [
+        {"document_title": "Updated title"},
+        {"source_url": "https://example.org/revision"},
+    ],
+)
+def test_repreparation_uses_current_metadata_with_identical_raw_file(
+    prepared_document, tmp_path, metadata
+):
+    from fixtures.prepared import prepare_revision
+
+    first = load_package(
+        build_package(*prepared_document[1:], prepared_document[0], tmp_path / "first")
+    )
+    second = load_package(
+        prepare_revision(
+            prepared_document,
+            tmp_path / "revision",
+            source_updates=metadata,
+        )
+    )
+    assert second.snapshot.source_sha256 == first.snapshot.source_sha256
+    for key, value in metadata.items():
+        assert str(getattr(second.snapshot.source, key)) == value
+    assert second.snapshot.snapshot_id != first.snapshot.snapshot_id
+    assert all(f.source == second.snapshot.source for f in second.fragments)
+
+
+def test_raw_stages_cannot_be_reassigned_to_another_file(prepared_document, tmp_path):
+    path = build_package(
+        *prepared_document[1:], prepared_document[0], tmp_path / "package"
+    )
+    manifest = json.loads(path.read_bytes())
+    manifest["raw_snapshot_id"] = "b" * 64
+    path.write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match="different snapshots"):
+        load_package(path)
+
+
+def test_legacy_package_gets_the_same_prepared_identity(prepared_document, tmp_path):
+    path = build_package(
+        *prepared_document[1:], prepared_document[0], tmp_path / "package"
+    )
+    current = load_package(path)
+    manifest = json.loads(path.read_bytes())
+    manifest["schema_version"] = 1
+    manifest["snapshot_id"] = manifest.pop("raw_snapshot_id")
+    manifest.pop("preparation_version")
+    path.write_text(json.dumps(manifest))
+    legacy = load_package(path)
+    assert legacy.snapshot == current.snapshot
+    assert legacy.fragments == current.fragments
+
+
+def test_manifest_key_order_does_not_change_prepared_identity(
+    prepared_document, tmp_path
+):
+    path = build_package(
+        *prepared_document[1:], prepared_document[0], tmp_path / "package"
+    )
+    original = load_package(path).snapshot.snapshot_id
+    manifest = json.loads(path.read_bytes())
+    manifest["files"] = dict(reversed(list(manifest["files"].items())))
+    path.write_text(json.dumps(manifest))
+    assert load_package(path).snapshot.snapshot_id == original
+
+
+def test_report_provenance_rebinds_only_its_own_snapshot(prepared_document, tmp_path):
+    from fixtures.prepared import refresh_manifest
+
+    data, parsed, chunked, embedded = prepared_document
+    raw = json.loads(parsed.read_bytes())["snapshot_id"]
+    report_path = embedded.parent / "report.json"
+    report = json.loads(report_path.read_bytes())
+    report.update(
+        source_sha256=raw,
+        earlier={"snapshot_id": "f" * 64},
+        parts=[{"snapshot_id": raw}],
+    )
+    report_path.write_text(json.dumps(report))
+    refresh_manifest(embedded)
+    document = load_package(
+        build_package(parsed, chunked, embedded, data, tmp_path / "package")
+    )
+    prepared = document.reports["embed"]
+    assert prepared["source_sha256"] == raw
+    assert prepared["earlier"]["snapshot_id"] == "f" * 64
+    assert prepared["parts"][0]["snapshot_id"] == document.snapshot.snapshot_id

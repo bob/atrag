@@ -73,8 +73,9 @@ def test_upgrade_removes_legacy_lexical_index_without_changing_corpus(
 
     from alembic import command
     from alembic.config import Config
+    from fixtures.prepared import index_legacy_document
 
-    index_package(package, engine, tmp_path / "server")
+    index_legacy_document(package, engine)
     config = Config()
     config.set_main_option(
         "script_location", str(Path("src/atrag/migrations").resolve())
@@ -108,7 +109,7 @@ def test_upgrade_removes_legacy_lexical_index_without_changing_corpus(
 
 
 def test_transaction_failure_preserves_previous_searchable_index(
-    package, engine, tmp_path
+    package, engine, tmp_path, prepared_document
 ):
     data = tmp_path / "server-data"
     index_package(package, engine, data)
@@ -118,9 +119,12 @@ def test_transaction_failure_preserves_previous_searchable_index(
             raise RuntimeError("injected database failure")
 
     event.listen(engine, "before_cursor_execute", reject_insert)
+    from fixtures.prepared import prepare_revision
+
+    changed = prepare_revision(prepared_document, tmp_path / "revision")
     try:
         with pytest.raises(RuntimeError, match="injected"):
-            index_package(package, engine, data)
+            index_package(changed, engine, data)
     finally:
         event.remove(engine, "before_cursor_execute", reject_insert)
     with engine.connect() as connection:
@@ -158,7 +162,7 @@ def test_package_is_checked_before_database_is_touched(package, engine, tmp_path
         assert connection.scalar(text("SELECT count(*) FROM source_snapshots")) == 0
 
 
-def test_reindex_can_change_model_without_mixing_spaces(
+def test_new_model_gets_a_separate_version_without_mixing_spaces(
     package, prepared_document, engine, tmp_path
 ):
     from fixtures.prepared import refresh_manifest
@@ -178,7 +182,7 @@ def test_reindex_can_change_model_without_mixing_spaces(
     with engine.connect() as connection:
         assert connection.scalars(
             text("SELECT DISTINCT embedding_model FROM search_fragments")
-        ).all() == ["text-embedding-3-large"]
+        ).all() == ["text-embedding-3-small", "text-embedding-3-large"]
         assert connection.scalar(text("SELECT count(*) FROM embeddings")) == 6
 
 
@@ -204,67 +208,57 @@ def test_conflicting_cached_vector_cannot_change_previous_corpus(
 def test_existing_snapshot_provenance_is_not_overwritten(package, engine, tmp_path):
     data = tmp_path / "server"
     result = index_package(package, engine, data)
-    snapshot = data / "raw" / result.snapshot_id / "manifest.json"
+    snapshot = data / load_package(package).snapshot.local_path.parent / "manifest.json"
     manifest = json.loads(snapshot.read_bytes())
     manifest["source"]["publisher"] = "Changed publisher"
     snapshot.write_text(json.dumps(manifest))
-    with pytest.raises(ValueError, match="provenance"):
-        index_package(package, engine, data)
+    index_package(package, engine, data)
+    assert (
+        json.loads(snapshot.read_bytes())["source"]["publisher"] == "Changed publisher"
+    )
+    with engine.connect() as connection:
+        assert (
+            connection.scalar(
+                select(SnapshotRow.publisher).where(
+                    SnapshotRow.snapshot_id == result.snapshot_id
+                )
+            )
+            != "Changed publisher"
+        )
 
 
-def test_rechunk_replaces_complete_fragment_set(
+def test_rechunk_preserves_both_immutable_fragment_sets(
     package, prepared_document, engine, tmp_path
 ):
-    from fixtures.prepared import digest, refresh_manifest
+    from fixtures.prepared import prepare_revision
 
-    from atrag.ingestion.services.chunks import chunk_parsed
-    from atrag.schemas.ingestion.fragments import ChunkParameters
-
-    data, parsed, _chunked, embedded = prepared_document
-    original = load_package(package)
-    index_package(package, engine, tmp_path / "server")
-    chunk = chunk_parsed(
-        parsed, data, original.snapshot.source, ChunkParameters(target_tokens=701)
-    )
-    fragments = [
-        json.loads(line)
-        for line in (chunk.directory / "fragments.jsonl").read_bytes().splitlines()
-    ]
-    vectors = {v.input_hash: v.model_dump(mode="json") for v in original.embeddings}
-    rows = [
-        {**vectors[f["embedding_input_hash"]], "fragment_id": f["fragment_id"]}
-        for f in fragments
-    ]
-    (embedded.parent / "embeddings.jsonl").write_text(
-        "\n".join(json.dumps(row) for row in rows) + "\n"
-    )
-    manifest = json.loads(embedded.read_bytes())
-    manifest["input_sha256"] = {
-        name: digest((chunk.directory / name).read_bytes())
-        for name in ("manifest.json", "fragments.jsonl", "report.json")
-    }
-    embedded.write_text(json.dumps(manifest))
-    refresh_manifest(embedded)
-    updated = build_package(
-        parsed,
-        chunk.directory / "manifest.json",
-        embedded,
-        data,
-        tmp_path / "rechunked",
-    )
-    index_package(updated, engine, tmp_path / "server")
+    first = index_package(package, engine, tmp_path / "server")
+    updated = prepare_revision(prepared_document, tmp_path / "revision")
+    second = index_package(updated, engine, tmp_path / "server")
+    assert first.snapshot_id != second.snapshot_id
     with engine.connect() as connection:
-        ids = set(connection.scalars(select(FragmentRow.fragment_id)))
-    assert ids == {f["fragment_id"] for f in fragments}
-    assert ids.isdisjoint(f.fragment_id for f in original.fragments)
+        for result, path in ((first, package), (second, updated)):
+            ids = set(
+                connection.scalars(
+                    select(FragmentRow.fragment_id).where(
+                        FragmentRow.snapshot_id == result.snapshot_id
+                    )
+                )
+            )
+            assert ids == {f.fragment_id for f in load_package(path).fragments}
 
 
-def test_readers_keep_previous_index_and_writers_serialize(package, engine, tmp_path):
+def test_readers_keep_previous_index_and_writers_serialize(
+    package, engine, tmp_path, prepared_document
+):
     from concurrent.futures import ThreadPoolExecutor
     from threading import Event
 
     data = tmp_path / "server"
     index_package(package, engine, data)
+    from fixtures.prepared import prepare_revision
+
+    changed = prepare_revision(prepared_document, tmp_path / "revision")
     deleting, release, second_started, second_deleted = (
         Event(),
         Event(),
@@ -273,7 +267,7 @@ def test_readers_keep_previous_index_and_writers_serialize(package, engine, tmp_
     )
 
     def pause_writer(connection, cursor, statement, parameters, context, many):
-        if not statement.startswith("DELETE FROM search_fragments"):
+        if not statement.startswith("INSERT INTO search_fragments"):
             return
         if deleting.is_set():
             second_deleted.set()
@@ -283,12 +277,12 @@ def test_readers_keep_previous_index_and_writers_serialize(package, engine, tmp_
 
     def second_writer():
         second_started.set()
-        return index_package(package, engine, data)
+        return index_package(changed, engine, data)
 
     event.listen(engine, "before_cursor_execute", pause_writer)
     try:
         with ThreadPoolExecutor(max_workers=2) as workers:
-            first = workers.submit(index_package, package, engine, data)
+            first = workers.submit(index_package, changed, engine, data)
             assert deleting.wait(5)
             second = workers.submit(second_writer)
             assert second_started.wait(5)

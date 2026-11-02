@@ -66,6 +66,9 @@ class ChatTurnRow(Base):
     legacy_snapshot_id: Mapped[str | None] = mapped_column(
         String(64), ForeignKey("source_snapshots.snapshot_id")
     )
+    corpus_release_id: Mapped[str | None] = mapped_column(
+        String(64), ForeignKey("corpus_releases.release_id")
+    )
     language: Mapped[SupportedLanguage] = mapped_column(Text)
     question: Mapped[str] = mapped_column(Text)
     answer: Mapped[str] = mapped_column(Text, server_default="")
@@ -87,11 +90,15 @@ class SnapshotRow(Base):
     __tablename__ = "source_snapshots"
     __table_args__ = (
         UniqueConstraint("snapshot_id", "embedding_model", "embedding_dimensions"),
+        UniqueConstraint("source_id", "snapshot_id", name="snapshot_source_identity"),
     )
 
     snapshot_id: Mapped[str] = mapped_column(String(64), primary_key=True)
-    source_id: Mapped[str] = mapped_column(Text, index=True)
+    source_id: Mapped[str] = mapped_column(
+        Text, ForeignKey("source_documents.source_id"), index=True
+    )
     source_sha256: Mapped[str] = mapped_column(String(64))
+    preparation_sha256: Mapped[str | None] = mapped_column(String(64))
     document_title: Mapped[str] = mapped_column(Text)
     document_type: Mapped[str] = mapped_column(Text)
     publisher: Mapped[str] = mapped_column(Text)
@@ -112,6 +119,41 @@ class SnapshotRow(Base):
     chunker_version: Mapped[str] = mapped_column(Text)
     review_status: Mapped[str] = mapped_column(Text)
     reports: Mapped[dict] = mapped_column(JSONB)
+
+
+class SourceDocumentRow(Base):
+    __tablename__ = "source_documents"
+    source_id: Mapped[str] = mapped_column(Text, primary_key=True)
+
+
+class CorpusReleaseRow(Base):
+    __tablename__ = "corpus_releases"
+    release_id: Mapped[str] = mapped_column(String(64), primary_key=True)
+
+
+class CorpusMemberRow(Base):
+    __tablename__ = "corpus_members"
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ["source_id", "snapshot_id"],
+            ["source_snapshots.source_id", "source_snapshots.snapshot_id"],
+        ),
+    )
+    release_id: Mapped[str] = mapped_column(
+        String(64),
+        ForeignKey("corpus_releases.release_id", deferrable=True, initially="DEFERRED"),
+        primary_key=True,
+    )
+    source_id: Mapped[str] = mapped_column(Text, primary_key=True)
+    snapshot_id: Mapped[str] = mapped_column(String(64))
+
+
+class CorpusStateRow(Base):
+    __tablename__ = "corpus_state"
+    singleton: Mapped[bool] = mapped_column(primary_key=True)
+    release_id: Mapped[str] = mapped_column(
+        String(64), ForeignKey("corpus_releases.release_id")
+    )
 
 
 class AddressColumns:
