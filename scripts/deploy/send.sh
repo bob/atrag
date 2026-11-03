@@ -19,6 +19,10 @@ ssh_options=(-o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes
 destination=$LIGHTSAIL_SSH_USER@$LIGHTSAIL_HOST
 tar -cf - -C artifact release.tar.gz release.sha256 |
   ssh "${ssh_options[@]}" -p "$LIGHTSAIL_SSH_PORT" "$destination" "upload $GITHUB_SHA"
+if [[ ${ATRAG_TRANSPORT_ONLY:-false} == true ]]; then
+  printf 'Delivered %s; activation was not requested.\n' "$GITHUB_SHA"
+  exit 0
+fi
 # Token travels over encrypted stdin, never in process arguments or server files.
 python -c 'import json,os; print(json.dumps({"token":os.environ["GH_TOKEN"]}))' |
   ssh "${ssh_options[@]}" -p "$LIGHTSAIL_SSH_PORT" "$destination" \
