@@ -26,7 +26,7 @@ jobs:
           POSTGRES_DB: atrag_test_context_20261101
         ports: ['5432:5432']
         options: >-
-          --health-cmd 'pg_isready -U atrag_ci -d atrag_test_context_20261101'
+          --health-cmd "pg_isready -U atrag_ci -d atrag_test_context_20261101"
           --health-interval 5s --health-timeout 5s --health-retries 12
     env:
       ATRAG_TEST_DATABASE_URL: postgresql://atrag_ci:atrag_ci@127.0.0.1:5432/atrag_test_context_20261101
