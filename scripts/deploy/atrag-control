@@ -15,6 +15,12 @@ case "$action" in
       systemctl "$action" atrag.service
     fi
     ;;
+  verify-sha)
+    [[ $# == 1 ]] && valid_sha "$1" || exit 64
+    pid=$(systemctl show atrag.service --property=MainPID --value)
+    [[ $pid =~ ^[1-9][0-9]*$ ]] || exit 1
+    [[ $(readlink -f "/proc/$pid/cwd") == "/opt/atrag/releases/$1" ]] || exit 1
+    ;;
   run)
     [[ $# == 2 ]] && valid_sha "$1" || exit 64
     case "$2" in config|warm|migrate|bootstrap|smoke) ;; *) exit 64 ;; esac

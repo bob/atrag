@@ -124,12 +124,8 @@ def health(release, *, external=True, schema_release=None):
     control("run", (schema_release or release).name, "smoke")
     if (BASE / "current").resolve() != release:
         raise RuntimeError("Active release pointer changed")
-    # Check the process actually belongs to the new release, not just the symlink.
-    pid = int(
-        run("systemctl", "show", "atrag.service", "--property=MainPID", "--value")
-    )
-    if pid <= 0 or Path(f"/proc/{pid}/cwd").resolve() != release:
-        raise RuntimeError("Service process is not running the requested release")
+    # /proc/<pid>/cwd of the atrag user is not readable by deploy.
+    control("verify-sha", release.name)
     control("status")
 
 
