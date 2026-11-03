@@ -52,8 +52,10 @@ class MemoryChat:
         self.conversations = {}
         self.history = {}
 
-    def authenticate(self, claims, allowed):
-        parse_google_identity(claims, allowed)
+    def authenticate(self, claims, allowed, *, check_allowed_emails=True):
+        parse_google_identity(
+            claims, allowed, check_allowed_emails=check_allowed_emails
+        )
         return self.user
 
     def set_language(self, user, language):
@@ -191,6 +193,55 @@ def test_denied_identity_cannot_open_chat(ui, claims, allowed):
     ui.app.secrets["access"] = {"allowed_emails": allowed}
     ui.app.run()
     assert "Доступ запрещён" in content(ui.app)
+    assert not ui.app.chat_input
+    ui.composition.assert_not_called()
+
+
+def test_allowlist_can_be_disabled_and_reenabled_on_rerun(ui):
+    ui.claims["email"] = "new-user@gmail.com"
+    ui.app.secrets["access"] = {"check_allowed_emails": False}
+    ui.app.run().button(key="new_conversation").click().run()
+    assert not ui.app.exception
+    assert ui.app.chat_input
+    assert not ui.app.error
+    ui.app.secrets["access"] = {"check_allowed_emails": True}
+    ui.app.run()
+    assert "Доступ запрещён" in content(ui.app)
+    assert not ui.app.chat_input
+
+
+def test_disabled_allowlist_still_requires_google_login(ui):
+    ui.claims["is_logged_in"] = False
+    ui.app.secrets["access"] = {"check_allowed_emails": False}
+    ui.app.run()
+    assert not ui.app.exception
+    assert ui.app.button(key="login")
+    assert not ui.app.chat_input
+    ui.composition.assert_not_called()
+
+
+@pytest.mark.parametrize(
+    "claims", [{"email_verified": False}, {"iss": "https://evil.test"}, {"sub": ""}]
+)
+def test_disabled_allowlist_still_rejects_invalid_identity(ui, claims):
+    ui.app.session_state["ui_language"] = "en"
+    ui.claims.update(claims)
+    ui.app.secrets["access"] = {"check_allowed_emails": False}
+    ui.app.run()
+    assert "Access denied" in content(ui.app)
+    assert not ui.app.chat_input
+    ui.composition.assert_not_called()
+
+
+@pytest.mark.parametrize("check_allowed_emails", [None, "false", 0])
+def test_invalid_allowlist_switch_cannot_open_chat(ui, check_allowed_emails):
+    ui.app.session_state["ui_language"] = "en"
+    ui.app.secrets["access"] = {
+        "check_allowed_emails": check_allowed_emails,
+        "allowed_emails": ["a@b"],
+    }
+    ui.app.run()
+    assert "Access denied" in content(ui.app)
     assert not ui.app.chat_input
     ui.composition.assert_not_called()
 

@@ -59,12 +59,16 @@ def login(language: SupportedLanguage) -> None:
 
 def authenticate(language: SupportedLanguage):
     try:
-        allowed = st.secrets.get("access", {}).get("allowed_emails", [])
+        access = st.secrets.get("access", {})
     except FileNotFoundError:
-        allowed = []
+        access = {}
     service = resources.get_chat_service()
     try:
-        user = service.authenticate(st.user.to_dict(), allowed)
+        user = service.authenticate(
+            st.user.to_dict(),
+            access.get("allowed_emails", []),
+            check_allowed_emails=access.get("check_allowed_emails", True),
+        )
     except PermissionError:
         st.error(tr("denied", language))
         logout(language)

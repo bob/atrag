@@ -25,9 +25,16 @@ class ChatService:
         self.store = ChatStore(engine)
 
     def authenticate(
-        self, claims: Mapping[str, object], allowed_emails: object
+        self,
+        claims: Mapping[str, object],
+        allowed_emails: object,
+        *,
+        check_allowed_emails: object = True,
     ) -> User:
-        return self.store.save_user(parse_google_identity(claims, allowed_emails))
+        identity = parse_google_identity(
+            claims, allowed_emails, check_allowed_emails=check_allowed_emails
+        )
+        return self.store.save_user(identity)
 
     def get_user(self, user: User) -> User:
         return self.store.get_user(user)
