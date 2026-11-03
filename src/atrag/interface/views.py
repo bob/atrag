@@ -20,12 +20,11 @@ def language_picker(
     on_change: Callable[[], None] | None = None,
 ) -> SupportedLanguage:
     st.session_state.setdefault(key, language)
-    selected = st.segmented_control(
+    selected = st.selectbox(
         tr("language", language),
         LANGUAGES,
         format_func=LANGUAGE_NAMES.__getitem__,
         key=key,
-        required=True,
         on_change=on_change,
     )
     if selected not in LANGUAGES:

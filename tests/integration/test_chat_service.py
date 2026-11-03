@@ -38,7 +38,7 @@ def login(service, subject="owner", email="owner@example.com", **changes):
 
 def test_identity_is_not_email_and_preferences_survive_reconnection(service, engine):
     owner = login(service)
-    assert owner.language == "ru"
+    assert owner.language == "en"
     assert service.get_user(owner) == owner
     for language in ("en", "pt", "ru", "pt"):
         owner = service.set_language(owner, language)
@@ -202,7 +202,7 @@ def test_foreign_missing_and_forged_owners_cannot_read_or_write(service, engine)
     ):
         with pytest.raises(PermissionError, match="Access denied"):
             operation()
-    assert service.get_user(owner).language == "ru"
+    assert service.get_user(owner).language == "en"
     assert [row.question for row in service.load_history(owner, conversation.id)] == [
         "Private"
     ]
@@ -271,7 +271,7 @@ def test_invalid_language_rejected_without_changing_preferences(service, languag
     owner = login(service)
     with pytest.raises(ValueError):
         service.set_language(owner, language)
-    assert service.get_user(owner).language == "ru"
+    assert service.get_user(owner).language == "en"
 
 
 @pytest.mark.parametrize("question", ["", " \n ", None, 123, b"Question?"])

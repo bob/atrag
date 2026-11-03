@@ -8,6 +8,7 @@ from atrag.chat.services.chat import ChatService
 from atrag.chat.services.turns import TurnService
 from atrag.corpus import CorpusComposition, resolve_corpus
 from atrag.db import create_db_engine
+from atrag.ingestion.client.openai import create_openai_client
 from atrag.settings import load_settings
 
 
@@ -21,13 +22,21 @@ def get_model():
     return create_chat_model(load_settings())
 
 
+@st.cache_resource(show_spinner=False)
+def get_embedding_client():
+    return create_openai_client(load_settings())
+
+
 def get_chat_service() -> ChatService:
     return ChatService(get_engine())
 
 
 def get_turn_service() -> TurnService:
     engine = get_engine()
-    return TurnService(engine, LangGraphBackend(engine, get_model()))
+    return TurnService(
+        engine,
+        LangGraphBackend(engine, get_model(), client=get_embedding_client()),
+    )
 
 
 def get_composition() -> CorpusComposition:

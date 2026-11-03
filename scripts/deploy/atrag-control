@@ -1,0 +1,47 @@
+#!/bin/bash
+# Installed root-owned, never run root-owned code from a deploy-writable release.
+set -euo pipefail
+export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+umask 027
+action=${1:-}
+shift || true
+valid_sha() { [[ ${1:-} =~ ^[0-9a-f]{40}$ ]]; }
+case "$action" in
+  start|stop|restart|status)
+    [[ $# == 0 ]] || exit 64
+    if [[ $action == status ]]; then
+      systemctl is-active --quiet atrag.service
+    else
+      systemctl "$action" atrag.service
+    fi
+    ;;
+  run)
+    [[ $# == 2 ]] && valid_sha "$1" || exit 64
+    case "$2" in config|warm|migrate|bootstrap|smoke) ;; *) exit 64 ;; esac
+    release=/opt/atrag/releases/$1
+    [[ -d $release && ! -L $release ]] || exit 64
+    cd "$release"
+    exec runuser -u atrag -- env \
+      HOME=/opt/atrag/shared/data \
+      TIKTOKEN_CACHE_DIR=/opt/atrag/shared/cache/tiktoken \
+      PYTHONDONTWRITEBYTECODE=1 \
+      "$release/.venv/bin/python" scripts/deploy/app_ops.py "$2"
+    ;;
+  backup)
+    [[ $# == 1 ]] && valid_sha "$1" || exit 64
+    destination=/var/backups/atrag/$1.dump
+    [[ ! -e $destination ]] || { echo 'Recovery dump already exists; inspect it before retrying' >&2; exit 1; }
+    temporary=$(mktemp /var/backups/atrag/.dump.XXXXXXXX)
+    trap 'rm -f -- "$temporary"' EXIT
+    runuser -u postgres -- pg_dump --format=custom --dbname=atrag_prod > "$temporary"
+    pg_restore --list "$temporary" > /dev/null
+    chown root:atrag "$temporary"
+    chmod 0640 "$temporary"
+    mv "$temporary" "$destination"
+    ;;
+  discard-backup)
+    [[ $# == 1 ]] && valid_sha "$1" || exit 64
+    rm -f -- "/var/backups/atrag/$1.dump"
+    ;;
+  *) exit 64 ;;
+esac

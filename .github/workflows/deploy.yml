@@ -1,0 +1,102 @@
+name: Check, build and deploy ATRAG
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  UV_VERSION: '0.12.1'
+  PYTHON_VERSION: '3.14.6'
+
+jobs:
+  check-build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: atrag_ci
+          POSTGRES_PASSWORD: atrag_ci
+          POSTGRES_DB: atrag_test_context_20261101
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd 'pg_isready -U atrag_ci -d atrag_test_context_20261101'
+          --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      ATRAG_TEST_DATABASE_URL: postgresql://atrag_ci:atrag_ci@127.0.0.1:5432/atrag_test_context_20261101
+      TIKTOKEN_CACHE_DIR: ${{ github.workspace }}/.cache/tiktoken
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7
+        with:
+          version: ${{ env.UV_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
+          enable-cache: true
+      - run: uv sync --locked
+      - name: Load tokenizer dictionaries before tests block live HTTP
+        run: uv run python -c 'import tiktoken; [tiktoken.get_encoding(n) for n in ("cl100k_base", "o200k_base")]'
+      - run: uv run ruff check src tests scripts/deploy streamlit_app.py
+      - run: uv run ruff format --check src tests scripts/deploy streamlit_app.py
+      - run: bash -n scripts/deploy/atrag-control scripts/deploy/atrag-ssh scripts/deploy/send.sh scripts/deploy/bootstrap.sh
+      - run: uv run pytest -m 'not integration'
+      - run: uv run pytest -m integration --junitxml=target/integration.xml
+      - name: Require executed integration tests without skips
+        run: |
+          uv run python - <<'PY'
+          import xml.etree.ElementTree as ET
+          suites = ET.parse('target/integration.xml').findall('.//testsuite')
+          assert sum(int(s.attrib['tests']) for s in suites) > 0
+          assert not sum(int(s.attrib['skipped']) for s in suites)
+          PY
+      - run: uv build
+      - run: uv run python scripts/deploy/release.py --sha "$GITHUB_SHA" --output artifact
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-${{ github.sha }}
+          path: artifact/
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: wheel-${{ github.sha }}
+          path: dist/*.whl
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request' && vars.ATRAG_DEPLOY_ENABLED == 'true'
+    needs: check-build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: production
+    concurrency:
+      group: atrag-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: release-${{ github.sha }}
+          path: artifact/
+      - name: Deliver checked commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LIGHTSAIL_HOST: ${{ vars.LIGHTSAIL_HOST }}
+          LIGHTSAIL_SSH_USER: ${{ vars.LIGHTSAIL_SSH_USER }}
+          LIGHTSAIL_SSH_PORT: ${{ vars.LIGHTSAIL_SSH_PORT }}
+          ATRAG_DEPLOY_PATH: ${{ vars.ATRAG_DEPLOY_PATH }}
+          LIGHTSAIL_SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+          LIGHTSAIL_KNOWN_HOSTS: ${{ secrets.LIGHTSAIL_KNOWN_HOSTS }}
+        run: bash scripts/deploy/send.sh

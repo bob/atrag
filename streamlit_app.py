@@ -7,7 +7,7 @@ from atrag.interface import views
 from atrag.interface.locales import tr
 
 st.set_page_config(page_title="ATRAG", page_icon=":material/forum:")
-st.session_state.setdefault("ui_language", "ru")
+st.session_state.setdefault("ui_language", "en")
 language = st.session_state["ui_language"]
 st.title("ATRAG")
 

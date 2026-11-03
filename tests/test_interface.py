@@ -179,6 +179,17 @@ def test_login_uses_google_and_does_not_read_corpus(ui, monkeypatch):
     ui.composition.assert_not_called()
 
 
+def test_first_page_load_defaults_to_english(ui):
+    ui.claims["is_logged_in"] = False
+    ui.app.run()
+    assert not ui.app.exception
+    assert ui.app.caption[0].value == "Questions about documents"
+    assert ui.app.button(key="login").label == "Sign in with Google"
+    assert ui.app.sidebar.selectbox(key="public_language").value == "en"
+    ui.app.run()
+    assert ui.app.sidebar.selectbox(key="public_language").value == "en"
+
+
 @pytest.mark.parametrize(
     "claims,allowed",
     [
@@ -192,7 +203,7 @@ def test_denied_identity_cannot_open_chat(ui, claims, allowed):
     ui.claims.update(claims)
     ui.app.secrets["access"] = {"allowed_emails": allowed}
     ui.app.run()
-    assert "Доступ запрещён" in content(ui.app)
+    assert "Access denied" in content(ui.app)
     assert not ui.app.chat_input
     ui.composition.assert_not_called()
 
@@ -278,12 +289,17 @@ def test_create_stream_sources_rerun_and_reopen_url(ui):
 
 @pytest.mark.parametrize(
     "language,label",
-    [("en", "Ask a question"), ("pt", "Faça uma pergunta"), ("ru", "Задайте вопрос")],
+    [
+        ("pt", "Faça uma pergunta"),
+        ("en", "Ask a question"),
+        ("uk", "Поставте запитання"),
+        ("ru", "Задайте вопрос"),
+    ],
 )
 def test_language_persists_and_only_changes_new_turns(ui, language, label):
     ui.app.run().button(key="new_conversation").click().run()
     ui.app.chat_input[0].set_value("Old question").run()
-    ui.app.get("segmented_control")[0].set_value(language).run()
+    ui.app.sidebar.selectbox[0].set_value(language).run()
     assert ui.chat.user.language == language
     assert ui.app.chat_input[0].placeholder == label
     assert "Resposta [1]" in content(ui.app)
@@ -342,7 +358,7 @@ def test_failure_requires_explicit_resume_with_same_uuid_and_language(ui):
     assert ui.app.chat_input[0].disabled
     ui.app.run()
     assert len(ui.calls) == 1
-    ui.app.get("segmented_control")[0].set_value("pt").run()
+    ui.app.sidebar.selectbox[0].set_value("pt").run()
     ui.outcome["fail"] = False
     resume = next(b for b in ui.app.button if b.key.startswith("resume_"))
     resume.click().run()
@@ -364,14 +380,20 @@ def test_allowlist_rechecked_and_logout_clears_access(ui):
     assert not ui.app.chat_input
 
 
-@pytest.mark.parametrize("language", ["ru", "en", "pt"])
+@pytest.mark.parametrize("language", ["pt", "en", "uk", "ru"])
 def test_login_locales_and_missing_auth_configuration(ui, language):
     from atrag.interface.locales import tr
 
     ui.claims["is_logged_in"] = False
     ui.app.secrets["auth"] = {}
-    ui.app.run().get("segmented_control")[0].set_value(language).run()
+    ui.app.run().sidebar.selectbox(key="public_language").set_value(language).run()
     assert not ui.app.exception
+    assert ui.app.sidebar.selectbox(key="public_language").options == [
+        "Português",
+        "English",
+        "Українська",
+        "Русский",
+    ]
     assert ui.app.button(key="login").label == tr("login", language)
     assert ui.app.button(key="login").disabled
     assert ui.app.warning[0].value == tr("auth_setup", language)
@@ -452,7 +474,7 @@ def test_connection_errors_are_localized_without_details(ui, monkeypatch):
         resources, "get_chat_service", Mock(side_effect=ValueError("private-dsn"))
     )
     ui.app.run()
-    assert "Сервис недоступен" in content(ui.app)
+    assert "The service is unavailable" in content(ui.app)
     assert "private-dsn" not in content(ui.app)
 
 
@@ -518,25 +540,17 @@ def test_missing_secrets_closes_access(ui, monkeypatch, logged_in):
     assert not ui.app.exception
     assert not ui.app.chat_input
     if logged_in:
-        assert ui.app.error[0].value == "Доступ запрещён"
+        assert ui.app.error[0].value == "Access denied"
     else:
         assert ui.app.button(key="login").disabled
         assert "secrets.toml" in ui.app.warning[0].value
 
 
-def test_language_requires_selection_and_rejects_forged_clear(ui):
-    ui.app.run()
-    assert ui.app.get("segmented_control")[0].proto.required
-    ui.app.get("segmented_control")[0].set_value(None).run()
-    assert not ui.app.exception
-    assert ui.chat.user.language == "ru"
-    assert ui.app.error[0].value.startswith("Сервис недоступен")
-
-
-def test_invalid_language_is_rejected_before_use(monkeypatch):
+@pytest.mark.parametrize("selected", [None, "es"])
+def test_invalid_language_is_rejected_before_use(monkeypatch, selected):
     from atrag.interface.views import language_picker
 
-    monkeypatch.setattr("streamlit.segmented_control", lambda *args, **kwargs: "es")
+    monkeypatch.setattr("streamlit.selectbox", lambda *args, **kwargs: selected)
     with pytest.raises(ValueError, match="Unsupported language"):
         language_picker("pt", "language")
 
@@ -546,5 +560,5 @@ def test_another_session_language_is_not_overwritten_on_rerun(ui):
     ui.chat.user = replace(ui.chat.user, language="pt")
     ui.app.run()
     assert ui.chat.user.language == "pt"
-    assert ui.app.get("segmented_control")[0].value == "pt"
+    assert ui.app.sidebar.selectbox[0].value == "pt"
     assert ui.app.caption[0].value == "Perguntas sobre documentos"

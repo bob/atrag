@@ -37,7 +37,7 @@ class ChatUserRow(Base):
     issuer: Mapped[str] = mapped_column(Text)
     subject: Mapped[str] = mapped_column(Text)
     email: Mapped[str] = mapped_column(Text)
-    language: Mapped[SupportedLanguage] = mapped_column(Text, server_default="ru")
+    language: Mapped[SupportedLanguage] = mapped_column(Text, server_default="en")
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )

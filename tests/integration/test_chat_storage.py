@@ -135,7 +135,7 @@ def test_chat_data_survives_repeat_migration_and_new_connections(engine, stored_
             "https://accounts.google.com",
             "google-subject",
             "owner@example.com",
-            "ru",
+            "en",
         )
         assert conversation["id"] == conversation_id
         assert conversation["user_id"] == user_id
@@ -505,7 +505,7 @@ def test_downgrade_refuses_to_invent_snapshot_and_preserves_data(
     assert _chat_rows(engine) == before
     with engine.connect() as connection:
         assert connection.scalar(text("SELECT version_num FROM alembic_version")) == (
-            "0007_rag_evidence"
+            "0009_english_default"
         )
 
 
@@ -540,6 +540,73 @@ def test_rag_migration_preserves_sources_and_initializes_bounded_budget(
                 .values(retrieval_tokens=value)
             )
     assert _chat_rows(engine)["turns"][0]["retrieval_tokens"] == 24000
+
+
+@pytest.mark.parametrize("stored_chat", ["0007_rag_evidence"], indirect=True)
+@pytest.mark.parametrize("table", ["users", "turns"])
+def test_ukrainian_migration_preserves_chat_and_refuses_lossy_downgrade(
+    engine, stored_chat, table
+):
+    tables = stored_chat[0]
+    statement = update(tables[table]).values(language="uk")
+    before = _chat_rows(engine)
+    with pytest.raises(IntegrityError), engine.begin() as connection:
+        connection.execute(statement)
+    migrate_database(engine)
+    assert _chat_rows(engine) == before
+    with engine.begin() as connection:
+        connection.execute(statement)
+    ukrainian = _chat_rows(engine)
+    assert ukrainian[table][0]["language"] == "uk"
+    with pytest.raises(IntegrityError):
+        _change_schema(engine, command.downgrade, "0007_rag_evidence")
+    assert _chat_rows(engine) == ukrainian
+    with engine.connect() as connection:
+        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == (
+            "0009_english_default"
+        )
+    with engine.begin() as connection:
+        connection.execute(update(tables[table]).values(language="ru"))
+    _change_schema(engine, command.downgrade, "0007_rag_evidence")
+    assert _chat_rows(engine) == before
+    with pytest.raises(IntegrityError), engine.begin() as connection:
+        connection.execute(statement)
+
+
+@pytest.mark.parametrize("stored_chat", ["0008_ukrainian_language"], indirect=True)
+def test_english_default_migration_preserves_preferences(engine, stored_chat):
+    users = stored_chat[0]["users"]
+    before = _chat_rows(engine)
+    assert before["users"][0]["language"] == "ru"
+    migrate_database(engine)
+    assert _chat_rows(engine) == before
+    with engine.begin() as connection:
+        language = connection.scalar(
+            insert(users)
+            .values(
+                id=uuid4(),
+                issuer="https://accounts.google.com",
+                subject="new-profile",
+                email="new@example.com",
+            )
+            .returning(users.c.language)
+        )
+    assert language == "en"
+    before_downgrade = _chat_rows(engine)
+    _change_schema(engine, command.downgrade, "0008_ukrainian_language")
+    assert _chat_rows(engine) == before_downgrade
+    with engine.begin() as connection:
+        language = connection.scalar(
+            insert(users)
+            .values(
+                id=uuid4(),
+                issuer="https://accounts.google.com",
+                subject="restored-default",
+                email="restored@example.com",
+            )
+            .returning(users.c.language)
+        )
+    assert language == "ru"
 
 
 def test_migration_initializes_durable_checkpoints(engine, database_dsn):
@@ -582,7 +649,7 @@ def test_checkpoint_failure_is_retryable_and_releases_the_migration_lock(
     with psycopg.connect(database_dsn, autocommit=True) as connection:
         assert connection.execute(
             "SELECT version_num FROM alembic_version"
-        ).fetchone() == ("0007_rag_evidence",)
+        ).fetchone() == ("0009_english_default",)
         assert connection.execute(
             "SELECT pg_try_advisory_lock(6174726167)"
         ).fetchone() == (True,)

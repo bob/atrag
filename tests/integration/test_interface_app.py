@@ -20,7 +20,16 @@ clean_checkpoints = test_chat_turns.clean_checkpoints
 APP = Path(__file__).resolve().parents[2] / "streamlit_app.py"
 
 
-def test_ui_persists_reopens_and_rejects_another_owner(chat, engine, monkeypatch):
+@pytest.mark.parametrize(
+    "language,question,subtitle",
+    [
+        ("pt", "Faça uma pergunta", "Perguntas sobre documentos"),
+        ("uk", "Поставте запитання", "Питання щодо документів"),
+    ],
+)
+def test_ui_persists_reopens_and_rejects_another_owner(
+    chat, engine, monkeypatch, language, question, subtitle
+):
     service, user, conversation = chat
     claims = {
         "is_logged_in": True,
@@ -46,14 +55,24 @@ def test_ui_persists_reopens_and_rejects_another_owner(chat, engine, monkeypatch
         return app.run()
 
     app = open_app()
+    assert app.sidebar.selectbox[0].value == "en"
+    assert app.caption[0].value == "Questions about documents"
+    assert app.sidebar.selectbox[0].options == [
+        "Português",
+        "English",
+        "Українська",
+        "Русский",
+    ]
+    app.sidebar.selectbox[0].set_value(language).run()
     app.chat_input[0].set_value("Question from UI").run()
     assert not app.exception
-    assert service.load_history(user, conversation)[0].answer == "Resposta guardada"
-    app.get("segmented_control")[0].set_value("pt").run()
+    turn = service.load_history(user, conversation)[0]
+    assert turn.answer == "Resposta guardada"
+    assert turn.language == language
     reopened = open_app()
     assert not reopened.exception
-    assert reopened.chat_input[0].placeholder == "Faça uma pergunta"
-    assert reopened.caption[0].value == "Perguntas sobre documentos"
+    assert reopened.chat_input[0].placeholder == question
+    assert reopened.caption[0].value == subtitle
     assert [m.markdown[0].value for m in reopened.chat_message] == [
         "Question from UI",
         "Resposta guardada",
@@ -64,4 +83,4 @@ def test_ui_persists_reopens_and_rejects_another_owner(chat, engine, monkeypatch
     assert not denied.exception
     assert not denied.chat_message
     assert not denied.chat_input
-    assert denied.error[0].value == "Доступ запрещён"
+    assert denied.error[0].value == "Access denied"

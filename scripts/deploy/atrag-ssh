@@ -1,0 +1,15 @@
+#!/bin/bash
+# Forced command for the dedicated Actions key; runs as deploy, without a shell.
+set -euo pipefail
+export PATH=/usr/bin:/bin
+if [[ ${SSH_ORIGINAL_COMMAND:-} =~ ^(upload|deploy|rollback)\ ([0-9a-f]{40})$ ]]; then
+  action=${BASH_REMATCH[1]}
+  sha=${BASH_REMATCH[2]}
+else
+  exit 64
+fi
+case "$action" in
+  upload) exec python3 /usr/local/lib/atrag/receive.py "$sha" ;;
+  deploy) exec timeout --signal=TERM --kill-after=300 1200 python3 /usr/local/lib/atrag/server.py --sha "$sha" --incoming "/opt/atrag/incoming/$sha" ;;
+  rollback) exec timeout --signal=TERM --kill-after=300 1200 python3 /usr/local/lib/atrag/server.py --sha "$sha" --rollback ;;
+esac
