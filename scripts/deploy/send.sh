@@ -13,7 +13,7 @@ temporary=$(mktemp -d)
 trap 'rm -rf -- "$temporary"' EXIT
 printf '%s\n' "$LIGHTSAIL_SSH_KEY" > "$temporary/key"
 printf '%s\n' "$LIGHTSAIL_KNOWN_HOSTS" > "$temporary/known_hosts"
-ssh_options=(-o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20
+ssh_options=(-o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20
   -o ServerAliveInterval=15 -o ServerAliveCountMax=4
   -o "UserKnownHostsFile=$temporary/known_hosts" -i "$temporary/key")
 destination=$LIGHTSAIL_SSH_USER@$LIGHTSAIL_HOST

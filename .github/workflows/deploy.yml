@@ -46,7 +46,7 @@ jobs:
         run: uv run python -c 'import tiktoken; [tiktoken.get_encoding(n) for n in ("cl100k_base", "o200k_base")]'
       - run: uv run ruff check src tests scripts/deploy streamlit_app.py
       - run: uv run ruff format --check src tests scripts/deploy streamlit_app.py
-      - run: bash -n scripts/deploy/atrag-control scripts/deploy/atrag-ssh scripts/deploy/send.sh scripts/deploy/bootstrap.sh
+      - run: bash -n scripts/deploy/atrag-control scripts/deploy/atrag-ssh scripts/deploy/*.sh
       - run: uv run pytest -m 'not integration'
       - run: uv run pytest -m integration --junitxml=target/integration.xml
       - name: Require executed integration tests without skips
