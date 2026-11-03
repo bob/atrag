@@ -1,0 +1,12 @@
+[submodule "tools/ub-mode/crapper"]
+	path = tools/ub-mode/crapper
+	url = https://github.com/unclebob/crapper.git
+[submodule "tools/ub-mode/dryer"]
+	path = tools/ub-mode/dryer
+	url = https://github.com/unclebob/dryer.git
+[submodule "tools/ub-mode/mutator"]
+	path = tools/ub-mode/mutator
+	url = https://github.com/unclebob/mutator.git
+[submodule "tools/ub-mode/uml-viewer"]
+	path = tools/ub-mode/uml-viewer
+	url = https://github.com/unclebob/uml-viewer.git
