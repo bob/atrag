@@ -99,7 +99,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           ATRAG_TRANSPORT_ONLY: ${{ github.event_name == 'workflow_dispatch' && inputs.transport_only }}
-          LIGHTSAIL_HOST: ${{ vars.LIGHTSAIL_HOST }}
+          LIGHTSAIL_HOST: ${{ secrets.LIGHTSAIL_HOST }}
           LIGHTSAIL_SSH_USER: ${{ vars.LIGHTSAIL_SSH_USER }}
           LIGHTSAIL_SSH_PORT: ${{ vars.LIGHTSAIL_SSH_PORT }}
           ATRAG_DEPLOY_PATH: ${{ vars.ATRAG_DEPLOY_PATH }}
