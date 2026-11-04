@@ -111,15 +111,20 @@ def health(release, *, external=True, schema_release=None):
         "http://127.0.0.1:8501/_stcore/health",
         *(["https://tax.example.com/_stcore/health"] if external else []),
     ):
+        request = Request(
+            url, headers={"User-Agent": "ATRAG-Health/1.0", "Accept": "text/plain"}
+        )
+        failure = "unexpected response"
         for attempt in range(20):
             try:
-                with urlopen(url, timeout=5) as response:
+                with urlopen(request, timeout=5) as response:
                     if response.status == 200 and response.read().strip() == b"ok":
                         break
-            except OSError:
-                pass
+                    failure = f"HTTP {response.status}; expected body 'ok'"
+            except OSError as error:
+                failure = str(error)
             if attempt == 19:
-                raise RuntimeError("Streamlit health check failed: " + url)
+                raise RuntimeError(f"Streamlit health check failed: {url} ({failure})")
             time.sleep(2)
     control("run", (schema_release or release).name, "smoke")
     if (BASE / "current").resolve() != release:

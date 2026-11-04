@@ -6,6 +6,7 @@ import json
 import subprocess
 import tarfile
 from pathlib import Path
+from urllib.error import HTTPError
 
 import pytest
 
@@ -120,6 +121,53 @@ def test_rollback_failure_restarts_original_release(deployment, monkeypatch):
         deployment.rollback(target.name)
     assert (deployment.BASE / "current").resolve() == old
     assert calls[-1] == ("start",)
+
+
+def test_health_accepts_proxy_that_rejects_default_python_agent(
+    deployment, monkeypatch
+):
+    active = active_release(deployment)
+    checked, calls = [], []
+
+    class Response(io.BytesIO):
+        status = 200
+
+    def proxy(request, timeout):
+        url = getattr(request, "full_url", request)
+        agent = (
+            request.get_header("User-agent", "")
+            if hasattr(request, "get_header")
+            else ""
+        )
+        if url.startswith("https:") and (
+            not agent or agent.startswith("Python-urllib")
+        ):
+            raise HTTPError(url, 403, "Forbidden", None, None)
+        checked.append(url)
+        return Response(b"ok")
+
+    monkeypatch.setattr(deployment, "urlopen", proxy)
+    monkeypatch.setattr(deployment, "control", lambda *args: calls.append(args))
+    monkeypatch.setattr(deployment.time, "sleep", lambda *args: None)
+    deployment.health(active)
+    assert checked == [
+        "http://127.0.0.1:8501/_stcore/health",
+        "https://tax.example.com/_stcore/health",
+    ]
+    assert ("run", active.name, "smoke") in calls
+    assert ("verify-sha", active.name) in calls
+
+
+def test_health_failure_reports_http_error(deployment, monkeypatch):
+    active = active_release(deployment)
+
+    def reject(request, timeout):
+        raise HTTPError(request.full_url, 403, "Forbidden", None, None)
+
+    monkeypatch.setattr(deployment, "urlopen", reject)
+    monkeypatch.setattr(deployment.time, "sleep", lambda *args: None)
+    with pytest.raises(RuntimeError, match="HTTP Error 403: Forbidden"):
+        deployment.health(active)
 
 
 @pytest.mark.parametrize(
