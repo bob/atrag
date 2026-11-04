@@ -39,7 +39,7 @@ fi
 cd /
 runuser -u deploy -- env UV_PYTHON_INSTALL_DIR=/opt/atrag/python /usr/local/bin/uv python install 3.14.6
 install -o root -g root -m 0755 "$source_dir/scripts/deploy/atrag-control" /usr/local/sbin/atrag-control
-install -o root -g root -m 0644 "$source_dir/docs/deploy/atrag.service" /etc/systemd/system/atrag.service
+install -o root -g root -m 0644 "$source_dir/scripts/deploy/atrag.service" /etc/systemd/system/atrag.service
 install -d -o root -g root -m 0755 /usr/local/lib/atrag
 for name in server.py release.py receive.py; do
   install -o root -g root -m 0644 "$source_dir/scripts/deploy/$name" "/usr/local/lib/atrag/$name"

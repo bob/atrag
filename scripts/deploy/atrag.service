@@ -1,0 +1,35 @@
+[Unit]
+Description=ATRAG Streamlit
+After=network-online.target postgresql.service
+Wants=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=atrag
+Group=atrag
+WorkingDirectory=/opt/atrag/current
+Environment=HOME=/opt/atrag/shared/data
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=TIKTOKEN_CACHE_DIR=/opt/atrag/shared/cache/tiktoken
+EnvironmentFile=/opt/atrag/shared/service.env
+ExecStart=/opt/atrag/current/.venv/bin/python -m streamlit run streamlit_app.py --server.address=127.0.0.1 --server.port=8501 --server.headless=true --server.fileWatcherType=none --server.enableCORS=true --server.enableXsrfProtection=true --browser.serverPort=443 --browser.gatherUsageStats=false --client.showErrorDetails=none
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=45
+KillSignal=SIGTERM
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/atrag/shared/data /opt/atrag/shared/cache/tiktoken
+MemoryHigh=600M
+MemoryMax=800M
+TasksMax=128
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

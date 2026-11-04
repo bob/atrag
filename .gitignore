@@ -23,3 +23,7 @@ data/sources/*
 .ruff_cache/
 target/
 .metrics/
+
+# Private deployment notes and infrastructure details
+/docs/deploy/
+/.private-history/

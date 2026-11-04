@@ -9,6 +9,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from urllib.parse import urljoin
 from urllib.request import Request, urlopen
 
 from release import SHA, UV_VERSION, digest, read_archive
@@ -107,10 +108,11 @@ def prepare(incoming, sha):
 
 
 def health(release, *, external=True, schema_release=None):
-    for url in (
-        "http://127.0.0.1:8501/_stcore/health",
-        *(["https://tax.example.com/_stcore/health"] if external else []),
-    ):
+    urls = ["http://127.0.0.1:8501/_stcore/health"]
+    if external:
+        config = json.loads(control("run", (schema_release or release).name, "config"))
+        urls.append(urljoin(config["public_url"], "/_stcore/health"))
+    for url in urls:
         request = Request(
             url, headers={"User-Agent": "ATRAG-Health/1.0", "Accept": "text/plain"}
         )

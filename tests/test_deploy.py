@@ -5,7 +5,10 @@ import io
 import json
 import subprocess
 import tarfile
+import tomllib
+from email.message import Message
 from pathlib import Path
+from types import SimpleNamespace
 from urllib.error import HTTPError
 
 import pytest
@@ -18,6 +21,7 @@ def deployment(monkeypatch, tmp_path):
     spec = importlib.util.spec_from_file_location(
         "atrag_deploy_server", source / "server.py"
     )
+    assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     monkeypatch.setattr(module, "BASE", tmp_path)
@@ -123,10 +127,15 @@ def test_rollback_failure_restarts_original_release(deployment, monkeypatch):
     assert calls[-1] == ("start",)
 
 
+@pytest.mark.parametrize(
+    "public_url", ["https://tax.example.com", "https://research.example.org"]
+)
+@pytest.mark.parametrize("recovering", [False, True])
 def test_health_accepts_proxy_that_rejects_default_python_agent(
-    deployment, monkeypatch
+    deployment, monkeypatch, public_url, recovering
 ):
     active = active_release(deployment)
+    schema_release = release(deployment, "b")[0] if recovering else active
     checked, calls = [], []
 
     class Response(io.BytesIO):
@@ -142,19 +151,25 @@ def test_health_accepts_proxy_that_rejects_default_python_agent(
         if url.startswith("https:") and (
             not agent or agent.startswith("Python-urllib")
         ):
-            raise HTTPError(url, 403, "Forbidden", None, None)
+            raise HTTPError(url, 403, "Forbidden", Message(), None)
         checked.append(url)
         return Response(b"ok")
 
+    def control(*args):
+        calls.append(args)
+        if args[-1] == "config":
+            return json.dumps({"public_url": public_url})
+
     monkeypatch.setattr(deployment, "urlopen", proxy)
-    monkeypatch.setattr(deployment, "control", lambda *args: calls.append(args))
+    monkeypatch.setattr(deployment, "control", control)
     monkeypatch.setattr(deployment.time, "sleep", lambda *args: None)
-    deployment.health(active)
+    deployment.health(active, schema_release=schema_release)
     assert checked == [
         "http://127.0.0.1:8501/_stcore/health",
-        "https://tax.example.com/_stcore/health",
+        f"{public_url}/_stcore/health",
     ]
-    assert ("run", active.name, "smoke") in calls
+    assert ("run", schema_release.name, "config") in calls
+    assert ("run", schema_release.name, "smoke") in calls
     assert ("verify-sha", active.name) in calls
 
 
@@ -162,12 +177,80 @@ def test_health_failure_reports_http_error(deployment, monkeypatch):
     active = active_release(deployment)
 
     def reject(request, timeout):
-        raise HTTPError(request.full_url, 403, "Forbidden", None, None)
+        raise HTTPError(request.full_url, 403, "Forbidden", Message(), None)
 
     monkeypatch.setattr(deployment, "urlopen", reject)
     monkeypatch.setattr(deployment.time, "sleep", lambda *args: None)
     with pytest.raises(RuntimeError, match="HTTP Error 403: Forbidden"):
-        deployment.health(active)
+        deployment.health(active, external=False)
+
+
+@pytest.fixture
+def provision(deployment, monkeypatch, tmp_path):
+    import setup_config
+
+    shared = tmp_path / "shared"
+    shared.mkdir()
+    hba = tmp_path / "pg_hba.conf"
+    hba.write_text("# Existing database rules\n")
+    queries = []
+
+    def sql(query, database="postgres"):
+        queries.append(query)
+        if query == "SHOW hba_file":
+            return str(hba)
+        if query.startswith("SELECT count(*) FROM pg_hba_file_rules"):
+            return "0"
+        return ""
+
+    import grp
+
+    monkeypatch.setattr(setup_config, "SHARED", shared)
+    monkeypatch.setattr(setup_config, "sql", sql)
+    monkeypatch.setattr(setup_config.os, "geteuid", lambda: 0)
+    monkeypatch.setattr(setup_config.os, "fchown", lambda *args: None)
+    monkeypatch.setattr(grp, "getgrnam", lambda name: SimpleNamespace(gr_gid=0))
+    return setup_config, shared, queries
+
+
+def provision_input(monkeypatch, provision, public_host):
+    module, _, _ = provision
+    values = {
+        "openai_api_key": "example-key",
+        "client_id": "example-client",
+        "client_secret": "example-secret",
+        "public_host": public_host,
+    }
+    monkeypatch.setattr(module.sys, "stdin", io.StringIO(json.dumps(values)))
+    return module
+
+
+def test_provision_configures_oauth_and_service_for_supplied_host(
+    provision, monkeypatch
+):
+    module = provision_input(monkeypatch, provision, "tax.example.com")
+    module.main()
+    _, shared, queries = provision
+    auth = tomllib.loads((shared / "secrets.toml").read_text())
+    assert auth["auth"]["redirect_uri"] == "https://tax.example.com/oauth2callback"
+    assert (shared / "service.env").read_text() == (
+        "STREAMLIT_BROWSER_SERVER_ADDRESS=tax.example.com\n"
+    )
+    assert (shared / "service.env").stat().st_mode & 0o777 == 0o640
+    assert "CREATE DATABASE atrag_prod OWNER atrag_prod;" in queries
+
+
+@pytest.mark.parametrize(
+    "host",
+    [None, "", "https://tax.example.com", "tax.example.com/path", "a\nb", "$(id)"],
+)
+def test_provision_rejects_invalid_host_before_writes(provision, monkeypatch, host):
+    module = provision_input(monkeypatch, provision, host)
+    with pytest.raises(ValueError):
+        module.main()
+    _, shared, queries = provision
+    assert queries == []
+    assert list(shared.iterdir()) == []
 
 
 @pytest.mark.parametrize(

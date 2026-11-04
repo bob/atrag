@@ -2,10 +2,13 @@
 
 import json
 import os
+import re
 import secrets
 import subprocess
 import sys
 from pathlib import Path
+
+SHARED = Path("/opt/atrag/shared")
 
 
 def sql(query, database="postgres"):
@@ -30,16 +33,24 @@ def sql(query, database="postgres"):
 def main():
     if os.geteuid() != 0:
         raise RuntimeError("Run as root")
-    shared = Path("/opt/atrag/shared")
+    shared = SHARED
     # Retries preserve the original DB password and OAuth cookie secret.
-    if (shared / ".env").exists() or (shared / "secrets.toml").exists():
+    if any(
+        (shared / name).exists() for name in (".env", "secrets.toml", "service.env")
+    ):
         raise RuntimeError(
             "Production configuration already exists; inspect rather than overwrite"
         )
     values = json.load(sys.stdin)
-    for key in ("openai_api_key", "client_id", "client_secret"):
-        if not isinstance(values[key], str) or not values[key] or "\n" in values[key]:
+    for key in ("openai_api_key", "client_id", "client_secret", "public_host"):
+        value = values.get(key)
+        if not isinstance(value, str) or not value or any(c in value for c in "\r\n"):
             raise ValueError("Missing or invalid configuration value")
+    host = values["public_host"]
+    if len(host) > 253 or not re.fullmatch(
+        r"(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,63}", host
+    ):
+        raise ValueError("public_host must be a DNS hostname without scheme or path")
     if sql("SELECT 1 FROM pg_roles WHERE rolname='atrag_prod'") or sql(
         "SELECT 1 FROM pg_database WHERE datname='atrag_prod'"
     ):
@@ -59,7 +70,7 @@ def main():
     q = json.dumps
     auth = (
         "[access]\ncheck_allowed_emails = false\nallowed_emails = []\n\n"
-        '[auth]\nredirect_uri = "https://tax.example.com/oauth2callback"\n'
+        f'[auth]\nredirect_uri = "https://{host}/oauth2callback"\n'
         f"cookie_secret = {q(secrets.token_urlsafe(48))}\n\n"
         "[auth.google]\n"
         f"client_id = {q(values['client_id'])}\n"
@@ -68,7 +79,11 @@ def main():
     )
     import grp
 
-    for name, content in ((".env", environment), ("secrets.toml", auth)):
+    for name, content in (
+        (".env", environment),
+        ("secrets.toml", auth),
+        ("service.env", f"STREAMLIT_BROWSER_SERVER_ADDRESS={host}\n"),
+    ):
         fd = os.open(shared / name, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o640)
         with os.fdopen(fd, "w") as handle:
             handle.write(content)

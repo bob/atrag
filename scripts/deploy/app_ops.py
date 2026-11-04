@@ -5,6 +5,7 @@ import json
 import os
 import tomllib
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import tiktoken
 from alembic.config import Config
@@ -36,14 +37,18 @@ def check_config(settings):
     secrets = tomllib.loads((ROOT / ".streamlit/secrets.toml").read_text())
     assert settings.database_url and settings.openai_api_key
     assert settings.data_dir == SHARED / "data"
-    assert secrets["auth"]["redirect_uri"] == (
-        "https://tax.example.com/oauth2callback"
+    redirect = urlsplit(secrets["auth"]["redirect_uri"])
+    assert redirect.scheme == "https" and redirect.netloc
+    assert redirect.path == "/oauth2callback"
+    assert not (
+        redirect.username or redirect.password or redirect.query or redirect.fragment
     )
     assert secrets["auth"]["google"]["client_id"]
     assert secrets["auth"]["google"]["client_secret"]
     assert len(secrets["auth"]["cookie_secret"]) >= 32
     assert secrets["access"]["check_allowed_emails"] is False
     assert os.environ["TIKTOKEN_CACHE_DIR"] == str(SHARED / "cache/tiktoken")
+    return {"public_url": f"https://{redirect.netloc}"}
 
 
 def bootstrap(engine, settings):
@@ -129,11 +134,12 @@ def main():
     )
     args = parser.parse_args()
     settings = load_settings(ROOT)
-    check_config(settings)
+    config = check_config(settings)
     if args.action == "warm":
         warm()
         return
     if args.action == "config":
+        print(json.dumps(config))
         return
     engine = create_db_engine(settings)
     try:
