@@ -6,6 +6,8 @@ from uuid import uuid4
 
 import pytest
 from fixtures.faq_pipeline import card, make_faq_package, make_faq_snapshot
+from fixtures.prepared import refresh_manifest
+from fixtures.reranking import reranking_response
 from sqlalchemy import event
 
 from atrag.chat.api.tools import RagTools
@@ -14,15 +16,25 @@ from atrag.corpus import publish_corpus, resolve_corpus
 from atrag.ingestion.services.index import index_package
 from atrag.ingestion.services.packages import build_package, load_package
 from atrag.migrations import migrate_database
+from atrag.retrieval.reranking import RerankingRequestError
 from atrag.retrieval.search import search_tax_documents
 
 pytestmark = pytest.mark.integration
 
 
 @pytest.fixture
-def materials(empty_corpus_schema, engine, prepared_document, faq_snapshot, tmp_path):
+def materials(
+    empty_corpus_schema, engine, prepared_document, faq_snapshot, tmp_path, request
+):
     migrate_database(engine)
     data, parsed, chunked, embedded = prepared_document
+    if vector := getattr(request, "param", {}).get("cirs_vector"):
+        path = embedded.parent / "embeddings.jsonl"
+        rows = [json.loads(line) for line in path.read_text().splitlines()]
+        for row in rows:
+            row["embedding"] = vector + [0.0] * 1534
+        path.write_text("".join(json.dumps(row) + "\n" for row in rows))
+        refresh_manifest(embedded)
     cirs = build_package(parsed, chunked, embedded, data, tmp_path / "cirs")
     cirs_id = index_package(cirs, engine, tmp_path / "server").snapshot_id
     before = publish_corpus(engine, {"pt-at-cirs": cirs_id})
@@ -59,7 +71,10 @@ def session(engine, materials):
             }
         )
 
-    client = SimpleNamespace(embeddings=SimpleNamespace(create=create))
+    client = SimpleNamespace(
+        embeddings=SimpleNamespace(create=create),
+        responses=SimpleNamespace(create=reranking_response),
+    )
 
     def start():
         turn = uuid4()
@@ -117,6 +132,82 @@ def test_bare_address_stays_exact_without_embedding(engine, materials, session, 
     )
     assert single.status == "ok" and all(h.score == 1 for h in single.hits)
     assert calls == []
+
+
+@pytest.mark.parametrize(
+    "faq_snapshot",
+    [
+        {
+            "cards": "".join(
+                card(str(i), answer=f"Detailed explanation {i}.", position=i)
+                for i in range(42, 122)
+            )
+        }
+    ],
+    indirect=True,
+)
+@pytest.mark.parametrize("materials", [{"cirs_vector": [0.8, 0.6]}], indirect=True)
+def test_reranking_recovers_a_provision_beyond_the_old_candidate_window(
+    engine, materials, session
+):
+    members, _ = materials
+    publish_corpus(engine, {"pt-at-faq": members["pt-at-faq"]})
+    service, user, conversation, calls, start = session
+    rag = start()
+    submitted = []
+
+    def select_evidence(**request):
+        payload = json.loads(request["input"])
+        submitted.append(payload)
+        response = reranking_response(**request)
+        preferred = [
+            c["id"] for c in payload["candidates"] if "1 - São residentes" in c["text"]
+        ]
+        order = preferred + [
+            c["id"] for c in payload["candidates"] if c["id"] not in preferred
+        ]
+        response.output_text = json.dumps({"ids": order[: payload["count"]]})
+        return response
+
+    rag.service.client.responses.create = select_evidence
+    result = invoke(rag, "search_tax_documents", query="Residência?", limit=5)
+    assert {s["address"]["source_id"] for s in result["sources"]} == set(members)
+    position = next(
+        i
+        for i, s in enumerate(result["sources"])
+        if s["legal_unit_id"] == "pt:cirs:code:article:16:paragraph:1"
+    )
+    assert result["hits"][position]["vector_rank"] > 50
+    assert len(submitted[0]["candidates"]) == 83 and len(calls) == 1
+    assert (
+        service.load_history(user, conversation)[0].embedding_usage["reranking"][
+            "requests"
+        ]
+        == 1
+    )
+    narrowed = invoke(
+        rag, "search_tax_documents", query="Residência?", source_ids=["pt-at-faq"]
+    )
+    assert {s["address"]["source_id"] for s in narrowed["sources"]} == {"pt-at-faq"}
+    assert all(c["role"] == "at_explanation" for c in submitted[1]["candidates"])
+
+
+def test_invalid_reranking_does_not_save_invented_evidence(engine, materials, session):
+    members, _ = materials
+    publish_corpus(engine, {"pt-at-faq": members["pt-at-faq"]})
+    service, user, conversation, _, start = session
+    rag = start()
+
+    def invalid(**request):
+        response = reranking_response(**request)
+        response.output_text = '{"ids": [999, 998]}'
+        return response
+
+    rag.service.client.responses.create = invalid
+    with pytest.raises(RerankingRequestError):
+        invoke(rag, "search_tax_documents", query="Residência?", limit=1)
+    saved = service.load_history(user, conversation)[0]
+    assert saved.sources == [] and saved.retrieval_tokens == 0
 
 
 @pytest.mark.parametrize(

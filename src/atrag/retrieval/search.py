@@ -22,8 +22,8 @@ from atrag.schemas.ingestion.embeddings import EmbeddingSpace
 from atrag.schemas.ingestion.fragments import SearchFragment
 from atrag.schemas.retrieval import Ranking, SearchRequest, SearchResult
 
-# Initial exact-search window; tune only after evaluating retrieval quality.
-CANDIDATE_LIMIT = 50
+# Include short provisions displaced by explanatory texts before shared reranking.
+CANDIDATE_LIMIT = 200
 
 
 def _query_vector(query, snapshot, client, usage, encoding):
