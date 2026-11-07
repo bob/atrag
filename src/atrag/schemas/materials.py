@@ -5,9 +5,11 @@ import json
 from typing import Annotated, Literal, Self
 
 from pydantic import (
+    AfterValidator,
     BaseModel,
     ConfigDict,
     Field,
+    HttpUrl,
     JsonValue,
     PositiveInt,
     model_validator,
@@ -15,6 +17,15 @@ from pydantic import (
 
 SHA256 = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
 Nonempty = Annotated[str, Field(min_length=1, pattern=r"\S")]
+
+
+def _without_fragment(url: HttpUrl) -> HttpUrl:
+    if url.fragment is not None:
+        raise ValueError("Page URL must not include an anchor")
+    return url
+
+
+PageURL = Annotated[HttpUrl, AfterValidator(_without_fragment)]
 
 
 class MaterialValue(BaseModel):
@@ -30,6 +41,7 @@ class HTMLLocation(MaterialValue):
     kind: Literal["html"]
     section: Nonempty | None = None
     anchor: Nonempty
+    page_url: PageURL | None = Field(default=None, exclude_if=lambda v: v is None)
 
 
 class DOCXLocation(MaterialValue):

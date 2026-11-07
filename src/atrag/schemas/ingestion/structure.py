@@ -2,13 +2,14 @@
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Self
 from uuid import UUID
 
-from pydantic import Field, PositiveInt
+from pydantic import Field, PositiveInt, model_validator
 
 from atrag.schemas.ingestion.extraction import Artifact, BBox, ExtractedTable
-from atrag.schemas.materials import Location
+from atrag.schemas.ingestion.faq import FAQEntry
+from atrag.schemas.materials import HTMLLocation, Location
 
 
 class SourceLocator(Artifact):
@@ -36,8 +37,8 @@ class LegalUnit(Artifact):
     legal_unit_id: str
     parent_id: str | None
     instrument_id: str
-    code: Literal["CIRS"] | None
-    document_scope: Literal["approving_decree", "preamble", "code"]
+    code: Literal["CIRS"] | None = None
+    document_scope: Literal["approving_decree", "preamble", "code", "faq"]
     kind: Literal[
         "document",
         "chapter",
@@ -48,6 +49,8 @@ class LegalUnit(Artifact):
         "subparagraph",
         "item",
         "note",
+        "topic",
+        "faq_entry",
     ]
     role: Literal[
         "norm",
@@ -57,6 +60,7 @@ class LegalUnit(Artifact):
         "editorial_note",
         "transitional",
         "closing",
+        "at_explanation",
     ]
     chapter: str | None = None
     section: str | None = None
@@ -83,6 +87,71 @@ class LegalUnit(Artifact):
     references: list[LegalReference] = Field(default_factory=list)
     table_ids: list[str]
     issues: list[str]
+    faq: FAQEntry | None = Field(default=None, exclude_if=lambda value: value is None)
+
+    @model_validator(mode="after")
+    def consistent_faq(self) -> Self:
+        if self.document_scope == "faq":
+            location = self._check_faq_address()
+            self._check_faq_entry(location)
+        elif (
+            self.faq is not None
+            or self.kind in ("topic", "faq_entry")
+            or self.role == "at_explanation"
+        ):
+            raise ValueError("FAQ metadata, kinds and role require FAQ scope")
+        return self
+
+    def _check_faq_address(self) -> HTMLLocation:
+        address = (
+            self.code,
+            self.chapter,
+            self.section,
+            self.article,
+            self.paragraph,
+            self.subparagraph,
+        )
+        pdf = (
+            self.page_start,
+            self.page_end,
+            *self.locators,
+            *self.printed_page_labels,
+        )
+        if any(value is not None for value in (*address, *pdf)):
+            raise ValueError("FAQ cannot have a legal address or PDF coordinates")
+        if self.role != "at_explanation" or self.kind not in (
+            "document",
+            "topic",
+            "faq_entry",
+        ):
+            raise ValueError("FAQ requires explanatory units")
+        if self.legal_status != "unknown" or self.editorial_notes:
+            raise ValueError(
+                "FAQ cannot have a normative status or editorial amendments"
+            )
+        if (
+            not isinstance(self.location, HTMLLocation)
+            or self.location.page_url is None
+        ):
+            raise ValueError("FAQ requires an HTML location with a page URL")
+        return self.location
+
+    def _check_faq_entry(self, location: HTMLLocation) -> None:
+        if self.kind != "faq_entry":
+            if self.faq is not None:
+                raise ValueError("Only FAQ entries carry question and answer metadata")
+            return
+        if self.faq is None:
+            raise ValueError("FAQ entry requires original question and answer metadata")
+        if self.legal_unit_id != f"{self.instrument_id}:{self.faq.entry_id}":
+            raise ValueError("FAQ unit identity must match its source and entry")
+        if (location.page_url, location.anchor) != (
+            self.faq.page_url,
+            self.faq.anchor,
+        ):
+            raise ValueError(
+                "FAQ entry and location must refer to the same page and anchor"
+            )
 
 
 class StructureResult(Artifact):

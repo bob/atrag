@@ -10,7 +10,7 @@ from tempfile import TemporaryDirectory
 from atrag.ingestion.services.artifacts import write_json
 from atrag.ingestion.services.runs import record_run
 from atrag.schemas.ingestion.snapshots import SnapshotImport, SourceSnapshot
-from atrag.schemas.ingestion.sources import SourceDefinition
+from atrag.schemas.ingestion.sources import SourceDefinition, SourceFormat
 from atrag.settings import PROJECT_ROOT
 
 
@@ -49,6 +49,8 @@ def _publish_snapshot(staging: Path, destination: Path) -> bool:
 def _store_snapshot(
     source: SourceDefinition, data_dir: Path, project_root: Path
 ) -> tuple[SourceSnapshot, bool]:
+    if source.source_format != SourceFormat.PDF:
+        raise ValueError("HTML collection requires collection fetch, not PDF import")
     raw = data_dir / "raw"
     raw.mkdir(exist_ok=True)
     with TemporaryDirectory(prefix=".snapshot-", dir=raw) as temporary:

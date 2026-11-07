@@ -102,6 +102,7 @@ class SnapshotRow(Base):
     preparation_sha256: Mapped[str | None] = mapped_column(String(64))
     document_title: Mapped[str] = mapped_column(Text)
     document_type: Mapped[str] = mapped_column(Text)
+    source_format: Mapped[str] = mapped_column(Text, server_default="pdf")
     publisher: Mapped[str] = mapped_column(Text)
     language: Mapped[str] = mapped_column(Text)
     source_url: Mapped[str | None] = mapped_column(Text)
