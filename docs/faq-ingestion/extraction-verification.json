@@ -1,0 +1,34 @@
+{
+  "verified_on": "2026-11-07",
+  "mode": "offline saved HTML; no HTTP or embedding calls",
+  "snapshot_id": "8773a9e3f191d0c9ec88ac25326497fc3cdeeb6973338c3acae6f98b65bc277d",
+  "parser_version": "faq-1",
+  "page_count": 151,
+  "topic_page_count": 150,
+  "question_count": 1630,
+  "extracted_count": 1630,
+  "rejected_count": 0,
+  "answer_count": 1630,
+  "table_count": 18,
+  "detected_table_count": 18,
+  "link_count": 15,
+  "reference_count": 905,
+  "conflicting_entry_ids": [],
+  "issues_by_kind": {},
+  "review_status": "verified",
+  "independent_inventory": "inventory.json",
+  "inventory_page_counts_match": true,
+  "inventory_faq_ids_and_order_match": true,
+  "reviewed_full_records_match": 18,
+  "repeated_full_extraction_identical": true,
+  "artifacts_sha256": {
+    "faqs.jsonl": "4360dc8fa0a89e4c53cd5a044625b0da177370be2fc5b59496387e3f519de543",
+    "tables.json": "d71b03f44a215d6845bba4d199f12e0d0d6aee97c3e391c5e144a699bacc6dc6",
+    "report.json": "e6f35dc7559d3a4228644af8fc8d76b6953ed80160e9ef4dbd36abafe434f194"
+  },
+  "local_data_dir": "data/faq-step2-20261107",
+  "run_ids": [
+    "3b4b9d7b-ca69-4642-ba53-39900636b021",
+    "95670947-6429-48cb-89c8-352f95c8292b"
+  ]
+}
