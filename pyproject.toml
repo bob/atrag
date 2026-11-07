@@ -9,6 +9,8 @@ authors = [
 requires-python = ">=3.14"
 dependencies = [
     "alembic>=1.16,<2",
+    "beautifulsoup4>=4.15,<5",
+    "httpx>=0.28,<1",
     "langchain>=1.4.7",
     "langchain-openai>=1.7.3",
     "langgraph>=1.2.19",

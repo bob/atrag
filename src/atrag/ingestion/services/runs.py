@@ -41,7 +41,7 @@ def record_run(data_dir: Path, **metadata: Any) -> Iterator[IngestionRun]:
     write_json(directory / "manifest.json", manifest)
     try:
         yield run
-    except Exception as error:
+    except BaseException as error:
         _finish_run(run, "failed", error_type=type(error).__name__)
         raise
     else:

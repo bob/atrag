@@ -5,6 +5,7 @@ import json
 from contextlib import ExitStack
 from pathlib import Path
 from typing import get_args
+from uuid import UUID
 
 from psycopg import Error as PsycopgError
 from sqlalchemy.exc import SQLAlchemyError
@@ -16,6 +17,8 @@ from atrag.ingestion.services.chunks import chunk_parsed
 from atrag.ingestion.services.embedding_cache import PostgresEmbeddingCache
 from atrag.ingestion.services.embeddings import embed_chunked
 from atrag.ingestion.services.extract import extract_snapshot
+from atrag.ingestion.services.fetch import fetch_collection
+from atrag.ingestion.services.html_inspect import inspect_collection
 from atrag.ingestion.services.index import index_package
 from atrag.ingestion.services.ocr import TesseractOCR
 from atrag.ingestion.services.packages import build_package, load_package
@@ -26,6 +29,7 @@ from atrag.migrations import migrate_database
 from atrag.retrieval.evaluate import evaluate_search
 from atrag.retrieval.search import search_tax_documents
 from atrag.schemas.ingestion.fragments import ChunkParameters
+from atrag.schemas.ingestion.sources import SourceFormat
 from atrag.schemas.retrieval import SearchFilters
 from atrag.schemas.settings import Settings, SupportedLanguage
 from atrag.settings import PROJECT_ROOT, load_settings
@@ -60,8 +64,11 @@ def _build_parser() -> argparse.ArgumentParser:
     ingest = commands.add_parser("ingest", help="Prepare registered local documents")
     actions = ingest.add_subparsers(dest="action", required=True)
     _corpus_parsers(actions)
-    snapshot = actions.add_parser("snapshot", help="Save an immutable PDF snapshot")
-    inspect = actions.add_parser("inspect", help="Extract located pages and tables")
+    fetch = actions.add_parser("fetch", help="Fetch a complete official FAQ collection")
+    fetch.add_argument("--resume", type=UUID, help="Resume the saved fetch_id")
+    snapshot = actions.add_parser("snapshot", help="Save an immutable source snapshot")
+    snapshot.add_argument("--source", type=Path, help="Override the saved source path")
+    inspect = actions.add_parser("inspect", help="Inspect saved PDF or HTML input")
     parse = actions.add_parser(
         "parse", help="Parse legal structure from a completed extraction"
     )
@@ -99,7 +106,7 @@ def _build_parser() -> argparse.ArgumentParser:
     inspect.add_argument(
         "--review", type=Path, help="Snapshot-specific manual table review JSON"
     )
-    for command in (check, snapshot, inspect, parse, chunk, embed):
+    for command in (check, fetch, snapshot, inspect, parse, chunk, embed):
         command.add_argument(
             "--registry", type=Path, default=PROJECT_ROOT / "data/sources/cirs.json"
         )
@@ -133,6 +140,8 @@ def _inspect(source, settings: Settings, args) -> dict:
     if args.source is not None:
         source = source.model_copy(update={"local_path": args.source})
     imported = import_snapshot(source, settings.data_dir)
+    if source.source_format == SourceFormat.HTML_COLLECTION:
+        return inspect_collection(imported.snapshot, settings.data_dir)
     result = extract_snapshot(
         imported.snapshot,
         settings.data_dir,
@@ -171,9 +180,21 @@ def _parse(source, settings, args):
 
 
 def _snapshot(source, settings, args):
+    if args.source is not None:
+        source = source.model_copy(update={"local_path": args.source})
     result = import_snapshot(source, settings.data_dir)
     return {
         "run_id": str(result.run_id),
+        "reused": result.reused,
+        "snapshot": result.snapshot.model_dump(mode="json"),
+    }
+
+
+def _fetch(source, settings, args):
+    result = fetch_collection(source, settings.data_dir, resume=args.resume)
+    return {
+        "run_id": str(result.run_id),
+        "fetch_id": str(result.fetch_id),
         "reused": result.reused,
         "snapshot": result.snapshot.model_dump(mode="json"),
     }
@@ -382,11 +403,15 @@ def main(argv: list[str] | None = None) -> None:
             ),
             "inspect": (
                 _inspect,
-                "PDF extraction failed; check snapshot, review and run manifest.\n",
+                "Source extraction failed; check snapshot, review and run manifest.\n",
             ),
             "snapshot": (
                 _snapshot,
                 "Snapshot import failed; check source and stored artifacts.\n",
+            ),
+            "fetch": (
+                _fetch,
+                "FAQ fetch failed; check fetch/<fetch_id>/state.json and run manifest; resume with --resume <fetch_id>.\n",
             ),
         }[args.action]
         summary = _execute(parser, operation, failure, source, settings, args)

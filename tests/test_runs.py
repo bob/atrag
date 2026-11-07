@@ -71,3 +71,12 @@ def test_concurrent_runs_keep_their_manifests_separate(tmp_path):
         assert manifest["status"] == "succeeded"
         assert manifest["observation"] == index
         assert manifest["result"] == index * 2
+
+
+def test_run_records_keyboard_interrupt_before_releasing_checkpoint(tmp_path):
+    with pytest.raises(KeyboardInterrupt), record_run(tmp_path, stage="fetch") as run:
+        raise KeyboardInterrupt
+    manifest = read_manifest(run)
+    assert manifest["status"] == "failed"
+    assert manifest["error_type"] == "KeyboardInterrupt"
+    assert manifest["finished_at"] is not None
