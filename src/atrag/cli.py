@@ -17,6 +17,7 @@ from atrag.ingestion.services.chunks import chunk_parsed
 from atrag.ingestion.services.embedding_cache import PostgresEmbeddingCache
 from atrag.ingestion.services.embeddings import embed_chunked
 from atrag.ingestion.services.extract import extract_snapshot
+from atrag.ingestion.services.faq_extract import extract_collection
 from atrag.ingestion.services.fetch import fetch_collection
 from atrag.ingestion.services.html_inspect import inspect_collection
 from atrag.ingestion.services.index import index_package
@@ -69,6 +70,10 @@ def _build_parser() -> argparse.ArgumentParser:
     snapshot = actions.add_parser("snapshot", help="Save an immutable source snapshot")
     snapshot.add_argument("--source", type=Path, help="Override the saved source path")
     inspect = actions.add_parser("inspect", help="Inspect saved PDF or HTML input")
+    extract = actions.add_parser("extract", help="Extract FAQ records from saved HTML")
+    extract.add_argument(
+        "--source", type=Path, help="Saved collection or its directory"
+    )
     parse = actions.add_parser(
         "parse", help="Parse legal structure from a completed extraction"
     )
@@ -106,7 +111,7 @@ def _build_parser() -> argparse.ArgumentParser:
     inspect.add_argument(
         "--review", type=Path, help="Snapshot-specific manual table review JSON"
     )
-    for command in (check, fetch, snapshot, inspect, parse, chunk, embed):
+    for command in (check, fetch, snapshot, inspect, extract, parse, chunk, embed):
         command.add_argument(
             "--registry", type=Path, default=PROJECT_ROOT / "data/sources/cirs.json"
         )
@@ -156,6 +161,14 @@ def _inspect(source, settings: Settings, args) -> dict:
         "table_count": result.table_count,
         "review_status": result.review_status,
     }
+
+
+def _extract(source, settings: Settings, args) -> dict:
+    if args.source is not None:
+        source = source.model_copy(update={"local_path": args.source})
+    return extract_collection(
+        import_snapshot(source, settings.data_dir).snapshot, settings.data_dir
+    )
 
 
 def _settings_summary(settings: Settings) -> dict:
@@ -404,6 +417,10 @@ def main(argv: list[str] | None = None) -> None:
             "inspect": (
                 _inspect,
                 "Source extraction failed; check snapshot, review and run manifest.\n",
+            ),
+            "extract": (
+                _extract,
+                "FAQ extraction failed; check saved collection and run manifest.\n",
             ),
             "snapshot": (
                 _snapshot,

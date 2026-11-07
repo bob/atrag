@@ -1,4 +1,4 @@
-"""Located extraction artifacts; coordinates are PDF points from the top left."""
+"""Located extraction artifacts for PDF coordinates and HTML source cells."""
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -6,6 +6,8 @@ from typing import Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, PositiveInt
+
+from atrag.schemas.materials import HTMLLocation
 
 BBox = tuple[float, float, float, float]
 
@@ -32,9 +34,24 @@ class TablePart(Artifact):
     extraction_method: Literal["pdfplumber", "manual_transcription"] = "pdfplumber"
 
 
-class ExtractedTable(Artifact):
+class HTMLTableCell(Artifact):
+    text: str
+    rowspan: PositiveInt = 1
+    colspan: PositiveInt = 1
+
+
+class HTMLTablePart(Artifact):
+    part_id: str
     table_id: str
-    parts: list[TablePart]
+    location: HTMLLocation
+    rows: list[list[str | None]]
+    cells: list[list[HTMLTableCell]]
+    extraction_method: Literal["html_dom"] = "html_dom"
+
+
+class ExtractedTable[Part: (TablePart, HTMLTablePart) = TablePart](Artifact):
+    table_id: str
+    parts: list[Part]
     header_rows: list[list[str | None]]
     rows: list[list[str | None]]
     context: str
