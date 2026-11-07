@@ -1,0 +1,47 @@
+{
+  "verified_on": "2026-11-07",
+  "mode": "Saved real HTML, synthetic embeddings, local PostgreSQL; no live HTTP or model calls",
+  "package_schema_version": 3,
+  "raw_snapshot_id": "8773a9e3f191d0c9ec88ac25326497fc3cdeeb6973338c3acae6f98b65bc277d",
+  "prepared_snapshot_id": "ce6f7563dcf05d22b0af99f8f1719de3cffdcefcd040e7db3c6105cc170f9400",
+  "parser_version": "faq-1",
+  "chunker_version": "2",
+  "model": "text-embedding-3-large",
+  "dimensions": 1536,
+  "source_file_count": 152,
+  "topic_count": 150,
+  "faq_count": 1630,
+  "fragment_count": 1649,
+  "table_count": 18,
+  "empty_layout_table_ids": [
+    "faqs-00346:3331:table:1",
+    "faqs-00346:3329:table:1",
+    "faqs-00346:3329:table:2"
+  ],
+  "token_count": 358216,
+  "maximum_fragment_tokens": 699,
+  "max_tokens": 1200,
+  "reassembled_answers": 1630,
+  "repeated_embedding_requests": 0,
+  "repeated_cache_hits": 1649,
+  "package_manifest_sha256": "3d68d2fb69b0199e41abbf9611bd2836e1cfb732fa8b1d10ffa9c69a12b43b80",
+  "artifact_sha256": {
+    "legal_units.jsonl": "7ea9bcd63556af350100a728031489acb12c82f17691ec4524f0b7a4a7fa4515",
+    "tables.json": "d71b03f44a215d6845bba4d199f12e0d0d6aee97c3e391c5e144a699bacc6dc6",
+    "fragments.jsonl": "5bb99a1294103bb058b7b63c155419d3929abd5fafaa82b59836106b412987f6",
+    "embeddings.jsonl": "8cbe1cba268eb3fe35f17ad7f69e1765fa1d41dfd63c2baba15f04f99ef86a51"
+  },
+  "checks": {
+    "project_tests_passed": 1069,
+    "final_faq_tests_passed": 35,
+    "crap_max": 9,
+    "duplicates_at_or_above_0_8": 0,
+    "mutations_killed": 279,
+    "mutations_survived": 0,
+    "mutations_uncovered": 0,
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "python_3_13_syntax": "passed",
+    "types": "passed"
+  }
+}
