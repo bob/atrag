@@ -1,0 +1,2857 @@
+{
+  "utc": "2026-11-07T19:06:07.678619+00:00",
+  "release_id": "46f8e0989a5cf9cb11cc5030fc342e0a7771adfe6219c9b4a9ba9744202abde2",
+  "members": {
+    "pt-at-cirs": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+    "pt-at-faq": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040"
+  },
+  "benchmark_sha256": "21c585f79053b66ba3aba1746ca84c056770efdcf1141983ef123fac1f7d8833",
+  "query_response_sha256": "c188f13caf7c15238da34e0a7dc3cac2f084711141e2fdf2f7f6009afeb9b72c",
+  "request_id": "req_d4c58902efaf4db3aa251b5253cd814d",
+  "api_usage": {
+    "prompt_tokens": 1965,
+    "total_tokens": 1965
+  },
+  "actual_api_requests": 1,
+  "real_query_vectors": 66,
+  "retrieval_embedding_calls": 84,
+  "records": [
+    {
+      "case_id": "cirs-pensions",
+      "kind": "cirs",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1047,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00351:5873",
+          "entry_id": "faqs-00351:5873",
+          "score": 0.607850063296505
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:11:paragraph:1",
+          "entry_id": null,
+          "score": 0.5991493392363184
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-D:paragraph:2",
+          "entry_id": null,
+          "score": 0.5912030496486133
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:53:paragraph:1",
+          "entry_id": null,
+          "score": 0.5881968117675724
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:11:paragraph:2",
+          "entry_id": null,
+          "score": 0.5780521676597826
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-pensions",
+      "kind": "cirs",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1161,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00351:5873",
+          "entry_id": "faqs-00351:5873",
+          "score": 0.7641511126937464
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:11:paragraph:1",
+          "entry_id": null,
+          "score": 0.7570574461581293
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:53:paragraph:1",
+          "entry_id": null,
+          "score": 0.7296075800694902
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-D:paragraph:2",
+          "entry_id": null,
+          "score": 0.7263549372286419
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:53:paragraph:4",
+          "entry_id": null,
+          "score": 0.7081904708371766
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-pensions",
+      "kind": "cirs",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1075,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:11:paragraph:1",
+          "entry_id": null,
+          "score": 0.608852060778184
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00351:5873",
+          "entry_id": "faqs-00351:5873",
+          "score": 0.6022598671441284
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:53:paragraph:1",
+          "entry_id": null,
+          "score": 0.5957316065250596
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-D:paragraph:2",
+          "entry_id": null,
+          "score": 0.5913240034567844
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-D:paragraph:1",
+          "entry_id": null,
+          "score": 0.5875604889633925
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-pensions",
+      "kind": "cirs",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1075,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:53:paragraph:1",
+          "entry_id": null,
+          "score": 0.5901445574126224
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00351:5873",
+          "entry_id": "faqs-00351:5873",
+          "score": 0.5865448540949831
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:11:paragraph:1",
+          "entry_id": null,
+          "score": 0.579004551404937
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-D:paragraph:2",
+          "entry_id": null,
+          "score": 0.5658787784815587
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-D:paragraph:1",
+          "entry_id": null,
+          "score": 0.5563464502651532
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-rental-income",
+      "kind": "cirs",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1676,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:2",
+          "entry_id": null,
+          "score": 0.6608970593600855
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00356:5933",
+          "entry_id": "faqs-00356:5933",
+          "score": 0.649751077335402
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:1",
+          "entry_id": null,
+          "score": 0.6312677048220355
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:115:paragraph:5",
+          "entry_id": null,
+          "score": 0.5762064203353068
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:5",
+          "entry_id": null,
+          "score": 0.5726822287666226
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-rental-income",
+      "kind": "cirs",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1231,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00356:5933",
+          "entry_id": "faqs-00356:5933",
+          "score": 0.7881137781399441
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:2",
+          "entry_id": null,
+          "score": 0.7684785505513082
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:1",
+          "entry_id": null,
+          "score": 0.7591819094732778
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:3",
+          "entry_id": null,
+          "score": 0.7153956500012022
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:31:paragraph:4",
+          "entry_id": null,
+          "score": 0.6937535012859375
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-rental-income",
+      "kind": "cirs",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1676,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:2",
+          "entry_id": null,
+          "score": 0.656373231048919
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00356:5933",
+          "entry_id": "faqs-00356:5933",
+          "score": 0.6473001190078874
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:1",
+          "entry_id": null,
+          "score": 0.6307340106932894
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:115:paragraph:5",
+          "entry_id": null,
+          "score": 0.5753479821058612
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:5",
+          "entry_id": null,
+          "score": 0.5703961435862669
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-rental-income",
+      "kind": "cirs",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1426,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:2",
+          "entry_id": null,
+          "score": 0.6393140973077162
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00356:5933",
+          "entry_id": "faqs-00356:5933",
+          "score": 0.6336793515850785
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:8:paragraph:1",
+          "entry_id": null,
+          "score": 0.6122576696313123
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:115:paragraph:5",
+          "entry_id": null,
+          "score": 0.5630701953496482
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:31:paragraph:4",
+          "entry_id": null,
+          "score": 0.5521321778753058
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-general-rates",
+      "kind": "cirs",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1311,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:1",
+          "entry_id": null,
+          "score": 0.5730893921405851
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:2",
+          "entry_id": null,
+          "score": 0.534258493035162
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-F:paragraph:2",
+          "entry_id": null,
+          "score": 0.5131700318231217
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:100:paragraph:1",
+          "entry_id": null,
+          "score": 0.5112313899326876
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:101:paragraph:4",
+          "entry_id": null,
+          "score": 0.5052719529073448
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-general-rates",
+      "kind": "cirs",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1833,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:1",
+          "entry_id": null,
+          "score": 0.7557866667795833
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:2",
+          "entry_id": null,
+          "score": 0.7212175342391158
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:100:paragraph:1",
+          "entry_id": null,
+          "score": 0.6852209191040836
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-F:paragraph:2",
+          "entry_id": null,
+          "score": 0.6784518055691712
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:101:paragraph:1",
+          "entry_id": null,
+          "score": 0.6689899508004987
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-general-rates",
+      "kind": "cirs",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1355,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:1",
+          "entry_id": null,
+          "score": 0.5503993257164693
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:100:paragraph:1",
+          "entry_id": null,
+          "score": 0.51067054671804
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:2",
+          "entry_id": null,
+          "score": 0.5046934800856536
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-F:paragraph:2",
+          "entry_id": null,
+          "score": 0.501418427645781
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:72:note:2",
+          "entry_id": null,
+          "score": 0.5007269274080566
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-general-rates",
+      "kind": "cirs",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1413,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:1",
+          "entry_id": null,
+          "score": 0.5246005922300372
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-F:paragraph:2",
+          "entry_id": null,
+          "score": 0.47856431548237677
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:100:paragraph:1",
+          "entry_id": null,
+          "score": 0.4771485269218182
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:99-F:paragraph:4",
+          "entry_id": null,
+          "score": 0.47223712781226257
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:2",
+          "entry_id": null,
+          "score": 0.47209319068608857
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-solidarity",
+      "kind": "cirs",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 957,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:1",
+          "entry_id": null,
+          "score": 0.6624742145901048
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:2",
+          "entry_id": null,
+          "score": 0.6521742753905839
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:3",
+          "entry_id": null,
+          "score": 0.5775005789651635
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:6",
+          "entry_id": null,
+          "score": 0.574416408251709
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:72-A:paragraph:1",
+          "entry_id": null,
+          "score": 0.5736486799352907
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-solidarity",
+      "kind": "cirs",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 959,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:2",
+          "entry_id": null,
+          "score": 0.7888215726760037
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:1",
+          "entry_id": null,
+          "score": 0.7846167275979605
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:3",
+          "entry_id": null,
+          "score": 0.7308726220427731
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:2",
+          "entry_id": null,
+          "score": 0.6954078222434646
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:6",
+          "entry_id": null,
+          "score": 0.6876711490003435
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-solidarity",
+      "kind": "cirs",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1516,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:1",
+          "entry_id": null,
+          "score": 0.612258941219837
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:2",
+          "entry_id": null,
+          "score": 0.6010131579482629
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:3",
+          "entry_id": null,
+          "score": 0.5542964764538376
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:2",
+          "entry_id": null,
+          "score": 0.5346330223650695
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68:paragraph:1",
+          "entry_id": null,
+          "score": 0.5321781786105313
+        }
+      ]
+    },
+    {
+      "case_id": "cirs-solidarity",
+      "kind": "cirs",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 865,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:2",
+          "entry_id": null,
+          "score": 0.6096367545570567
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:1",
+          "entry_id": null,
+          "score": 0.6068743879794588
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:3",
+          "entry_id": null,
+          "score": 0.5540463841240826
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:6",
+          "entry_id": null,
+          "score": 0.5332472790886066
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:68-A:paragraph:4",
+          "entry_id": null,
+          "score": 0.5306518930194313
+        }
+      ]
+    },
+    {
+      "case_id": "faq-vat-exemption",
+      "kind": "faq",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1619,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00396:5747",
+          "entry_id": "faqs-00396:5747",
+          "score": 0.5967140360548496
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00720:5785",
+          "entry_id": "faqs-00720:5785",
+          "score": 0.5703728226012316
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00101:5618",
+          "entry_id": "faqs-00101:5618",
+          "score": 0.5333362759616909
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00101:5735",
+          "entry_id": "faqs-00101:5735",
+          "score": 0.5307086112706918
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00026:5023",
+          "entry_id": "faqs-00026:5023",
+          "score": 0.5219831578486016
+        }
+      ]
+    },
+    {
+      "case_id": "faq-vat-exemption",
+      "kind": "faq",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 2475,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00101:5735",
+          "entry_id": "faqs-00101:5735",
+          "score": 0.7583809849258645
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00720:5785",
+          "entry_id": "faqs-00720:5785",
+          "score": 0.7532925360060555
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00101:5757",
+          "entry_id": "faqs-00101:5757",
+          "score": 0.7395150708513184
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00101:5620",
+          "entry_id": "faqs-00101:5620",
+          "score": 0.7200356547562915
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00101:5770",
+          "entry_id": "faqs-00101:5770",
+          "score": 0.718486972535527
+        }
+      ]
+    },
+    {
+      "case_id": "faq-vat-exemption",
+      "kind": "faq",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 2129,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00026:5026",
+          "entry_id": "faqs-00026:5026",
+          "score": 0.5337411941688062
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00101:5757",
+          "entry_id": "faqs-00101:5757",
+          "score": 0.5329809352649209
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00720:5785",
+          "entry_id": "faqs-00720:5785",
+          "score": 0.5198214478604969
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00026:5023",
+          "entry_id": "faqs-00026:5023",
+          "score": 0.5185292951911022
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00101:5770",
+          "entry_id": "faqs-00101:5770",
+          "score": 0.514473852947864
+        }
+      ]
+    },
+    {
+      "case_id": "faq-vat-exemption",
+      "kind": "faq",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1648,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00026:5026",
+          "entry_id": "faqs-00026:5026",
+          "score": 0.5278144415771057
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00101:5757",
+          "entry_id": "faqs-00101:5757",
+          "score": 0.5193224387864229
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00720:5785",
+          "entry_id": "faqs-00720:5785",
+          "score": 0.5097805187982515
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00026:5023",
+          "entry_id": "faqs-00026:5023",
+          "score": 0.5090288953703472
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00026:5049",
+          "entry_id": "faqs-00026:5049",
+          "score": 0.5078213170343829
+        }
+      ]
+    },
+    {
+      "case_id": "faq-inventory-status",
+      "kind": "faq",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1554,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5115",
+          "entry_id": "faqs-00628:5115",
+          "score": 0.5772062120229386
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5114",
+          "entry_id": "faqs-00628:5114",
+          "score": 0.5242170635399842
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5116",
+          "entry_id": "faqs-00628:5116",
+          "score": 0.4951777967543758
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5123",
+          "entry_id": "faqs-00628:5123",
+          "score": 0.462843214985974
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5110",
+          "entry_id": "faqs-00628:5110",
+          "score": 0.44854788174636473
+        }
+      ]
+    },
+    {
+      "case_id": "faq-inventory-status",
+      "kind": "faq",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1482,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5115",
+          "entry_id": "faqs-00628:5115",
+          "score": 0.7560050528072837
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5114",
+          "entry_id": "faqs-00628:5114",
+          "score": 0.705362654644861
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5116",
+          "entry_id": "faqs-00628:5116",
+          "score": 0.6990780360431212
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5110",
+          "entry_id": "faqs-00628:5110",
+          "score": 0.6808291056135576
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5111",
+          "entry_id": "faqs-00628:5111",
+          "score": 0.6787146240919161
+        }
+      ]
+    },
+    {
+      "case_id": "faq-inventory-status",
+      "kind": "faq",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1554,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5115",
+          "entry_id": "faqs-00628:5115",
+          "score": 0.5581983817145908
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5114",
+          "entry_id": "faqs-00628:5114",
+          "score": 0.5096597388938521
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5116",
+          "entry_id": "faqs-00628:5116",
+          "score": 0.5034537574172075
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5123",
+          "entry_id": "faqs-00628:5123",
+          "score": 0.48512332676903935
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5110",
+          "entry_id": "faqs-00628:5110",
+          "score": 0.47715060626168204
+        }
+      ]
+    },
+    {
+      "case_id": "faq-inventory-status",
+      "kind": "faq",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1492,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5115",
+          "entry_id": "faqs-00628:5115",
+          "score": 0.5470938950288986
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5114",
+          "entry_id": "faqs-00628:5114",
+          "score": 0.49748485386444785
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5116",
+          "entry_id": "faqs-00628:5116",
+          "score": 0.47835342372705547
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5123",
+          "entry_id": "faqs-00628:5123",
+          "score": 0.44567657308122577
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00628:5119",
+          "entry_id": "faqs-00628:5119",
+          "score": 0.445372033923196
+        }
+      ]
+    },
+    {
+      "case_id": "faq-no-treaty",
+      "kind": "faq",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1464,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3824",
+          "entry_id": "faqs-00212:3824",
+          "score": 0.7045562355661175
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3823",
+          "entry_id": "faqs-00212:3823",
+          "score": 0.6751778318273449
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00340:4197",
+          "entry_id": "faqs-00340:4197",
+          "score": 0.6401822120136754
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3822",
+          "entry_id": "faqs-00212:3822",
+          "score": 0.6393988019335385
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00215:4204",
+          "entry_id": "faqs-00215:4204",
+          "score": 0.6377654398973468
+        }
+      ]
+    },
+    {
+      "case_id": "faq-no-treaty",
+      "kind": "faq",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1464,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3824",
+          "entry_id": "faqs-00212:3824",
+          "score": 0.7570033856771196
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3823",
+          "entry_id": "faqs-00212:3823",
+          "score": 0.7226430292084222
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3822",
+          "entry_id": "faqs-00212:3822",
+          "score": 0.7077153611847073
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00340:4197",
+          "entry_id": "faqs-00340:4197",
+          "score": 0.7042946243932572
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00215:4204",
+          "entry_id": "faqs-00215:4204",
+          "score": 0.6993352477180718
+        }
+      ]
+    },
+    {
+      "case_id": "faq-no-treaty",
+      "kind": "faq",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1391,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3824",
+          "entry_id": "faqs-00212:3824",
+          "score": 0.579330314186231
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3823",
+          "entry_id": "faqs-00212:3823",
+          "score": 0.5521584920901016
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3809",
+          "entry_id": "faqs-00343:3809",
+          "score": 0.5243238290702997
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00340:4197",
+          "entry_id": "faqs-00340:4197",
+          "score": 0.5234563764758374
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00215:4204",
+          "entry_id": "faqs-00215:4204",
+          "score": 0.5182054372652823
+        }
+      ]
+    },
+    {
+      "case_id": "faq-no-treaty",
+      "kind": "faq",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 1464,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3824",
+          "entry_id": "faqs-00212:3824",
+          "score": 0.5742247043158556
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3823",
+          "entry_id": "faqs-00212:3823",
+          "score": 0.5566692712243686
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00340:4197",
+          "entry_id": "faqs-00340:4197",
+          "score": 0.5388228790628958
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00215:4204",
+          "entry_id": "faqs-00215:4204",
+          "score": 0.5295078788577824
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00212:3822",
+          "entry_id": "faqs-00212:3822",
+          "score": 0.5249791226709091
+        }
+      ]
+    },
+    {
+      "case_id": "faq-overpayment",
+      "kind": "faq",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 788,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00260:3599",
+          "entry_id": "faqs-00260:3599",
+          "score": 0.5984773791417831
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00173:3598",
+          "entry_id": "faqs-00173:3598",
+          "score": 0.591632146126345
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00260:3596",
+          "entry_id": "faqs-00260:3596",
+          "score": 0.5754545329981687
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00173:3597",
+          "entry_id": "faqs-00173:3597",
+          "score": 0.5666890829984922
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00005:367",
+          "entry_id": "faqs-00005:367",
+          "score": 0.5529887422760589
+        }
+      ]
+    },
+    {
+      "case_id": "faq-overpayment",
+      "kind": "faq",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 819,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00260:3599",
+          "entry_id": "faqs-00260:3599",
+          "score": 0.8255444966897448
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00173:3598",
+          "entry_id": "faqs-00173:3598",
+          "score": 0.8031293896538434
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00260:3596",
+          "entry_id": "faqs-00260:3596",
+          "score": 0.7760453498036869
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00255:781",
+          "entry_id": "faqs-00255:781",
+          "score": 0.758003858101807
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00173:3597",
+          "entry_id": "faqs-00173:3597",
+          "score": 0.751169574630465
+        }
+      ]
+    },
+    {
+      "case_id": "faq-overpayment",
+      "kind": "faq",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 921,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00260:3599",
+          "entry_id": "faqs-00260:3599",
+          "score": 0.5369283639258913
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00173:3598",
+          "entry_id": "faqs-00173:3598",
+          "score": 0.5310390986421127
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00260:3596",
+          "entry_id": "faqs-00260:3596",
+          "score": 0.5216631479930265
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00173:3597",
+          "entry_id": "faqs-00173:3597",
+          "score": 0.5109105007083221
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00167:806",
+          "entry_id": "faqs-00167:806",
+          "score": 0.48550276996706465
+        }
+      ]
+    },
+    {
+      "case_id": "faq-overpayment",
+      "kind": "faq",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true
+      ],
+      "tokens": 788,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00260:3599",
+          "entry_id": "faqs-00260:3599",
+          "score": 0.5365941963274548
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00173:3598",
+          "entry_id": "faqs-00173:3598",
+          "score": 0.5305466308846255
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00260:3596",
+          "entry_id": "faqs-00260:3596",
+          "score": 0.523550138558505
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00173:3597",
+          "entry_id": "faqs-00173:3597",
+          "score": 0.5156999201946779
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00005:367",
+          "entry_id": "faqs-00005:367",
+          "score": 0.4936064052783744
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "kind": "mixed",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 1835,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3827",
+          "entry_id": "faqs-00343:3827",
+          "score": 0.7673360238901412
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:3286",
+          "entry_id": "faqs-00267:3286",
+          "score": 0.7547202054429624
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:paragraph:1",
+          "entry_id": null,
+          "score": 0.7264493901342692
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:paragraph:6",
+          "entry_id": null,
+          "score": 0.7007177174062992
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:paragraph:3",
+          "entry_id": null,
+          "score": 0.6931495118445008
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "kind": "mixed",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 1835,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:3286",
+          "entry_id": "faqs-00267:3286",
+          "score": 0.7845861784956798
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3827",
+          "entry_id": "faqs-00343:3827",
+          "score": 0.7843789926049418
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:paragraph:1",
+          "entry_id": null,
+          "score": 0.7735781161756115
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:paragraph:3",
+          "entry_id": null,
+          "score": 0.7442531331028843
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:paragraph:6",
+          "entry_id": null,
+          "score": 0.742754385698309
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "kind": "mixed",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 2209,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3827",
+          "entry_id": "faqs-00343:3827",
+          "score": 0.6872313082398236
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:3286",
+          "entry_id": "faqs-00267:3286",
+          "score": 0.6764167341337983
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:paragraph:1",
+          "entry_id": null,
+          "score": 0.6549411545834395
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:paragraph:6",
+          "entry_id": null,
+          "score": 0.6353561543284142
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:note:1",
+          "entry_id": null,
+          "score": 0.622970339956409
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "kind": "mixed",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 2209,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3827",
+          "entry_id": "faqs-00343:3827",
+          "score": 0.7069895370009535
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:3286",
+          "entry_id": "faqs-00267:3286",
+          "score": 0.6939704821104695
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:paragraph:1",
+          "entry_id": null,
+          "score": 0.6907969803961304
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:paragraph:6",
+          "entry_id": null,
+          "score": 0.6728828640796689
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:16:note:1",
+          "entry_id": null,
+          "score": 0.6596124082817539
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "kind": "mixed",
+      "language": "en",
+      "passed": false,
+      "target_found": [
+        false,
+        true
+      ],
+      "tokens": 2011,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3831",
+          "entry_id": "faqs-00343:3831",
+          "score": 0.8134888553848025
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00266:3285",
+          "entry_id": "faqs-00266:3285",
+          "score": 0.7876287346915102
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3802",
+          "entry_id": "faqs-00343:3802",
+          "score": 0.711354677990174
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3827",
+          "entry_id": "faqs-00343:3827",
+          "score": 0.701527056674303
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3803",
+          "entry_id": "faqs-00343:3803",
+          "score": 0.6940779909109362
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "kind": "mixed",
+      "language": "pt",
+      "passed": false,
+      "target_found": [
+        false,
+        true
+      ],
+      "tokens": 2025,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3831",
+          "entry_id": "faqs-00343:3831",
+          "score": 0.8352463809313282
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00266:3285",
+          "entry_id": "faqs-00266:3285",
+          "score": 0.8094141484143035
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3802",
+          "entry_id": "faqs-00343:3802",
+          "score": 0.7565324394538314
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3799",
+          "entry_id": "faqs-00343:3799",
+          "score": 0.7404046480389268
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3827",
+          "entry_id": "faqs-00343:3827",
+          "score": 0.7364978861420375
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "kind": "mixed",
+      "language": "uk",
+      "passed": false,
+      "target_found": [
+        false,
+        true
+      ],
+      "tokens": 2011,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3831",
+          "entry_id": "faqs-00343:3831",
+          "score": 0.7496612131558675
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00266:3285",
+          "entry_id": "faqs-00266:3285",
+          "score": 0.7237593972277978
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3802",
+          "entry_id": "faqs-00343:3802",
+          "score": 0.7033144747726189
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3827",
+          "entry_id": "faqs-00343:3827",
+          "score": 0.6878841186080902
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3803",
+          "entry_id": "faqs-00343:3803",
+          "score": 0.6843460701998028
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "kind": "mixed",
+      "language": "ru",
+      "passed": false,
+      "target_found": [
+        false,
+        true
+      ],
+      "tokens": 2011,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3831",
+          "entry_id": "faqs-00343:3831",
+          "score": 0.7852178714521989
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00266:3285",
+          "entry_id": "faqs-00266:3285",
+          "score": 0.7645997099918991
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3802",
+          "entry_id": "faqs-00343:3802",
+          "score": 0.7192812829211791
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3827",
+          "entry_id": "faqs-00343:3827",
+          "score": 0.7098098542864645
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00343:3803",
+          "entry_id": "faqs-00343:3803",
+          "score": 0.7009705321708816
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-household",
+      "kind": "mixed",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 1542,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5139",
+          "entry_id": "faqs-00267:5139",
+          "score": 0.5528465425351184
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:13:paragraph:4",
+          "entry_id": null,
+          "score": 0.539192684662458
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5957",
+          "entry_id": "faqs-00267:5957",
+          "score": 0.5310535149843758
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:13:paragraph:7",
+          "entry_id": null,
+          "score": 0.5217301187301082
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5453",
+          "entry_id": "faqs-00267:5453",
+          "score": 0.5085745279683145
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-household",
+      "kind": "mixed",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 1463,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5139",
+          "entry_id": "faqs-00267:5139",
+          "score": 0.8137894861016169
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5957",
+          "entry_id": "faqs-00267:5957",
+          "score": 0.807328085741589
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:13:paragraph:4",
+          "entry_id": null,
+          "score": 0.7628079325596822
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5941",
+          "entry_id": "faqs-00267:5941",
+          "score": 0.7492202888852613
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5138",
+          "entry_id": "faqs-00267:5138",
+          "score": 0.7411048504096751
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-household",
+      "kind": "mixed",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 1633,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5139",
+          "entry_id": "faqs-00267:5139",
+          "score": 0.5448527928499182
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:13:paragraph:4",
+          "entry_id": null,
+          "score": 0.5200251215891555
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5957",
+          "entry_id": "faqs-00267:5957",
+          "score": 0.515473100396134
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:69:paragraph:1",
+          "entry_id": null,
+          "score": 0.4818090565918971
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:63:paragraph:2",
+          "entry_id": null,
+          "score": 0.479045055123716
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-household",
+      "kind": "mixed",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 1623,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5139",
+          "entry_id": "faqs-00267:5139",
+          "score": 0.5957152128512502
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5957",
+          "entry_id": "faqs-00267:5957",
+          "score": 0.5701811419075685
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:13:paragraph:4",
+          "entry_id": null,
+          "score": 0.5439238292236319
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:63:paragraph:2",
+          "entry_id": null,
+          "score": 0.5039279258775864
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00267:5138",
+          "entry_id": "faqs-00267:5138",
+          "score": 0.5018016054785924
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-employment",
+      "kind": "mixed",
+      "language": "en",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 2458,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00355:5928",
+          "entry_id": "faqs-00355:5928",
+          "score": 0.5976005390966561
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00355:5928",
+          "entry_id": "faqs-00355:5928",
+          "score": 0.5740150485974517
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:2:paragraph:1",
+          "entry_id": null,
+          "score": 0.5694783832212293
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:2:paragraph:2",
+          "entry_id": null,
+          "score": 0.5672332513987823
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00344:5801",
+          "entry_id": "faqs-00344:5801",
+          "score": 0.5511050995794603
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-employment",
+      "kind": "mixed",
+      "language": "pt",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 2941,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00355:5928",
+          "entry_id": "faqs-00355:5928",
+          "score": 0.815411115607486
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00355:5928",
+          "entry_id": "faqs-00355:5928",
+          "score": 0.7922518648793463
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00344:5801",
+          "entry_id": "faqs-00344:5801",
+          "score": 0.7399731216016664
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:2:paragraph:1",
+          "entry_id": null,
+          "score": 0.7332580492815283
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00281:3291",
+          "entry_id": "faqs-00281:3291",
+          "score": 0.7286206755246452
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-employment",
+      "kind": "mixed",
+      "language": "uk",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 1986,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00355:5928",
+          "entry_id": "faqs-00355:5928",
+          "score": 0.5954451714336629
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00355:5928",
+          "entry_id": "faqs-00355:5928",
+          "score": 0.5817484470038603
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:2:paragraph:1",
+          "entry_id": null,
+          "score": 0.5743608286699755
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:12:paragraph:9",
+          "entry_id": null,
+          "score": 0.5652015400171961
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:2:paragraph:2",
+          "entry_id": null,
+          "score": 0.563396016779377
+        }
+      ]
+    },
+    {
+      "case_id": "mixed-employment",
+      "kind": "mixed",
+      "language": "ru",
+      "passed": true,
+      "target_found": [
+        true,
+        true
+      ],
+      "tokens": 1986,
+      "limited": false,
+      "route": "semantic",
+      "hits": [
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:2:paragraph:1",
+          "entry_id": null,
+          "score": 0.6061140664527919
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00355:5928",
+          "entry_id": "faqs-00355:5928",
+          "score": 0.6039161271235219
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:12:paragraph:9",
+          "entry_id": null,
+          "score": 0.5951945240100442
+        },
+        {
+          "source_id": "pt-at-cirs",
+          "snapshot_id": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+          "unit_id": "pt:cirs:code:article:2:paragraph:2",
+          "entry_id": null,
+          "score": 0.5894198765748845
+        },
+        {
+          "source_id": "pt-at-faq",
+          "snapshot_id": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040",
+          "unit_id": "pt-at-faq:faqs-00355:5928",
+          "entry_id": "faqs-00355:5928",
+          "score": 0.5873464365442136
+        }
+      ]
+    }
+  ],
+  "legacy_cirs_records": [
+    {
+      "case_id": "residency-ru",
+      "kind": "semantic",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "residency-en",
+      "kind": "semantic",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "residency-pt",
+      "kind": "semantic",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "leaving-residency-ru",
+      "kind": "semantic",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "leaving-residency-en",
+      "kind": "semantic",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "leaving-residency-pt",
+      "kind": "semantic",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": false
+    },
+    {
+      "case_id": "general-rates-ru",
+      "kind": "semantic",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "general-rates-en",
+      "kind": "semantic",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "general-rates-pt",
+      "kind": "semantic",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "solidarity-ru",
+      "kind": "semantic",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "solidarity-en",
+      "kind": "semantic",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "solidarity-pt",
+      "kind": "semantic",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "pensions-ru",
+      "kind": "semantic",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "pensions-en",
+      "kind": "semantic",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "pensions-pt",
+      "kind": "semantic",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "rental-income-ru",
+      "kind": "semantic",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "rental-income-en",
+      "kind": "semantic",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "rental-income-pt",
+      "kind": "semantic",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-residency-ru",
+      "kind": "exact",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-residency-en",
+      "kind": "exact",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-residency-pt",
+      "kind": "exact",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-rates-ru",
+      "kind": "exact",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-rates-en",
+      "kind": "exact",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-rates-pt",
+      "kind": "exact",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-solidarity-ru",
+      "kind": "exact",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-solidarity-en",
+      "kind": "exact",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-solidarity-pt",
+      "kind": "exact",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-repeal-ru",
+      "kind": "exact",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-repeal-en",
+      "kind": "exact",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-repeal-pt",
+      "kind": "exact",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-transitional-note-ru",
+      "kind": "exact",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-transitional-note-en",
+      "kind": "exact",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "exact-transitional-note-pt",
+      "kind": "exact",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "missing-civa-ru",
+      "kind": "exact",
+      "language": "ru",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "missing-civa-en",
+      "kind": "exact",
+      "language": "en",
+      "passed": true,
+      "corpus_passed": true
+    },
+    {
+      "case_id": "missing-civa-pt",
+      "kind": "exact",
+      "language": "pt",
+      "passed": true,
+      "corpus_passed": true
+    }
+  ],
+  "passed": false,
+  "status": "acceptance_not_passed",
+  "implementation": "Standalone address routing, shared retrieval/readers and atomic FAQ publication/rollback verified locally.",
+  "scope": "Step 5; no production deployment, answer generation or UI change.",
+  "summary": {
+    "faq_golden": {
+      "passed": 44,
+      "total": 48,
+      "by_language": {
+        "en": {
+          "passed": 11,
+          "total": 12
+        },
+        "pt": {
+          "passed": 11,
+          "total": 12
+        },
+        "uk": {
+          "passed": 11,
+          "total": 12
+        },
+        "ru": {
+          "passed": 11,
+          "total": 12
+        }
+      }
+    },
+    "legacy_cirs_single_snapshot": {
+      "passed": 36,
+      "total": 36
+    },
+    "legacy_cirs_shared_corpus": {
+      "passed": 35,
+      "total": 36
+    }
+  },
+  "ranking_diagnosis": [
+    {
+      "language": "en",
+      "targets": [
+        {
+          "rank": 61,
+          "unit_id": "pt:cirs:code:article:15:paragraph:2",
+          "source_id": "pt-at-cirs",
+          "score": 0.6278905383627338
+        },
+        {
+          "rank": 126,
+          "unit_id": "pt:cirs:code:article:15:paragraph:1",
+          "source_id": "pt-at-cirs",
+          "score": 0.6023525791944008
+        }
+      ],
+      "first_cirs": {
+        "rank": 8,
+        "unit_id": "pt:cirs:code:article:10-A:paragraph:5",
+        "score": 0.682965294750477
+      }
+    },
+    {
+      "language": "pt",
+      "targets": [
+        {
+          "rank": 74,
+          "unit_id": "pt:cirs:code:article:15:paragraph:2",
+          "source_id": "pt-at-cirs",
+          "score": 0.6670495247517043
+        },
+        {
+          "rank": 117,
+          "unit_id": "pt:cirs:code:article:15:paragraph:1",
+          "source_id": "pt-at-cirs",
+          "score": 0.6497385682440852
+        }
+      ],
+      "first_cirs": {
+        "rank": 8,
+        "unit_id": "pt:cirs:code:article:57:paragraph:6",
+        "score": 0.7219386953032954
+      }
+    },
+    {
+      "language": "uk",
+      "targets": [
+        {
+          "rank": 70,
+          "unit_id": "pt:cirs:code:article:15:paragraph:2",
+          "source_id": "pt-at-cirs",
+          "score": 0.6196365062324741
+        },
+        {
+          "rank": 129,
+          "unit_id": "pt:cirs:code:article:15:paragraph:1",
+          "source_id": "pt-at-cirs",
+          "score": 0.5971762198131753
+        }
+      ],
+      "first_cirs": {
+        "rank": 9,
+        "unit_id": "pt:cirs:code:article:10-A:paragraph:5",
+        "score": 0.6674634871917675
+      }
+    },
+    {
+      "language": "ru",
+      "targets": [
+        {
+          "rank": 57,
+          "unit_id": "pt:cirs:code:article:15:paragraph:2",
+          "source_id": "pt-at-cirs",
+          "score": 0.6423432774306831
+        },
+        {
+          "rank": 118,
+          "unit_id": "pt:cirs:code:article:15:paragraph:1",
+          "source_id": "pt-at-cirs",
+          "score": 0.6169770391338758
+        }
+      ],
+      "first_cirs": {
+        "rank": 7,
+        "unit_id": "pt:cirs:code:article:10-A:paragraph:5",
+        "score": 0.6898725930968213
+      }
+    }
+  ],
+  "rag_verification": {
+    "mixed_with_both_sources": 12,
+    "total": 16,
+    "history_verified_before_rollback": 16,
+    "real_query_vectors_replayed": true
+  },
+  "rollback": {
+    "rollback_exactly_restored_previous_release": true,
+    "published_release_still_resolves": true,
+    "saved_turns_verified_after_rollback": 16,
+    "old_faq_text_readable_after_rollback": true,
+    "new_turn_excludes_faq": true,
+    "final_corpus": {
+      "release_id": "f5b14edfc08f93248d442201952d369154f36887362ad716c9816e7685d25c25",
+      "members": {
+        "pt-at-cirs": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5"
+      }
+    },
+    "local_only": true
+  },
+  "automated_checks": {
+    "full_suite": {
+      "passed": 1086,
+      "warnings": 14
+    },
+    "final_faq_suite_after_fixture_update": {
+      "passed": 78,
+      "warnings": 13
+    },
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "python_syntax": "3.13; 5 changed files",
+    "runtime": "3.14; unchanged",
+    "ruff_target": "py313; unchanged",
+    "query_module_coverage_percent": 100,
+    "crap_max": 5,
+    "dryer_threshold": 0.8,
+    "duplicates": 0,
+    "mutator": {
+      "killed": 4,
+      "survived": 0,
+      "uncovered": 0,
+      "changed_routing_functions_sites": 0,
+      "routing_regression_proved_by_red_tests": true
+    }
+  },
+  "evaluation_notes": [
+    "Frozen benchmark files were not changed. Target quote comparison normalizes whitespace because CIRS preserves PDF line breaks.",
+    "Logical CIRS target IDs and quotes match the selected published CIRS preparation; the golden fixture recorded the earlier preparation of the same source text.",
+    "All 66 query embeddings came from one saved real OpenAI response (1965 tokens); per-query service calls replay that response. Replay usage is not another billed API call.",
+    "Legacy CIRS single-snapshot checks retain top-5 target/quote and status checks; shared corpus checks additionally expose leaving-residency-pt failing. This is not a claim that every historical expansion diagnostic was rerun live.",
+    "No final generated answers or clickable UI links are claimed; they belong to Step 6.",
+    "One mixed scenario fails in all four languages: CIRS 15(1) ranks 117-129, outside the unchanged candidate window of 50. Token budget is not limiting.",
+    "No source quotas, target rewrites or ranking boosts were introduced to force benchmark success. Acceptance remains open."
+  ],
+  "local_artifacts": {
+    "before.json": {
+      "path": "data/faq-step5-live/before.json",
+      "sha256": "fcd212a0150b679c8e5b1d97bc2f8ae8ec5e205dc48238f46ce96274dfc5a176"
+    },
+    "published.json": {
+      "path": "data/faq-step5-live/published.json",
+      "sha256": "c528cb31f151d16fe60393ff5922356ee0c1318e4bb39f8553f613b26c03369e"
+    },
+    "rollback.json": {
+      "path": "data/faq-step5-live/rollback.json",
+      "sha256": "fcd212a0150b679c8e5b1d97bc2f8ae8ec5e205dc48238f46ce96274dfc5a176"
+    },
+    "query-embeddings.json": {
+      "path": "data/faq-step5-live/query-embeddings.json",
+      "sha256": "c188f13caf7c15238da34e0a7dc3cac2f084711141e2fdf2f7f6009afeb9b72c"
+    },
+    "retrieval.json": {
+      "path": "data/faq-step5-live/retrieval.json",
+      "sha256": "52b31c7f212526df23fbf036075338e2b90c38f9d35784a35f99d3836b66c682"
+    },
+    "ranking-diagnosis.json": {
+      "path": "data/faq-step5-live/ranking-diagnosis.json",
+      "sha256": "8f244e0f9d500301de8d8a85b1f90bee1a2db96a7f64241d7a01d11eaf678a89"
+    },
+    "rag-results.json": {
+      "path": "data/faq-step5-live/rag-results.json",
+      "sha256": "7ee1338d6c28ec337cd1a77ab57e09d27e795d22f31ace251ff2a54cb09b2046"
+    },
+    "after.json": {
+      "path": "data/faq-step5-live/after.json",
+      "sha256": "b386f8e69ee1621bc868e7e5e212d9d29a5ab2fb3bd071cf26465a9651ceecf0"
+    }
+  }
+}
