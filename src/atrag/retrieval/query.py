@@ -12,11 +12,12 @@ CODE_FIRST = rf"\b({CODE})\s+({NUMBER})(?![\w-])"
 
 
 def normalize_address(query):
-    match = re.search(ARTICLE, query, re.IGNORECASE)
+    query = query.strip(" .?!\t\r\n")
+    match = re.fullmatch(ARTICLE, query, re.IGNORECASE)
     if match:
         number, code = match.groups()
     else:
-        match = re.search(CODE_FIRST, query, re.IGNORECASE)
+        match = re.fullmatch(CODE_FIRST, query, re.IGNORECASE)
         if match is None:
             return None
         code, number = match.groups()
@@ -28,7 +29,7 @@ def normalize_address(query):
 def query_language(query, explicit):
     if explicit is not None:
         return explicit
-    if re.fullmatch(rf"(?:{ARTICLE}|{CODE_FIRST})", query.strip(" .?!"), re.IGNORECASE):
+    if normalize_address(query) is not None:
         raise ValueError("Set query_language to the interface language for an address")
     if re.search("[а-яё]", query, re.IGNORECASE):
         return "ru"

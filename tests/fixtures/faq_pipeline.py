@@ -1,6 +1,13 @@
 """Saved HTML collection fixture shared by parser and pipeline tests."""
 
+from pathlib import Path
+
 import pytest
+
+from atrag.ingestion.services.chunks import chunk_parsed
+from atrag.ingestion.services.faq_extract import extract_collection
+from atrag.ingestion.services.structure import parse_extraction
+from atrag.schemas.ingestion.fragments import ChunkParameters, SearchFragment
 
 URL = "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00267.aspx"
 
@@ -18,6 +25,10 @@ def card(
 
 @pytest.fixture
 def faq_snapshot(tmp_path, request):
+    return make_faq_snapshot(tmp_path, getattr(request, "param", {}))
+
+
+def make_faq_snapshot(tmp_path, options):
     import hashlib
     from datetime import UTC, datetime
 
@@ -32,7 +43,6 @@ def faq_snapshot(tmp_path, request):
     saved = tmp_path / "saved"
     saved.mkdir()
     catalog_url = str(source.source_url)
-    options = getattr(request, "param", {})
     title = options.get("title", '<h1 class="tittle-tab-page">IRS &gt; Topic</h1>')
     cards = options.get("cards", card(answer=options.get("answer", "Answer")))
     contents = {
@@ -65,3 +75,72 @@ def faq_snapshot(tmp_path, request):
     return import_snapshot(
         source.model_copy(update={"local_path": saved}), tmp_path
     ).snapshot
+
+
+def prepare_faq(snapshot, data, parameters=None):
+    extracted = Path(extract_collection(snapshot, data)["directory"]) / "manifest.json"
+    parsed = parse_extraction(extracted, data, snapshot.source)
+    chunked = chunk_parsed(
+        parsed.directory / "manifest.json",
+        data,
+        snapshot.source,
+        parameters or ChunkParameters(),
+    )
+    return extracted, parsed, chunked
+
+
+def make_faq_package(
+    faq_snapshot, tmp_path, *, model="text-embedding-3-large", parameters=None
+):
+    from fixtures.prepared import digest, refresh_manifest
+
+    from atrag.ingestion.services.artifacts import write_json, write_jsonl
+    from atrag.ingestion.services.packages import build_package
+    from atrag.schemas.ingestion.embeddings import FragmentEmbedding
+
+    _, parsed, chunked = prepare_faq(faq_snapshot, tmp_path, parameters)
+    parts = [
+        SearchFragment.model_validate_json(line)
+        for line in (chunked.directory / "fragments.jsonl").read_bytes().splitlines()
+    ]
+    embedded = tmp_path / "embedded"
+    embedded.mkdir(exist_ok=True)
+    write_jsonl(
+        embedded / "embeddings.jsonl",
+        [
+            FragmentEmbedding(
+                model=model,
+                dimensions=1536,
+                input_hash=p.embedding_input_hash,
+                embedding=[1.0] + [0.0] * 1535,
+                snapshot_id=p.snapshot_id,
+                fragment_id=p.fragment_id,
+            )
+            for p in parts
+        ],
+    )
+    write_json(embedded / "report.json", {})
+    write_json(
+        embedded / "manifest.json",
+        {
+            "stage": "embed",
+            "status": "succeeded",
+            "snapshot_id": faq_snapshot.snapshot_id,
+            "model": model,
+            "dimensions": 1536,
+            "fragment_count": len(parts),
+            "input_sha256": {
+                name: digest((chunked.directory / name).read_bytes())
+                for name in ("manifest.json", "fragments.jsonl", "report.json")
+            },
+            "output_sha256": {name: "" for name in ("embeddings.jsonl", "report.json")},
+        },
+    )
+    refresh_manifest(embedded / "manifest.json")
+    return build_package(
+        parsed.directory / "manifest.json",
+        chunked.directory / "manifest.json",
+        embedded / "manifest.json",
+        tmp_path,
+        tmp_path / "package",
+    )

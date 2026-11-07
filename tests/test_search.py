@@ -18,6 +18,31 @@ def test_exact_address_normalization(query):
     )
 
 
+@pytest.mark.parametrize(
+    "query",
+    [
+        "Under CIRS 16, am I resident?",
+        "Segundo o artigo 16 do CIRS, sou residente?",
+        "Як CIRS 16 визначає резидентство?",
+        "Как CIRS 16 определяет резидентство?",
+        "CIRS 16 residência fiscal",
+        "Explain artigo 16 do CIRS",
+        "CIRS 16 and CIRS 15",
+        "CIRS 16-A extra",
+        "CIRS 160foo",
+    ],
+)
+def test_article_mention_does_not_restrict_semantic_search(query):
+    assert normalize_address(query) is None
+
+
+@pytest.mark.parametrize("query", [" CIVA 53.?! ", "artigo 53.º do CIVA."])
+def test_address_punctuation_and_language_use_the_same_route(query):
+    assert normalize_address(query).article == "53"
+    with pytest.raises(ValueError, match="query_language"):
+        query_language(query, None)
+
+
 def test_letter_suffix_is_preserved_and_unqualified_article_is_ambiguous():
     assert normalize_address("CIRS 68-A").article == "68-A"
     assert normalize_address("artigo 68.º-A CIRS").article == "68-A"

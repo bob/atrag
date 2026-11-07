@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import pytest
+from fixtures.faq_pipeline import make_faq_package, prepare_faq
 
 from atrag.ingestion.part_validation import reassemble_unit
 from atrag.ingestion.services.chunks import chunk_parsed
@@ -11,18 +12,6 @@ from atrag.ingestion.services.faq_extract import extract_collection
 from atrag.ingestion.services.structure import parse_extraction
 from atrag.schemas.ingestion.fragments import ChunkParameters, SearchFragment
 from atrag.schemas.ingestion.structure import LegalUnit
-
-
-def prepare_faq(snapshot, data, parameters=None):
-    extracted = Path(extract_collection(snapshot, data)["directory"]) / "manifest.json"
-    parsed = parse_extraction(extracted, data, snapshot.source)
-    chunked = chunk_parsed(
-        parsed.directory / "manifest.json",
-        data,
-        snapshot.source,
-        parameters or ChunkParameters(),
-    )
-    return extracted, parsed, chunked
 
 
 @pytest.mark.parametrize(
@@ -121,61 +110,6 @@ def test_unverified_extraction_is_blocked(faq_snapshot, tmp_path):
 @pytest.fixture
 def faq_package(faq_snapshot, tmp_path):
     return make_faq_package(faq_snapshot, tmp_path)
-
-
-def make_faq_package(faq_snapshot, tmp_path):
-    from fixtures.prepared import digest, refresh_manifest
-
-    from atrag.ingestion.services.artifacts import write_json, write_jsonl
-    from atrag.ingestion.services.packages import build_package
-    from atrag.schemas.ingestion.embeddings import FragmentEmbedding
-
-    _, parsed, chunked = prepare_faq(faq_snapshot, tmp_path)
-    parts = [
-        SearchFragment.model_validate_json(line)
-        for line in (chunked.directory / "fragments.jsonl").read_bytes().splitlines()
-    ]
-    embedded = tmp_path / "embedded"
-    embedded.mkdir(exist_ok=True)
-    write_jsonl(
-        embedded / "embeddings.jsonl",
-        [
-            FragmentEmbedding(
-                model="text-embedding-3-large",
-                dimensions=1536,
-                input_hash=p.embedding_input_hash,
-                embedding=[1.0] + [0.0] * 1535,
-                snapshot_id=p.snapshot_id,
-                fragment_id=p.fragment_id,
-            )
-            for p in parts
-        ],
-    )
-    write_json(embedded / "report.json", {})
-    write_json(
-        embedded / "manifest.json",
-        {
-            "stage": "embed",
-            "status": "succeeded",
-            "snapshot_id": faq_snapshot.snapshot_id,
-            "model": "text-embedding-3-large",
-            "dimensions": 1536,
-            "fragment_count": len(parts),
-            "input_sha256": {
-                name: digest((chunked.directory / name).read_bytes())
-                for name in ("manifest.json", "fragments.jsonl", "report.json")
-            },
-            "output_sha256": {name: "" for name in ("embeddings.jsonl", "report.json")},
-        },
-    )
-    refresh_manifest(embedded / "manifest.json")
-    return build_package(
-        parsed.directory / "manifest.json",
-        chunked.directory / "manifest.json",
-        embedded / "manifest.json",
-        tmp_path,
-        tmp_path / "package",
-    )
 
 
 def test_html_package_is_portable_and_preserves_legacy_cirs_format(
