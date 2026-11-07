@@ -7,7 +7,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field, PositiveInt, model_validator
 
-from atrag.schemas.ingestion.extraction import Artifact, ExtractedTable
+from atrag.schemas.ingestion.extraction import Artifact, MaterialTable
 from atrag.schemas.ingestion.sources import SourceDefinition
 from atrag.schemas.ingestion.structure import LegalUnit, SourceLocator
 
@@ -57,7 +57,7 @@ class SearchFragment(LegalUnit):
     embedding_text: str
     embedding_input_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
     token_count: PositiveInt
-    tables: list[ExtractedTable]
+    tables: list[MaterialTable]
     table_ranges: list[TableRange] = Field(default_factory=list)
     review_status: Literal["ready", "needs_review"]
 

@@ -172,3 +172,25 @@ def validate_document(document):
         validate_fragment(fragment, document, units, tables, encoding)
     validate_part_groups(fragments.values(), units)
     validate_embeddings(document, fragments)
+    if document.snapshot.collection is not None:
+        _validate_faq_coverage(document, report, fragments)
+
+
+def _validate_faq_coverage(document, report, fragments):
+    if report.review_status != "ready" or any(
+        (
+            report.omissions,
+            report.extraction_issues,
+            report.uncovered_unit_ids,
+            report.table_issues,
+            report.structure_issues,
+        )
+    ):
+        raise ValueError("FAQ package must be ready without omissions or issues")
+    required = {u.legal_unit_id for u in document.units if u.kind == "faq_entry"}
+    covered = {f.legal_unit_id for f in fragments.values()}
+    if not required or required != covered:
+        raise ValueError("FAQ parts do not cover the complete entry set")
+    for unit in document.units:
+        if unit.faq is not None and unit.text_original != unit.faq.answer:
+            raise ValueError("FAQ unit differs from the complete original answer")

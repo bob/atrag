@@ -9,8 +9,9 @@ from atrag.ingestion.package_validation import digest, validate_document
 from atrag.ingestion.preparation import preparation_identity, prepared_document
 from atrag.ingestion.services.artifacts import write_json
 from atrag.ingestion.services.snapshots import _publish_snapshot
+from atrag.ingestion.source_files import source_file_names, validate_source_files
 from atrag.schemas.ingestion.embeddings import FragmentEmbedding
-from atrag.schemas.ingestion.extraction import ExtractionReview, ExtractionTables
+from atrag.schemas.ingestion.extraction import ExtractionReview, MaterialTables
 from atrag.schemas.ingestion.fragments import SearchFragment
 from atrag.schemas.ingestion.packages import (
     CompletedStage,
@@ -25,7 +26,7 @@ STAGE_FILES = {
     "chunk": ("fragments.jsonl", "chunk/report.json"),
     "embed": ("embeddings.jsonl", "embed/report.json"),
 }
-CORE_FILES = {"source.pdf", "snapshot.json"} | {
+CORE_FILES = {"snapshot.json"} | {
     name
     for stage, files in STAGE_FILES.items()
     for name in (*files, f"{stage}/manifest.json")
@@ -49,15 +50,29 @@ def _check_stages(files):
     return stages
 
 
-def _check_provenance(manifest, files, stages):
+def _check_source(manifest, files):
     snapshot = SourceSnapshot.model_validate_json(files["snapshot.json"])
-    pdf = files["source.pdf"]
-    if not pdf.startswith(b"%PDF-"):
-        raise ValueError("Package PDF signature mismatch")
-    if len(pdf) != snapshot.size_bytes:
-        raise ValueError("Package PDF size mismatch")
-    if digest(pdf) != snapshot.snapshot_id:
-        raise ValueError("Package snapshot checksum mismatch")
+    names = source_file_names(snapshot)
+    if manifest.schema_version == 3:
+        if (manifest.source_format, manifest.source_files) != (
+            snapshot.source.source_format,
+            names,
+        ):
+            raise ValueError("Package source format or file composition mismatch")
+    elif (
+        snapshot.collection is not None
+        or manifest.source_files is not None
+        or manifest.source_format is not None
+    ):
+        raise ValueError("HTML source requires package schema version 3")
+    if not set(names) <= files.keys():
+        raise ValueError("Package is missing required files for its source")
+    validate_source_files(snapshot, files)
+    return snapshot
+
+
+def _check_provenance(manifest, files, stages):
+    snapshot = _check_source(manifest, files)
     raw_id = manifest.raw_snapshot_id or manifest.snapshot_id
     if {s.snapshot_id for s in stages.values()} != {raw_id}:
         raise ValueError("Prepared stages belong to different snapshots")
@@ -102,7 +117,7 @@ def _read_document(manifest, files):
             LegalUnit.model_validate_json(l)
             for l in files["legal_units.jsonl"].splitlines()
         ],
-        tables=ExtractionTables.model_validate_json(files["tables.json"]).tables,
+        tables=MaterialTables.model_validate_json(files["tables.json"]).tables,
         fragments=[
             SearchFragment.model_validate_json(l)
             for l in files["fragments.jsonl"].splitlines()
@@ -150,11 +165,10 @@ def _collect(parsed, chunked, embedded, data_dir, reviews):
             files[name] = (path.parent / Path(name).name).read_bytes()
     stages = _check_stages(files)
     raw = data_dir / "raw" / stages["parse"].snapshot_id
+    files["snapshot.json"] = (raw / "manifest.json").read_bytes()
+    original = SourceSnapshot.model_validate_json(files["snapshot.json"])
     files.update(
-        {
-            "source.pdf": (raw / "source.pdf").read_bytes(),
-            "snapshot.json": (raw / "manifest.json").read_bytes(),
-        }
+        {name: (raw / name).read_bytes() for name in source_file_names(original)}
     )
     # Raw bytes keep their first import manifest. Prepared metadata belongs to
     # this preparation, whose fragments all carry the same checked source.
@@ -182,7 +196,15 @@ def build_package(
     reviews=(),
 ) -> Path:
     files, stages = _collect(parsed, chunked, embedded, data_dir, reviews)
+    snapshot = SourceSnapshot.model_validate_json(files["snapshot.json"])
     manifest = PackageManifest(
+        schema_version=2 if snapshot.collection is None else 3,
+        source_format=None
+        if snapshot.collection is None
+        else snapshot.source.source_format,
+        source_files=None
+        if snapshot.collection is None
+        else source_file_names(snapshot),
         snapshot_id=stages["parse"].snapshot_id,
         raw_snapshot_id=stages["parse"].snapshot_id,
         parser_version=stages["parse"].parser_version,
@@ -202,10 +224,18 @@ def build_package(
         staging.mkdir()
         for name, content in files.items():
             target = staging / name
-            target.parent.mkdir(exist_ok=True)
+            target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(content)
         write_json(staging / "manifest.json", manifest.model_dump(mode="json"))
         reused = _publish_snapshot(staging, output)
-        if reused and load_package(output / "manifest.json").manifest != manifest:
-            raise ValueError("Destination contains a different prepared package")
+        if reused:
+            existing = load_package(output / "manifest.json").manifest
+            if not _same_package(existing, manifest):
+                raise ValueError("Destination contains a different prepared package")
     return output / "manifest.json"
+
+
+def _same_package(existing, manifest):
+    if existing.schema_version == manifest.schema_version == 3:
+        return preparation_identity(existing) == preparation_identity(manifest)
+    return existing == manifest

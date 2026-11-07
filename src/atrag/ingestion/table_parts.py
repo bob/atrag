@@ -1,10 +1,12 @@
 """Map the parser's table rendering to indivisible, checked source rows."""
 
 import json
+import re
 from dataclasses import dataclass
 
 from atrag.ingestion.extraction import _headers, _part_text, normalize_text
 from atrag.ingestion.text_parts import pack_ranges, text_ranges
+from atrag.schemas.ingestion.extraction import HTMLTablePart
 from atrag.schemas.ingestion.fragments import TableRange
 
 
@@ -54,13 +56,43 @@ def table_rows(unit, tables):
         table = tables[identity]
         start = row_index = 0
         for part in table.parts:
-            rows, start, row_index = _part_rows(
+            locate = _html_rows if isinstance(part, HTMLTablePart) else _part_rows
+            rows, start, row_index = locate(
                 unit.text_original, part, table, start, row_index
             )
             spans.extend(rows)
         if row_index != len(table.rows):
             raise ValueError("Table rows do not match their source parts")
     return sorted(spans, key=lambda row: row.start)
+
+
+def _html_rows(text, part, table, start, row_index):
+    # Match DOM cell text across original paragraph/newline boundaries. Keep
+    # the source answer unchanged, including layout tables and cell spans.
+    patterns = [
+        r"\s+".join(re.escape(token) for token in " ".join(c.text for c in row).split())
+        for row in part.cells
+    ]
+    if not any(patterns):
+        return [], start, row_index + len(table.rows)
+    matches = list(
+        re.finditer(r"\s*".join(f"({pattern})" for pattern in patterns), text[start:])
+    )
+    if not matches:
+        raise ValueError("HTML table cells are absent from the source answer")
+    if len(matches) != 1:
+        raise ValueError("Cannot locate ambiguous HTML table text without DOM offsets")
+    match = matches[0]
+    headers = len(table.header_rows)
+    spans = []
+    for index in range(headers, len(patterns)):
+        left = start + (match.start() if index == headers else match.start(index + 1))
+        right = start + (
+            match.start(index + 2) if index + 1 < len(patterns) else match.end()
+        )
+        spans.append(RowSpan(table.table_id, row_index, left, right))
+        row_index += 1
+    return spans, start + match.end(), row_index
 
 
 def select_tables(rows, tables, start, end):

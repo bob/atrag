@@ -4,12 +4,12 @@ import hashlib
 from collections import defaultdict
 from collections.abc import Callable
 
+from atrag.ingestion.chunk_policy import candidates, context, embedding_text, intro
 from atrag.ingestion.extraction import normalize_text
 from atrag.ingestion.table_parts import (
     TableRowTooLarge,
     bounded_table_ranges,
     select_tables,
-    table_header_text,
     table_rows,
     table_text,
 )
@@ -66,55 +66,8 @@ class _Structure:
             text = before + after
         return text.strip()
 
-    def ancestry(self, unit):
-        parents = []
-        parent = self.by_id.get(unit.parent_id)
-        while parent is not None and parent.kind != "document":
-            parents.append(parent)
-            parent = self.by_id.get(parent.parent_id)
-        return [
-            p
-            for p in reversed(parents)
-            if p.kind in ("article", "paragraph", "subparagraph", "item", "note")
-        ]
-
     def context(self, unit):
-        parents = self.ancestry(unit)
-        context = [(p, self.own_text(p)) for p in parents]
-        return list({u.legal_unit_id: (u, text) for u, text in context}.values())
-
-    def candidates(self):
-        for unit in self.by_id.values():
-            if unit.kind == "article":
-                paragraphs = [
-                    c
-                    for c in self.children[unit.legal_unit_id]
-                    if c.kind == "paragraph"
-                ]
-                yield from paragraphs or [unit]
-            elif unit.kind == "document" and unit.role != "code" or unit.kind == "note":
-                yield unit
-
-
-def _embedding_text(unit, source, context, text, repeated_intro="", tables=()):
-    scope = {
-        "code": "Código CIRS",
-        "approving_decree": "Decreto-Lei n.º 442-A/88 — diploma de aprovação",
-        "preamble": "Preâmbulo",
-    }[unit.document_scope]
-    return "\n\n".join(
-        text
-        for text in [
-            source.document_title,
-            scope,
-            unit.citation_label,
-            *(text for _, text in context if text),
-            repeated_intro,
-            table_header_text(tables),
-            text,
-        ]
-        if text
-    )
+        return context(self, unit)
 
 
 def _fragment(unit, tree, source, parser_version, parameters, count_tokens, part, rows):
@@ -136,7 +89,7 @@ def _fragment(unit, tree, source, parser_version, parameters, count_tokens, part
     if any(r.status == "unresolved" for r in references):
         issues.append("unresolved_reference")
     tables, table_ranges = select_tables(rows, tree.tables, start, end)
-    text = _embedding_text(unit, source, context, text_original, intro, tables)
+    text = embedding_text(unit, source, context, text_original, intro, tables)
     table_ids = [t.table_id for t in tables]
     fragment = SearchFragment(
         **unit.model_dump(
@@ -176,8 +129,8 @@ def _fragment(unit, tree, source, parser_version, parameters, count_tokens, part
         embedding_input_hash=hashlib.sha256(text.encode()).hexdigest(),
         token_count=count_tokens(text),
         locators=locators,
-        page_start=min(l.page_number for l in locators),
-        page_end=max(l.page_number for l in locators),
+        page_start=min((l.page_number for l in locators), default=None),
+        page_end=max((l.page_number for l in locators), default=None),
         printed_page_labels=list(
             dict.fromkeys(label for l in locators for label in l.printed_page_labels)
         ),
@@ -207,17 +160,17 @@ def _chunks(unit, tree, source, parser_version, parameters, count_tokens):
         )
         return
     context = tree.context(unit)
-    intro = _intro(unit, tree)
+    repeated = intro(tree, unit, parameters, count_tokens)
     rows = table_rows(unit, tree.tables)
 
     def measure(start, end):
         tables, _ = select_tables(rows, tree.tables, start, end)
-        text = _embedding_text(
+        text = embedding_text(
             unit,
             source,
             context,
             unit.text_original[start:end],
-            intro if start else "",
+            repeated if start else "",
             tables,
         )
         return max(count_tokens(text), count_tokens(table_text(tables)))
@@ -255,23 +208,9 @@ def _chunks(unit, tree, source, parser_version, parameters, count_tokens):
             parser_version,
             parameters,
             count_tokens,
-            (index, len(ranges), start, end, intro if start else ""),
+            (index, len(ranges), start, end, repeated if start else ""),
             rows,
         )
-
-
-def _intro(unit, tree):
-    # Repeat the condition before the first subparagraph, without trailing notes.
-    children = [
-        c
-        for c in tree.children[unit.legal_unit_id]
-        if c.kind in ("subparagraph", "item")
-    ]
-    if not children:
-        return ""
-    return unit.text_original[
-        : unit.text_original.index(children[0].text_original)
-    ].strip()
 
 
 def chunk_structure(
@@ -285,7 +224,7 @@ def chunk_structure(
     tree = _Structure(result)
     pieces = [
         p
-        for unit in tree.candidates()
+        for unit in candidates(tree)
         for p in _chunks(unit, tree, source, parser_version, parameters, count_tokens)
     ]
     return ChunkResult(

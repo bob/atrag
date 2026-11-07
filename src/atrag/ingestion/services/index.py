@@ -20,7 +20,8 @@ from atrag.ingestion.package_validation import digest
 from atrag.ingestion.services.embedding_cache import EMBEDDINGS
 from atrag.ingestion.services.packages import load_package
 from atrag.ingestion.services.runs import record_run
-from atrag.ingestion.services.snapshots import _publish_snapshot, read_snapshot
+from atrag.ingestion.services.snapshots import _publish_snapshot
+from atrag.ingestion.source_files import source_file_names, validate_source_files
 from atrag.schemas.ingestion.embeddings import EmbeddingRecord
 from atrag.schemas.ingestion.packages import IndexResult
 from atrag.schemas.ingestion.snapshots import SourceSnapshot
@@ -34,10 +35,24 @@ def _install_snapshot(document, data_dir):
     with TemporaryDirectory(prefix=".import-", dir=raw) as temporary:
         staging = Path(temporary) / "snapshot"
         staging.mkdir()
-        (staging / "source.pdf").write_bytes(document.files["source.pdf"])
+        for name in source_file_names(original):
+            target = staging / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(document.files[name])
         (staging / "manifest.json").write_bytes(document.files["snapshot.json"])
         _publish_snapshot(staging, destination)
-    read_snapshot(destination, original.snapshot_id, original.size_bytes)
+    stored = SourceSnapshot.model_validate_json(
+        (destination / "manifest.json").read_bytes()
+    )
+    if (stored.snapshot_id, stored.size_bytes) != (
+        original.snapshot_id,
+        original.size_bytes,
+    ):
+        raise ValueError("Stored snapshot manifest does not match the source")
+    validate_source_files(
+        stored,
+        {name: (destination / name).read_bytes() for name in source_file_names(stored)},
+    )
     # The first raw manifest is evidence of an import, not the version's metadata.
     # Each prepared package carries its own immutable provenance in PostgreSQL.
 

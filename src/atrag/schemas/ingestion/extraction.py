@@ -59,6 +59,13 @@ class ExtractedTable[Part: (TablePart, HTMLTablePart) = TablePart](Artifact):
     review_note: str | None = None
 
 
+type MaterialTable = ExtractedTable[TablePart] | ExtractedTable[HTMLTablePart]
+
+
+class MaterialTables(BaseModel):
+    tables: list[MaterialTable]
+
+
 class ImageRegion(Artifact):
     image_id: str
     source_sha256: str

@@ -2,6 +2,8 @@
 
 from typing import Literal
 
+from pydantic import BaseModel, Field
+
 from atrag.schemas.ingestion.extraction import Artifact, ExtractedTable, HTMLTablePart
 from atrag.schemas.ingestion.faq import FAQEntry
 
@@ -40,3 +42,13 @@ class FAQPage(Artifact):
     @property
     def review_status(self) -> Literal["verified", "needs_review"]:
         return "needs_review" if self.issues else "verified"
+
+
+class VerifiedFAQExtraction(BaseModel):
+    stage: Literal["extract_faq"]
+    status: Literal["succeeded"]
+    review_status: Literal["verified"]
+    snapshot_id: str = Field(pattern=r"^[0-9a-f]{64}$")
+    parser_version: str
+    question_count: int = Field(gt=0)
+    output_sha256: dict[str, str]

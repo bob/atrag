@@ -97,6 +97,12 @@ def _save(directory: Path, result):
 def parse_extraction(
     extracted: Path, data_dir: Path, source: SourceDefinition
 ) -> StructureRun:
+    from atrag.schemas.ingestion.sources import SourceFormat
+
+    if source.source_format == SourceFormat.HTML_COLLECTION:
+        from atrag.ingestion.services.faq_structure import parse_faq_extraction
+
+        return parse_faq_extraction(extracted, data_dir, source)
     with record_run(
         data_dir,
         stage="parse",

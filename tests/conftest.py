@@ -2,6 +2,8 @@ import os
 
 import pytest
 
+pytest_plugins = ["fixtures.faq_pipeline"]
+
 
 @pytest.fixture(autouse=True)
 def no_live_model_http(monkeypatch):

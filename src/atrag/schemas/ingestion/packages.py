@@ -7,16 +7,21 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, Field, field_validator
 
 from atrag.schemas.ingestion.embeddings import EmbeddingSpace, FragmentEmbedding
-from atrag.schemas.ingestion.extraction import ExtractedTable
+from atrag.schemas.ingestion.extraction import MaterialTable
 from atrag.schemas.ingestion.fragments import SearchFragment
 from atrag.schemas.ingestion.snapshots import SourceSnapshot
+from atrag.schemas.ingestion.sources import SourceFormat
 from atrag.schemas.ingestion.structure import LegalUnit
 
 SHA256 = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
 
 
 class PackageManifest(EmbeddingSpace):
-    schema_version: Literal[1, 2] = 2
+    schema_version: Literal[1, 2, 3] = 2
+    source_format: SourceFormat | None = Field(
+        default=None, exclude_if=lambda v: v is None
+    )
+    source_files: list[str] | None = Field(default=None, exclude_if=lambda v: v is None)
     dimensions: Literal[1536] = 1536
     snapshot_id: SHA256
     raw_snapshot_id: SHA256 | None = None
@@ -68,7 +73,7 @@ class PreparedDocument:
     manifest: PackageManifest
     snapshot: SourceSnapshot
     units: list[LegalUnit]
-    tables: list[ExtractedTable]
+    tables: list[MaterialTable]
     fragments: list[SearchFragment]
     embeddings: list[FragmentEmbedding]
     reports: dict[str, dict]

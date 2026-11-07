@@ -12,7 +12,7 @@ from atrag.ingestion.part_validation import reassemble_unit
 from atrag.ingestion.services.artifacts import write_json, write_jsonl
 from atrag.ingestion.services.runs import record_run
 from atrag.ingestion.services.snapshots import read_snapshot
-from atrag.schemas.ingestion.extraction import ExtractionTables
+from atrag.schemas.ingestion.extraction import MaterialTables
 from atrag.schemas.ingestion.fragments import (
     CHUNKER_VERSION,
     ChunkParameters,
@@ -55,7 +55,7 @@ def _load_inputs(raw, data_dir, source):
     report = ParsedReport.model_validate_json(raw["report.json"])
     result = StructureResult(
         units=units,
-        tables=ExtractionTables.model_validate_json(raw["tables.json"]).tables,
+        tables=MaterialTables.model_validate_json(raw["tables.json"]).tables,
         excluded_block_count=report.excluded_block_count,
         extraction_issues=report.extraction_issues,
     )
@@ -83,7 +83,9 @@ def _coverage(structure, output):
         ):
             covered.add(unit.legal_unit_id)
     required = [
-        u for u in structure.units if u.kind not in ("chapter", "section", "subsection")
+        u
+        for u in structure.units
+        if u.kind not in ("chapter", "section", "subsection", "topic")
     ]
     return [
         u.legal_unit_id

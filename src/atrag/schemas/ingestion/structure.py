@@ -7,7 +7,7 @@ from uuid import UUID
 
 from pydantic import Field, PositiveInt, model_validator
 
-from atrag.schemas.ingestion.extraction import Artifact, BBox, ExtractedTable
+from atrag.schemas.ingestion.extraction import Artifact, BBox, MaterialTable
 from atrag.schemas.ingestion.faq import FAQEntry
 from atrag.schemas.materials import HTMLLocation, Location
 
@@ -156,7 +156,7 @@ class LegalUnit(Artifact):
 
 class StructureResult(Artifact):
     units: list[LegalUnit]
-    tables: list[ExtractedTable]
+    tables: list[MaterialTable]
     excluded_block_count: int
     extraction_issues: list[dict]
 

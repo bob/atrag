@@ -12,6 +12,8 @@ def validate_part(unit, part):
         raise ValueError("Invalid part ordinal")
     if part.locators != unit.locators:
         raise ValueError("Part locators differ from the source legal unit")
+    if (part.location, part.faq) != (unit.location, unit.faq):
+        raise ValueError("Part HTML provenance differs from the source unit")
 
 
 def reassemble_unit(unit, parts):

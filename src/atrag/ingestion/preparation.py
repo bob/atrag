@@ -10,6 +10,14 @@ def preparation_identity(manifest) -> str:
         mode="json", exclude={"snapshot_id", "schema_version"}
     )
     content["raw_snapshot_id"] = manifest.raw_snapshot_id or manifest.snapshot_id
+    if manifest.schema_version == 3:
+        # Run UUIDs/timestamps and API/cache accounting are evidence of an
+        # attempt. They do not change the prepared material or its vectors.
+        content["files"] = {
+            name: checksum
+            for name, checksum in manifest.files.items()
+            if not name.endswith("/manifest.json") and name != "embed/report.json"
+        }
     return hashlib.sha256(json.dumps(content, sort_keys=True).encode()).hexdigest()
 
 
@@ -17,7 +25,7 @@ def prepared_document(document):
     identity = preparation_identity(document.manifest)
     raw = document.snapshot.snapshot_id
     if (
-        document.manifest.schema_version == 2
+        document.manifest.schema_version >= 2
         and document.manifest.snapshot_id != identity
     ):
         raise ValueError("Package identity differs from prepared snapshots")
