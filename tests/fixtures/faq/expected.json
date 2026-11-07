@@ -1,0 +1,858 @@
+{
+  "schema": "faq-step0-reviewed-records-v1",
+  "comparison": "Compare complete question/answer after collapsing Unicode whitespace; preserve list order, table cells/spans, links and source identity separately. Ordinal belongs to the original full page; use manifest faq_ids order for fragment ordinal.",
+  "review": "3286 independently transcribed by hand. Other records captured from selected original HTML and reviewed for content, boundaries, list items, table cells and relative links. No application FAQ parser or retrieval results used.",
+  "records": [
+    {
+      "fixture": "irs-residency.html",
+      "entry_id": "faqs-00267:5957",
+      "faq_id": "5957",
+      "question": "Quem faz parte do agregado familiar?",
+      "answer": "O agregado familiar é composto por: a) cônjuges não separados judicialmente de pessoas e bens, unidos de facto, e respetivos dependentes; b) Cada cônjuge ou ex-cônjuge, respetivamente, em casos de separação judicial de pessoas e bens ou de declaração de nulidade, anulação ou dissolução do casamento, e dependentes a cargo; c) Pai ou mãe solteiros e os dependentes a cargo; d) Adotante solteiro e os dependentes a cargo. São considerados dependentes: - Os filhos, adotados, enteados e afilhados civis, menores não emancipados, bem como os menores sob tutela; - Os filhos, adotados, enteados e afilhados civis, maiores, bem como aqueles que até à maioridade estiveram sujeitos à tutela de qualquer dos sujeitos a quem incumbe a direção do agregado familiar, que não tenham mais de 25 anos nem aufiram anualmente rendimentos superiores ao valor da retribuição mínima mensal garantida; - Os filhos, adotados, enteados e os sujeitos a tutela, maiores, inaptos para o trabalho e para angariar meios de subsistência (independentemente da idade); - Os afilhados civis que até à maioridade estiveram sujeitos à tutela de qualquer dos sujeitos a quem incumbe a direção do agregado familiar, que não tenham mais de 25 anos nem aufiram anualmente rendimentos superiores ao valor da retribuição mínima mensal garantida.",
+      "topic_path": [
+        "IRS",
+        "Agregado Familiar/Residênc",
+        "Residentes/Incidência Pessoal"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00267.aspx",
+      "anchor": "heading01",
+      "ordinal": 1,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "irs-residency.html",
+      "entry_id": "faqs-00267:3286",
+      "faq_id": "3286",
+      "question": "Quais os critérios que determinam a residência no território português?",
+      "answer": "Os critérios da residência fiscal em território português são:\n· Permanência mais de 183 dias, seguidos ou interpolados, em qualquer período de 12 meses com início ou fim no ano em causa; ou\n· Aí disponham, num qualquer dia do período referido na alínea anterior, de habitação em condições que façam supor intenção atual de a manter e ocupar como residência habitual; ou\n· Em 31 de dezembro, sejam tripulantes de navios ou aeronaves, desde que aqueles estejam ao serviço de entidades com residência, sede ou direção efetiva nesse território; ou\n· Desempenhem no estrangeiro funções ou comissões de caráter público, ao serviço do Estado Português, inclusive funções de deputado ao Parlamento Europeu; ou\n· Pessoas de nacionalidade portuguesa que deslocalizem a sua residência fiscal para país, território ou região, sujeito a um regime fiscal claramente mais favorável constante de lista aprovada por portaria do membro do Governo responsável pela área das finanças, no ano em que se verifique aquela mudança e nos quatro anos subsequentes, salvo prova de exercício naquele território de atividade temporária por conta de entidade patronal domiciliada em território português.",
+      "topic_path": [
+        "IRS",
+        "Agregado Familiar/Residênc",
+        "Residentes/Incidência Pessoal"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00267.aspx",
+      "anchor": "heading20",
+      "ordinal": 20,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "iva-exemption.html",
+      "entry_id": "faqs-00720:5785",
+      "faq_id": "5785",
+      "question": "REI | Quais as condições para poder beneficiar do Regime Especial de Isenção previsto no artigo 53º do CIVA?",
+      "answer": "Os sujeitos passivos, com sede ou domicílio território nacional, podem beneficiar do regime especial de isenção, neste território, desde que cumpram as seguintes condições: (i) Não pratiquem operações de exportação ou atividades conexas; (ii) Não tenham atingido, no ano civil anterior, um volume de negócios anual, em território nacional, superior a 15.000 EUR. Desde que se encontrem cumpridos os referidos requisitos, os sujeitos passivos podem beneficiar desde regime independentemente de disporem ou não de contabilidade organizada, ou de efetuarem importações, ou transmissões dos bens ou prestações dos serviços mencionados no Anexo E do Código do IVA. Note-se que este regime não se aplica a sujeitos passivos que não tenham domicílio ou sede em território nacional, ainda que aqui disponham de estabelecimento estável ou de um registo para efeitos de IVA. Este regime não é aplicável: (i) Às operações efetuadas a título ocasional, comummente designadas por “ato isolado”, nas condições referidas na alínea a) do n.º 1 do artigo 2.º do Código do IVA; e (ii) Às transmissões intracomunitárias de meios de transporte novos, previstas na alínea e) do artigo 1.º do Regime do IVA nas Transações Intracomunitárias. A respeito desta matéria aconselha-se a consulta do Ofício Circulado N.º 25062, divulgado a 2025-03-26, pela Direção de Serviços do IVA (DSIVA), disponível no Portal das Finanças.",
+      "topic_path": [
+        "IVA",
+        "Enquadramento Legal",
+        "Reg. Especial Isenção Art 53º"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00720.aspx",
+      "anchor": "heading02",
+      "ordinal": 2,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "long-answer.html",
+      "entry_id": "faqs-00344:5801",
+      "faq_id": "5801",
+      "question": "Quais os rendimentos isentos de IRS na categoria A?",
+      "answer": "Os rendimentos da categoria A do CIRS beneficiam das seguintes isenções: · Beneficiam de isenção total, com natureza de isenção com progressividade, porque o seu montante é considerado para efeitos de determinação das taxas a aplicar aos restantes rendimentos, os rendimentos de trabalho dependente auferidos pelo pessoal ao serviço (e nessa qualidade) das missões diplomáticas e consulares, ou ao serviço de organizações estrangeiras ou internacionais, desde que exista reciprocidade (artigo 37º do Estatuto dos Benefícios Fiscais (EBF)); · Beneficiam, ou podem beneficiar, de isenção total, com natureza de isenção com progressividade, sem prejuízo do seu englobamento, os militares e elementos das forças de segurança quanto às remunerações auferidas no desempenho de funções integradas em missões de caráter militar, efetuadas no estrangeiro, com objetivos humanitários ou destinadas ao estabelecimento consolidação ou manutenção de paz ao serviço das Nações Unidas ou de outras organizações internacionais, independentemente da entidade que suporta as respetivas importâncias (artigo 38º do EBF); · Beneficiam, ou podem beneficiar, de isenção total, com natureza de isenção com progressividade, os rendimentos auferidos no âmbito de acordos de cooperação ou no âmbito de deslocação para estrangeiro em serviço de entidades portuguesas no âmbito de acordos celebrados e relativamente aos quais sejam demonstradas as vantagens para o interesse nacional, bem como as remunerações auferidas por militares e elementos das forças de segurança deslocados no estrangeiro ao abrigo de acordos de cooperação técnico militar celebrados pelo Estado Português e ao serviço deste, desde que reconhecido o interesse nacional (artigo 39.º do EBF); · Beneficiam de isenção total, com natureza de isenção com progressividade os rendimentos dos tripulantes de navios registados no Registo Internacional de Navios criado e regulamentado no âmbito da Zona Franca da Madeira, enquanto tal registo se manter válido (artigo 33º, nºs 8 e 9 do EBF); · Beneficiam de isenção total, no ano em que as correspondentes importâncias são despendidas, os rendimentos relativos a contribuições efetuadas, obrigatória ou facultativamente, pela entidade patronal com seguros e operações do ramo «Vida», contribuições para fundos de pensões, fundos de poupança-reforma ou quaisquer regimes complementares de segurança social, desde que constituam direitos adquiridos e individualizados dos respetivos beneficiários; com natureza integral, se garantirem exclusivamente benefícios de reforma, complemento de reforma, invalidez ou sobrevivência (e observarem cumulativamente as condições previstas nas al. a), b), d) e), e f) do n.º 4 do art.º 43.º do Código do IRC, apenas na parte que não excedam os limites previstos nos nºs 2 e 3 do mesmo artigo e sem prejuízo do disposto nos seus nºs 5 e 6 (art.º 18.º n.º 1 do EBF); · Beneficiam de uma isenção parcial (um terço das importâncias recebidas), com natureza de isenção com progressividade, os recebimentos pagos ou colocados á disposição, na parte em que corresponda a rendimentos qualificados como rendimentos do trabalho dependente (ou seja, para os fins previstos na alínea anterior e que, não constituindo direitos adquiridos e individualizados dos respetivos beneficiários, sejam por estes objeto de resgate, adiantamento, remição ou qualquer outra forma de antecipação da correspondente disponibilidade) relativos a direitos derivados de prestações efetuadas pelas entidades patronais para regimes complementares de segurança social, mesmo que já tenha ocorrido a passagem à reforma, em montante correspondente 1/3, com o limite de € 11 704,70 (art.º 18.º n.º 3 do EBF); · Beneficiam de uma isenção parcial de IRS, os rendimentos do trabalho dependente auferidos por sujeitos passivos que, no ano a que respeitam os rendimentos, tendo sido deslocados do seu normal local de trabalho para o estrangeiro por período não inferior a 90 dias, dos quais 60 necessariamente seguidos, sejam considerados residentes em território português, na parte relativa à remuneração paga ou colocada à disposição do trabalhador exclusivamente a título de compensação pela deslocação e permanência no estrangeiro que exceda os limites legais previstos no Código do IRS; · Beneficiam de uma isenção de IRS, os rendimentos auferidos por sujeito passivo até 35 anos, que não seja considerado dependente, nos dez primeiros anos de obtenção de rendimentos do trabalho, mediante opção na declaração de rendimentos a que se refere o artigo 57.º do Código do IRS. A isenção é total ou parcial, consoante o ano de obtenção dos rendimentos.",
+      "topic_path": [
+        "IRS",
+        "Rendimentos/Deduções/Taxas",
+        "Benefícios Fiscais"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00344.aspx",
+      "anchor": "heading11",
+      "ordinal": 11,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "nested-lists.html",
+      "entry_id": "faqs-00628:5114",
+      "faq_id": "5114",
+      "question": "Quais os estados que podem assumir os ficheiros de inventários comunicados?",
+      "answer": "Podem assumir 4 estados: Em processamento - desde a sua submissão até à sua validação pela AT; Integrado com sucesso - ficheiro validado e integrado pela AT; Substituído - quando existe uma nova comunicação para o mesmo “Período de Tributação” e “Data Fim Período”. Processamento (PA) - quando se verifica algum problema no processamento do ficheiro de inventário submetido. Se ao fim de quinze dias este estado se mantiver, poderá submeter novamente o ficheiro de inventário para o período em causa. O último ficheiro enviado, relativamente a um dado período, será o considerado pela AT. Em alternativa, poderá aceder ao Portal das Finanças e em “Atendimento e-Balcão”: Registar Nova Questão, preenchendo os campos da seguinte forma: a) Imposto ou área: e-Fatura; b) Tipo de questão: Emitentes; c) Questão: Inventários; Juntar breve explicação do problema detetado e ilustrar com a captura de ecrã (print screen) do Portal da Finanças, onde é visível a situação reportada, e a data e hora da mesma.",
+      "topic_path": [
+        "e-Fatura",
+        "Emitentes",
+        "Inventários"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00628.aspx",
+      "anchor": "heading14",
+      "ordinal": 14,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [
+        "Em processamento - desde a sua submissão até à sua validação pela AT;",
+        "Integrado com sucesso - ficheiro validado e integrado pela AT;",
+        "Substituído - quando existe uma nova comunicação para o mesmo “Período de Tributação” e “Data Fim Período”.",
+        "Processamento (PA) - quando se verifica algum problema no processamento do ficheiro de inventário submetido.",
+        "Registar Nova Questão, preenchendo os campos da seguinte forma:",
+        "Juntar breve explicação do problema detetado e ilustrar com a captura de ecrã (print screen) do Portal da Finanças, onde é visível a situação reportada, e a data e hora da mesma."
+      ],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "relative-link.html",
+      "entry_id": "faqs-00212:3824",
+      "faq_id": "3824",
+      "question": "Vou pagar rendimentos a um não residente como domicílio fiscal num país com o qual Portugal não tem Convenção para evitar a Dupla Tributação internacional de rendimentos. Existe a possibilidade de não efetuar retenção na fonte do imposto sobre o rendimento português?",
+      "answer": "Não. Tanto os Códigos do IRC como do IRS, nos seus artigos 98.º e 101.º-C, respetivamente, apenas preveem a dispensa de retenção na fonte em função de CDT celebrada por Portugal, pelo que se tratando de beneficiário de rendimento residente num país ou jurisdição com o qual não exista CDT em vigor, nunca pode haver estar dispensa de retenção na fonte por parte da entidade pagadora dos rendimentos. Pode consultar aqui as Convenções celebradas por Portugal: http://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/convencoes_evitar_dupla_tributacao/convencoes_tabelas_doclib/Pages/tabelas.aspx",
+      "topic_path": [
+        "IRC",
+        "Relações Internacionais",
+        "Certificados e Certificações"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00212.aspx",
+      "anchor": "heading10",
+      "ordinal": 10,
+      "links": [
+        {
+          "text": "http://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/convencoes_evitar_dupla_tributacao/convencoes_tabelas_doclib/Pages/tabelas.aspx",
+          "href": "/pt/informacao_fiscal/convencoes_evitar_dupla_tributacao/convencoes_tabelas_doclib/Pages/tabelas.aspx",
+          "url": "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/convencoes_evitar_dupla_tributacao/convencoes_tabelas_doclib/Pages/tabelas.aspx"
+        }
+      ],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "data-table.html",
+      "entry_id": "faqs-00213:5190",
+      "faq_id": "5190",
+      "question": "Que penalidades estão previstas para o incumprimento das obrigações pelos operadores de plataforma?",
+      "answer": "Artigo RGIT Infração Penalidade Artigo 117.º n.º 10 Artigo 28.º Falta de apresentação ou apresentação fora do prazo legal da declaração de registo e da comunicação à administração tributária das informações a que os operadores de plataformas reportantes se encontram obrigados a prestar, por força do disposto no Decreto-Lei n.º 61/2013, de 10 de maio, ou no regime de comunicação obrigatória previsto no artigo 10.º-A do Decreto-Lei n.º 64/2016, de 11 de outubro, no prazo que legalmente seja fixado Coima de 500 € a 22 500 € Sanções acessórias previstas no artigo 28.º do RGIT (por remissão expressa no disposto no n.º 7 do artigo 16.º do anexo II do Decreto-Lei n.º 61/2013, de 10 de maio) Artigo 119.º n.º 1 Omissões ou inexatidões nas informações comunicadas pelas instituições financeiras reportantes ou pelos operadores de plataformas reportantes, nos termos do Decreto-Lei n.º 61/2013, de 10 de maio, ou do regime de comunicação obrigatória previsto no artigo 10.º-A do Decreto-Lei n.º 64/2016, de 11 de outubro Coima de 250 € a 11 250 € Artigo 119.º n.º 2 O incumprimento dos procedimentos de diligência devida, de registo e conservação dos documentos destinados a comprovar o respetivo cumprimento pelas instituições financeiras reportantes ou pelos operadores de plataformas reportantes, nos termos do Decreto-Lei n.º 61/2013, de 10 de maio, ou do regime de comunicação obrigatória previsto no artigo 10.º-A do Decreto-Lei n.º 64/2016, de 11 de outubro Coima de 250 € a 11 250 €",
+      "topic_path": [
+        "IRC",
+        "Relações Internacionais",
+        "Convenções e Diretivas"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00213.aspx",
+      "anchor": "heading26",
+      "ordinal": 26,
+      "links": [],
+      "tables": [
+        [
+          [
+            {
+              "text": "Artigo RGIT",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Infração",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Penalidade",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Artigo 117.º n.º 10 Artigo 28.º",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Falta de apresentação ou apresentação fora do prazo legal da declaração de registo e da comunicação à administração tributária das informações a que os operadores de plataformas reportantes se encontram obrigados a prestar, por força do disposto no Decreto-Lei n.º 61/2013, de 10 de maio, ou no regime de comunicação obrigatória previsto no artigo 10.º-A do Decreto-Lei n.º 64/2016, de 11 de outubro, no prazo que legalmente seja fixado",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Coima de 500 € a 22 500 € Sanções acessórias previstas no artigo 28.º do RGIT (por remissão expressa no disposto no n.º 7 do artigo 16.º do anexo II do Decreto-Lei n.º 61/2013, de 10 de maio)",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Artigo 119.º n.º 1",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Omissões ou inexatidões nas informações comunicadas pelas instituições financeiras reportantes ou pelos operadores de plataformas reportantes, nos termos do Decreto-Lei n.º 61/2013, de 10 de maio, ou do regime de comunicação obrigatória previsto no artigo 10.º-A do Decreto-Lei n.º 64/2016, de 11 de outubro",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Coima de 250 € a 11 250 €",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Artigo 119.º n.º 2",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "O incumprimento dos procedimentos de diligência devida, de registo e conservação dos documentos destinados a comprovar o respetivo cumprimento pelas instituições financeiras reportantes ou pelos operadores de plataformas reportantes, nos termos do Decreto-Lei n.º 61/2013, de 10 de maio, ou do regime de comunicação obrigatória previsto no artigo 10.º-A do Decreto-Lei n.º 64/2016, de 11 de outubro",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Coima de 250 € a 11 250 €",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ]
+        ]
+      ],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "spanned-tables.html",
+      "entry_id": "faqs-00082:3520",
+      "faq_id": "3520",
+      "question": "Como devem ser exportados no SAF-T (PT), os diferentes momentos relevantes no âmbito dos serviços prestados no setor segurador, uma vez que, na celebração de contratos de seguro existem: • a emissão do aviso de pagamento de prémio ao cliente com um período de antecedência em relação à data de pagamento do respetivo prémio; • a data limite de pagamento; • a data de recebimento; • o período de cobertura do risco.",
+      "answer": "Devido à especificidade inerente à atividade exercida, dever-se-á considerar o seguinte: Com emissão de fatura Sem emissão de fatura (*) Tabela de registo WorkingDocuments SalesInvoices SalesInvoices Tipo de documento Aviso de pagamento de prémio ( WorkType = “RP”) Fatura ( InvoiceType = “FT” ou “FR”) Aviso de pagamento de prémio ( InvoiceType =“RP”) Data de emissão “Data do documento” ( WorkDate ) “Data do documento de venda” ( InvoiceDate ) “Data do documento de venda” ( InvoiceDate ) Data limite de pagamento “Acordos de pagamento” ( PaymentTerms ) Data de recebimento “Data do pagamento” ( PaymentDate ) “Data do pagamento” ( PaymentDate ) Data de início do período de cobertura “Data de receção” (…/ ShipFrom/DeliveryDate ) “Data de receção” (…/ ShipFrom/DeliveryDate ) Data de fim do período de cobertura “Data da entrega” (…/ ShipTo/DeliveryDate ) “Data da entrega” (…/ ShipTo/DeliveryDate ) Por outro lado, caso exista necessidade de corrigir/estornar um ou vários documentos já pagos pelo cliente, dever-se-á ter em conta o seguinte: Com emissão de fatura Sem emissão de fatura (*) Tabela de registo WorkingDocuments SalesInvoices SalesInvoices Tipo de documento Aviso de Estorno ( WorkType “RE”) (**) Nota de Crédito ( InvoiceType “NC”) Aviso de Estorno ( InvoiceType “RE”) Data de emissão “Data do documento” ( WorkDate ) “Data do documento de venda” ( InvoiceDate ) “Data do documento de venda” ( InvoiceDate ) Data do pagamento “Data do pagamento” ( PaymentDate ) “Data do pagamento” ( PaymentDate ) Data de início do período de cobertura a que se refere a correção “Data de receção” (…/ ShipFrom/DeliveryDate ) “Data de receção” (…/ ShipFrom/DeliveryDate ) Data de fim do período de cobertura a que se refere a correção “Data da entrega” (…/ ShipTo/DeliveryDate ) “Data da entrega” (…/ ShipTo/DeliveryDate ) (*) Para operações até à entrada em vigor da alínea a) do n.º 3 do art.º 29.º do CIVA com a redação decorrente da publicação do Decreto-Lei n.º 28/2019, de 15 de fevereiro para as quais não tenha sido emitido fatura. (**) Este documento somente será gerado caso haja necessidade no âmbito do ciclo operacional da aplicação As soluções acima não prejudicam a possibilidade da seguradora poder adotar, para parte ou para a totalidade do seu negócio, um processo de faturação idêntico ao dos restantes setores de atividade sem a prévia emissão de aviso de pagamento de prémio ou de aviso de estorno.",
+      "topic_path": [
+        "Outras Obrigações",
+        "SAF-T PT",
+        "Questões Técnicas"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00082.aspx",
+      "anchor": "heading07",
+      "ordinal": 7,
+      "links": [],
+      "tables": [
+        [
+          [
+            {
+              "text": "",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Com emissão de fatura",
+              "rowspan": 1,
+              "colspan": 2
+            },
+            {
+              "text": "Sem emissão de fatura (*)",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Tabela de registo",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "WorkingDocuments",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "SalesInvoices",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "SalesInvoices",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Tipo de documento",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Aviso de pagamento de prémio ( WorkType = “RP”)",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Fatura ( InvoiceType = “FT” ou “FR”)",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Aviso de pagamento de prémio ( InvoiceType =“RP”)",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Data de emissão",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data do documento” ( WorkDate )",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data do documento de venda” ( InvoiceDate )",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data do documento de venda” ( InvoiceDate )",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Data limite de pagamento",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Acordos de pagamento” ( PaymentTerms )",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Data de recebimento",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data do pagamento” ( PaymentDate )",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data do pagamento” ( PaymentDate )",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Data de início do período de cobertura",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data de receção” (…/ ShipFrom/DeliveryDate )",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data de receção” (…/ ShipFrom/DeliveryDate )",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Data de fim do período de cobertura",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data da entrega” (…/ ShipTo/DeliveryDate )",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data da entrega” (…/ ShipTo/DeliveryDate )",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ]
+        ],
+        [
+          [
+            {
+              "text": "",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Com emissão de fatura",
+              "rowspan": 1,
+              "colspan": 2
+            },
+            {
+              "text": "Sem emissão de fatura (*)",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Tabela de registo",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "WorkingDocuments",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "SalesInvoices",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "SalesInvoices",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Tipo de documento",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Aviso de Estorno ( WorkType “RE”) (**)",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Nota de Crédito ( InvoiceType “NC”)",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "Aviso de Estorno ( InvoiceType “RE”)",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Data de emissão",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data do documento” ( WorkDate )",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data do documento de venda” ( InvoiceDate )",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data do documento de venda” ( InvoiceDate )",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Data do pagamento",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data do pagamento” ( PaymentDate )",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data do pagamento” ( PaymentDate )",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Data de início do período de cobertura a que se refere a correção",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data de receção” (…/ ShipFrom/DeliveryDate )",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data de receção” (…/ ShipFrom/DeliveryDate )",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ],
+          [
+            {
+              "text": "Data de fim do período de cobertura a que se refere a correção",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data da entrega” (…/ ShipTo/DeliveryDate )",
+              "rowspan": 1,
+              "colspan": 1
+            },
+            {
+              "text": "“Data da entrega” (…/ ShipTo/DeliveryDate )",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ]
+        ]
+      ],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "layout-table.html",
+      "entry_id": "faqs-00343:3831",
+      "faq_id": "3831",
+      "question": "Nos anos de partida e de chegada a Portugal, que rendimentos devo declarar?",
+      "answer": "Nos anos de partida e chegada é considerado residente parcial em Portugal (residente e não residente). Pelo período em que é considerado residente em Portugal é obrigado a declarar a totalidade dos rendimentos aqui obtidos e a totalidade dos rendimentos obtidos no estrangeiro, sujeitos a englobamento segundo as regras do artigo 22.º do CIRS. Pelo periodo em que não é considerado residente em Portugal, o IRS incide unicamente sobre os rendimentos produzidos em território português (cfr. artigo 15.º do CIRS) pelo que só é obrigado a declarar estes.",
+      "topic_path": [
+        "IRS",
+        "Relações Internacionais",
+        "Rendimentos no Estrangeiro"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00343.aspx",
+      "anchor": "heading05",
+      "ordinal": 5,
+      "links": [],
+      "tables": [
+        [
+          [
+            {
+              "text": "Nos anos de partida e chegada é considerado residente parcial em Portugal (residente e não residente). Pelo período em que é considerado residente em Portugal é obrigado a declarar a totalidade dos rendimentos aqui obtidos e a totalidade dos rendimentos obtidos no estrangeiro, sujeitos a englobamento segundo as regras do artigo 22.º do CIRS. Pelo periodo em que não é considerado residente em Portugal, o IRS incide unicamente sobre os rendimentos produzidos em território português (cfr. artigo 15.º do CIRS) pelo que só é obrigado a declarar estes.",
+              "rowspan": 1,
+              "colspan": 1
+            }
+          ]
+        ]
+      ],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "employment.html",
+      "entry_id": "faqs-00355:5928",
+      "faq_id": "5928",
+      "question": "Quais são os rendimentos de trabalho dependente - categoria A?",
+      "answer": "Consideram-se rendimentos de trabalho dependente (Categoria A), todas as remunerações pagas ou postas à disposição do seu titular, provenientes de, designadamente: - Trabalho por conta de outrem prestado ao abrigo de contrato individual de trabalho ou de outro a ele legalmente equiparado; - Trabalho prestado ao abrigo de contrato de aquisição de serviços ou outro de idêntica natureza, sob a autoridade e a direção da pessoa ou entidade que ocupa a posição de sujeito ativo na relação jurídica dele resultante; - Exercício de função, serviço ou cargo públicos; - Situações de pré-reforma, pré-aposentação ou reserva, com ou sem prestação de trabalho, bem como de prestações atribuídas antes de verificados os requisitos exigidos nos regimes obrigatórios de segurança social aplicáveis para a passagem à situação de reforma; - Remunerações dos membros dos órgãos estatutários das pessoas coletivas e entidades equiparadas, com exceção dos que neles participem como revisores oficiais de contas; - Abonos para falhas na parte em que excedam 5% da remuneração mensal fixa (acrescida dos subsídios de férias e natal) devidos a quem, no seu trabalho, tenha de movimentar numerário; - Ajudas de custo e importâncias auferidas pela utilização de automóvel próprio em serviço da entidade patronal, na parte em que ambas excedam os limites legais, bem como as verbas para despesas de deslocação, viagens ou representação de que não tenham sido prestadas contas até ao termo do exercício; - Indemnizações resultantes da constituição, extinção ou modificação de relação jurídica que origine rendimentos do trabalho dependente; - Quota-parte devida a título de participação nas campanhas de pesca aos pescadores; - Gratificações auferidas em razão da prestação do trabalho, quando não atribuídas pela respetiva entidade patronal; - Remunerações acessórias que sejam auferidas em conexão com a prestação de trabalho, designadamente: Abonos de família e respetivas prestações complementares, na parte em que excedam os limites legais estabelecidos; Subsídio de refeição na parte em que exceder o limite legal estabelecido, ou em que o exceda em 70% sempre que o respetivo subsídio seja atribuído através de vales de refeição; Seguros e operações do ramo Vida, contribuições para fundos de pensões, fundos de poupança-reforma ou quaisquer regimes complementares de segurança social, pagos pela entidade patronal; Subsídios de residência ou equivalentes ou a utilização de casa de habitação fornecida pela entidade patronal; Benefício resultante de empréstimos sem juros ou a taxa de juro inferior, concedidos ou suportados pela entidade patronal, com exceção dos que se destinem à aquisição de habitação própria permanente, de valor não superior a €180 426,40; Viagens e estadas, de turismo e similares, não conexas com a prestação de trabalho, despendidas pela entidade patronal; Ganhos derivados de planos sobre valores mobiliários ou direitos equiparados criados em benefício de trabalhadores ou membros de órgãos sociais; Rendimentos de valores mobiliários ou direitos equiparados, derivados de planos criados em benefício de trabalhadores ou membros de órgãos sociais; Utilização pessoal de automóvel pelo trabalhador ou membro de órgão social, mediante acordo escrito, que gere encargos para a entidade patronal; Aquisição de viatura por preço inferior ao valor de mercado, pelo trabalhador ou membro de órgão social, que tenha originado encargos para a entidade patronal.",
+      "topic_path": [
+        "IRS",
+        "Rendimentos/Deduções/Taxas",
+        "Rend. Trabalho Dependente"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00355.aspx",
+      "anchor": "heading01",
+      "ordinal": 1,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "malformed-tail.html",
+      "entry_id": "faqs-00260:3786",
+      "faq_id": "3786",
+      "question": "Tenho em meu poder um cheque com data de validade ultrapassada.Como devo proceder para reativar o meio de pagamento do reembolso?",
+      "answer": "Poderá requerer através do Portal das Finanças, a reativação do meio de pagamento do reembolso, selecionando na lista de serviços a opção movimentos financeiros – reativar reembolso. Se tiver comunicado á Autoridade Tributária e Aduaneira, conta bancária e se encontrar confirmada, o meio de pagamento será por transferência bancária. Se não o tiver comunicado, deve fazê-lo para maior rapidez e segurança no recebimento do reembolso. Se tiver comunicado á AT o seu IBAN e este se encontrar confirmado, o meio de pagamento será por transferência eletrónica interbancária. Se não o tiver comunicado deve fazê-lo para maior rapidez e segurança no recebimento do reembolso.",
+      "topic_path": [
+        "IMI/AIMI",
+        "Reembolsos",
+        "Pedido de Informação"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00260.aspx",
+      "anchor": "heading01",
+      "ordinal": 1,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "malformed-tail.html",
+      "entry_id": "faqs-00260:3599",
+      "faq_id": "3599",
+      "question": "Enganei-me na digitação do valor a pagar constante na minha nota de cobrança, e coloquei um valor superior ao que era devido. Como é que posso ser ressarcido/a do valor pago em excesso?",
+      "answer": "Tendo utilizado a referencia de pagamento constante na nota de cobrança, por um valor superior ao devido, o pagamento efetuado em excesso, ficará evidenciado na sua conta corrente, como um valor a restituir pela Autoridade Tributária que promoverá automaticamente essa restituição.",
+      "topic_path": [
+        "IMI/AIMI",
+        "Reembolsos",
+        "Pedido de Informação"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00260.aspx",
+      "anchor": "heading02",
+      "ordinal": 2,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "malformed-tail.html",
+      "entry_id": "faqs-00260:3596",
+      "faq_id": "3596",
+      "question": "Por engano, efetuei o pagamento em duplicado da minha nota de cobrança. Como é que posso reaver o valor pago em duplicado?",
+      "answer": "Tendo utilizado a mesma referencia de pagamento, para pagar duas vezes a mesma nota de cobrança, o valor pago em excesso será automáticamente identificado na sua conta corrente, como valor a restituir pela Autoridade Tributária, que promoverá a respetiva restituição.",
+      "topic_path": [
+        "IMI/AIMI",
+        "Reembolsos",
+        "Pedido de Informação"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00260.aspx",
+      "anchor": "heading03",
+      "ordinal": 3,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "malformed-tail.html",
+      "entry_id": "faqs-00260:3503",
+      "faq_id": "3503",
+      "question": "E se o credor originário tiver divida em execução fiscal?",
+      "answer": "Se tiver dividas em execução fiscal, o montante que tem a haver será aplicado nos processos executivos em curso para cobrança da divida, sendo reativado apenas o valor remanescente.",
+      "topic_path": [
+        "IMI/AIMI",
+        "Reembolsos",
+        "Pedido de Informação"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00260.aspx",
+      "anchor": "heading04",
+      "ordinal": 4,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "malformed-tail.html",
+      "entry_id": "faqs-00260:3500",
+      "faq_id": "3500",
+      "question": "Para que morada será enviado o cheque referente ao meu reembolso?",
+      "answer": "É enviado para o domicilio fiscal do titular do direito que constar na base de dados da AT.",
+      "topic_path": [
+        "IMI/AIMI",
+        "Reembolsos",
+        "Pedido de Informação"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00260.aspx",
+      "anchor": "heading05",
+      "ordinal": 5,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "malformed-tail.html",
+      "entry_id": "faqs-00260:3499",
+      "faq_id": "3499",
+      "question": "O cheque referente a um crédito de IMI/AIMI é emitido á ordem de quem?",
+      "answer": "O cheque é emitido á ordem do titular do reembolso, cruzado e não á ordem, para deposito em conta bancária.",
+      "topic_path": [
+        "IMI/AIMI",
+        "Reembolsos",
+        "Pedido de Informação"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00260.aspx",
+      "anchor": "heading06",
+      "ordinal": 6,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "malformed-tail.html",
+      "entry_id": "faqs-00260:3498",
+      "faq_id": "3498",
+      "question": "Como é que são pagos os reembolsos?",
+      "answer": "Por meio de emissão de transferência eletrónica interbancária ou cheque, não estando disponível na base de dados da AT o IBAN do titular.",
+      "topic_path": [
+        "IMI/AIMI",
+        "Reembolsos",
+        "Pedido de Informação"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00260.aspx",
+      "anchor": "heading07",
+      "ordinal": 7,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    },
+    {
+      "fixture": "malformed-tail.html",
+      "entry_id": "faqs-00260:3497",
+      "faq_id": "3497",
+      "question": "Tenho um cheque de reembolso do IMI do prédio que adquiri o ano passado, cuja nota de cobrança do imposto, paguei em nome do anterior proprietário. Posso pedir a reemissão do cheque pelo valor por mim efetivamente pago?",
+      "answer": "Pode. Se provar que o pagamento foi efetuado com recurso a uma conta bancária do qual é titular, mediante a apresentação de elementos probatórios emitidos pelo sistema bancário ou, em alternativa, apresentando declaração do detentor do crédito em como este abdica do direito ao reembolso a favor do pagador de facto.",
+      "topic_path": [
+        "IMI/AIMI",
+        "Reembolsos",
+        "Pedido de Informação"
+      ],
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00260.aspx",
+      "anchor": "heading08",
+      "ordinal": 8,
+      "links": [],
+      "tables": [],
+      "ordered_list_items": [],
+      "legal_address": null,
+      "pdf_location": null
+    }
+  ],
+  "structural_expectations": {
+    "catalog.html": {
+      "category_count": 10,
+      "topic_link_count": 150,
+      "unique_topic_url_count": 150
+    },
+    "malformed-tail.html": {
+      "faq_ids": [
+        "3786",
+        "3599",
+        "3596",
+        "3503",
+        "3500",
+        "3499",
+        "3498",
+        "3497"
+      ],
+      "inside_accordion_count_html_parser": 1,
+      "question_count": 8
+    },
+    "nested-lists.html": {
+      "ordered_lists": 2,
+      "ordered_list_items": 6,
+      "unordered_lists": 1,
+      "required_conditions": [
+        "Se ao fim de quinze dias este estado se mantiver",
+        "O último ficheiro enviado"
+      ]
+    },
+    "data-table.html": {
+      "classification": "data",
+      "table_count": 1,
+      "rows": 4,
+      "cells": 12,
+      "header": [
+        "Artigo RGIT",
+        "Infração",
+        "Penalidade"
+      ]
+    },
+    "spanned-tables.html": {
+      "classification": "data",
+      "table_count": 2,
+      "rows": [
+        8,
+        7
+      ],
+      "cells": [
+        31,
+        27
+      ],
+      "first_header_colspans": [
+        1,
+        2,
+        1
+      ],
+      "required_notes": [
+        "(*)",
+        "(**)"
+      ]
+    },
+    "layout-table.html": {
+      "classification": "layout_with_meaningful_text",
+      "table_count": 1,
+      "rows": 1,
+      "cells": 1
+    },
+    "long-answer.html": {
+      "minimum_answer_characters": 4500,
+      "last_condition": "A isenção é total ou parcial, consoante o ano de obtenção dos rendimentos."
+    }
+  }
+}

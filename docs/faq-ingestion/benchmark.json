@@ -1,0 +1,453 @@
+{
+  "schema": "faq-ingestion-golden-v1",
+  "frozen_at": "2026-11-07",
+  "status": "targets_frozen_retrieval_not_run",
+  "review_basis": "Targets selected from complete captured FAQ HTML and saved CIRS units before any FAQ parser, index or retrieval change; queries authored from these source topics, not from rankings.",
+  "faq_collection_sha256": "76dd0061b18af2b62dc22e384969603075351b3333c02bffb79cb1147c60e4a3",
+  "cirs_snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+  "identity_note": "FAQ entry_id is the logical page-key:published-number target from PLAN.md. No future LegalUnit ID or snapshot ID is invented. The evaluator must resolve this key against the imported snapshot.",
+  "acceptance": {
+    "limit": 5,
+    "target_match": "Every expected target must have a corresponding part in top-5; match its legal_unit_id or logical entry_id, not only source_id.",
+    "mixed": "Both sources required in top-5 and in final answer citations, with retained excerpts and server-validated URLs for the selected snapshots.",
+    "languages": [
+      "en",
+      "pt",
+      "uk",
+      "ru"
+    ],
+    "semantic_scenarios": {
+      "cirs": 4,
+      "faq": 4,
+      "mixed": 4
+    },
+    "existing_cirs_regression": "docs/document-ingestion/benchmark-v2.json remains unchanged and must retain its existing thresholds.",
+    "live_evaluation": "pending Steps 4-6; routing-only baseline is not semantic quality evidence"
+  },
+  "cases": [
+    {
+      "case_id": "cirs-pensions",
+      "kind": "cirs",
+      "queries": {
+        "en": "Which payments count as category H pensions under the CIRS?",
+        "pt": "Quais são as prestações consideradas pensões da categoria H no CIRS?",
+        "uk": "Які виплати належать до пенсій категорії H за CIRS?",
+        "ru": "Какие выплаты относятся к пенсиям категории H по CIRS?"
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-cirs",
+          "legal_unit_id": "pt:cirs:code:article:11:paragraph:1",
+          "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+          "required_quote": "Consideram-se pensões",
+          "physical_pages": [
+            42,
+            42
+          ]
+        }
+      ],
+      "required_answer_conditions": [
+        "Identify pension benefits and preserve the conditions in the cited CIRS text."
+      ],
+      "required_citation_sources": [
+        "pt-at-cirs"
+      ]
+    },
+    {
+      "case_id": "cirs-rental-income",
+      "kind": "cirs",
+      "queries": {
+        "en": "How does the CIRS define category F rental income?",
+        "pt": "Como define o CIRS os rendimentos prediais da categoria F?",
+        "uk": "Як CIRS визначає доходи від оренди категорії F?",
+        "ru": "Как CIRS определяет доходы от аренды категории F?"
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-cirs",
+          "legal_unit_id": "pt:cirs:code:article:8:paragraph:1",
+          "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+          "required_quote": "quando estes não optarem pela sua tributação no âmbito da categoria B",
+          "physical_pages": [
+            32,
+            32
+          ]
+        }
+      ],
+      "required_answer_conditions": [
+        "Mention rents of rural, urban and mixed properties and the category B option."
+      ],
+      "required_citation_sources": [
+        "pt-at-cirs"
+      ]
+    },
+    {
+      "case_id": "cirs-general-rates",
+      "kind": "cirs",
+      "queries": {
+        "en": "Which general IRS income tax rates appear in the CIRS table?",
+        "pt": "Quais são as taxas gerais do IRS na tabela do CIRS?",
+        "uk": "Які загальні ставки IRS наведено в таблиці CIRS?",
+        "ru": "Какие общие ставки IRS приведены в таблице CIRS?"
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-cirs",
+          "legal_unit_id": "pt:cirs:code:article:68:paragraph:1",
+          "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+          "required_quote": "As taxas do imposto são as constantes da tabela seguinte",
+          "physical_pages": [
+            81,
+            82
+          ]
+        }
+      ],
+      "required_answer_conditions": [
+        "Use table p81-table1 and preserve its income brackets and rate columns.",
+        "State the snapshot context; do not infer a tax year not present in the question."
+      ],
+      "required_citation_sources": [
+        "pt-at-cirs"
+      ]
+    },
+    {
+      "case_id": "cirs-solidarity",
+      "kind": "cirs",
+      "queries": {
+        "en": "What additional solidarity rates apply to taxable income over 80,000 euros in the CIRS?",
+        "pt": "Quais as taxas adicionais de solidariedade para rendimento coletável superior a 80 000 euros no CIRS?",
+        "uk": "Які додаткові ставки солідарності застосовуються за CIRS до оподатковуваного доходу понад 80 000 євро?",
+        "ru": "Какие дополнительные ставки солидарности применяются по CIRS к налогооблагаемому доходу свыше 80 000 евро?"
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-cirs",
+          "legal_unit_id": "pt:cirs:code:article:68-A:paragraph:1",
+          "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+          "required_quote": "superior a € 80 000",
+          "physical_pages": [
+            82,
+            82
+          ]
+        }
+      ],
+      "required_answer_conditions": [
+        "Use table p82-image2-table; preserve thresholds and rates."
+      ],
+      "required_citation_sources": [
+        "pt-at-cirs"
+      ]
+    },
+    {
+      "case_id": "faq-vat-exemption",
+      "kind": "faq",
+      "queries": {
+        "en": "What conditions does the AT FAQ list for the special VAT exemption regime?",
+        "pt": "Quais as condições indicadas nas FAQ da AT para beneficiar do regime especial de isenção de IVA?",
+        "uk": "Які умови спеціального звільнення від IVA наведено у FAQ AT?",
+        "ru": "Какие условия специального освобождения от IVA перечислены в FAQ AT?"
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-faq",
+          "entry_id": "faqs-00720:5785",
+          "required_quote": "superior a 15.000 EUR.",
+          "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00720.aspx",
+          "anchor_candidate": "heading02",
+          "fixture": "iva-exemption.html"
+        }
+      ],
+      "required_answer_conditions": [
+        "Preserve turnover, domicile, export and excluded-operation conditions from this snapshot.",
+        "Attribute the text to an AT explanation; CIVA is a reference, not an indexed CIVA norm."
+      ],
+      "required_citation_sources": [
+        "pt-at-faq"
+      ]
+    },
+    {
+      "case_id": "faq-inventory-status",
+      "kind": "faq",
+      "queries": {
+        "en": "My submitted inventory file is still in processing after fifteen days. What does the AT FAQ say to do?",
+        "pt": "O ficheiro de inventário comunicado continua em processamento ao fim de quinze dias. O que indicam as FAQ da AT?",
+        "uk": "Поданий файл інвентаризації залишається в обробці понад п'ятнадцять днів. Що радить FAQ AT?",
+        "ru": "Отправленный файл инвентаризации остаётся в обработке спустя пятнадцать дней. Что советует FAQ AT?"
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-faq",
+          "entry_id": "faqs-00628:5114",
+          "required_quote": "Se ao fim de quinze dias este estado se mantiver",
+          "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00628.aspx",
+          "anchor_candidate": "heading14",
+          "fixture": "nested-lists.html"
+        }
+      ],
+      "required_answer_conditions": [
+        "Keep the resubmission condition and that the latest file for the period is considered.",
+        "Preserve the alternative e-Balcão steps and required screenshot/date/time."
+      ],
+      "required_citation_sources": [
+        "pt-at-faq"
+      ]
+    },
+    {
+      "case_id": "faq-no-treaty",
+      "kind": "faq",
+      "queries": {
+        "en": "May a Portuguese payer waive withholding for a nonresident in a country without a double taxation convention, according to the AT FAQ?",
+        "pt": "Segundo as FAQ da AT, pode haver dispensa de retenção ao pagar a um não residente num país sem convenção para evitar a dupla tributação?",
+        "uk": "Чи дозволяє FAQ AT не утримувати податок при виплаті нерезиденту з країни без конвенції про уникнення подвійного оподаткування?",
+        "ru": "Позволяет ли FAQ AT не удерживать налог при выплате нерезиденту из страны без конвенции об избежании двойного налогообложения?"
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-faq",
+          "entry_id": "faqs-00212:3824",
+          "required_quote": "apenas preveem a dispensa de retenção na fonte em função de CDT celebrada por Portugal",
+          "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00212.aspx",
+          "anchor_candidate": "heading10",
+          "fixture": "relative-link.html"
+        }
+      ],
+      "required_answer_conditions": [
+        "Preserve the negative answer and link to the conventions table.",
+        "CIRC and CIRS references do not change this FAQ's source or legal address."
+      ],
+      "required_citation_sources": [
+        "pt-at-faq"
+      ]
+    },
+    {
+      "case_id": "faq-overpayment",
+      "kind": "faq",
+      "queries": {
+        "en": "I paid more than the amount on my IMI assessment using its payment reference. How does the AT FAQ say I recover the excess?",
+        "pt": "Paguei um valor superior ao da nota de cobrança de IMI usando a referência indicada. Segundo as FAQ da AT, como recupero o excesso?",
+        "uk": "Я сплатив IMI понад суму в повідомленні за вказаним платіжним кодом. Як FAQ AT описує повернення переплати?",
+        "ru": "Я заплатил IMI сверх суммы в уведомлении по указанному платёжному коду. Как FAQ AT описывает возврат переплаты?"
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-faq",
+          "entry_id": "faqs-00260:3599",
+          "required_quote": "promoverá automaticamente essa restituição",
+          "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00260.aspx",
+          "anchor_candidate": "heading02",
+          "fixture": "malformed-tail.html"
+        }
+      ],
+      "required_answer_conditions": [
+        "Identify the excess as refundable in the current account and preserve the automatic refund statement.",
+        "Retrieve the card even though it falls outside #faqAccordion in html.parser."
+      ],
+      "required_citation_sources": [
+        "pt-at-faq"
+      ]
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "kind": "mixed",
+      "queries": {
+        "en": "Under CIRS 16, how do I determine whether I am resident in Portugal, and how does the AT FAQ explain the criteria?",
+        "pt": "Segundo o artigo 16 do CIRS, como determino se sou residente em Portugal e como explicam as FAQ da AT esses critérios?",
+        "uk": "Як визначити резидентство в Португалії за CIRS 16 і як FAQ AT пояснює ці критерії?",
+        "ru": "Как определить резидентство в Португалии по CIRS 16 и как FAQ AT объясняет эти критерии?"
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-cirs",
+          "legal_unit_id": "pt:cirs:code:article:16:paragraph:1",
+          "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+          "required_quote": "mais de 183 dias",
+          "physical_pages": [
+            48,
+            48
+          ]
+        },
+        {
+          "source_id": "pt-at-faq",
+          "entry_id": "faqs-00267:3286",
+          "required_quote": "Permanência mais de 183 dias",
+          "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00267.aspx",
+          "anchor_candidate": "heading20",
+          "fixture": "irs-residency.html"
+        }
+      ],
+      "required_answer_conditions": [
+        "Treat the article mention as part of a semantic question.",
+        "Preserve the alternative habitual-home condition; do not reduce residency to day count alone.",
+        "Distinguish the CIRS norm from the fuller AT explanation and cite both."
+      ],
+      "required_citation_sources": [
+        "pt-at-cirs",
+        "pt-at-faq"
+      ]
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "kind": "mixed",
+      "queries": {
+        "en": "In my arrival or departure year, which Portuguese and foreign income must I declare during resident and nonresident periods? Use the CIRS and AT FAQ.",
+        "pt": "No ano de chegada ou partida, que rendimentos portugueses e estrangeiros declaro nos períodos de residência e de não residência? Use o CIRS e as FAQ da AT.",
+        "uk": "Які португальські та іноземні доходи декларувати за періоди резидентства й нерезидентства в році приїзду або від'їзду? Наведіть CIRS і FAQ AT.",
+        "ru": "Какие португальские и иностранные доходы декларировать за периоды резидентства и нерезидентства в год приезда или отъезда? Приведите CIRS и FAQ AT."
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-cirs",
+          "legal_unit_id": "pt:cirs:code:article:15:paragraph:1",
+          "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+          "required_quote": "incluindo os obtidos fora desse território",
+          "physical_pages": [
+            48,
+            48
+          ]
+        },
+        {
+          "source_id": "pt-at-faq",
+          "entry_id": "faqs-00343:3831",
+          "required_quote": "o IRS incide unicamente sobre os rendimentos produzidos em território português",
+          "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00343.aspx",
+          "anchor_candidate": "heading05",
+          "fixture": "layout-table.html"
+        }
+      ],
+      "required_answer_conditions": [
+        "Explain worldwide income for the resident period and Portuguese-source income for the nonresident period.",
+        "Read CIRS 15 paragraph 2 as additional context; retain FAQ reference to aggregation rules."
+      ],
+      "required_citation_sources": [
+        "pt-at-cirs",
+        "pt-at-faq"
+      ]
+    },
+    {
+      "case_id": "mixed-household",
+      "kind": "mixed",
+      "queries": {
+        "en": "Who belongs to the IRS family household? Give the CIRS rule and the AT FAQ explanation.",
+        "pt": "Quem integra o agregado familiar para IRS? Indique a regra do CIRS e a explicação nas FAQ da AT.",
+        "uk": "Хто входить до сімейного домогосподарства для IRS? Наведіть норму CIRS і пояснення FAQ AT.",
+        "ru": "Кто входит в семейное домохозяйство для IRS? Приведите норму CIRS и объяснение FAQ AT."
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-cirs",
+          "legal_unit_id": "pt:cirs:code:article:13:paragraph:4",
+          "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+          "required_quote": "O agregado familiar é constituído por",
+          "physical_pages": [
+            46,
+            46
+          ]
+        },
+        {
+          "source_id": "pt-at-faq",
+          "entry_id": "faqs-00267:5957",
+          "required_quote": "O agregado familiar é composto por",
+          "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00267.aspx",
+          "anchor_candidate": "heading01",
+          "fixture": "irs-residency.html"
+        }
+      ],
+      "required_answer_conditions": [
+        "Cover spouses/partners, separated parents, single parents and single adopters with dependants.",
+        "Keep the FAQ's dependant conditions distinct from the household rule."
+      ],
+      "required_citation_sources": [
+        "pt-at-cirs",
+        "pt-at-faq"
+      ]
+    },
+    {
+      "case_id": "mixed-employment",
+      "kind": "mixed",
+      "queries": {
+        "en": "What counts as category A employment income? Show the CIRS definition and the AT FAQ examples.",
+        "pt": "O que são rendimentos do trabalho dependente da categoria A? Mostre a definição no CIRS e os exemplos nas FAQ da AT.",
+        "uk": "Що належить до доходів від найманої праці категорії A? Покажіть визначення CIRS і приклади FAQ AT.",
+        "ru": "Что относится к доходам от наёмного труда категории A? Покажите определение CIRS и примеры FAQ AT."
+      },
+      "expected_route": "semantic",
+      "expected_targets": [
+        {
+          "source_id": "pt-at-cirs",
+          "legal_unit_id": "pt:cirs:code:article:2:paragraph:1",
+          "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+          "required_quote": "Consideram-se rendimentos do trabalho dependente",
+          "physical_pages": [
+            23,
+            23
+          ]
+        },
+        {
+          "source_id": "pt-at-faq",
+          "entry_id": "faqs-00355:5928",
+          "required_quote": "Remunerações acessórias que sejam auferidas em conexão com a prestação de trabalho",
+          "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00355.aspx",
+          "anchor_candidate": "heading01",
+          "fixture": "employment.html"
+        }
+      ],
+      "required_answer_conditions": [
+        "Give the employment-income definition and preserve qualifications on the FAQ's accessory benefits.",
+        "Do not imply every example in the FAQ belongs to CIRS 2 paragraph 1."
+      ],
+      "required_citation_sources": [
+        "pt-at-cirs",
+        "pt-at-faq"
+      ]
+    }
+  ],
+  "routing_cases": [
+    {
+      "case_id": "exact-code-first",
+      "queries": {
+        "en": "CIRS 16",
+        "pt": "CIRS 16",
+        "uk": "CIRS 16",
+        "ru": "CIRS 16"
+      },
+      "expected_route": "exact",
+      "expected_filters": {
+        "code": "CIRS",
+        "article": "16",
+        "document_scope": "code"
+      },
+      "expected_source_ids": [
+        "pt-at-cirs"
+      ]
+    },
+    {
+      "case_id": "exact-article-first",
+      "queries": {
+        "en": "artigo 16 do CIRS",
+        "pt": "artigo 16 do CIRS",
+        "uk": "artigo 16 do CIRS",
+        "ru": "artigo 16 do CIRS"
+      },
+      "expected_route": "exact",
+      "expected_filters": {
+        "code": "CIRS",
+        "article": "16",
+        "document_scope": "code"
+      },
+      "expected_source_ids": [
+        "pt-at-cirs"
+      ]
+    }
+  ]
+}

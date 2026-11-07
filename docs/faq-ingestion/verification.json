@@ -1,0 +1,28 @@
+{
+  "schema": "faq-step0-verification-v1",
+  "date": "2026-11-07",
+  "status": "passed",
+  "source_files": 151,
+  "source_bytes": 11645100,
+  "source_pairs": 1630,
+  "html_fixtures": 11,
+  "fixture_bytes": 151148,
+  "reviewed_records": 18,
+  "semantic_scenarios": 12,
+  "semantic_queries": 48,
+  "routing_queries": 56,
+  "known_routing_failures": 4,
+  "checks": [
+    "All source byte hashes and collection hash",
+    "Raw numbered headers, answer targets and per-page IDs agree",
+    "Closed navigation and category totals",
+    "Exact fixture byte ranges and hashes",
+    "Complete golden text, identities, links, lists and table cells/spans",
+    "Malformed container regression: 1 versus 8 cards",
+    "CIRS original PDF hash and nine saved target units",
+    "Four-language target/quote consistency and baseline binding",
+    "Local Markdown links"
+  ],
+  "semantic_retrieval": "not run; pending Steps 4-6",
+  "browser_anchor": "unverified; browser host unavailable; page URL fallback documented"
+}

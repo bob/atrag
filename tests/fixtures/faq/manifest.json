@@ -1,0 +1,192 @@
+{
+  "schema": "faq-step0-fixtures-v1",
+  "captured_at": "2026-11-07",
+  "fixtures": [
+    {
+      "file": "irs-residency.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00267.aspx",
+      "source_sha256": "78a1d4d9c82b28f0460149bbbba4825684c06d062d9b0d513f38ec2183bf07e6",
+      "fixture_sha256": "92099178001444bc069f4938bcbaba18ba875ead5ac4663522869ed7657558f7",
+      "byte_ranges": [
+        [
+          42954,
+          45481
+        ],
+        [
+          81014,
+          84766
+        ]
+      ],
+      "wrapper_added": true,
+      "faq_ids": [
+        "5957",
+        "3286"
+      ]
+    },
+    {
+      "file": "iva-exemption.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00720.aspx",
+      "source_sha256": "9d0307daff9d9631eb0de88b23c81c56470a0982a820960ab8c80942171d202c",
+      "fixture_sha256": "5da73ff8fbf88cb45e8ede86fbb19ba147d58c5b5218e2004b698cc251b3f2af",
+      "byte_ranges": [
+        [
+          47260,
+          50425
+        ]
+      ],
+      "wrapper_added": true,
+      "faq_ids": [
+        "5785"
+      ]
+    },
+    {
+      "file": "long-answer.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00344.aspx",
+      "source_sha256": "661343888463b3c9f6c07bf1d0b0cb167d87307907603e59cd3ad0d13bff34fc",
+      "fixture_sha256": "afdd6d25dbfa193c281115679ee95b676bee225b09a7fb485e05ea8046843b2b",
+      "byte_ranges": [
+        [
+          67532,
+          73513
+        ]
+      ],
+      "wrapper_added": true,
+      "faq_ids": [
+        "5801"
+      ]
+    },
+    {
+      "file": "nested-lists.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00628.aspx",
+      "source_sha256": "3bdaa7b2fe7b07ed5ea5eb378943f1411f41509877625ff52df4fc72c59fdf8a",
+      "fixture_sha256": "9b894a08f48486343265f4d838af4eab501f42a823072737d90f37263f6bf94e",
+      "byte_ranges": [
+        [
+          66461,
+          68882
+        ]
+      ],
+      "wrapper_added": true,
+      "faq_ids": [
+        "5114"
+      ]
+    },
+    {
+      "file": "relative-link.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00212.aspx",
+      "source_sha256": "acc3231b20a6c69decbade6b0d14843230deaa8d3a1a0e769f09648db2c37393",
+      "fixture_sha256": "30a190c8ed3c82727ac80b23fb7c326b08e8006533d258b19b784c66615fdf5f",
+      "byte_ranges": [
+        [
+          59328,
+          62003
+        ]
+      ],
+      "wrapper_added": true,
+      "faq_ids": [
+        "3824"
+      ]
+    },
+    {
+      "file": "data-table.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00213.aspx",
+      "source_sha256": "f27bbefc8eea7c85eff15bb27d36507a6a8dabdc1f3481fe90b12528f37cb570",
+      "fixture_sha256": "a278938de10ab336e7661506e1291b7abcc6678ea5194793b8713465a4c9324c",
+      "byte_ranges": [
+        [
+          93222,
+          98711
+        ]
+      ],
+      "wrapper_added": true,
+      "faq_ids": [
+        "5190"
+      ]
+    },
+    {
+      "file": "spanned-tables.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00082.aspx",
+      "source_sha256": "08cc78230658aec73088c976d3a8899eb963b93caf4a227ff103c460d3cf9670",
+      "fixture_sha256": "3456e3fda08904677347f3ab4b372b547ca873d25c6414d41954aa405e805386",
+      "byte_ranges": [
+        [
+          58462,
+          96145
+        ]
+      ],
+      "wrapper_added": true,
+      "faq_ids": [
+        "3520"
+      ]
+    },
+    {
+      "file": "layout-table.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00343.aspx",
+      "source_sha256": "1b3831d53bdbf39c92a0278265d211370b481b3fb0abd894d03fda6bac416b40",
+      "fixture_sha256": "e88d94fa82b297daada484f7ec070a9460442f583876ec457e79a09eb78d7829",
+      "byte_ranges": [
+        [
+          59060,
+          62281
+        ]
+      ],
+      "wrapper_added": true,
+      "faq_ids": [
+        "3831"
+      ]
+    },
+    {
+      "file": "employment.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00355.aspx",
+      "source_sha256": "5c1f487e91a8240b497592f8d76a9c51563a861e98831325ce7c8c3af3825ef9",
+      "fixture_sha256": "78dc10c3d445ed73bb8a84b221dc550bdee2dc437331eca8fc36086a4e2710a5",
+      "byte_ranges": [
+        [
+          42942,
+          49661
+        ]
+      ],
+      "wrapper_added": true,
+      "faq_ids": [
+        "5928"
+      ]
+    },
+    {
+      "file": "malformed-tail.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00260.aspx",
+      "source_sha256": "d7316d368f4e72238237199a67026c5071ae93d1d9d2938477a24925909f4318",
+      "fixture_sha256": "e3a9d82b68dd5756de1805bc25de2e13286a34131a7adfb4451c12c738df0d45",
+      "byte_ranges": [
+        [
+          42814,
+          56729
+        ]
+      ],
+      "wrapper_added": false,
+      "faq_ids": [
+        "3786",
+        "3599",
+        "3596",
+        "3503",
+        "3500",
+        "3499",
+        "3498",
+        "3497"
+      ]
+    },
+    {
+      "file": "catalog.html",
+      "page_url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs.aspx",
+      "source_sha256": "99634841a6016020b5adc7433729923921adf6cc7f834749afa832ac4b5a7581",
+      "fixture_sha256": "45b58f107981384b48aee2c3f37afc20d988fbe653eb05afed65143427af109c",
+      "byte_ranges": [
+        [
+          43702,
+          106896
+        ]
+      ],
+      "wrapper_added": false,
+      "faq_ids": []
+    }
+  ]
+}

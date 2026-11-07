@@ -1,0 +1,2 @@
+# Preserve the captured HTML bytes, including original CRLF and trailing spaces.
+tests/fixtures/faq/*.html -text -whitespace

@@ -1,0 +1,566 @@
+{
+  "schema": "faq-step0-routing-baseline-v1",
+  "application_commit": "a64b486",
+  "benchmark_sha256": "21c585f79053b66ba3aba1746ca84c056770efdcf1141983ef123fac1f7d8833",
+  "scope": "Routing only, invoking existing normalize_address(); no search rankings, embeddings, database or generated answers. Semantic quality remains unmeasured until Steps 4-6.",
+  "summary": {
+    "queries": 56,
+    "matches": 52,
+    "mismatches": 4
+  },
+  "known_defect": "A semantic question mentioning CIRS 16 is routed to document_scope=code, excluding FAQ. Kept as a regression target for Step 5.",
+  "records": [
+    {
+      "case_id": "cirs-pensions",
+      "language": "en",
+      "query": "Which payments count as category H pensions under the CIRS?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-pensions",
+      "language": "pt",
+      "query": "Quais são as prestações consideradas pensões da categoria H no CIRS?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-pensions",
+      "language": "uk",
+      "query": "Які виплати належать до пенсій категорії H за CIRS?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-pensions",
+      "language": "ru",
+      "query": "Какие выплаты относятся к пенсиям категории H по CIRS?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-rental-income",
+      "language": "en",
+      "query": "How does the CIRS define category F rental income?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-rental-income",
+      "language": "pt",
+      "query": "Como define o CIRS os rendimentos prediais da categoria F?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-rental-income",
+      "language": "uk",
+      "query": "Як CIRS визначає доходи від оренди категорії F?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-rental-income",
+      "language": "ru",
+      "query": "Как CIRS определяет доходы от аренды категории F?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-general-rates",
+      "language": "en",
+      "query": "Which general IRS income tax rates appear in the CIRS table?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-general-rates",
+      "language": "pt",
+      "query": "Quais são as taxas gerais do IRS na tabela do CIRS?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-general-rates",
+      "language": "uk",
+      "query": "Які загальні ставки IRS наведено в таблиці CIRS?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-general-rates",
+      "language": "ru",
+      "query": "Какие общие ставки IRS приведены в таблице CIRS?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-solidarity",
+      "language": "en",
+      "query": "What additional solidarity rates apply to taxable income over 80,000 euros in the CIRS?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-solidarity",
+      "language": "pt",
+      "query": "Quais as taxas adicionais de solidariedade para rendimento coletável superior a 80 000 euros no CIRS?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-solidarity",
+      "language": "uk",
+      "query": "Які додаткові ставки солідарності застосовуються за CIRS до оподатковуваного доходу понад 80 000 євро?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "cirs-solidarity",
+      "language": "ru",
+      "query": "Какие дополнительные ставки солидарности применяются по CIRS к налогооблагаемому доходу свыше 80 000 евро?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-vat-exemption",
+      "language": "en",
+      "query": "What conditions does the AT FAQ list for the special VAT exemption regime?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-vat-exemption",
+      "language": "pt",
+      "query": "Quais as condições indicadas nas FAQ da AT para beneficiar do regime especial de isenção de IVA?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-vat-exemption",
+      "language": "uk",
+      "query": "Які умови спеціального звільнення від IVA наведено у FAQ AT?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-vat-exemption",
+      "language": "ru",
+      "query": "Какие условия специального освобождения от IVA перечислены в FAQ AT?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-inventory-status",
+      "language": "en",
+      "query": "My submitted inventory file is still in processing after fifteen days. What does the AT FAQ say to do?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-inventory-status",
+      "language": "pt",
+      "query": "O ficheiro de inventário comunicado continua em processamento ao fim de quinze dias. O que indicam as FAQ da AT?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-inventory-status",
+      "language": "uk",
+      "query": "Поданий файл інвентаризації залишається в обробці понад п'ятнадцять днів. Що радить FAQ AT?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-inventory-status",
+      "language": "ru",
+      "query": "Отправленный файл инвентаризации остаётся в обработке спустя пятнадцать дней. Что советует FAQ AT?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-no-treaty",
+      "language": "en",
+      "query": "May a Portuguese payer waive withholding for a nonresident in a country without a double taxation convention, according to the AT FAQ?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-no-treaty",
+      "language": "pt",
+      "query": "Segundo as FAQ da AT, pode haver dispensa de retenção ao pagar a um não residente num país sem convenção para evitar a dupla tributação?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-no-treaty",
+      "language": "uk",
+      "query": "Чи дозволяє FAQ AT не утримувати податок при виплаті нерезиденту з країни без конвенції про уникнення подвійного оподаткування?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-no-treaty",
+      "language": "ru",
+      "query": "Позволяет ли FAQ AT не удерживать налог при выплате нерезиденту из страны без конвенции об избежании двойного налогообложения?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-overpayment",
+      "language": "en",
+      "query": "I paid more than the amount on my IMI assessment using its payment reference. How does the AT FAQ say I recover the excess?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-overpayment",
+      "language": "pt",
+      "query": "Paguei um valor superior ao da nota de cobrança de IMI usando a referência indicada. Segundo as FAQ da AT, como recupero o excesso?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-overpayment",
+      "language": "uk",
+      "query": "Я сплатив IMI понад суму в повідомленні за вказаним платіжним кодом. Як FAQ AT описує повернення переплати?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "faq-overpayment",
+      "language": "ru",
+      "query": "Я заплатил IMI сверх суммы в уведомлении по указанному платёжному коду. Как FAQ AT описывает возврат переплаты?",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "language": "en",
+      "query": "Under CIRS 16, how do I determine whether I am resident in Portugal, and how does the AT FAQ explain the criteria?",
+      "expected_route": "semantic",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": false
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "language": "pt",
+      "query": "Segundo o artigo 16 do CIRS, como determino se sou residente em Portugal e como explicam as FAQ da AT esses critérios?",
+      "expected_route": "semantic",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": false
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "language": "uk",
+      "query": "Як визначити резидентство в Португалії за CIRS 16 і як FAQ AT пояснює ці критерії?",
+      "expected_route": "semantic",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": false
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "language": "ru",
+      "query": "Как определить резидентство в Португалии по CIRS 16 и как FAQ AT объясняет эти критерии?",
+      "expected_route": "semantic",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": false
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "language": "en",
+      "query": "In my arrival or departure year, which Portuguese and foreign income must I declare during resident and nonresident periods? Use the CIRS and AT FAQ.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "language": "pt",
+      "query": "No ano de chegada ou partida, que rendimentos portugueses e estrangeiros declaro nos períodos de residência e de não residência? Use o CIRS e as FAQ da AT.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "language": "uk",
+      "query": "Які португальські та іноземні доходи декларувати за періоди резидентства й нерезидентства в році приїзду або від'їзду? Наведіть CIRS і FAQ AT.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "language": "ru",
+      "query": "Какие португальские и иностранные доходы декларировать за периоды резидентства и нерезидентства в год приезда или отъезда? Приведите CIRS и FAQ AT.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-household",
+      "language": "en",
+      "query": "Who belongs to the IRS family household? Give the CIRS rule and the AT FAQ explanation.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-household",
+      "language": "pt",
+      "query": "Quem integra o agregado familiar para IRS? Indique a regra do CIRS e a explicação nas FAQ da AT.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-household",
+      "language": "uk",
+      "query": "Хто входить до сімейного домогосподарства для IRS? Наведіть норму CIRS і пояснення FAQ AT.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-household",
+      "language": "ru",
+      "query": "Кто входит в семейное домохозяйство для IRS? Приведите норму CIRS и объяснение FAQ AT.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-employment",
+      "language": "en",
+      "query": "What counts as category A employment income? Show the CIRS definition and the AT FAQ examples.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-employment",
+      "language": "pt",
+      "query": "O que são rendimentos do trabalho dependente da categoria A? Mostre a definição no CIRS e os exemplos nas FAQ da AT.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-employment",
+      "language": "uk",
+      "query": "Що належить до доходів від найманої праці категорії A? Покажіть визначення CIRS і приклади FAQ AT.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "mixed-employment",
+      "language": "ru",
+      "query": "Что относится к доходам от наёмного труда категории A? Покажите определение CIRS и примеры FAQ AT.",
+      "expected_route": "semantic",
+      "actual_route": "semantic",
+      "actual_filters": null,
+      "matches_expected": true
+    },
+    {
+      "case_id": "exact-code-first",
+      "language": "en",
+      "query": "CIRS 16",
+      "expected_route": "exact",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": true
+    },
+    {
+      "case_id": "exact-code-first",
+      "language": "pt",
+      "query": "CIRS 16",
+      "expected_route": "exact",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": true
+    },
+    {
+      "case_id": "exact-code-first",
+      "language": "uk",
+      "query": "CIRS 16",
+      "expected_route": "exact",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": true
+    },
+    {
+      "case_id": "exact-code-first",
+      "language": "ru",
+      "query": "CIRS 16",
+      "expected_route": "exact",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": true
+    },
+    {
+      "case_id": "exact-article-first",
+      "language": "en",
+      "query": "artigo 16 do CIRS",
+      "expected_route": "exact",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": true
+    },
+    {
+      "case_id": "exact-article-first",
+      "language": "pt",
+      "query": "artigo 16 do CIRS",
+      "expected_route": "exact",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": true
+    },
+    {
+      "case_id": "exact-article-first",
+      "language": "uk",
+      "query": "artigo 16 do CIRS",
+      "expected_route": "exact",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": true
+    },
+    {
+      "case_id": "exact-article-first",
+      "language": "ru",
+      "query": "artigo 16 do CIRS",
+      "expected_route": "exact",
+      "actual_route": "exact",
+      "actual_filters": {
+        "code": "CIRS",
+        "document_scope": "code",
+        "article": "16"
+      },
+      "matches_expected": true
+    }
+  ]
+}

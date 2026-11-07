@@ -1,0 +1,74 @@
+{
+  "schema": "faq-step0-cirs-evidence-v1",
+  "snapshot_id": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+  "provenance": "Selected unchanged fields from target/live-acceptance-large-20261101/package/legal_units.jsonl; page numbers are physical PDF pages. Older PDF snapshot, not a claim about current tax-year applicability.",
+  "units": [
+    {
+      "legal_unit_id": "pt:cirs:code:article:11:paragraph:1",
+      "page_start": 42,
+      "page_end": 42,
+      "text_original": "1 - Consideram-se pensões:\na) As prestações devidas a título de pensões de aposentação ou de reforma, velhice, invalidez ou\nsobrevivência, bem como outras de idêntica natureza, incluindo os rendimentos referidos no n.º 2 do artigo\n2.º-A, e ainda as pensões de alimentos;\nb) As prestações a cargo de companhias de seguros, fundos de pensões, ou quaisquer outras entidades,\ndevidas no âmbito de regimes complementares de segurança social em razão de contribuições da\nentidade patronal, e que não sejam consideradas rendimentos do trabalho dependente;\nc) As pensões e subvenções não compreendidas nas alíneas anteriores;\nd) As rendas temporárias ou vitalícias;\ne) As indemnizações que visem compensar perdas de rendimentos desta categoria.",
+      "table_ids": []
+    },
+    {
+      "legal_unit_id": "pt:cirs:code:article:13:paragraph:4",
+      "page_start": 46,
+      "page_end": 46,
+      "text_original": "4 - O agregado familiar é constituído por:\na) Os cônjuges não separados judicialmente de pessoas e bens, ou os unidos de facto, e os respetivos\ndependentes;\nb) Cada um dos cônjuges ou ex-cônjuges, respetivamente, nos casos de separação judicial de pessoas\ne bens ou de declaração de nulidade, anulação ou dissolução do casamento, e os dependentes a seu\ncargo;\nc) O pai ou a mãe solteiros e os dependentes a seu cargo;\nd) O adotante solteiro e os dependentes a seu cargo.",
+      "table_ids": []
+    },
+    {
+      "legal_unit_id": "pt:cirs:code:article:15:paragraph:1",
+      "page_start": 48,
+      "page_end": 48,
+      "text_original": "1 - Sendo as pessoas residentes em território português, o IRS incide sobre a totalidade dos seus\nrendimentos, incluindo os obtidos fora desse território.",
+      "table_ids": []
+    },
+    {
+      "legal_unit_id": "pt:cirs:code:article:15:paragraph:2",
+      "page_start": 48,
+      "page_end": 48,
+      "text_original": "2 - Tratando-se de não residentes, o IRS incide unicamente sobre os rendimentos obtidos em território\nportuguês.",
+      "table_ids": []
+    },
+    {
+      "legal_unit_id": "pt:cirs:code:article:16:paragraph:1",
+      "page_start": 48,
+      "page_end": 48,
+      "text_original": "1 - São residentes em território português as pessoas que, no ano a que respeitam os rendimentos:\na) Hajam nele permanecido mais de 183 dias, seguidos ou interpolados, em qualquer período de 12\nmeses com início ou fim no ano em causa;\nb) Tendo permanecido por menos tempo, aí disponham, num qualquer dia do período referido na alínea\nanterior, de habitação em condições que façam supor intenção atual de a manter e ocupar como\nresidência habitual;\nc) Em 31 de dezembro, sejam tripulantes de navios ou aeronaves, desde que aqueles estejam ao serviço\nde entidades com residência, sede ou direção efetiva nesse território;\nd) Desempenhem no estrangeiro funções ou comissões de carácter público, ao serviço do Estado\nPortuguês.",
+      "table_ids": []
+    },
+    {
+      "legal_unit_id": "pt:cirs:code:article:2:paragraph:1",
+      "page_start": 23,
+      "page_end": 23,
+      "text_original": "1 - Consideram-se rendimentos do trabalho dependente todas as remunerações pagas ou postas à\ndisposição do seu titular provenientes de:\na) Trabalho por conta de outrem prestado ao abrigo de contrato individual de trabalho ou de outro a ele\nlegalmente equiparado;\nb) Trabalho prestado ao abrigo de contrato de aquisição de serviços ou outro de idêntica natureza, sob a\nautoridade e a direção da pessoa ou entidade que ocupa a posição de sujeito ativo na relação jurídica\ndele resultante;\nc) Exercício de função, serviço ou cargo públicos;\nd) Situações de pré-reforma, pré-aposentação ou reserva, com ou sem prestação de trabalho, bem como\nde prestações atribuídas, não importa a que título, antes de verificados os requisitos exigidos nos regimes\nobrigatórios de segurança social aplicáveis para a passagem à situação de reforma, ou, mesmo que não\nsubsista o contrato de trabalho, se mostrem subordinadas à condição de serem devidas até que tais\nrequisitos se verifiquem, ainda que, em qualquer dos casos anteriormente previstos, sejam devidas por\nfundos de pensões ou outras entidades, que se substituam à entidade originariamente devedora.",
+      "table_ids": []
+    },
+    {
+      "legal_unit_id": "pt:cirs:code:article:68-A:paragraph:1",
+      "page_start": 82,
+      "page_end": 82,
+      "text_original": "1 - Sem prejuízo do disposto no artigo 68.º, ao quantitativo do rendimento coletável superior a € 80 000\nincidem as taxas adicionais de solidariedade constantes da tabela seguinte:\n[Table p82-image2-table]\nRendimento coletável (euros) | Taxa (percentagem)\nDe mais de 80 000 até 250 000 | 2,5\nSuperior a 250 000 | 5",
+      "table_ids": [
+        "p82-image2-table"
+      ]
+    },
+    {
+      "legal_unit_id": "pt:cirs:code:article:68:paragraph:1",
+      "page_start": 81,
+      "page_end": 82,
+      "text_original": "1 - As taxas do imposto são as constantes da tabela seguinte:\n[Table p81-table1]\nRendimento coletável (euros) | Taxas (percentagem) | \n | Normal (A) | Média (B)\nAté 8 342 | 12,50 | 12,500\nDe mais de 8 342 até 12 587 | 15,70 | 13,579\nDe mais de 12 587 até 17 838 | 21,20 | 15,823\nDe mais de 17 838 até 23 089 | 24,10 | 17,705\nDe mais de 23 089 até 29 397 | 31,10 | 20,579\nDe mais de 29 397 até 43 090 | 34,90 | 25,130\nDe mais de 43 090 até 46 566 | 43,10 | 26,472\n[Table p81-table1]\nRendimento coletável (euros) | Taxas (percentagem) | \n | Normal (A) | Média (B)\nDe mais de 46 566 até 86 634 | 44,60 | 34,856\nSuperior a 86 634 | 48,00 | –\n(Redação da Lei n.º 73-A/2025, de 30 de dezembro)",
+      "table_ids": [
+        "p81-table1"
+      ]
+    },
+    {
+      "legal_unit_id": "pt:cirs:code:article:8:paragraph:1",
+      "page_start": 32,
+      "page_end": 32,
+      "text_original": "1 - Consideram-se rendimentos prediais as rendas dos prédios rústicos, urbanos e mistos pagas ou\ncolocadas à disposição dos respetivos titulares, quando estes não optarem pela sua tributação no âmbito\nda categoria B.",
+      "table_ids": []
+    }
+  ]
+}
