@@ -353,6 +353,11 @@ def test_failure_requires_explicit_resume_with_same_uuid_and_language(ui):
     ui.app.run().button(key="new_conversation").click().run()
     ui.app.chat_input[0].set_value("Question").run()
     assert "private-secret" not in content(ui.app)
+    assert not ui.app.error
+    assert len(ui.app.warning) == 1
+    assert ui.app.warning[0].value == (
+        "Ответ не завершён. Продолжите с сохранённого состояния."
+    )
     assert ui.app.chat_input[0].disabled
     ui.app.run()
     assert len(ui.calls) == 1

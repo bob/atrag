@@ -21,10 +21,10 @@ def hit(index):
     )
 
 
-def response(ids, *, status="completed"):
+def response(scores, *, status="completed"):
     return SimpleNamespace(
         status=status,
-        output_text=json.dumps({"ids": ids}),
+        output_text=json.dumps(scores),
         usage=SimpleNamespace(input_tokens=20, output_tokens=5, total_tokens=25),
     )
 
@@ -35,7 +35,7 @@ def test_dense_and_semantic_ranks_are_combined_without_changing_evidence():
 
     def create(**request):
         calls.append(request)
-        return response([4, 1, 0, 2])
+        return response({"4": 100, "1": 90, "0": 80, "2": 80, "3": 0})
 
     usage = {}
     question = "Quem é residente?"
@@ -55,9 +55,17 @@ def test_dense_and_semantic_ranks_are_combined_without_changing_evidence():
     ]
     assert calls[0]["store"] is False
     assert calls[0]["text"]["format"]["strict"] is True
-    ids = calls[0]["text"]["format"]["schema"]["properties"]["ids"]
-    assert ids["minItems"] == ids["maxItems"] == 4
-    assert ids["items"]["maximum"] == 4
+    schema = calls[0]["text"]["format"]["schema"]
+    assert (
+        set(schema["required"])
+        == set(schema["properties"])
+        == {str(i) for i in range(5)}
+    )
+    assert schema["additionalProperties"] is False
+    assert all(
+        field["type"] == "integer" and field["minimum"] == 0 and field["maximum"] == 100
+        for field in schema["properties"].values()
+    )
     assert usage["reranking"] == {
         "requests": 1,
         "input_tokens": 20,
@@ -69,7 +77,9 @@ def test_dense_and_semantic_ranks_are_combined_without_changing_evidence():
 def test_agreement_preserves_dense_order():
     evidence = [hit(i) for i in range(5)]
     client = SimpleNamespace(
-        responses=SimpleNamespace(create=lambda **_: response([0, 1, 2, 3]))
+        responses=SimpleNamespace(
+            create=lambda **_: response({str(i): 100 for i in range(5)})
+        )
     )
     assert rerank_hits("Question?", evidence, 2, client=client, usage={}) == evidence
 
@@ -81,11 +91,23 @@ def test_no_request_when_all_evidence_fits_the_limit():
 
 
 @pytest.mark.parametrize(
-    "ids", [[0, 0], [0, 3], [-1, 0], [True, 0], [0], [], [0, 1, 2]]
+    "scores",
+    [
+        {"0": 100, "1": 50},
+        {"0": 100, "1": 50, "2": 0, "3": 0},
+        {"0": -1, "1": 50, "2": 0},
+        {"0": 101, "1": 50, "2": 0},
+        {"0": True, "1": 50, "2": 0},
+        {"0": "100", "1": 50, "2": 0},
+        {"0": 1.5, "1": 50, "2": 0},
+        {"0": None, "1": 50, "2": 0},
+        {"ids": [0, 0]},
+        {},
+    ],
 )
-def test_invalid_selections_are_operational_errors(ids):
+def test_invalid_scores_are_operational_errors(scores):
     client = SimpleNamespace(
-        responses=SimpleNamespace(create=lambda **_: response(ids))
+        responses=SimpleNamespace(create=lambda **_: response(scores))
     )
     with pytest.raises(RerankingRequestError):
         rerank_hits("Question?", [hit(i) for i in range(3)], 1, client=client, usage={})
@@ -94,7 +116,9 @@ def test_invalid_selections_are_operational_errors(ids):
 def test_incomplete_response_is_not_silently_replaced_by_cosine():
     client = SimpleNamespace(
         responses=SimpleNamespace(
-            create=lambda **_: response([0, 1], status="incomplete")
+            create=lambda **_: response(
+                {"0": 100, "1": 50, "2": 0}, status="incomplete"
+            )
         )
     )
     with pytest.raises(RerankingRequestError):
@@ -102,7 +126,7 @@ def test_incomplete_response_is_not_silently_replaced_by_cosine():
 
 
 def test_response_without_usage_is_an_operational_error():
-    result = response([0, 1])
+    result = response({"0": 100, "1": 50, "2": 0})
     result.usage = None
     client = SimpleNamespace(responses=SimpleNamespace(create=lambda **_: result))
     with pytest.raises(RerankingRequestError):

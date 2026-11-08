@@ -292,7 +292,9 @@ def chat(service, user: User, conversation_id: UUID) -> None:
     history = service.load_history(user, conversation_id)
     with st.container(key=f"messages_{conversation_id}"):
         resume = history_view(history, user.language)
-    if error := st.session_state.pop("turn_error", None):
+    error = st.session_state.pop("turn_error", None)
+    # Failed executions already have a persistent warning and Continue button.
+    if error and error != "execution_failed":
         st.error(tr(error, user.language))
     # Explicit placement keeps the input pinned without page-level autoscroll
     # when readers expand sources in the saved history.

@@ -26,7 +26,7 @@ def test_ui_factory_completes_semantic_search(chat, materials, engine, monkeypat
         requests.append(request)
         payload = json.loads(request.content)
         if request.url.path == "/v1/responses":
-            count = json.loads(payload["input"])["count"]
+            candidates = json.loads(payload["input"])["candidates"]
             return httpx.Response(
                 200,
                 json={
@@ -44,7 +44,9 @@ def test_ui_factory_completes_semantic_search(chat, materials, engine, monkeypat
                             "content": [
                                 {
                                     "type": "output_text",
-                                    "text": json.dumps({"ids": list(range(count))}),
+                                    "text": json.dumps(
+                                        {str(item["id"]): 100 for item in candidates}
+                                    ),
                                     "annotations": [],
                                 }
                             ],

@@ -259,7 +259,9 @@ def test_reranking_recovers_a_provision_beyond_the_old_candidate_window(
         order = preferred + [
             c["id"] for c in payload["candidates"] if c["id"] not in preferred
         ]
-        response.output_text = json.dumps({"ids": order[: payload["count"]]})
+        response.output_text = json.dumps(
+            {str(identity): 100 if identity in preferred else 0 for identity in order}
+        )
         return response
 
     rag.service.client.responses.create = select_evidence
@@ -293,7 +295,7 @@ def test_invalid_reranking_does_not_save_invented_evidence(engine, materials, se
 
     def invalid(**request):
         response = reranking_response(**request)
-        response.output_text = '{"ids": [999, 998]}'
+        response.output_text = '{"999": 100, "998": 50}'
         return response
 
     rag.service.client.responses.create = invalid

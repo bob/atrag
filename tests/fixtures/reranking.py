@@ -8,6 +8,8 @@ def reranking_response(**request):
     payload = json.loads(request["input"])
     return SimpleNamespace(
         status="completed",
-        output_text=json.dumps({"ids": list(range(payload["count"]))}),
+        output_text=json.dumps(
+            {str(item["id"]): 100 for item in payload["candidates"]}
+        ),
         usage=SimpleNamespace(input_tokens=20, output_tokens=5, total_tokens=25),
     )
