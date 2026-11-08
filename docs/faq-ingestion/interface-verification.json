@@ -1,0 +1,594 @@
+{
+  "status": "step6_complete_local",
+  "date": "2026-11-08",
+  "release_id": "46f8e0989a5cf9cb11cc5030fc342e0a7771adfe6219c9b4a9ba9744202abde2",
+  "members": {
+    "pt-at-cirs": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+    "pt-at-faq": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040"
+  },
+  "benchmark_sha256": "21c585f79053b66ba3aba1746ca84c056770efdcf1141983ef123fac1f7d8833",
+  "system_prompt_sha256": "0779bc2c9575fd6466d8c8539a45cfab699da07a5a4a66a5d0b8c023904b2d33",
+  "model": "gpt-6-luna",
+  "mixed_answers": {
+    "passed": 16,
+    "total": 16,
+    "language_and_attribution_manually_reviewed": true,
+    "initial_search": "frozen benchmark query through real RagTools; audited genuine Step 5 embeddings/ranks replayed; subsequent agent tools and final answers run normally"
+  },
+  "history_reopened": 16,
+  "app_test": {
+    "passed": 16,
+    "languages": [
+      "en",
+      "pt",
+      "ru",
+      "uk"
+    ],
+    "runtime_health": "ok",
+    "agent_api": "unavailable: Streamlit 1.66.1 rejects --server.enableAgentApi"
+  },
+  "links": {
+    "utc": "2026-11-08T02:19:52.002922+00:00",
+    "faq_links": 10,
+    "faq_pages": 5,
+    "records": [
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00266.aspx#heading01",
+        "faq_id": "3285",
+        "heading_verified": true,
+        "live_html_sha256": "cd01c035c1edb56b3c3db15b0752f3b301d973d28d18eea01445cebee0838f17"
+      },
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00267.aspx#heading01",
+        "faq_id": "5957",
+        "heading_verified": true,
+        "live_html_sha256": "63d5c8f9b9d1b409484e5c938c99d145ac04b8b8a6ff07df4af89248d830f3e8"
+      },
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00267.aspx#heading07",
+        "faq_id": "5941",
+        "heading_verified": true,
+        "live_html_sha256": "63d5c8f9b9d1b409484e5c938c99d145ac04b8b8a6ff07df4af89248d830f3e8"
+      },
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00267.aspx#heading18",
+        "faq_id": "5139",
+        "heading_verified": true,
+        "live_html_sha256": "63d5c8f9b9d1b409484e5c938c99d145ac04b8b8a6ff07df4af89248d830f3e8"
+      },
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00267.aspx#heading20",
+        "faq_id": "3286",
+        "heading_verified": true,
+        "live_html_sha256": "63d5c8f9b9d1b409484e5c938c99d145ac04b8b8a6ff07df4af89248d830f3e8"
+      },
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00343.aspx#heading05",
+        "faq_id": "3831",
+        "heading_verified": true,
+        "live_html_sha256": "55415cb3754d128641db34a3be679a5ff97b4b30678c21df586fd47b21149168"
+      },
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00343.aspx#heading07",
+        "faq_id": "3827",
+        "heading_verified": true,
+        "live_html_sha256": "55415cb3754d128641db34a3be679a5ff97b4b30678c21df586fd47b21149168"
+      },
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00343.aspx#heading15",
+        "faq_id": "3802",
+        "heading_verified": true,
+        "live_html_sha256": "55415cb3754d128641db34a3be679a5ff97b4b30678c21df586fd47b21149168"
+      },
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00344.aspx#heading11",
+        "faq_id": "5801",
+        "heading_verified": true,
+        "live_html_sha256": "65310c7bc694bc41294d29af9396138b141f1e3769d3e920fb00e30f9cf78777"
+      },
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00355.aspx#heading01",
+        "faq_id": "5928",
+        "heading_verified": true,
+        "live_html_sha256": "07ee6fc32341e27cf5279b86148ad83ebf8c7d2235158adf74f454bd1eab9de0"
+      }
+    ],
+    "cirs_saved_sha256": "e8671caafbcda885e5c87d451d8d2ef121b36bc7ab63eb2eb1ab474970b15a72",
+    "cirs_remote_sha256": "eb69f3fee3f088a943b37cb6f428e2a75b39b0de590e05c352aad390e1249a33",
+    "cirs_url_status": "candidate",
+    "browser": {
+      "faq": "Native Chrome: heading20 visibly lands on FAQ 3286; answer expands on click",
+      "pdf": "Native Chrome: official PDF opens at physical page 48 / 139",
+      "ui": "Native Chrome: both native links, labels and saved versions visible in the app; final 16 answers checked via AppTest. Safari final preview stayed blank."
+    }
+  },
+  "tests": {
+    "passed": 1134,
+    "warnings": 14,
+    "ruff_check": true,
+    "ruff_format_check": true,
+    "ty": true,
+    "python313_syntax_files": 17,
+    "runtime_requirement": "3.14",
+    "ruff_target": "py313"
+  },
+  "quality": {
+    "changed_function_coverage_percent": 100,
+    "max_crap": 9.0,
+    "duplicates_at_or_above_0_8": 0,
+    "mutation_scope": "changed functions and directly used core citation validation/registration",
+    "mutation_sites": 29,
+    "killed": 29,
+    "survived": 0,
+    "uncovered": 0,
+    "coverage_line_handling": "--no-coverage for mutation execution: coverage.py omits physical lines inside covered multiline SQL and f-strings"
+  },
+  "api_usage": {
+    "accepted_chat": {
+      "api_responses": 32,
+      "input_tokens": 242850,
+      "output_tokens": 9993,
+      "total_tokens": 252843
+    },
+    "all_chat_attempts": {
+      "api_responses": 130,
+      "input_tokens": 910332,
+      "output_tokens": 36717,
+      "total_tokens": 947049
+    },
+    "note": "Chat Responses receipts only; additional real embedding/reranking receipts are listed separately. No monetary estimate; prior retrieval replays are not new API calls.",
+    "additional_retrieval": {
+      "embedding": {
+        "api_responses": 46,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "prompt_tokens": 1629,
+        "total_tokens": 1629
+      },
+      "rerank": {
+        "api_responses": 23,
+        "input_tokens": 229121,
+        "output_tokens": 4506,
+        "prompt_tokens": 0,
+        "total_tokens": 233627
+      }
+    }
+  },
+  "additional_retrieval_api_files": [
+    {
+      "path": "data/faq-step6-live/accepted/mixed-employment-pt/64ff10f83356450fbbfe54ebcf0b43d6/embedding-2266ed6095d5464385566316f4640a60.json",
+      "sha256": "02560e5e3d74ed2a542fc3b8ea52adfb465dcd60a8b71b959ff995de0c05aa5f"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-partial-residency-en/93757c4441ea4032aed2e6a9dcc84815/embedding-f2567c977c834280b7e3aabe2dccb460.json",
+      "sha256": "a76c24050cf36c283899a9e699c0deb1a22e73a9475bd522b57028f479f3faa3"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-partial-residency-pt/e7184516a3c64a5c85c65c8f54f71a23/embedding-79117c269c4b4b67bd3e1a4121126e86.json",
+      "sha256": "87e25a56a5f2eec8b5a9d4152365649de8b080799d00cb97eedd02af67e24575"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-partial-residency-pt/e7184516a3c64a5c85c65c8f54f71a23/embedding-e4bfdc56f6db4e6592cb608d96bd5106.json",
+      "sha256": "930919b807ea7d7f19bd72ec40f3dd80df5d8611d84590065563a663b7e5e1ca"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-partial-residency-pt/e7184516a3c64a5c85c65c8f54f71a23/rerank-0f548751fd95bace8e5c7d66f6be758d86be2a119602937f716de9c91622e6af.json",
+      "sha256": "14db8b877410e5587d13324a846da4ce993042182507e20653ea4d4a68890b6e"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-partial-residency-ru/fffe3a0359b64428b942271df5d0bb3d/embedding-9768ad0b0c264590b259377dfd3b9bdb.json",
+      "sha256": "12a837536263cebda1ee56aeeccbe1712dcd24813ae525e8e17cf345b2fa4f3a"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-partial-residency-ru/fffe3a0359b64428b942271df5d0bb3d/embedding-a2630ec209bf4ae88ed78b85ba0516d6.json",
+      "sha256": "7332dbf14ac11eb543de2f18b63481043202328f57f0abbcaddf3bc1fa9cf067"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-partial-residency-ru/fffe3a0359b64428b942271df5d0bb3d/embedding-a2f326f604884c04adff561b1ec60423.json",
+      "sha256": "6a41d77c5432300f1b5dfb6ec2ddcaba394537223b3eef0c51ffd442ba245e2e"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-partial-residency-ru/fffe3a0359b64428b942271df5d0bb3d/rerank-215018d255d4967da55dec122d3a75e4094e8face7ee8d1035ec8232f441e8a9.json",
+      "sha256": "71bec110ca9872534b631b077ec378982c6aa6a1edb2b89564add85b59cc7957"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-partial-residency-uk/704e0912e2fc4621802b6e72c860b9a6/embedding-c597262fca08446baa2d9f2e02ac209d.json",
+      "sha256": "3fd4488eefd1b330cc144a59f37eac63852113f00c77d1aae8edef7a3942d92b"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-partial-residency-uk/704e0912e2fc4621802b6e72c860b9a6/rerank-9a62b1dda8f1f9dc65d12df7f83d704389d7ff7beec21197a9b81743ab1c7679.json",
+      "sha256": "495279650ed34a89e0a8e29e8d49b04e0f56d4566595d44d826387ec48d05aae"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-residency-article-mention-en/92e3f777f8ab4e1ba2f991fe037c10a9/embedding-ec9f814b29fb403893e3274e5cdfc74e.json",
+      "sha256": "e057462bc480e94221b91e4d89657eb5c40ead2a48c9cd97759439628e7a7d0b"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-residency-article-mention-en/92e3f777f8ab4e1ba2f991fe037c10a9/rerank-afb681c582d6e42a167f52051a4b3812554e8da4e3f9125b7e21692c7058beeb.json",
+      "sha256": "6fb73ec9ff178446d4db220aa680c4b250145f7e0a3f5055aa519230ff848bd8"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-residency-article-mention-pt/7ae5a7e8c7e1412da0157782e2f07f3e/embedding-823fea6f1ac94ec68e5d16b3697fd663.json",
+      "sha256": "14dee8cd1e10b490f246af46ce916ab569b024316b1819a16a07c986e85625d6"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-residency-article-mention-pt/7ae5a7e8c7e1412da0157782e2f07f3e/rerank-fa4dd089c06df44a3d0b064b380982b7522766b2f6ca8ef76f53bb9fb1b9f616.json",
+      "sha256": "096ba98dc541757179dd47d8fe13d211d220a5c3225996f3cc71fc7df00f3b3a"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-residency-article-mention-ru/6462f9e16032457c919d36b0a05e2fa3/embedding-9d35280c58924b458c1b6a774e5ea2f6.json",
+      "sha256": "630050abf1cf31085cfdcecd176e37c9bcdd41a929952fb89d3b05a2fe5cd591"
+    },
+    {
+      "path": "data/faq-step6-live/accepted/mixed-residency-article-mention-ru/6462f9e16032457c919d36b0a05e2fa3/rerank-23e43fcf54d4c5013a5971590b76efb2e8bfcc6fa9a46faa7282d36db4793f3c.json",
+      "sha256": "28da09195b4289e3e5c0e3e6d33b0a4aaad9df140c2e81be4c2184e684f2782d"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-employment-uk/embedding-61a9d57898a7444c9f3f9d735f34925d.json",
+      "sha256": "ec420de411d54710dd4496ed0d4116f36d3aa0d1e83543bf9ee30b30a081b834"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-household-en/embedding-ab78eb5c47984f32a560ad4830dbb8ae.json",
+      "sha256": "256ba202f3ab1f8702f4a9faf072bb0f86a65bcad4dc2c7c33a0eb3281ff25c2"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-household-pt/embedding-1f95b6b0dcad48a3b4c33f4b8671a306.json",
+      "sha256": "02afaac4ee468135b84cc113d2fb681dbf136141f4e01783cc62f1f7bd6f783b"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-household-pt/rerank-a33447825e76141ac206eee62f1fca9a57fcbf5a326e53ebe85dc9ae1ecdae46.json",
+      "sha256": "52590c2ce03607d5a423ac89d312fb1bbc4dcd575e0cbcb034db0ba8b326f8f9"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-partial-residency-en/embedding-1ed597d6baa647a88e2bbe27b1ff74ec.json",
+      "sha256": "e475f6c545051f6bccb294a054f08f3eaedc310f576e8f329cd7ad65531b7a14"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-partial-residency-en/embedding-446de5dfd06b4ccbb888634b42757a66.json",
+      "sha256": "77dba133dab8b3ac4054f7e4a3e6b380af8cf7a8c71a9f8d81f00da2083c6ea0"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-partial-residency-en/rerank-3724460d4e733d84f498fd873f8c39b55e43f21934ab3f56cad175d80039361c.json",
+      "sha256": "5586cb5c9b4869b24017915614f90c20cccce2ea667b619feee70182d711fe08"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-partial-residency-pt/embedding-d6458f5b08494cf89638dc989192d12e.json",
+      "sha256": "fad1e18016a4668e70f147a807a61da94b51cbc6680d7533819557f02b2373b1"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-partial-residency-ru/embedding-a3968c5cec594ec3aa64b2915793bc65.json",
+      "sha256": "d5f69322ed073f051fd80b2351a1b9412fea814de415f729b628da75167e9d26"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-partial-residency-uk/embedding-3d331fe3dbf34e0b86f05d26ec98b948.json",
+      "sha256": "35ff89a3ace62faffbc23cc82fdafc82bc847cce183f2894e63af9c10c98b9ad"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-partial-residency-uk/embedding-fc690e95f8b9463cae811780c7519cb0.json",
+      "sha256": "4ff9459d9aced1eeced54979fc782156d129f30bb1a710670ff65d59bc951e01"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-partial-residency-uk/rerank-97974454ce841e46e645281627f4415df2f816a8d9552b63a526c127f4221c32.json",
+      "sha256": "ed74826e4998fe76fc2d84b720c9ec7d411d5ee4c48d1202c361de4d6eea30d5"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-residency-article-mention-en/embedding-56780dc1975a4234a1d48c1bffa5fd9b.json",
+      "sha256": "ad82023b5c544d652279bc064eb5b4e3bd8d5fa7ef94bed11685ed1b5d252690"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-residency-article-mention-en/rerank-c5662262417a423d2b61a80598fdb6df91e03bf651b6bc972760b8a1ee62000c.json",
+      "sha256": "7e09c27fa5ff8a3a0bf920d160f3d9234f1a9ed3ccf00c00d1d1b921a5caf968"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-residency-article-mention-pt/embedding-613120c1a8374eab957cac190520dbf7.json",
+      "sha256": "9238a47b777a956b018a508ac6e58996d2b605a0f211520720c6080d7e8c81eb"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-residency-article-mention-pt/rerank-5dc68ad54042e3f20a36d0a3bc023bcca3899d640eae15a068f15ab08b6cda17.json",
+      "sha256": "c098d36b19993d5392b7f93f46e758646f05d4cc9ea17472810becc9b36b8b5c"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-residency-article-mention-ru/embedding-7dffaa64c4e245a5beca1611d874f114.json",
+      "sha256": "9a0e57471ef2c44320c415c8df53b19f1ef0e720087e7b9c32c3e35e391e838f"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-residency-article-mention-ru/rerank-67fb60d57bc4fc33e8d162de28639e810f9a67642f6af82da0443f50ec6f3ced.json",
+      "sha256": "4082096bd046ff3e0e558a1520045cd61434b10e7cce10e2bb587072deade566"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-residency-article-mention-uk/embedding-ac86ddeae9d84c199cd3182cb4671e5c.json",
+      "sha256": "a6be857389fbf673a8e89179bf819fdd3e443e8a6291c0620ba6ec06980c6918"
+    },
+    {
+      "path": "data/faq-step6-live/final/mixed-residency-article-mention-uk/rerank-df80cc1c767a9b0121f6f66d65eacb9255bd2de19ce1464820027cf8214aae09.json",
+      "sha256": "c68d2475303e867b71fec1a6cbb5cfb638401f4e69fcc993dda62bbd61d26c50"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-household-pt/embedding-4ec6af4d46ba4aebbd489aa9788bc182.json",
+      "sha256": "af3be7619afe9116f7152298f9a82cf560f5ea526ea05b1dd747b03803353cbd"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-en/embedding-ec250745414845ef93e3f8ea313d7594.json",
+      "sha256": "8fdd8ca8e1e9a9f626ddbfba7b4ba9ad14f0daae4ee6bfd7b2807b0938e9a81d"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-pt/embedding-0d33e92b423e49db96355891ac1c5125.json",
+      "sha256": "1e68cd08422c30588483428eaee197297956a4299d6fc720032884fba75d0543"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-ru/45bcd955f8b84419a452fc3761a767ab/embedding-7dc54e5a848e42e7b75bdce189e7baaa.json",
+      "sha256": "6a10ca92204de7ec4f5aa54e5a8b70930db274f6f3323c4c658823dbb32b782f"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-ru/45bcd955f8b84419a452fc3761a767ab/embedding-bb31bffd76a54add9e1910d921e0f54b.json",
+      "sha256": "b053e23cd0b8a7b8ceb4c353229094bec6d93b07baeddea2770569e0cb7b4a5b"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-ru/45bcd955f8b84419a452fc3761a767ab/rerank-522d05fd76ca881d507516d3fd446b6ba50ee3cee81d51bd541fece9249e4c63.json",
+      "sha256": "921f991d0e8fcb5c091d17714968f1ec8e897a5f76f640009e595c7582e81b8a"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-ru/6bc1087a96ef45ab91a933281f044ab1/embedding-3f30adda14fe4406b437507f0b36214e.json",
+      "sha256": "ab97abce8912ea4d3f7ad8df7364040067c678e6c63c1036bc01a0282266b75e"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-ru/embedding-3bf82c2a6a9f468e98ab557075d7f342.json",
+      "sha256": "397cbb185b449532992fa34492d16fd3fc5c512c810078400564d8c94f9484f2"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-ru/embedding-ca59a86dd0d44fb585ce87b94d063ecc.json",
+      "sha256": "f1e1249a095ed2bf72eb8226c83a3c9b955a2866838ac02cabb304ecc1e65f8f"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-ru/rerank-39fb7ba14938626eb06914336f605c55bb66d28f403ba7783f3d2bf06a8e15d7.json",
+      "sha256": "570a3d3ccf195ab2903c03db6c8eb093013f4891cffac488289a3cd4a4009a82"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-uk/embedding-23bad6fff4cb40b3bb45b15c64ae3c36.json",
+      "sha256": "ed0a9e0fcb76c4edabd02a3c6c372d7b60758b2fe4db0ad79660d07ecab4fdb4"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-uk/embedding-9de61e01af794ff2b3cef6ceb42b6142.json",
+      "sha256": "eeee3a95430656bdf36396465eb7dbd602039e292d993a127a222d597d1b7e6a"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-uk/embedding-cedfdb897cc849059312e656f6810768.json",
+      "sha256": "3faa2942d8335c2ce1d154f3d68b2a5349cd119dd5966ee04ed1b3a351e3af95"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-uk/rerank-b64ba04f86ed5ff0895c6ec239de38b1c3d44c85ae77062735f4d65130404418.json",
+      "sha256": "ae850c4d6a7b89b866f6a82d8d8a78a14ad877320fbfac3a6f74e5a68e31f8cb"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-partial-residency-uk/rerank-e047ba9c6b0e6219a4366f604cb868763c021d5e982675900d9c6bfbdd8f47a7.json",
+      "sha256": "beea84fa010eec2ea91614e4de47ff6ac6d4489aeda9cfd0b897b1ec1f8f15d3"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-residency-article-mention-en/embedding-775a5a1551eb40d2b3abfaf6f6ff4739.json",
+      "sha256": "2c348e27bc36a81e46c9ac9ff162c25ba83e912f48fd98cdfdaec170552a9111"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-residency-article-mention-en/rerank-ff9c7bb32076cb131d75ecaccefc5e5d4bd1d7ec4f92ec0c49ad4128c003b069.json",
+      "sha256": "6088aa5cc8020e1451b6d4f4d96e8f4b7eb4ecabb0ccc17364285ce2a9648c6e"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-residency-article-mention-ru/embedding-f0cfc974b6744b898970f39ad5cbcda0.json",
+      "sha256": "99758f1de93e00ef4c7f5144b238485141fbb38b6e145160101bddbe7542ceb8"
+    },
+    {
+      "path": "data/faq-step6-live/keyed/mixed-residency-article-mention-ru/rerank-2ec496b72e392c5cf1aebf403ffc8facb5764c444f7a3c77ad57ac747323b6d9.json",
+      "sha256": "df6e4c4870abdc55545a098fc51f8a6fb366511e3c65b2db0948a5bc099cecdc"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-employment-en/embedding-75d1338b1fed4861b4f6a2599d039537.json",
+      "sha256": "63e8b6ff0be1b86aa7f87cc20f207a93baca64489fb1633edb34e367712b8766"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-household-pt/embedding-1be467fd6b4444a3a35c9ac036b44ae1.json",
+      "sha256": "3bf43817a6b928bc99b4b686b6f7281964b619ac61d7f0d6a718ce333c803a91"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-household-pt/rerank-6bc9cc8175c278e3b49b6981499b3e41668c9ebe921c63ea9c71e4523b5f8c2c.json",
+      "sha256": "680d028259d775bbdd9979921eb05739369d36bfdc04a8daa559ed8ca485cb02"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-partial-residency-en/embedding-b84a87ccf8d24554bab293616fa23367.json",
+      "sha256": "711405d41d3de12775690d6e1c8ff4f3d69666a596cb5cdcad1fa4a8c276d53c"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-partial-residency-pt/embedding-22e2f1c93bc14525961c85d1bf4eae82.json",
+      "sha256": "8fa5c5b1beda5fe3c155330a9461bf2db1e57dc8b14c3934d23e696158965ddd"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-partial-residency-pt/embedding-3fe1a6c2f400472a8e69081c07b557c8.json",
+      "sha256": "bafc45e0778ad8d4fc9c3f7ccdcb69aae47cbd68929683b668116b5e6e8a2b8d"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-partial-residency-pt/rerank-9c64004641c0ce289a813c6a1c2df382b1e4f5f75766834afae5af60c14e25e8.json",
+      "sha256": "22d93d33209c078dab65d2604e0cd161671473a67643ff67f36a390d556b17e9"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-partial-residency-ru/embedding-044454b4abdc4bb4bfcc12df149a6bbc.json",
+      "sha256": "dab54414144380c92ce09760c79bbc95bfec3c804a999d908fed38a16754e1c3"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-partial-residency-ru/embedding-dccbda861f644e34adcc59405512b127.json",
+      "sha256": "e3c57ca12f707997789ccc1bd58625fc7202ec61e39b7454aa2480c7150538f5"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-partial-residency-ru/rerank-d5a222aa4620e03d433690697eb0216be0569815300f002970e491a674d351a5.json",
+      "sha256": "73bde4bf3933211ba80f673a46afd0f2570645d5fcadda4fa3d8ae42de8d3968"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-partial-residency-uk/embedding-021d450696a844d195667a0124741fa1.json",
+      "sha256": "d686c52e47a34892b4e0307e0df57293741358a5f31a7a85588d60498fc970b0"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-partial-residency-uk/embedding-501e392acc6843698a67df1a28b995ce.json",
+      "sha256": "684763dc67e7d8b2519bcd8d0bb06d606676d75632ba8bff77ff908f525cf14e"
+    },
+    {
+      "path": "data/faq-step6-live/mixed-partial-residency-uk/rerank-e21e7b570abc32b2b48d24732fe9aa1a0ac259bb800f218521decc3f6dd3f4a6.json",
+      "sha256": "42c2005ee61c5bc9b7460c381fe4a9f2ff98cc26ef475d3bf61eaf4df3116362"
+    }
+  ],
+  "rejected_attempts": [
+    "Numeric citations were reassigned to the wrong source in two prompt-only runs. Server-owned descriptive evidence keys replace that design.",
+    "One keyed Ukrainian household answer was in Polish. Explicit language names replace short codes.",
+    "Two additional searches in the pre-final keyed Russian partial-residency run returned duplicate reranker IDs and were rejected. The final accepted run passes without changing reranker validation."
+  ],
+  "scope": "local implementation and local acceptance; production unchanged; current branch faq-ingestion-plan; prior master/push restriction retained",
+  "records": [
+    {
+      "case_id": "mixed-employment",
+      "language": "en",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 9.537235541967675,
+      "conversation_id": "b929d07b-0b8f-472e-b9c5-6d79736303c9",
+      "turn_id": "0d807b12-ce64-4bdd-9448-98def0004108"
+    },
+    {
+      "case_id": "mixed-employment",
+      "language": "pt",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 9.585578416939825,
+      "conversation_id": "4dfa9cea-cec6-401c-9d02-5ca9563e40ed",
+      "turn_id": "6c49f598-dd7b-49a1-a7fe-948847f1c1af"
+    },
+    {
+      "case_id": "mixed-employment",
+      "language": "ru",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 7.853056458057836,
+      "conversation_id": "7e8d207d-bf9b-48cc-a3e0-f6def52ff17c",
+      "turn_id": "057629f9-67dd-486a-9fd1-b6997db76cc9"
+    },
+    {
+      "case_id": "mixed-employment",
+      "language": "uk",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 8.987953540985473,
+      "conversation_id": "8b19f50e-04de-4de5-ac88-5ab38dca2b64",
+      "turn_id": "d1c270a9-5bee-41b7-bbd3-38299a49e29e"
+    },
+    {
+      "case_id": "mixed-household",
+      "language": "en",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 3.45454599999357,
+      "conversation_id": "d559b929-0ebc-4526-8145-390b53328790",
+      "turn_id": "aaead830-d40a-42fd-947a-27369765b422"
+    },
+    {
+      "case_id": "mixed-household",
+      "language": "pt",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 3.6543204589979723,
+      "conversation_id": "3510ca04-d945-45c2-b339-2d50cf51e003",
+      "turn_id": "108ea76e-b830-4f27-9240-b0cc90505cfa"
+    },
+    {
+      "case_id": "mixed-household",
+      "language": "ru",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 4.399555041920394,
+      "conversation_id": "42fef847-06a4-459d-ba5f-5a222a785fca",
+      "turn_id": "a90e260e-fe68-4c85-ac05-1380ad8217f7"
+    },
+    {
+      "case_id": "mixed-household",
+      "language": "uk",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 4.748712291009724,
+      "conversation_id": "43fb90ed-384b-4338-8250-31ee74d5f49e",
+      "turn_id": "184ea76d-5d54-4e21-85d2-ae2552809cee"
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "language": "en",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 6.845927124959417,
+      "conversation_id": "2723f390-6e91-4bf1-a175-94933a38424b",
+      "turn_id": "8fc54281-30da-4842-8ec0-9bedfcaf1814"
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "language": "pt",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 16.756509458995424,
+      "conversation_id": "21847525-738a-4401-888a-525408b59f91",
+      "turn_id": "50b0d7f5-d3c5-4ef5-a169-8fc4ae664e3a"
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "language": "ru",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 20.549803083995357,
+      "conversation_id": "5acecd0c-0664-45c0-89cd-65a9ec635cca",
+      "turn_id": "5386c8ac-8c3d-483d-8f27-062a8fb124b9"
+    },
+    {
+      "case_id": "mixed-partial-residency",
+      "language": "uk",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 14.598417290952057,
+      "conversation_id": "7a3bc0e8-1603-4222-b141-d7ff115e86c3",
+      "turn_id": "4e053948-158c-49fb-8536-633987597ffa"
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "language": "en",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 17.129620000021532,
+      "conversation_id": "ffe5ef91-2246-4240-805a-19042ceac6c5",
+      "turn_id": "81bcbe31-14a1-4a39-9b96-f9c5f493604b"
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "language": "pt",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 17.550572625012137,
+      "conversation_id": "64f9104e-472d-4d27-b821-b61feab3d709",
+      "turn_id": "3e56296c-9441-47af-974e-0b49e1b62b3c"
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "language": "ru",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 14.313977292040363,
+      "conversation_id": "6672d5cb-172d-4268-a833-459ab49250e5",
+      "turn_id": "10bee99f-e4d1-4887-9dc0-e7e3cd74ced8"
+    },
+    {
+      "case_id": "mixed-residency-article-mention",
+      "language": "uk",
+      "both_cited": true,
+      "history_preserved": true,
+      "seconds": 7.242102792020887,
+      "conversation_id": "13e0d1be-5863-4f58-969b-70c9b0164d8d",
+      "turn_id": "5f2fc77e-fcb1-4209-907f-36c4138ab8ec"
+    }
+  ],
+  "local_proof_scripts": {
+    "data/faq-step6-live/faq-step6-live.py": "8ef98fffd02a392223a73115c6b614a68ad776701becd0ddf1ae9d99abf737b8",
+    "data/faq-step6-live/faq-step6-ui-smoke.py": "f23d3536869981ffefd698b183d6e3c8a187d590c55ebf1d633487b0c57d1651",
+    "data/faq-step6-live/faq-step6-ui-check.py": "371daf7aa419c8d4d21b30ddcc8a2b36f963e79cd476a314f1a103561ae865a3",
+    "data/faq-step6-live/faq-step6-links-check.py": "b31c78408140411391dcc2f112bc83ecf3f101eae4034d4b01ccbc109f483cb1"
+  },
+  "code_commit": "c3bd2c0"
+}
