@@ -1,11 +1,13 @@
 """Publication selects complete immutable materials; turns keep their own release."""
 
 from concurrent.futures import ThreadPoolExecutor
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
-from sqlalchemy import insert, select, text
+from sqlalchemy import insert, select, text, update
 from sqlalchemy.exc import IntegrityError
+from streamlit.testing.v1 import AppTest
 
 from atrag.corpus import publish_corpus, resolve_corpus, resolve_turn_corpus, start_turn
 from atrag.db_models import ChatConversationRow, ChatUserRow, SnapshotRow
@@ -27,6 +29,70 @@ def material(prepared_document, tmp_path, engine):
     package = build_package(parsed, chunked, embedded, data, tmp_path / "package")
     indexed = index_package(package, engine, tmp_path / "server")
     return package, indexed.snapshot_id, load_package(package).snapshot.source.source_id
+
+
+@pytest.mark.parametrize(
+    "language,label",
+    [
+        ("pt", "Data de ingestão"),
+        ("en", "Ingestion date"),
+        ("uk", "Дата завантаження"),
+        ("ru", "Дата загрузки"),
+    ],
+)
+def test_published_documents_show_ingestion_dates(
+    engine, material, prepared_document, tmp_path, monkeypatch, language, label
+):
+    from fixtures.prepared import prepare_document, prepare_revision
+
+    from atrag.interface import resources
+
+    monkeypatch.setattr(resources, "get_engine", lambda: engine)
+    app = AppTest.from_string(
+        f"from atrag.interface.views import corpus_view\ncorpus_view({language!r})"
+    ).run()
+    assert not app.exception
+    assert len(app.info) == 1
+    assert not app.caption
+    _, first, source = material
+    second_prepared = prepare_document(tmp_path / "second", source_id="second")
+    second_package = build_package(
+        *second_prepared[1:], second_prepared[0], tmp_path / "second-package"
+    )
+    second = index_package(second_package, engine, tmp_path / "server2").snapshot_id
+    newer_package = prepare_revision(prepared_document, tmp_path / "revision")
+    newer = index_package(newer_package, engine, tmp_path / "server").snapshot_id
+    with engine.begin() as connection:
+        for snapshot, day in ((first, 1), (second, 2), (newer, 3)):
+            connection.execute(
+                update(SnapshotRow)
+                .where(SnapshotRow.snapshot_id == snapshot)
+                .values(ingested_at=datetime(2026, 11, day, 12, 30, tzinfo=UTC))
+            )
+    release = publish_corpus(engine, {"second": second, source: first})
+    app.run()
+    assert not app.exception
+    assert [item.value for item in app.text] == [source, "second"]
+    assert [item.value for item in app.caption] == [
+        f"{label}: 2026-11-01 12:30 UTC",
+        f"{label}: 2026-11-02 12:30 UTC",
+    ]
+    assert not app.info
+    shown = "\n".join(item.value for item in (*app.text, *app.caption))
+    assert all(
+        value not in shown for value in (release.release_id, first, second, newer)
+    )
+    publish_corpus(engine, {source: newer, "second": None})
+    app.run()
+    assert not app.exception
+    assert [item.value for item in app.text] == [source]
+    assert [item.value for item in app.caption] == [f"{label}: 2026-11-03 12:30 UTC"]
+    publish_corpus(engine, {source: None})
+    app.run()
+    assert not app.exception
+    assert len(app.info) == 1
+    assert not app.text
+    assert not app.caption
 
 
 def test_empty_corpus_is_explicit_and_turn_is_pinned(engine):

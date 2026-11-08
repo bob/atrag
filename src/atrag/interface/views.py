@@ -2,6 +2,7 @@
 
 from collections.abc import Callable, Generator
 from contextlib import closing
+from datetime import UTC
 from uuid import UUID, uuid4
 
 import streamlit as st
@@ -145,13 +146,15 @@ def select_conversation() -> None:
 
 
 def corpus_view(language: SupportedLanguage) -> None:
-    composition = resources.get_composition()
+    documents = resources.get_published_documents()
     with st.expander(tr("corpus", language)):
-        st.caption(f"{tr('release', language)}: {composition.release_id}")
-        for source, version in composition.members:
-            st.text(source)
-            st.caption(f"{tr('version', language)}: {version}")
-        if not composition.members:
+        for document in documents:
+            st.text(document.source_id)
+            ingested_at = document.ingested_at.astimezone(UTC)
+            st.caption(
+                f"{tr('ingested_at', language)}: {ingested_at:%Y-%m-%d %H:%M} UTC"
+            )
+        if not documents:
             st.info(tr("empty_corpus", language))
 
 

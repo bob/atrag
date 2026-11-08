@@ -1,13 +1,17 @@
 """Cache shared infrastructure only, never identities, history or agent state."""
 
+from dataclasses import dataclass
+from datetime import datetime
+
 import streamlit as st
+from sqlalchemy import select
 
 from atrag.chat.api.execution import LangGraphBackend
 from atrag.chat.client.model import create_chat_model
 from atrag.chat.services.chat import ChatService
 from atrag.chat.services.turns import TurnService
-from atrag.corpus import CorpusComposition, resolve_corpus
 from atrag.db import create_db_engine
+from atrag.db_models import CorpusMemberRow, CorpusStateRow, SnapshotRow
 from atrag.ingestion.client.openai import create_openai_client
 from atrag.settings import load_settings
 
@@ -39,6 +43,18 @@ def get_turn_service() -> TurnService:
     )
 
 
-def get_composition() -> CorpusComposition:
+@dataclass(frozen=True)
+class PublishedDocument:
+    source_id: str
+    ingested_at: datetime
+
+
+def get_published_documents() -> tuple[PublishedDocument, ...]:
+    query = (
+        select(SnapshotRow.source_id, SnapshotRow.ingested_at)
+        .join(CorpusMemberRow, CorpusMemberRow.snapshot_id == SnapshotRow.snapshot_id)
+        .join(CorpusStateRow, CorpusStateRow.release_id == CorpusMemberRow.release_id)
+        .order_by(SnapshotRow.source_id)
+    )
     with get_engine().connect() as connection:
-        return resolve_corpus(connection)
+        return tuple(PublishedDocument(*row) for row in connection.execute(query))

@@ -51,13 +51,12 @@ LABELS = {
         "Опубліковані документи",
         "Опубликованные документы",
     ),
-    "release": (
-        "Versão do corpus",
-        "Corpus release",
-        "Склад корпусу",
-        "Состав корпуса",
+    "ingested_at": (
+        "Data de ingestão",
+        "Ingestion date",
+        "Дата завантаження",
+        "Дата загрузки",
     ),
-    "version": ("Versão", "Version", "Версія", "Версия"),
     "empty_corpus": (
         "Ainda não há documentos publicados.",
         "No documents have been published yet.",

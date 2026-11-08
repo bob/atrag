@@ -1,7 +1,7 @@
 """Drive the real entrypoint with detached service values and no network."""
 
 from dataclasses import replace
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta, timezone
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock
@@ -11,7 +11,7 @@ import pytest
 from streamlit.testing.v1 import AppTest
 
 from atrag.chat.core.identity import parse_google_identity
-from atrag.corpus import CorpusComposition
+from atrag.interface.resources import PublishedDocument
 from atrag.schemas.chat.conversations import Conversation, Turn, User
 from atrag.schemas.chat.execution import (
     TextDelta,
@@ -133,10 +133,8 @@ def ui(monkeypatch):
     monkeypatch.setattr(
         resources, "get_turn_service", lambda: SimpleNamespace(stream_turn=stream)
     )
-    composition = Mock(
-        return_value=CorpusComposition("release", (("cirs", "current-version"),))
-    )
-    monkeypatch.setattr(resources, "get_composition", composition)
+    documents = Mock(return_value=(PublishedDocument("cirs", NOW),))
+    monkeypatch.setattr(resources, "get_published_documents", documents)
     app = AppTest.from_file(str(APP), default_timeout=10)
 
     class Claims(dict):
@@ -154,7 +152,7 @@ def ui(monkeypatch):
         chat=chat,
         calls=calls,
         outcome=outcome,
-        composition=composition,
+        documents=documents,
     )
 
 
@@ -176,7 +174,7 @@ def test_login_uses_google_and_does_not_read_corpus(ui, monkeypatch):
     ui.app.button(key="login").click().run()
     login.assert_called_once_with("google")
     assert not ui.app.chat_input
-    ui.composition.assert_not_called()
+    ui.documents.assert_not_called()
 
 
 def test_first_page_load_defaults_to_english(ui):
@@ -205,7 +203,7 @@ def test_denied_identity_cannot_open_chat(ui, claims, allowed):
     ui.app.run()
     assert "Access denied" in content(ui.app)
     assert not ui.app.chat_input
-    ui.composition.assert_not_called()
+    ui.documents.assert_not_called()
 
 
 def test_allowlist_can_be_disabled_and_reenabled_on_rerun(ui):
@@ -228,7 +226,7 @@ def test_disabled_allowlist_still_requires_google_login(ui):
     assert not ui.app.exception
     assert ui.app.button(key="login")
     assert not ui.app.chat_input
-    ui.composition.assert_not_called()
+    ui.documents.assert_not_called()
 
 
 @pytest.mark.parametrize(
@@ -241,7 +239,7 @@ def test_disabled_allowlist_still_rejects_invalid_identity(ui, claims):
     ui.app.run()
     assert "Access denied" in content(ui.app)
     assert not ui.app.chat_input
-    ui.composition.assert_not_called()
+    ui.documents.assert_not_called()
 
 
 @pytest.mark.parametrize("check_allowed_emails", [None, "false", 0])
@@ -254,7 +252,7 @@ def test_invalid_allowlist_switch_cannot_open_chat(ui, check_allowed_emails):
     ui.app.run()
     assert "Access denied" in content(ui.app)
     assert not ui.app.chat_input
-    ui.composition.assert_not_called()
+    ui.documents.assert_not_called()
 
 
 def test_create_stream_sources_rerun_and_reopen_url(ui):
@@ -268,7 +266,7 @@ def test_create_stream_sources_rerun_and_reopen_url(ui):
         "Residência?",
         "Resposta [1]",
         "São residentes",
-        "current-version",
+        f"Дата загрузки: {NOW:%Y-%m-%d %H:%M} UTC",
         "Redação 2025",
         "12",
         "Nota original.",
@@ -400,16 +398,26 @@ def test_login_locales_and_missing_auth_configuration(ui, language):
 
 
 def test_empty_corpus_refreshes_and_blank_question_does_not_run(ui):
-    ui.composition.return_value = CorpusComposition("empty", ())
+    ui.documents.return_value = ()
     ui.app.run().button(key="new_conversation").click().run()
     assert "пока нет документов" in ui.app.info[0].value
     ui.app.chat_input[0].set_value("   ").run()
     assert not ui.calls
-    ui.composition.return_value = CorpusComposition(
-        "new-release", (("html-doc", "new-version"),)
-    )
+    ui.documents.return_value = (PublishedDocument("html-doc", NOW),)
     ui.app.run()
-    assert "new-version" in content(ui.app)
+    assert "html-doc" in content(ui.app)
+
+
+def test_ingestion_date_is_displayed_in_utc(ui):
+    ingested_at = datetime(2026, 11, 8, 0, 30, tzinfo=timezone(timedelta(hours=2)))
+    ui.documents.return_value = (PublishedDocument("cirs", ingested_at),)
+    ui.app.run()
+    assert not ui.app.exception
+    corpus = ui.app.sidebar.expander[0]
+    assert [item.value for item in corpus.text] == ["cirs"]
+    assert [item.value for item in corpus.caption] == [
+        "Дата загрузки: 2026-11-07 22:30 UTC"
+    ]
 
 
 def test_non_pdf_sources_tables_and_optional_metadata(ui):
@@ -547,7 +555,7 @@ def test_saved_source_links_and_types_in_each_language(
     assert ui.app.info[1].value.startswith(live_note)
     assert any(t.value == "[1] CIRS" for t in ui.app.text)
     # Reopening and a newer composition cannot replace the saved URLs.
-    ui.composition.return_value = CorpusComposition("new", (("cirs", "new-version"),))
+    ui.documents.return_value = (PublishedDocument("cirs", NOW),)
     ui.app.run()
     assert [b.proto.url for b in ui.app.get("link_button")] == [law["url"], faq["url"]]
 
