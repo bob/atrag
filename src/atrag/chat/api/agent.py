@@ -4,9 +4,9 @@ import json
 
 import tiktoken
 from langchain.agents import AgentState, create_agent
-from langchain.agents.middleware import AgentMiddleware
+from langchain.agents.middleware import AgentMiddleware, hook_config
 from langchain_core.language_models import BaseChatModel
-from langchain_core.messages import AIMessage, HumanMessage
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_core.utils.function_calling import convert_to_openai_tool
 from langgraph.checkpoint.base import BaseCheckpointSaver
 from pydantic import TypeAdapter
@@ -56,6 +56,7 @@ class GroundedState(AgentState, total=False):
     answer: str
     sources: list[dict]
     model_usage: dict
+    answer_feedback: str
 
 
 def _current_turn(messages):
@@ -89,12 +90,13 @@ def _answer_text(message: AIMessage):
 class EvidenceMiddleware(AgentMiddleware[GroundedState]):
     state_schema = GroundedState
 
-    def __init__(self, rag):
+    def __init__(self, rag, *, repair_answers=False):
         self.rag = rag
+        self.repair_answers = repair_answers
 
     def before_agent(self, state, runtime):
         self.rag.service.sources()
-        return {"answer": "", "sources": [], "model_usage": {}}
+        return {"answer": "", "sources": [], "model_usage": {}, "answer_feedback": ""}
 
     def wrap_model_call(self, request, handler):
         if _turn_usage(request.messages)["requests"] >= MODEL_CALL_LIMIT:
@@ -105,7 +107,10 @@ class EvidenceMiddleware(AgentMiddleware[GroundedState]):
         fixed = count_tokens([request.system_message]) + len(
             tiktoken.get_encoding("o200k_base").encode_ordinary(tools_json)
         )
-        messages = bounded_messages(request.messages, fixed_tokens=fixed)
+        messages = list(request.messages)
+        if feedback := request.state.get("answer_feedback"):
+            messages.append(SystemMessage(feedback))
+        messages = bounded_messages(messages, fixed_tokens=fixed)
         return handler(request.override(messages=messages))
 
     def after_model(self, state, runtime):
@@ -117,10 +122,26 @@ class EvidenceMiddleware(AgentMiddleware[GroundedState]):
         if calls > TOOL_CALL_LIMIT:
             raise AgentLimitExceeded("Tool call limit exceeded")
 
+    @hook_config(can_jump_to=["model"])
     def after_agent(self, state, runtime):
         registry = self.rag.service.sources()
-        answer = render_citations(_answer_text(state["messages"][-1]), registry)
-        sources = answer_sources(answer, registry)
+        text = _answer_text(state["messages"][-1])
+        try:
+            answer = render_citations(text, registry)
+            sources = answer_sources(answer, registry)
+        except InvalidAnswer as error:
+            if not self.repair_answers or state.get("answer_feedback"):
+                raise
+            return {
+                "answer_feedback": (
+                    f"Your previous answer was rejected: {error}. "
+                    "Rewrite it using only the retrieved evidence and its exact "
+                    "citation keys. Remove any unsupported tax claims, including "
+                    "dates. Explain what the cited evidence establishes and what "
+                    "is missing. Do not invent evidence or cite unrelated text."
+                ),
+                "jump_to": "model",
+            }
         return {
             "answer": answer,
             "messages": [state["messages"][-1].model_copy(update={"content": answer})],
@@ -135,6 +156,7 @@ def build_agent(
     language: SupportedLanguage,
     *,
     checkpointer: BaseCheckpointSaver | None = None,
+    repair_answers: bool = False,
 ):
     """Backend-only graph. The caller checks access before reading checkpoints.
 
@@ -148,7 +170,7 @@ def build_agent(
         model,
         tools=rag.tools,
         system_prompt=SYSTEM_PROMPT.format(language=LANGUAGE_NAMES[language]),
-        middleware=[EvidenceMiddleware(rag)],
+        middleware=[EvidenceMiddleware(rag, repair_answers=repair_answers)],
         checkpointer=checkpointer,
         state_schema=GroundedState,
     )

@@ -328,8 +328,14 @@ def test_invalid_citations_are_failed_and_keep_public_text_and_usage(chat, engin
         "output_tokens": 5,
         "total_tokens": 35,
     }
-    assert request(chat, turns, turn_id, resume=True)[-1].kind == "error"
-    assert service.load_history(user, conversation)[0].answer == "Wrong source [9]"
+    resumed, corrected_model = executor(engine, [AIMessage("No evidence available")])
+    done = request(chat, resumed, turn_id, resume=True)[-1]
+    assert done.kind == "completed"
+    assert done.turn.id == turn_id
+    assert done.turn.answer == "No evidence available"
+    assert done.turn.model_usage["requests"] == 2
+    assert len(service.load_history(user, conversation)) == 1
+    assert len(corrected_model.seen) == 1
     assert len(model.seen) == 1
 
 

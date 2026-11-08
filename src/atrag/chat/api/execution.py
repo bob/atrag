@@ -92,7 +92,11 @@ class LangGraphBackend:
         rag = RagTools(self.engine, user, conversation_id, turn.id, client=self.client)
         with checkpoint_connection(self.engine) as connection:
             graph = build_agent(
-                self.model, rag, turn.language, checkpointer=PostgresSaver(connection)
+                self.model,
+                rag,
+                turn.language,
+                checkpointer=PostgresSaver(connection),
+                repair_answers=turn.status == "failed",
             )
             yield LangGraphSession(
                 graph, conversation_id, turn.id, sources=rag.service.sources

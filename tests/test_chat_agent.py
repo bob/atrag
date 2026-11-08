@@ -97,6 +97,33 @@ def test_unknown_citation_is_rejected_even_without_tools(rag):
         build_agent(model, rag, "ru").invoke({"messages": [HumanMessage("Вопрос")]})
 
 
+def test_answer_repair_uses_feedback_and_preserves_the_original_question(rag):
+    model = ScriptedModel(
+        messages=iter([call(), AIMessage("Missing reference"), AIMessage("Answer [1]")])
+    )
+    result = build_agent(model, rag, "en", repair_answers=True).invoke(
+        {"messages": [HumanMessage("Question")]}
+    )
+    assert result["answer"] == "Answer [1]"
+    assert result["sources"] == rag.service.sources()
+    assert result["model_usage"]["requests"] == 3
+    assert sum(isinstance(m, HumanMessage) for m in result["messages"]) == 1
+    assert "Answer omits citations" in model.seen[-1][-1].text
+
+
+def test_answer_repair_is_bounded_and_never_accepts_an_invalid_second_draft(rag):
+    model = ScriptedModel(
+        messages=iter(
+            [call(), AIMessage("Missing reference"), AIMessage("Still missing")]
+        )
+    )
+    with pytest.raises(InvalidAnswer, match="omits citations"):
+        build_agent(model, rag, "en", repair_answers=True).invoke(
+            {"messages": [HumanMessage("Question")]}
+        )
+    assert len(model.seen) == 3
+
+
 def test_tool_limit_stops_the_graph(rag):
     model = ScriptedModel(messages=iter([call(identifier=str(i)) for i in range(7)]))
     with pytest.raises(AgentLimitExceeded, match="Tool"):
