@@ -268,7 +268,6 @@ def test_create_stream_sources_rerun_and_reopen_url(ui):
         "Residência?",
         "Resposta [1]",
         "São residentes",
-        "old-version",
         "current-version",
         "Redação 2025",
         "12",
@@ -277,6 +276,7 @@ def test_create_stream_sources_rerun_and_reopen_url(ui):
         "неполный",
     ):
         assert expected in text
+    assert "old-version" not in text
     assert len(ui.calls) == 1
     assert [item.name for item in ui.app.chat_message] == ["user", "assistant"]
     ui.app.run()
@@ -440,13 +440,13 @@ def test_non_pdf_sources_tables_and_optional_metadata(ui):
     ui.app.run()
     text = content(ui.app)
     for expected in (
-        "residencia",
-        "Residência",
         "Абзац: 3",
         "Sem localização.",
         "Transcrição revista.",
     ):
         assert expected in text
+    assert "residencia" not in text
+    assert "Residência" not in text
     assert "неполный" not in text
     assert ui.app.table[0].value.iloc[0, 0] == "Escalão"
 
@@ -505,6 +505,7 @@ def test_saved_source_links_and_types_in_each_language(
         **SOURCE,
         "citation_id": 2,
         "document_title": "Questões Frequentes",
+        "citation_label": "FAQ AT 3286",
         "document_type": "faq",
         "source_format": "html_collection",
         "source_url_status": "verified",
@@ -533,6 +534,14 @@ def test_saved_source_links_and_types_in_each_language(
     ):
         assert expected in text
     assert any("12" in caption.value for caption in ui.app.caption)
+    sources = ui.app.main.expander[-1]
+    captions = [caption.value for caption in sources.caption]
+    assert captions[0] == f"Artigo 16.º · {law_label}"
+    assert [c for c in captions if "FAQ AT" in c or faq_label in c] == [
+        f"FAQ AT 3286 · {faq_label} · IRS > Residentes"
+    ]
+    assert "old-version" not in text
+    assert "heading20" not in text
     assert len(ui.app.info) == 2  # Live links do not promise immutable copies.
     assert ui.app.info[0].value.startswith(candidate_note)
     assert ui.app.info[1].value.startswith(live_note)
@@ -547,7 +556,7 @@ def test_legacy_history_has_no_invented_link(ui):
     ui.app.run().button(key="new_conversation").click().run()
     ui.app.chat_input[0].set_value("Question").run()
     assert not ui.app.get("link_button")
-    assert "old-version" in content(ui.app)
+    assert "old-version" not in content(ui.app)
     history = next(iter(ui.chat.history.values()))
     history[-1] = replace(
         history[-1],

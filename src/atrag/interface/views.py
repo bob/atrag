@@ -160,11 +160,8 @@ def source_view(source: dict, language: SupportedLanguage) -> None:
     st.text(
         f"[{source['citation_id']}] {source.get('document_title') or address.get('source_id', '')}"
     )
-    st.caption(source.get("citation_label", ""))
+    source_summary(source, language)
     source_link(source, language)
-    st.caption(
-        f"{address.get('source_id', '')} · {tr('version', language)}: {address.get('snapshot_id', '')} · {address.get('block_id', '')}"
-    )
     source_metadata(source, language)
     st.text(source.get("text_original", ""))
     for table in source.get("tables", []):
@@ -174,12 +171,22 @@ def source_view(source: dict, language: SupportedLanguage) -> None:
     source_notes(source, language)
 
 
-def source_link(source: dict, language: SupportedLanguage) -> None:
+def source_summary(source: dict, language: SupportedLanguage) -> None:
+    parts = [source.get("citation_label", "")]
     kind = source.get("document_type")
     if kind is not None:
-        st.caption(tr(kind, language))
+        parts.append(tr(kind, language))
     if source.get("faq_id"):
-        st.caption(f"FAQ AT {source['faq_id']} · {' > '.join(source['topic_path'])}")
+        parts.extend(
+            (f"FAQ AT {source['faq_id']}", " > ".join(source.get("topic_path", [])))
+        )
+    summary = " · ".join(dict.fromkeys(filter(None, parts)))
+    if summary:
+        st.caption(summary)
+
+
+def source_link(source: dict, language: SupportedLanguage) -> None:
+    if source.get("faq_id"):
         st.text(source["question"])
     if source.get("url"):
         st.link_button(tr("open_source", language), source["url"])
@@ -197,13 +204,12 @@ def source_metadata(source: dict, language: SupportedLanguage) -> None:
             f"{tr(key, language)}: {location[field]}"
             for key, field in (
                 ("pdf", "page"),
-                ("section", "section"),
-                ("anchor", "anchor"),
                 ("paragraph", "paragraph"),
             )
             if location.get(field) is not None
         ]
-        st.caption(" · ".join(parts))
+        if parts:
+            st.caption(" · ".join(parts))
     for field in (
         "consolidation_label",
         "publication_date",
@@ -285,13 +291,16 @@ def chat(service, user: User, conversation_id: UUID) -> None:
         resume = history_view(history, user.language)
     if error := st.session_state.pop("turn_error", None):
         st.error(tr(error, user.language))
-    prompt = st.chat_input(
-        tr("question", user.language),
-        key="question",
-        max_chars=32000,
-        submit_mode="disable",
-        disabled=any(t.status != "completed" for t in history),
-    )
+    # Explicit placement keeps the input pinned without page-level autoscroll
+    # when readers expand sources in the saved history.
+    with st.bottom:
+        prompt = st.chat_input(
+            tr("question", user.language),
+            key="question",
+            max_chars=32000,
+            submit_mode="disable",
+            disabled=any(t.status != "completed" for t in history),
+        )
     if resume is not None:
         execute(
             user,
