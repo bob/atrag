@@ -1,3 +1,5 @@
 {
-  "rollback_safe_from": []
+  "rollback_safe_from": [
+    "3d99ec142c519f24a93e484e795ab7c6ca72aff58a74c5683f5558992cd5542e"
+  ]
 }
