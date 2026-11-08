@@ -91,6 +91,31 @@ def test_completed_turn_replays_without_model_and_keeps_history(chat, engine):
         )
 
 
+def test_stream_and_saved_answer_use_server_numbers_for_named_evidence(
+    chat, materials, engine
+):
+    service, user, conversation = chat
+
+    def script():
+        yield call(args={"query": "CIRS 16", "source_ids": ["first"], "limit": 1})
+        key = service.load_history(user, conversation)[-1].sources[0]["citation_key"]
+        yield AIMessage(f"Evidence [{key}].")
+
+    turns, _ = executor(engine, script())
+    events = request(chat, turns)
+    assert events[-1].kind == "completed"
+    assert "".join(e.text for e in events if e.kind == "text") == "Evidence [1]."
+    assert events[-1].turn.answer == "Evidence [1]."
+
+
+def test_stream_preserves_an_unclosed_ordinary_bracket(chat, engine):
+    turns, _ = executor(engine, [AIMessage("Draft [note")])
+    events = request(chat, turns)
+    assert events[-1].kind == "completed"
+    assert "".join(e.text for e in events if e.kind == "text") == "Draft [note"
+    assert events[-1].turn.answer == "Draft [note"
+
+
 def test_error_requires_explicit_resume_without_duplicate_question(chat, engine):
     def script():
         yield call()
@@ -155,7 +180,10 @@ def test_resume_keeps_old_corpus_and_original_sources(chat, materials, engine):
     before = service.load_history(user, conversation)[0]
     assert before.sources and before.retrieval_tokens > 0
     publish_corpus(engine, {"first": None, "second": None})
-    resumed, _ = executor(engine, [AIMessage(content="Original evidence [1]")])
+    resumed, _ = executor(
+        engine,
+        [AIMessage(content=f"Original evidence [{before.sources[0]['citation_key']}]")],
+    )
     done = request(chat, resumed, turn_id, resume=True)[-1].turn
     assert done.corpus_release_id == before.corpus_release_id
     assert done.sources == before.sources

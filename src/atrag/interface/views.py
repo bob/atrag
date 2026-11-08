@@ -7,10 +7,10 @@ from uuid import UUID, uuid4
 import streamlit as st
 
 from atrag.interface import resources
-from atrag.interface.locales import LANGUAGE_NAMES, LANGUAGES, tr
+from atrag.interface.locales import LANGUAGES, tr
 from atrag.schemas.chat.conversations import Turn, User
 from atrag.schemas.chat.execution import TurnEvent
-from atrag.schemas.settings import SupportedLanguage
+from atrag.schemas.settings import LANGUAGE_NAMES, SupportedLanguage
 
 
 def language_picker(
@@ -161,6 +161,7 @@ def source_view(source: dict, language: SupportedLanguage) -> None:
         f"[{source['citation_id']}] {source.get('document_title') or address.get('source_id', '')}"
     )
     st.caption(source.get("citation_label", ""))
+    source_link(source, language)
     st.caption(
         f"{address.get('source_id', '')} · {tr('version', language)}: {address.get('snapshot_id', '')} · {address.get('block_id', '')}"
     )
@@ -171,6 +172,23 @@ def source_view(source: dict, language: SupportedLanguage) -> None:
         if table.get("review_note"):
             st.warning(table["review_note"])
     source_notes(source, language)
+
+
+def source_link(source: dict, language: SupportedLanguage) -> None:
+    kind = source.get("document_type")
+    if kind is not None:
+        st.caption(tr(kind, language))
+    if source.get("faq_id"):
+        st.caption(f"FAQ AT {source['faq_id']} · {' > '.join(source['topic_path'])}")
+        st.text(source["question"])
+    if source.get("url"):
+        st.link_button(tr("open_source", language), source["url"])
+        note = (
+            "candidate_source"
+            if source.get("source_url_status") == "candidate"
+            else "live_source"
+        )
+        st.info(tr(note, language))
 
 
 def source_metadata(source: dict, language: SupportedLanguage) -> None:

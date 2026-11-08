@@ -19,7 +19,11 @@ def test_citations_deduplicate_only_identical_source_records():
     }
     registry = []
     first = register_sources(registry, [original])[0]
-    assert first == {"citation_id": 1, **original}
+    assert first == {
+        "citation_id": 1,
+        "citation_key": "source:1:document:same",
+        **original,
+    }
     assert register_sources(registry, [original, original]) == [first, first]
     for change in (
         {"address": {**original["address"], "source_id": "two"}},

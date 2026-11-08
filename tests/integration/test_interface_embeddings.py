@@ -66,15 +66,12 @@ def test_ui_factory_completes_semantic_search(chat, materials, engine, monkeypat
             },
         )
 
-    model = ScriptedModel(
-        messages=iter(
-            [
-                call(args={"query": "residência", "limit": 2}),
-                AIMessage(content="Resposta com fonte [1]."),
-            ]
-        ),
-        disable_streaming=True,
-    )
+    def script():
+        yield call(args={"query": "residência", "limit": 2})
+        source = chat[0].load_history(chat[1], chat[2])[-1].sources[0]
+        yield AIMessage(content=f"Resposta com fonte [{source['citation_key']}].")
+
+    model = ScriptedModel(messages=script(), disable_streaming=True)
     monkeypatch.setattr(httpx.HTTPTransport, "handle_request", handle)
     monkeypatch.setattr(resources, "get_engine", lambda: engine)
     monkeypatch.setattr(resources, "get_model", lambda: model)

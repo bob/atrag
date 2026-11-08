@@ -1,6 +1,7 @@
 """HTML and PDF share publication, ranking, readers and pinned chat evidence."""
 
 import json
+from pathlib import Path
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -118,6 +119,98 @@ def test_article_mention_searches_both_formats_and_snapshot_path(
     )
     assert single.status == "ok" and single.hits[0].fragment.faq is not None
     assert len(calls) == 3
+
+
+def test_citation_links_are_server_owned_and_survive_history(
+    engine, materials, session
+):
+    from atrag.chat.services.chat import ChatService
+
+    members, _ = materials
+    publish_corpus(engine, {"pt-at-faq": members["pt-at-faq"]})
+    service, user, conversation, _, start = session
+    rag = start()
+    found = invoke(rag, "search_tax_documents", query="residência")
+    sources = {s["address"]["source_id"]: s for s in found["sources"]}
+    faq = sources["pt-at-faq"]
+    assert faq["url"].endswith("/faqs-00267.aspx#heading1")
+    assert faq["document_type"] == "faq"
+    assert faq["source_format"] == "html_collection"
+    assert faq["faq_id"] == "42" and faq["question"] == "Question?"
+    assert faq["topic_path"] == ["IRS", "Topic"]
+    assert faq["source_url_status"] == "verified"
+    law = sources["pt-at-cirs"]
+    assert law["document_type"] == "law" and law["source_format"] == "pdf"
+    assert law["source_url_status"] == "candidate"
+    assert law["url"].endswith(f"/CIRS.pdf#page={law['locations'][0]['page']}")
+    for name in ("load_unit_text", "load_context", "load_neighbor_parts"):
+        read = invoke(rag, name, address=faq["address"])
+        assert all(s["url"] == faq["url"] for s in read["sources"])
+    saved = service.load_history(user, conversation)[0].sources
+    publish_corpus(engine, {"pt-at-faq": None})
+    assert ChatService(engine).load_history(user, conversation)[0].sources == saved
+
+
+@pytest.mark.parametrize("language", ["en", "pt", "uk", "ru"])
+def test_mixed_answer_reopens_with_both_links_in_the_real_app(
+    engine, materials, session, monkeypatch, language
+):
+    import streamlit as st
+    from fixtures.chat import ScriptedModel, call
+    from langchain_core.messages import AIMessage
+    from streamlit.testing.v1 import AppTest
+
+    from atrag.chat.api.execution import LangGraphBackend
+    from atrag.chat.services.turns import TurnService
+    from atrag.interface import resources
+
+    members, _ = materials
+    publish_corpus(engine, {"pt-at-faq": members["pt-at-faq"]})
+    service, user, _, _, start = session
+    service.set_language(user, language)
+    client = start().service.client
+    conversation = service.create_conversation(user).id
+    claims = {
+        "is_logged_in": True,
+        "iss": user.issuer,
+        "sub": user.subject,
+        "email": user.email,
+        "email_verified": True,
+    }
+    monkeypatch.setattr(
+        st, "user", SimpleNamespace(get=claims.get, to_dict=lambda: claims)
+    )
+    monkeypatch.setattr(resources, "get_engine", lambda: engine)
+
+    def messages():
+        yield call(args={"query": "residência"})
+        saved = service.load_history(user, conversation)[-1].sources
+        ids = {s["document_type"]: s["citation_key"] for s in saved}
+        yield AIMessage(f"CIRS [{ids['law']}]; FAQ AT [{ids['faq']}].")
+
+    model = ScriptedModel(messages=messages(), disable_streaming=True)
+    turns = TurnService(engine, LangGraphBackend(engine, model, client=client))
+    monkeypatch.setattr(resources, "get_turn_service", lambda: turns)
+    app_path = Path(__file__).resolve().parents[2] / "streamlit_app.py"
+
+    def open_app():
+        app = AppTest.from_file(str(app_path), default_timeout=20)
+        app.secrets["access"] = {"allowed_emails": [user.email]}
+        app.query_params["conversation"] = str(conversation)
+        return app.run()
+
+    app = open_app()
+    app.chat_input[0].set_value("Residência?").run()
+    assert not app.exception
+    turn = service.load_history(user, conversation)[0]
+    assert turn.status == "completed" and turn.language == language
+    assert {s["document_type"] for s in turn.sources} == {"law", "faq"}
+    urls = [s["url"] for s in turn.sources]
+    assert [b.proto.url for b in app.get("link_button")] == urls
+    reopened = open_app()
+    assert not reopened.exception
+    assert [b.proto.url for b in reopened.get("link_button")] == urls
+    assert service.load_history(user, conversation)[0] == turn
 
 
 @pytest.mark.parametrize("query", ["CIRS 16", "artigo 16 do CIRS"])
@@ -315,6 +408,8 @@ def test_faq_update_rollback_and_restart_keep_old_turn_and_citations(
     assert fresh["sources"][0]["address"]["snapshot_id"] == next_id
     assert fresh["sources"][0]["text_original"] == "New conditions under CIRS 16."
     assert fresh["sources"][0]["locations"] != saved["locations"]
+    assert fresh["sources"][0]["url"].endswith("#heading7")
+    assert saved["url"].endswith("#heading1")
     restored = publish_corpus(engine, {"pt-at-faq": members["pt-at-faq"]})
     assert dict(restored.members) == members
     historical = invoke(

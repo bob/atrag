@@ -451,6 +451,126 @@ def test_non_pdf_sources_tables_and_optional_metadata(ui):
     assert ui.app.table[0].value.iloc[0, 0] == "Escalão"
 
 
+@pytest.mark.parametrize(
+    "language,law_label,faq_label,open_label,candidate_note,live_note",
+    [
+        (
+            "pt",
+            "Lei",
+            "Esclarecimento da AT",
+            "Abrir fonte oficial",
+            "O PDF oficial",
+            "A página oficial",
+        ),
+        (
+            "en",
+            "Law",
+            "AT explanation",
+            "Open official source",
+            "The official PDF",
+            "The official page",
+        ),
+        (
+            "uk",
+            "Закон",
+            "Роз’яснення AT",
+            "Відкрити офіційне джерело",
+            "Офіційний PDF",
+            "Офіційна сторінка",
+        ),
+        (
+            "ru",
+            "Закон",
+            "Разъяснение AT",
+            "Открыть официальный источник",
+            "Официальный PDF",
+            "Официальная страница",
+        ),
+    ],
+)
+def test_saved_source_links_and_types_in_each_language(
+    ui, language, law_label, faq_label, open_label, candidate_note, live_note
+):
+    ui.app.run().button(key="new_conversation").click().run()
+    ui.app.chat_input[0].set_value("Question").run()
+    history = next(iter(ui.chat.history.values()))
+    law = {
+        **SOURCE,
+        "document_type": "law",
+        "source_format": "pdf",
+        "source_url_status": "candidate",
+        "url": "https://example.org/CIRS.pdf#page=12",
+    }
+    faq = {
+        **SOURCE,
+        "citation_id": 2,
+        "document_title": "Questões Frequentes",
+        "document_type": "faq",
+        "source_format": "html_collection",
+        "source_url_status": "verified",
+        "url": "https://example.org/topic.aspx#heading20",
+        "faq_id": "3286",
+        "question": "Quem é residente?",
+        "topic_path": ["IRS", "Residentes"],
+        "locations": [{"kind": "html", "anchor": "heading20"}],
+    }
+    history[-1] = replace(history[-1], answer="Lei [1]; FAQ [2]", sources=[law, faq])
+    ui.chat.user = replace(ui.chat.user, language=language)
+    ui.app.run()
+    assert not ui.app.exception
+    buttons = ui.app.get("link_button")
+    assert [b.proto.url for b in buttons] == [law["url"], faq["url"]]
+    assert [b.proto.label for b in buttons] == [open_label, open_label]
+    text = content(ui.app)
+    for expected in (
+        law_label,
+        faq_label,
+        "FAQ AT",
+        "3286",
+        "IRS",
+        "Residentes",
+        "Quem é residente?",
+    ):
+        assert expected in text
+    assert any("12" in caption.value for caption in ui.app.caption)
+    assert len(ui.app.info) == 2  # Live links do not promise immutable copies.
+    assert ui.app.info[0].value.startswith(candidate_note)
+    assert ui.app.info[1].value.startswith(live_note)
+    assert any(t.value == "[1] CIRS" for t in ui.app.text)
+    # Reopening and a newer composition cannot replace the saved URLs.
+    ui.composition.return_value = CorpusComposition("new", (("cirs", "new-version"),))
+    ui.app.run()
+    assert [b.proto.url for b in ui.app.get("link_button")] == [law["url"], faq["url"]]
+
+
+def test_legacy_history_has_no_invented_link(ui):
+    ui.app.run().button(key="new_conversation").click().run()
+    ui.app.chat_input[0].set_value("Question").run()
+    assert not ui.app.get("link_button")
+    assert "old-version" in content(ui.app)
+    history = next(iter(ui.chat.history.values()))
+    history[-1] = replace(
+        history[-1],
+        sources=[
+            {"citation_id": 2, "address": {"source_id": "legacy-source"}},
+            {
+                "citation_id": 3,
+                "document_type": "faq",
+                "locations": [
+                    {
+                        "kind": "html",
+                        "page_url": "https://example.org/new",
+                        "anchor": "heading99",
+                    }
+                ],
+            },
+        ],
+    )
+    ui.app.run()
+    assert any(t.value == "[2] legacy-source" for t in ui.app.text)
+    assert not ui.app.get("link_button")
+
+
 def test_repeated_url_values_are_denied(ui):
     first = ui.chat.create_conversation(ui.chat.user)
     ui.app.query_params["conversation"] = [str(first.id), str(first.id)]

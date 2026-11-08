@@ -3,12 +3,6 @@
 from atrag.schemas.settings import SupportedLanguage
 
 LANGUAGES: tuple[SupportedLanguage, ...] = ("pt", "en", "uk", "ru")
-LANGUAGE_NAMES = {
-    "pt": "Português",
-    "en": "English",
-    "uk": "Українська",
-    "ru": "Русский",
-}
 LABELS = {
     "subtitle": (
         "Perguntas sobre documentos",
@@ -71,6 +65,43 @@ LABELS = {
         "В корпусе пока нет документов.",
     ),
     "sources": ("Fontes", "Sources", "Джерела", "Источники"),
+    "law": ("Lei", "Law", "Закон", "Закон"),
+    "faq": (
+        "Esclarecimento da AT",
+        "AT explanation",
+        "Роз’яснення AT",
+        "Разъяснение AT",
+    ),
+    "at_instruction": (
+        "Instrução da AT",
+        "AT instruction",
+        "Інструкція AT",
+        "Инструкция AT",
+    ),
+    "individual_ruling": (
+        "Informação vinculativa",
+        "Individual ruling",
+        "Індивідуальне роз’яснення",
+        "Индивидуальное разъяснение",
+    ),
+    "open_source": (
+        "Abrir fonte oficial",
+        "Open official source",
+        "Відкрити офіційне джерело",
+        "Открыть официальный источник",
+    ),
+    "candidate_source": (
+        "O PDF oficial pode ter outra redação. A citação corresponde à versão guardada abaixo; a identidade do ficheiro remoto não está confirmada.",
+        "The official PDF may have a different revision. The quotation belongs to the saved version below; the remote file's identity is unconfirmed.",
+        "Офіційний PDF може мати іншу редакцію. Цитата належить збереженій нижче версії; ідентичність віддаленого файлу не підтверджено.",
+        "Официальный PDF может иметь другую редакцию. Цитата относится к сохранённой ниже версии; идентичность удалённого файла не подтверждена.",
+    ),
+    "live_source": (
+        "A página oficial pode mudar. A citação e a versão guardadas abaixo são preservadas no histórico.",
+        "The official page can change. The quotation and version saved below remain in the history.",
+        "Офіційна сторінка може змінюватися. Збережені нижче цитата та версія залишаються в історії.",
+        "Официальная страница может меняться. Сохранённые ниже цитата и версия остаются в истории.",
+    ),
     "location": ("Localização", "Location", "Розташування", "Местоположение"),
     "pdf": ("Página", "Page", "Сторінка", "Страница"),
     "section": ("Secção", "Section", "Розділ", "Раздел"),

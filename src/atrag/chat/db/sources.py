@@ -2,6 +2,7 @@
 
 from sqlalchemy import select
 
+from atrag.chat.core.sources import citation_url
 from atrag.db_models import LegalUnitRow, SnapshotRow
 from atrag.retrieval.diagnostics import scope_diagnostics
 from atrag.retrieval.parts import available_notes, available_references
@@ -42,6 +43,19 @@ def source_record(connection, address: BlockAddress, text, *, complete, start, e
             "legal_unit_id": unit.legal_unit_id,
             "citation_label": unit.citation_label,
             "document_title": source.document_title,
+            "document_type": source.document_type,
+            "source_format": source.source_format.value,
+            "url": citation_url(source, locations),
+            "source_url_status": source.source_url_status,
+            **(
+                {
+                    "faq_id": unit.faq.faq_id,
+                    "question": unit.faq.question,
+                    "topic_path": list(unit.faq.topic_path),
+                }
+                if unit.faq is not None
+                else {}
+            ),
             "language": source.language,
             "consolidation_label": source.consolidation_label,
             "publication_date": source.model_dump(mode="json")["publication_date"],

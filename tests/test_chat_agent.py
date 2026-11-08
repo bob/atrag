@@ -53,6 +53,16 @@ def test_graph_searches_and_returns_only_registered_sources(rag):
 
 
 @pytest.mark.parametrize(
+    "language,name",
+    [("en", "English"), ("pt", "Português"), ("uk", "Українська"), ("ru", "Русский")],
+)
+def test_model_receives_an_unambiguous_language_name(rag, language, name):
+    model = ScriptedModel(messages=iter([AIMessage("No evidence")]))
+    build_agent(model, rag, language).invoke({"messages": [HumanMessage("Question")]})
+    assert f"Answer entirely in {name}." in model.seen[0][0].text
+
+
+@pytest.mark.parametrize(
     "answer",
     [
         "Invented [2]",

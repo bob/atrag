@@ -608,7 +608,10 @@ def test_agent_reads_and_continues_with_original_citations_after_publication(
             },
             "context",
         )
-        yield AIMessage("São residentes, com as ressalvas indicadas [1] [2].")
+        keys = [s["citation_key"] for s in rag.service.sources()]
+        yield AIMessage(
+            f"São residentes, com as ressalvas indicadas [{keys[0]}] [{keys[1]}]."
+        )
 
     with PostgresSaver.from_conn_string(database_dsn) as saver:
         graph = build_agent(
@@ -637,24 +640,23 @@ def test_agent_reads_and_continues_with_original_citations_after_publication(
         user, conversation, next_turn, "Explain the previous citation", "en"
     )
     next_rag = RagTools(engine, user, conversation, next_turn)
-    model = ScriptedModel(
-        messages=iter(
-            [
-                call(
-                    "load_unit_text",
-                    {
-                        "address": {
-                            "kind": "citation",
-                            "turn_id": historic["turn_id"],
-                            "citation_id": 1,
-                        }
-                    },
-                    "historical",
-                ),
-                AIMessage("The previous material says [1]."),
-            ]
+
+    def historical_script():
+        yield call(
+            "load_unit_text",
+            {
+                "address": {
+                    "kind": "citation",
+                    "turn_id": historic["turn_id"],
+                    "citation_id": 1,
+                }
+            },
+            "historical",
         )
-    )
+        key = next_rag.service.sources()[0]["citation_key"]
+        yield AIMessage(f"The previous material says [{key}].")
+
+    model = ScriptedModel(messages=historical_script())
     with PostgresSaver.from_conn_string(database_dsn) as saver:
         try:
             graph = build_agent(model, next_rag, "en", checkpointer=saver)
@@ -668,7 +670,7 @@ def test_agent_reads_and_continues_with_original_citations_after_publication(
                 "output_tokens": 2,
                 "total_tokens": 12,
             }
-            assert "Answer in en" in model.seen[0][0].text
+            assert "Answer entirely in English" in model.seen[0][0].text
             assert any(message.text == first["answer"] for message in model.seen[0])
             assert (
                 len(graph.get_state(config).values["messages"])
@@ -732,16 +734,16 @@ def test_agent_can_correct_invalid_tool_arguments(chat, materials, engine):
 
     from atrag.chat.api.agent import build_agent
 
-    model = ScriptedModel(
-        messages=iter(
-            [
-                call(args={"query": ""}),
-                call(identifier="corrected"),
-                AIMessage("Evidence [1]."),
-            ]
-        )
-    )
-    result = build_agent(model, start(chat, engine), "en").invoke(
+    rag = start(chat, engine)
+
+    def script():
+        yield call(args={"query": ""})
+        yield call(identifier="corrected")
+        key = rag.service.sources()[0]["citation_key"]
+        yield AIMessage(f"Evidence [{key}].")
+
+    model = ScriptedModel(messages=script())
+    result = build_agent(model, rag, "en").invoke(
         {"messages": [HumanMessage("Residência?")]}
     )
     statuses = [

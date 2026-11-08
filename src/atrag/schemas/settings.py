@@ -17,6 +17,12 @@ from sqlalchemy.exc import ArgumentError
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 SupportedLanguage = Literal["pt", "en", "uk", "ru"]
+LANGUAGE_NAMES = {
+    "pt": "Português",
+    "en": "English",
+    "uk": "Українська",
+    "ru": "Русский",
+}
 EmbeddingModel = Literal["text-embedding-3-small", "text-embedding-3-large"]
 EMBEDDING_DIMENSIONS = {"text-embedding-3-small": 1536, "text-embedding-3-large": 3072}
 

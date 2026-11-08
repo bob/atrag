@@ -7,6 +7,7 @@ from langgraph.checkpoint.postgres import PostgresSaver
 
 from atrag.chat.api.agent import _turn_usage, build_agent
 from atrag.chat.api.tools import RagTools
+from atrag.chat.core.answers import CitationStream
 from atrag.chat.db.execution import checkpoint_connection
 from atrag.schemas.chat.execution import ExecutionState, TextDelta, ToolActivity
 
@@ -26,10 +27,11 @@ def _activities(update):
 
 
 class LangGraphSession:
-    def __init__(self, graph, conversation_id, turn_id):
+    def __init__(self, graph, conversation_id, turn_id, *, sources=list):
         self.graph = graph
         self.turn_id = str(turn_id)
         self.config = {"configurable": {"thread_id": str(conversation_id)}}
+        self.citations = CitationStream(sources)
 
     def state(self):
         snapshot = self.graph.get_state(self.config)
@@ -67,10 +69,16 @@ class LangGraphSession:
         ):
             if mode == "messages":
                 message, metadata = data
-                if metadata.get("langgraph_node") == "model" and message.text:
-                    yield TextDelta(message.text)
+                if (
+                    metadata.get("langgraph_node") == "model"
+                    and message.text
+                    and (text := self.citations.feed(message.text))
+                ):
+                    yield TextDelta(text)
             else:
                 yield from _activities(data)
+        if text := self.citations.finish():
+            yield TextDelta(text)
 
 
 class LangGraphBackend:
@@ -86,4 +94,6 @@ class LangGraphBackend:
             graph = build_agent(
                 self.model, rag, turn.language, checkpointer=PostgresSaver(connection)
             )
-            yield LangGraphSession(graph, conversation_id, turn.id)
+            yield LangGraphSession(
+                graph, conversation_id, turn.id, sources=rag.service.sources
+            )
