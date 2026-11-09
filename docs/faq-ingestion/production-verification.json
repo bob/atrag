@@ -1,0 +1,167 @@
+{
+  "schema": "faq-production-acceptance-v1",
+  "verified_utc": "2026-11-09T08:49:07.536201+00:00",
+  "status": "complete",
+  "code_sha": "5675a84874cd002983771cdfed991467d65258af",
+  "merged_branch": "faq-ingestion-plan",
+  "initial_master_push_sha": "5af82f768198a2e80c9af30ff5a95feaeadb5fe3",
+  "ci": {
+    "url": "https://github.com/bob/atrag/actions/runs/42524828796",
+    "check_build": "success",
+    "deploy": "success"
+  },
+  "local_checks": {
+    "pytest_passed": 1144,
+    "warnings": 14,
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "deployment_tests_after_policy_change": 32,
+    "test_database": "atrag_test_context_20261101",
+    "test_database_recreated": false
+  },
+  "publication": {
+    "release_id": "46f8e0989a5cf9cb11cc5030fc342e0a7771adfe6219c9b4a9ba9744202abde2",
+    "members": {
+      "pt-at-cirs": "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5",
+      "pt-at-faq": "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040"
+    },
+    "snapshots": {
+      "1f72f3e5480ebf498fd119293d6d8a8dca31415f374e388c4dbed73565853cd5": {
+        "model": "text-embedding-3-large",
+        "dimensions": 1536,
+        "units": 1789,
+        "fragments": 1032
+      },
+      "ed0ffdd17578885d8b7f040c15ec7a6c341b16e00d425b43179d388da12d4040": {
+        "model": "text-embedding-3-large",
+        "dimensions": 1536,
+        "units": 1780,
+        "fragments": 1649
+      }
+    },
+    "index_did_not_publish": true,
+    "old_completed_turns_preserved": 16
+  },
+  "faq_entries": 1630,
+  "smoke": {
+    "status": "passed",
+    "conversation_id": "df604ebb-a953-424e-bf6d-01540f5e40fa",
+    "turn_id": "531ad876-fc2a-4f2b-bdb1-6f5ddd256025",
+    "release_id": "46f8e0989a5cf9cb11cc5030fc342e0a7771adfe6219c9b4a9ba9744202abde2",
+    "both_types_cited": true,
+    "history_reopened": true,
+    "urls": [
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/Cod_download/Documents/CIRS.pdf#page=48",
+        "status": 200
+      },
+      {
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00343.aspx#heading07",
+        "status": 200
+      }
+    ],
+    "old_completed_turns_preserved": 16,
+    "ui": "installed streamlit_app.py via AppTest; real backend and model APIs; in-process acceptance identity only"
+  },
+  "cited_sources": [
+    {
+      "citation_id": 1,
+      "document_type": "law",
+      "faq_id": null,
+      "question": null,
+      "legal_unit_id": "pt:cirs:code:article:16:paragraph:1",
+      "url": "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/Cod_download/Documents/CIRS.pdf#page=48",
+      "source_url_status": "candidate"
+    },
+    {
+      "citation_id": 3,
+      "document_type": "law",
+      "faq_id": null,
+      "question": null,
+      "legal_unit_id": "pt:cirs:code:article:16:paragraph:2",
+      "url": "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/Cod_download/Documents/CIRS.pdf#page=48",
+      "source_url_status": "candidate"
+    },
+    {
+      "citation_id": 11,
+      "document_type": "law",
+      "faq_id": null,
+      "question": null,
+      "legal_unit_id": "pt:cirs:code:article:16:paragraph:5",
+      "url": "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/Cod_download/Documents/CIRS.pdf#page=48",
+      "source_url_status": "candidate"
+    },
+    {
+      "citation_id": 12,
+      "document_type": "faq",
+      "faq_id": "3827",
+      "question": "Quais os critérios que determinam a residência no território português?",
+      "legal_unit_id": "pt-at-faq:faqs-00343:3827",
+      "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00343.aspx#heading07",
+      "source_url_status": "verified"
+    }
+  ],
+  "verification": {
+    "verified_utc": "2026-11-09T08:49:07.536201+00:00",
+    "faq_entries": 1630,
+    "rollback_release_available": "f5b14edfc08f93248d442201952d369154f36887362ad716c9816e7685d25c25",
+    "rollback_file_valid": true,
+    "expectations_match": true,
+    "faq_anchors": [
+      {
+        "faq_id": "3827",
+        "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00343.aspx#heading07",
+        "heading": "3827 - Quais os critérios que determinam a residência no território português?"
+      }
+    ]
+  },
+  "rollback": {
+    "previous_release_id": "f5b14edfc08f93248d442201952d369154f36887362ad716c9816e7685d25c25",
+    "backup_directory": "/var/backups/atrag/faq-20261108",
+    "database_dump_bytes": 19813996,
+    "pg_restore_list": "passed",
+    "rollback_file_valid": true,
+    "live_rollback_performed": false,
+    "instructions": "PRODUCTION.md"
+  },
+  "runtime": {
+    "schema": "0010_faq_contracts",
+    "checkpoint_max_migration": 9,
+    "public_deployment_smoke": "passed",
+    "existing_services_active": true,
+    "existing_site_statuses": [
+      200,
+      401
+    ],
+    "import_wall_seconds": 24,
+    "import_cpu_seconds": 11.008,
+    "import_memory_max_mib": 600,
+    "import_cpu_quota_percent": 50,
+    "old_history_hashes_preserved": 16
+  },
+  "incident": {
+    "first_import_interrupted": true,
+    "partial_faq_snapshot_found_after_recovery": false,
+    "instance_status_check_failed": true,
+    "system_status_check_failed": false,
+    "reboot_restored_access": false,
+    "stop_start_restored_access": true,
+    "exact_root_cause_confirmed": false,
+    "previous_kernel_journal_available": false,
+    "retry_removed_retained_package_copy": true,
+    "retry_removed_redundant_index": true,
+    "retry_ran_as_memory_limited_systemd_job": true
+  },
+  "acceptance_scope": {
+    "new_production_live_turns": 1,
+    "language": "en",
+    "entrypoint": "streamlit_app.py",
+    "real_backend": true,
+    "real_model_apis": true,
+    "test_identity_in_process_only": true,
+    "public_auth_configuration_changed": false,
+    "browser_observation": "authenticated production interface opened; mixed turn verified with AppTest",
+    "agent_api_available": false,
+    "previous_local_multilingual_acceptance": "docs/faq-ingestion/interface-verification.json"
+  }
+}
