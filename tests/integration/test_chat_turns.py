@@ -116,6 +116,77 @@ def test_stream_preserves_an_unclosed_ordinary_bracket(chat, engine):
     assert events[-1].turn.answer == "Draft [note"
 
 
+def test_clarification_completes_and_next_turn_uses_the_users_answer(
+    chat, materials, engine
+):
+    service, user, conversation = chat
+    question = "У вас месячная или квартальная отчётность и за какой год?"
+    turns, model = executor(
+        engine,
+        [
+            call(args={"query": "CIRS 16", "source_ids": ["first"], "limit": 1}),
+            call("ask_user", {"questions": [question]}, identifier="clarify"),
+            call("ask_user", {"questions": ["За какой квартал?"]}, identifier="next"),
+        ],
+    )
+    events = request(chat, turns)
+    assert events[-1].kind == "completed"
+    assert events[-1].turn.answer == question
+    assert "".join(e.text for e in events if e.kind == "text") == question
+    assert events[-1].turn.model_usage["requests"] == 2
+    assert not any(e.kind == "tool" and e.name == "ask_user" for e in events)
+    assert len(events[-1].turn.sources) == 1
+    engine.dispose()
+    followup = list(
+        turns.stream_turn(user, conversation, uuid4(), "Квартальная, 2026", "ru")
+    )
+    assert followup[-1].kind == "completed"
+    assert followup[-1].turn.answer == "За какой квартал?"
+    assert followup[-1].turn.model_usage["requests"] == 1
+    assert [m.text for m in model.seen[-1] if isinstance(m, HumanMessage)] == [
+        "Question?",
+        "Квартальная, 2026",
+    ]
+    assert any(m.text == question for m in model.seen[-1])
+    assert len(service.load_history(user, conversation)) == 2
+
+
+def test_answer_after_clarification_still_requires_evidence(chat, materials, engine):
+    def script():
+        yield call("ask_user", {"questions": ["Which year?"]})
+        yield call(args={"query": "CIRS 16", "source_ids": ["first"], "limit": 1})
+        yield AIMessage("Unsupported uncited answer")
+
+    turns, _ = executor(engine, script())
+    assert request(chat, turns)[-1].kind == "completed"
+    events = request(chat, turns)
+    assert events[-1].code == "execution_failed"
+    service, user, conversation = chat
+    assert service.load_history(user, conversation)[-1].error == "InvalidAnswer"
+
+
+def test_clarification_resumes_without_repeating_the_model(chat, engine):
+    question = "Which tax year?"
+    turns, model = executor(engine, [call("ask_user", {"questions": [question]})])
+    _, user, conversation = chat
+    turn_id = uuid4()
+    stream = turns.stream_turn(user, conversation, turn_id, "Question?", "pt")
+    for event in stream:
+        if event.kind == "text":
+            assert event.text == question
+            break
+    else:
+        pytest.fail("Clarification was not streamed")
+    stream.close()
+    continued, resumed_model = executor(engine, [])
+    done = request(chat, continued, turn_id, resume=True)[-1]
+    assert done.kind == "completed"
+    assert done.turn.answer == question
+    assert done.turn.model_usage["requests"] == 1
+    assert len(model.seen) == 1
+    assert not resumed_model.seen
+
+
 def test_error_requires_explicit_resume_without_duplicate_question(chat, engine):
     def script():
         yield call()

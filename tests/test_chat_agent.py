@@ -91,6 +91,55 @@ def test_empty_evidence_allows_a_clear_gap_without_citations(rag):
     assert result["answer"] == "There is no evidence; which tax year?"
 
 
+@pytest.mark.parametrize("retrieved", [False, True])
+def test_clarification_completes_without_citing_unrelated_evidence(rag, retrieved):
+    questions = [
+        "За какой налоговый год?",
+        "У вас месячная или квартальная отчётность?",
+    ]
+    messages = [call()] if retrieved else []
+    clarification = call("ask_user", {"questions": questions}, identifier="clarify")
+    clarification.response_metadata = {
+        "finish_reason": "tool_calls",
+        "status": "completed",
+    }
+    messages.append(clarification)
+    model = ScriptedModel(messages=iter(messages))
+    result = build_agent(model, rag, "ru").invoke(
+        {"messages": [HumanMessage("когда подавать декларацию iva?")]}
+    )
+    assert result["answer"] == "\n\n".join(questions)
+    assert result["sources"] == []
+    assert not result["messages"][-1].tool_calls
+    assert result["messages"][-1].text == result["answer"]
+    assert result["model_usage"]["requests"] == len(messages)
+
+
+@pytest.mark.parametrize("questions", [[], [" "], ["Q?"] * 4])
+def test_clarification_rejects_empty_or_excessive_questions(rag, questions):
+    from pydantic import ValidationError
+
+    model = ScriptedModel(messages=iter([call("ask_user", {"questions": questions})]))
+    with pytest.raises(ValidationError):
+        build_agent(model, rag, "en").invoke({"messages": [HumanMessage("Q")]})
+
+
+def test_clarification_cannot_be_mixed_with_a_retrieval_action(rag):
+    message = call("ask_user", {"questions": ["Which year?"]})
+    message.tool_calls.append(call(identifier="search").tool_calls[0])
+    model = ScriptedModel(messages=iter([message]))
+    with pytest.raises(InvalidAnswer, match="alone"):
+        build_agent(model, rag, "en").invoke({"messages": [HumanMessage("Q")]})
+    assert rag.calls == []
+
+
+@pytest.mark.parametrize("question", ["Which year [9]?", "Which year [source:fake]?"])
+def test_clarification_cannot_introduce_unregistered_citations(rag, question):
+    model = ScriptedModel(messages=iter([call("ask_user", {"questions": [question]})]))
+    with pytest.raises(InvalidAnswer):
+        build_agent(model, rag, "en").invoke({"messages": [HumanMessage("Q")]})
+
+
 def test_unknown_citation_is_rejected_even_without_tools(rag):
     model = ScriptedModel(messages=iter([AIMessage("Claim [1]")]))
     with pytest.raises(InvalidAnswer):
@@ -168,6 +217,7 @@ def test_model_errors_propagate_without_a_success_result(rag):
     [
         {"finish_reason": "length"},
         {"finish_reason": "content_filter"},
+        {"finish_reason": "tool_calls"},
         {"status": "incomplete"},
         {"status": "failed"},
     ],
@@ -177,6 +227,16 @@ def test_truncated_or_failed_response_is_not_a_completed_answer(rag, metadata):
         messages=iter([AIMessage("Partial answer", response_metadata=metadata)])
     )
     with pytest.raises(InvalidAnswer):
+        build_agent(model, rag, "en").invoke({"messages": [HumanMessage("Q")]})
+
+
+def test_clarification_with_malformed_tool_json_is_not_accepted(rag):
+    message = call("ask_user", {"questions": ["Which year?"]})
+    message.invalid_tool_calls = [
+        {"name": "ask_user", "args": "{", "id": "broken", "error": "Invalid JSON"}
+    ]
+    model = ScriptedModel(messages=iter([message]))
+    with pytest.raises(InvalidAnswer, match="alone"):
         build_agent(model, rag, "en").invoke({"messages": [HumanMessage("Q")]})
 
 
@@ -229,11 +289,11 @@ def test_only_public_text_and_cited_evidence_leave_the_agent(rag):
     assert len(result["sources"]) == 1
 
 
-def test_unfinished_tool_request_cannot_be_a_final_answer(rag):
-    model = ScriptedModel(messages=iter([call()]))
-    rag.tools = ()
+def test_unfinished_tool_request_cannot_be_a_final_answer():
+    from atrag.chat.api.agent import _answer_text
+
     with pytest.raises(InvalidAnswer):
-        build_agent(model, rag, "en").invoke({"messages": [HumanMessage("Q")]})
+        _answer_text(call())
 
 
 def test_tool_schemas_share_the_input_budget_with_the_question(rag):

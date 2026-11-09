@@ -19,7 +19,8 @@ def _activities(update):
         for message in value.get("messages", []):
             if isinstance(message, AIMessage):
                 for call in message.tool_calls:
-                    yield ToolActivity(call["name"], call["id"], "started")
+                    if call["name"] != "ask_user":
+                        yield ToolActivity(call["name"], call["id"], "started")
             elif isinstance(message, ToolMessage):
                 yield ToolActivity(
                     message.name or "", message.tool_call_id, "completed"
@@ -32,6 +33,15 @@ class LangGraphSession:
         self.turn_id = str(turn_id)
         self.config = {"configurable": {"thread_id": str(conversation_id)}}
         self.citations = CitationStream(sources)
+
+    def _message_text(self, data):
+        message, metadata = data
+        if (
+            metadata.get("langgraph_node") == "model"
+            and message.text
+            and (text := self.citations.feed(message.text))
+        ):
+            yield TextDelta(text)
 
     def state(self):
         snapshot = self.graph.get_state(self.config)
@@ -68,14 +78,11 @@ class LangGraphSession:
             payload, self.config, stream_mode=["messages", "updates"], durability="sync"
         ):
             if mode == "messages":
-                message, metadata = data
-                if (
-                    metadata.get("langgraph_node") == "model"
-                    and message.text
-                    and (text := self.citations.feed(message.text))
-                ):
-                    yield TextDelta(text)
+                yield from self._message_text(data)
             else:
+                for update in data.values():
+                    if update and update.get("clarification"):
+                        yield TextDelta(update["messages"][-1].text)
                 yield from _activities(data)
         if text := self.citations.finish():
             yield TextDelta(text)

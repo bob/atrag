@@ -1,6 +1,7 @@
 """Exercise Responses serialization and SDK retry policy without paid calls."""
 
 import json
+from types import SimpleNamespace
 
 import httpx
 import pytest
@@ -119,3 +120,49 @@ def test_followup_sends_local_history_without_a_server_side_response_pointer():
     assert "previous_response_id" not in payloads[1]
     assert len(payloads[1]["input"]) == 3
     assert payloads[1]["input"][0]["content"] == "Original question"
+
+
+def test_clarification_roundtrip_sends_plain_questions_without_orphan_tool_calls():
+    from atrag.chat.api.agent import build_agent
+
+    payloads = []
+    question = "За какой налоговый год?"
+
+    def handle(request):
+        payloads.append(json.loads(request.content))
+        response = response_payload("Next question?")
+        response["id"] = f"resp_test_{len(payloads)}"
+        if len(payloads) == 1:
+            response["output"] = [
+                {
+                    "id": "fc_clarify",
+                    "type": "function_call",
+                    "status": "completed",
+                    "call_id": "call_clarify",
+                    "name": "ask_user",
+                    "arguments": json.dumps({"questions": [question]}),
+                }
+            ]
+        return httpx.Response(200, json=response)
+
+    rag = SimpleNamespace(tools=(), service=SimpleNamespace(sources=list))
+    with httpx.Client(transport=httpx.MockTransport(handle)) as client:
+        model = create_chat_model(
+            Settings(openai_api_key="test-key"), http_client=client
+        )
+        graph = build_agent(model, rag, "ru")
+        result = graph.invoke({"messages": [HumanMessage("IVA deadline?")]})
+        assert result["answer"] == question
+        followup = graph.invoke(
+            {"messages": [*result["messages"], HumanMessage("2026")]}
+        )
+    assert followup["answer"] == "Next question?"
+    assert followup["model_usage"]["requests"] == 1
+    assert "previous_response_id" not in payloads[1]
+    assert [item["role"] for item in payloads[1]["input"]] == [
+        "system",
+        "user",
+        "assistant",
+        "user",
+    ]
+    assert payloads[1]["input"][2]["content"][0]["text"] == question
