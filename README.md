@@ -38,6 +38,10 @@ support teams using retrieval-augmented generation (RAG).
 
 ## Current scope
 
+The Streamlit interface includes an administrator area with account activation,
+recorded LLM usage, document versions and source downloads. See
+[admin setup and access rules](docs/admin/README.md).
+
 The initial corpus covers CIRS, the Portuguese Personal Income Tax Code. Document
 preparation and publication use the CLI; document upload is not available in the
 chat interface. Additional document families require dedicated parsers.
