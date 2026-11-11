@@ -63,20 +63,24 @@ def authenticate(language: SupportedLanguage):
     except FileNotFoundError:
         access = {}
     service = resources.get_chat_service()
+    claims = st.user.to_dict()
+    identity = (claims.get("iss"), claims.get("sub"))
     try:
         user = service.authenticate(
-            st.user.to_dict(),
+            claims,
             access.get("allowed_emails", []),
             check_allowed_emails=access.get("check_allowed_emails", True),
+            record_login=st.session_state.get("login_identity") != identity,
         )
     except PermissionError:
         st.error(tr("denied", language))
         logout(language)
         st.stop()
+    st.session_state["login_identity"] = identity
     return service, user
 
 
-def sidebar(service, user: User):
+def common_sidebar(service, user: User) -> None:
     language = user.language
     if "language_selection" in st.session_state:
         selected = st.session_state.pop("language_selection")
@@ -88,6 +92,12 @@ def sidebar(service, user: User):
         key = f"language_{user.id}"
         st.session_state[key] = language
         language_picker(language, key, on_change=lambda: select_language(key))
+        logout(language)
+
+
+def sidebar(service, user: User):
+    language = user.language
+    with st.sidebar:
         if st.button(tr("new", language), key="new_conversation", width="stretch"):
             conversation = service.create_conversation(user)
             st.session_state["route_selection"] = str(conversation.id)
@@ -109,7 +119,6 @@ def sidebar(service, user: User):
             on_change=select_conversation,
         )
         corpus_view(language)
-        logout(language)
     if conversation is None:
         st.info(tr("choose", language))
         st.stop()
@@ -125,9 +134,12 @@ def restore_conversation(service, user: User):
         chosen = st.session_state.pop("route_selection")
         if chosen is None:
             st.query_params.pop("conversation", None)
+            st.session_state.pop("selected_conversation_id", None)
         else:
             st.query_params["conversation"] = chosen
     values = st.query_params.get_all("conversation")
+    if not values and st.session_state.get("selected_conversation_id"):
+        values = [st.session_state["selected_conversation_id"]]
     if not values:
         return None
     if len(values) != 1:
@@ -136,7 +148,9 @@ def restore_conversation(service, user: User):
         conversation_id = UUID(values[0])
     except ValueError:
         raise PermissionError("Access denied") from None
-    return service.get_conversation(user, conversation_id)
+    conversation = service.get_conversation(user, conversation_id)
+    st.session_state["selected_conversation_id"] = str(conversation.id)
+    return conversation
 
 
 def select_conversation() -> None:

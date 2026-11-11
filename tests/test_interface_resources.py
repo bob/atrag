@@ -10,6 +10,7 @@ from atrag.schemas.settings import Settings
 def test_resources_share_clients(monkeypatch):
     resources.get_engine.clear()
     resources.get_model.clear()
+    resources.get_settings.clear()
     engine, model = MagicMock(), Mock()
     create_engine, create_model = Mock(return_value=engine), Mock(return_value=model)
     monkeypatch.setattr(resources, "load_settings", Mock(return_value=Settings()))
@@ -30,3 +31,4 @@ def test_resources_share_clients(monkeypatch):
     finally:
         resources.get_engine.clear()
         resources.get_model.clear()
+        resources.get_settings.clear()

@@ -6,6 +6,7 @@ from datetime import datetime
 import streamlit as st
 from sqlalchemy import select
 
+from atrag.admin.service import AdminService
 from atrag.chat.api.execution import LangGraphBackend
 from atrag.chat.client.model import create_chat_model
 from atrag.chat.services.chat import ChatService
@@ -17,18 +18,27 @@ from atrag.settings import load_settings
 
 
 @st.cache_resource(show_spinner=False)
+def get_settings():
+    return load_settings()
+
+
+def get_admin_service() -> AdminService:
+    return AdminService(get_engine(), get_settings())
+
+
+@st.cache_resource(show_spinner=False)
 def get_engine():
-    return create_db_engine(load_settings())
+    return create_db_engine(get_settings())
 
 
 @st.cache_resource(show_spinner=False)
 def get_model():
-    return create_chat_model(load_settings())
+    return create_chat_model(get_settings())
 
 
 @st.cache_resource(show_spinner=False)
 def get_embedding_client():
-    return create_openai_client(load_settings())
+    return create_openai_client(get_settings())
 
 
 def get_chat_service() -> ChatService:

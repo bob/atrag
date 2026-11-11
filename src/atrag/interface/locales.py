@@ -179,5 +179,96 @@ LABELS = {
 }
 
 
+LABELS.update(
+    {
+        "chat_mode": ("Chat", "Chat", "Чат", "Чат"),
+        "admin_mode": ("Administração", "Admin", "Адмінка", "Админка"),
+        "mode": ("Modo", "Mode", "Режим", "Режим"),
+        "no_data": ("Sem dados", "No data", "Немає даних", "Нет данных"),
+        "recorded_tokens": (
+            "Tokens LLM contabilizados. Chamadas sem usage não estão incluídas.",
+            "Recorded LLM tokens. Calls without reported usage are not included.",
+            "Враховані LLM-токени. Виклики без usage не включено.",
+            "Учтённые LLM-токены. Вызовы без usage не включены.",
+        ),
+        "email_search": (
+            "Pesquisar email",
+            "Search email",
+            "Пошук email",
+            "Поиск по email",
+        ),
+        "status": ("Estado", "Status", "Статус", "Статус"),
+        "all": ("Todos", "All", "Усі", "Все"),
+        "active": ("Ativo", "Active", "Активний", "Активен"),
+        "inactive": ("Inativo", "Inactive", "Неактивний", "Неактивен"),
+        "page": ("Página", "Page", "Сторінка", "Страница"),
+        "registered": ("Registado", "Registered", "Зареєстрований", "Зарегистрирован"),
+        "last_login": (
+            "Último acesso",
+            "Last login",
+            "Останній вхід",
+            "Последний вход",
+        ),
+        "users_table": (
+            "Utilizadores e tokens",
+            "Users and token usage",
+            "Користувачі й токени",
+            "Пользователи и токены",
+        ),
+        "confirm_action": (
+            "Confirmar ação",
+            "Confirm action",
+            "Підтвердити дію",
+            "Подтвердить действие",
+        ),
+        "confirm": ("Confirmar", "Confirm", "Підтвердити", "Подтвердить"),
+        "cancel": ("Cancelar", "Cancel", "Скасувати", "Отмена"),
+        "cannot_deactivate_self": (
+            "Não pode desativar a sua própria conta.",
+            "You cannot deactivate your own account.",
+            "Не можна деактивувати власний обліковий запис.",
+            "Нельзя деактивировать свою учётную запись.",
+        ),
+        "deactivate": ("Desativar", "Deactivate", "Деактивувати", "Деактивировать"),
+        "activate": ("Ativar", "Activate", "Активувати", "Активировать"),
+        "document": ("Documento", "Document", "Документ", "Документ"),
+        "uploaded": ("Carregado", "Uploaded", "Завантажений", "Загружен"),
+        "format": ("Formato", "Format", "Формат", "Формат"),
+        "source_size": (
+            "Tamanho da origem",
+            "Source size",
+            "Розмір джерела",
+            "Размер исходника",
+        ),
+        "published": ("Publicado", "Published", "Опублікований", "Опубликован"),
+        "unpublished": (
+            "Não publicado",
+            "Unpublished",
+            "Неопублікований",
+            "Не опубликован",
+        ),
+        "documents_table": (
+            "Documentos carregados",
+            "Loaded documents",
+            "Завантажені документи",
+            "Загруженные документы",
+        ),
+        "prepared": ("Preparado", "Prepared", "Підготовлений", "Подготовлен"),
+        "source_missing": (
+            "Ficheiro de origem indisponível",
+            "Source file unavailable",
+            "Файл джерела недоступний",
+            "Файл исходника недоступен",
+        ),
+        "download_source": (
+            "Descarregar origem",
+            "Download source",
+            "Завантажити джерело",
+            "Скачать исходник",
+        ),
+    }
+)
+
+
 def tr(key: str, language: SupportedLanguage) -> str:
     return LABELS[key][LANGUAGES.index(language)]

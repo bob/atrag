@@ -52,7 +52,9 @@ class MemoryChat:
         self.conversations = {}
         self.history = {}
 
-    def authenticate(self, claims, allowed, *, check_allowed_emails=True):
+    def authenticate(
+        self, claims, allowed, *, check_allowed_emails=True, record_login=False
+    ):
         parse_google_identity(
             claims, allowed, check_allowed_emails=check_allowed_emails
         )

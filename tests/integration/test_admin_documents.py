@@ -1,12 +1,15 @@
 """Count unique source bytes while retaining every loaded prepared version."""
 
+from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO
+from threading import Event
 from zipfile import ZipFile
 
 import pytest
 from fixtures.faq_pipeline import make_faq_package
 from fixtures.prepared import prepare_revision
 
+from atrag.admin import service as admin_module
 from atrag.admin.service import AdminService
 from atrag.corpus import publish_corpus
 from atrag.ingestion.services.index import index_package
@@ -75,3 +78,31 @@ def test_documents_include_unpublished_versions_and_deduplicate_source_sizes(
     assert not any(version.available for version in refreshed["pt-at-cirs"].versions)
     with pytest.raises(FileNotFoundError):
         admin.download_source(actor, first.snapshot_id)
+
+
+def test_admin_can_read_accounts_while_a_source_download_is_preparing(
+    administration, engine, prepared_document, tmp_path, monkeypatch
+):
+    admin, _, actor, _ = administration
+    data, parsed, chunked, embedded = prepared_document
+    package = build_package(parsed, chunked, embedded, data, tmp_path / "package")
+    indexed = index_package(package, engine, admin.settings.data_dir)
+    reading, release = Event(), Event()
+    original_download = admin_module.download_source
+
+    def slow_download(*args):
+        reading.set()
+        if not release.wait(10):
+            raise TimeoutError("Download test was not released")
+        return original_download(*args)
+
+    monkeypatch.setattr(admin_module, "download_source", slow_download)
+    with ThreadPoolExecutor(max_workers=2) as workers:
+        download = workers.submit(admin.download_source, actor, indexed.snapshot_id)
+        assert reading.wait(3)
+        users = workers.submit(admin.list_users, actor)
+        try:
+            assert len(users.result(timeout=3)) == 2
+        finally:
+            release.set()
+        assert download.result(timeout=3).data.startswith(b"%PDF-")

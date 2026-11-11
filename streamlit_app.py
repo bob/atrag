@@ -3,7 +3,7 @@
 import streamlit as st
 from sqlalchemy.exc import SQLAlchemyError
 
-from atrag.interface import views
+from atrag.interface import navigation, views
 from atrag.interface.locales import tr
 
 st.set_page_config(page_title="ATRAG", page_icon=":material/forum:")
@@ -20,8 +20,8 @@ try:
     language = user.language
     st.session_state["ui_language"] = language
     st.caption(tr("subtitle", language))
-    conversation = views.sidebar(service, user)
-    views.chat(service, user, conversation.id)
+    st.session_state["current_user"] = user
+    navigation.run(service, user)
 except PermissionError:
     st.error(tr("denied", language))
 except (SQLAlchemyError, OSError, ValueError):
