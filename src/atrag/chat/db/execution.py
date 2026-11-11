@@ -7,6 +7,7 @@ from psycopg import Connection
 from psycopg.rows import DictRow, dict_row
 from sqlalchemy import select, update
 
+from atrag.chat.db.access import owned_conversation, required_row
 from atrag.chat.db.store import ChatStore
 from atrag.db_models import ChatTurnRow
 from atrag.schemas.chat.conversations import Turn
@@ -56,8 +57,14 @@ class ExecutionStore(ChatStore):
             return Turn(**row) if row is not None else None
 
     def save_execution(self, user, conversation_id, turn_id, **values):
-        self.get_conversation(user, conversation_id)
         with self.engine.begin() as connection:
+            # An admitted execution must record its result and usage even if
+            # an administrator deactivates the owner while the provider runs.
+            required_row(
+                connection.execute(
+                    owned_conversation(user, conversation_id, require_active=False)
+                )
+            )
             connection.execute(
                 update(ChatTurnRow)
                 .where(
@@ -77,4 +84,14 @@ class ExecutionStore(ChatStore):
             answer=state.answer,
             model_usage=state.model_usage,
         )
-        return self.get_turn(user, conversation_id, turn_id)
+        with self.engine.connect() as connection:
+            return Turn(
+                **required_row(
+                    connection.execute(
+                        select(ChatTurnRow).where(
+                            ChatTurnRow.id == turn_id,
+                            ChatTurnRow.conversation_id == conversation_id,
+                        )
+                    )
+                )
+            )

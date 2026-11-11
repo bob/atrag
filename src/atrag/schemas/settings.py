@@ -15,6 +15,8 @@ from pydantic import (
 from sqlalchemy.engine import make_url
 from sqlalchemy.exc import ArgumentError
 
+from atrag.schemas.chat.identity import Email
+
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 SupportedLanguage = Literal["pt", "en", "uk", "ru"]
 LANGUAGE_NAMES = {
@@ -56,6 +58,16 @@ class Settings(BaseModel):
     chat_model: str = Field(
         default="gpt-6-luna", alias="ATRAG_CHAT_MODEL", pattern=r"^\S+$"
     )
+    admin_emails: frozenset[Email] = Field(
+        default=frozenset(), alias="ATRAG_ADMIN_EMAILS"
+    )
+
+    @field_validator("admin_emails", mode="before")
+    @classmethod
+    def split_admin_emails(cls, value):
+        if isinstance(value, str):
+            return value.split(",") if value.strip() else ()
+        return value
 
     @field_validator("openai_api_key", "database_url", mode="before")
     @classmethod

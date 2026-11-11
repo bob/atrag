@@ -38,6 +38,8 @@ class ChatUserRow(Base):
     subject: Mapped[str] = mapped_column(Text)
     email: Mapped[str] = mapped_column(Text)
     language: Mapped[SupportedLanguage] = mapped_column(Text, server_default="en")
+    is_active: Mapped[bool] = mapped_column(server_default=text("true"))
+    last_login_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )

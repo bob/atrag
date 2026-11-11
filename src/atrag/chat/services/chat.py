@@ -30,11 +30,12 @@ class ChatService:
         allowed_emails: object,
         *,
         check_allowed_emails: object = True,
+        record_login: bool = False,
     ) -> User:
         identity = parse_google_identity(
             claims, allowed_emails, check_allowed_emails=check_allowed_emails
         )
-        return self.store.save_user(identity)
+        return self.store.save_user(identity, record_login=record_login)
 
     def get_user(self, user: User) -> User:
         return self.store.get_user(user)

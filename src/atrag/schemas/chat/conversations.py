@@ -15,6 +15,8 @@ class User:
     email: str
     language: SupportedLanguage
     created_at: datetime
+    is_active: bool = True
+    last_login_at: datetime | None = None
 
 
 @dataclass(frozen=True)

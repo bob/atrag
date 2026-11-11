@@ -304,7 +304,9 @@ def _chat_rows(engine):
     with engine.connect() as connection:
         return {
             name: [
-                dict(row)
+                ({"is_active": True, "last_login_at": None} | dict(row))
+                if name == "users"
+                else dict(row)
                 for row in connection.execute(
                     select(table).order_by(table.c.id)
                 ).mappings()
@@ -505,7 +507,7 @@ def test_downgrade_refuses_to_invent_snapshot_and_preserves_data(
     assert _chat_rows(engine) == before
     with engine.connect() as connection:
         assert connection.scalar(text("SELECT version_num FROM alembic_version")) == (
-            "0010_faq_contracts"
+            "0011_admin_users"
         )
 
 
@@ -563,7 +565,7 @@ def test_ukrainian_migration_preserves_chat_and_refuses_lossy_downgrade(
     assert _chat_rows(engine) == ukrainian
     with engine.connect() as connection:
         assert connection.scalar(text("SELECT version_num FROM alembic_version")) == (
-            "0010_faq_contracts"
+            "0011_admin_users"
         )
     with engine.begin() as connection:
         connection.execute(update(tables[table]).values(language="ru"))
@@ -649,7 +651,7 @@ def test_checkpoint_failure_is_retryable_and_releases_the_migration_lock(
     with psycopg.connect(database_dsn, autocommit=True) as connection:
         assert connection.execute(
             "SELECT version_num FROM alembic_version"
-        ).fetchone() == ("0010_faq_contracts",)
+        ).fetchone() == ("0011_admin_users",)
         assert connection.execute(
             "SELECT pg_try_advisory_lock(6174726167)"
         ).fetchone() == (True,)

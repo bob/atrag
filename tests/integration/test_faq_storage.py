@@ -156,7 +156,7 @@ def test_downgrade_refuses_to_discard_html_provenance(engine, faq_rows):
         )
         assert (
             connection.scalar(text("SELECT version_num FROM alembic_version"))
-            == "0010_faq_contracts"
+            == "0011_admin_users"
         )
 
 

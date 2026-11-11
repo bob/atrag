@@ -390,7 +390,7 @@ def test_downgrade_cannot_erase_prepared_versions_or_pinned_turns(engine, materi
     with engine.connect() as connection:
         assert (
             connection.scalar(text("SELECT version_num FROM alembic_version"))
-            == "0010_faq_contracts"
+            == "0011_admin_users"
         )
 
 

@@ -184,7 +184,11 @@ def test_foreign_missing_and_forged_owners_cannot_read_or_write(service, engine)
         ):
             with pytest.raises(PermissionError, match="Access denied"):
                 operation()
-        assert service.list_conversations(outsider) == ()
+        if outsider == other:
+            assert service.list_conversations(outsider) == ()
+        else:
+            with pytest.raises(PermissionError, match="Access denied"):
+                service.list_conversations(outsider)
     forged = replace(other, id=owner.id)
     for operation in (
         lambda: service.get_user(forged),

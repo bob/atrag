@@ -2,7 +2,7 @@
 
 from uuid import UUID, uuid4
 
-from sqlalchemy import Engine, insert, select, update
+from sqlalchemy import Engine, func, insert, select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from atrag import corpus
@@ -19,18 +19,26 @@ class ChatStore:
     def __init__(self, engine: Engine):
         self.engine = engine
 
-    def save_user(self, identity: GoogleIdentity) -> User:
+    def save_user(
+        self, identity: GoogleIdentity, *, record_login: bool = False
+    ) -> User:
         statement = pg_insert(ChatUserRow).values(
             id=uuid4(),
             issuer=identity.issuer,
             subject=identity.subject,
             email=identity.email,
         )
+        changes = {"email": identity.email}
+        if record_login:
+            changes["last_login_at"] = func.clock_timestamp()
+            statement = statement.values(last_login_at=func.clock_timestamp())
         statement = statement.on_conflict_do_update(
-            index_elements=["issuer", "subject"], set_={"email": identity.email}
+            index_elements=["issuer", "subject"],
+            set_=changes,
+            where=ChatUserRow.is_active.is_(True),
         ).returning(ChatUserRow)
         with self.engine.begin() as connection:
-            return User(**connection.execute(statement).mappings().one())
+            return User(**required_row(connection.execute(statement)))
 
     def get_user(self, user: User) -> User:
         with self.engine.connect() as connection:
@@ -70,6 +78,9 @@ class ChatStore:
 
     def list_conversations(self, user: User) -> tuple[Conversation, ...]:
         with self.engine.connect() as connection:
+            required_row(
+                connection.execute(select(ChatUserRow.id).where(user_identity(user)))
+            )
             rows = connection.execute(
                 select(ChatConversationRow)
                 .join(ChatUserRow)
