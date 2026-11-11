@@ -19,9 +19,7 @@ class ChatStore:
     def __init__(self, engine: Engine):
         self.engine = engine
 
-    def save_user(
-        self, identity: GoogleIdentity, *, record_login: bool = False
-    ) -> User:
+    def save_user(self, identity: GoogleIdentity, *, record_login: bool) -> User:
         statement = pg_insert(ChatUserRow).values(
             id=uuid4(),
             issuer=identity.issuer,
