@@ -1,4 +1,4 @@
-"""Retrieval usage counters; embeddings and reranking are accounted separately."""
+"""Embedding usage counters, preserving reranking usage from earlier turns."""
 
 
 def new_usage():

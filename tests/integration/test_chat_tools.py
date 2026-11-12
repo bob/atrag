@@ -8,7 +8,6 @@ from uuid import uuid4
 
 import pytest
 from fixtures.prepared import prepare_document, prepare_revision
-from fixtures.reranking import reranking_response
 from sqlalchemy import select, update
 
 from atrag.chat.api.tools import RagTools
@@ -192,10 +191,7 @@ def test_semantic_search_embeds_once_and_uses_global_top_k(
     rag = start(
         chat,
         engine,
-        SimpleNamespace(
-            embeddings=SimpleNamespace(create=create),
-            responses=SimpleNamespace(create=reranking_response),
-        ),
+        SimpleNamespace(embeddings=SimpleNamespace(create=create)),
     )
     result = invoke(rag, "search_tax_documents", query="residência", limit=2)
     assert len(calls) == (2 if retry else 1)
@@ -206,12 +202,6 @@ def test_semantic_search_embeds_once_and_uses_global_top_k(
         "requests": 2 if retry else 1,
         "retries": int(retry),
         "usage": {"prompt_tokens": 2, "total_tokens": 2},
-        "reranking": {
-            "requests": 1,
-            "input_tokens": 20,
-            "output_tokens": 5,
-            "total_tokens": 25,
-        },
     }
     assert chat[0].load_history(chat[1], chat[2])[0].embedding_usage == expected
     narrowed = invoke(
@@ -222,12 +212,6 @@ def test_semantic_search_embeds_once_and_uses_global_top_k(
         "requests": expected["requests"] * 2,
         "retries": expected["retries"] * 2,
         "usage": {"prompt_tokens": 4, "total_tokens": 4},
-        "reranking": {
-            "requests": 2,
-            "input_tokens": 40,
-            "output_tokens": 10,
-            "total_tokens": 50,
-        },
     }
 
 

@@ -6,7 +6,6 @@ from sqlalchemy import select
 from atrag.db_models import FragmentRow, SnapshotRow
 from atrag.retrieval.context import fit_hits, make_hit
 from atrag.retrieval.query import merge_filters, normalize_address, query_language
-from atrag.retrieval.reranking import rerank_hits
 from atrag.retrieval.search import CANDIDATE_LIMIT, _filtered_query, _query_vector
 from atrag.schemas.ingestion.fragments import SearchFragment
 from atrag.schemas.retrieval import Ranking, SearchRequest
@@ -68,13 +67,5 @@ def search_corpus(request, snapshot_ids, *, engine, client, usage):
     with engine.connect() as connection:
         candidates = _candidates(
             connection, request, snapshot_ids, client, usage, encoding
-        )
-    if normalize_address(request.query) is None:
-        candidates = rerank_hits(
-            request.query,
-            candidates,
-            request.limit,
-            client=client,
-            usage=usage,
         )
     return fit_hits(candidates, request, encoding)

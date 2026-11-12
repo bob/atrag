@@ -25,40 +25,7 @@ def test_ui_factory_completes_semantic_search(chat, materials, engine, monkeypat
     def handle(transport, request):
         requests.append(request)
         payload = json.loads(request.content)
-        if request.url.path == "/v1/responses":
-            candidates = json.loads(payload["input"])["candidates"]
-            return httpx.Response(
-                200,
-                json={
-                    "id": "resp-reranking",
-                    "object": "response",
-                    "created_at": 0,
-                    "status": "completed",
-                    "model": payload["model"],
-                    "output": [
-                        {
-                            "id": "msg-reranking",
-                            "type": "message",
-                            "role": "assistant",
-                            "status": "completed",
-                            "content": [
-                                {
-                                    "type": "output_text",
-                                    "text": json.dumps(
-                                        {str(item["id"]): 100 for item in candidates}
-                                    ),
-                                    "annotations": [],
-                                }
-                            ],
-                        }
-                    ],
-                    "usage": {
-                        "input_tokens": 20,
-                        "output_tokens": 5,
-                        "total_tokens": 25,
-                    },
-                },
-            )
+        assert request.url.path == "/v1/embeddings"
         return httpx.Response(
             200,
             json={
@@ -92,13 +59,11 @@ def test_ui_factory_completes_semantic_search(chat, materials, engine, monkeypat
         assert turn.sources
         assert turn.embedding_usage["requests"] == 1
         assert turn.embedding_usage["usage"]["total_tokens"] == 2
-        assert len(requests) == 2
+        assert len(requests) == 1
         assert str(requests[0].url) == "https://api.openai.com/v1/embeddings"
         assert requests[0].headers["authorization"] == "Bearer test-key"
         assert json.loads(requests[0].content)["input"] == ["residência"]
-        assert str(requests[1].url) == "https://api.openai.com/v1/responses"
-        assert json.loads(requests[1].content)["store"] is False
-        assert turn.embedding_usage["reranking"]["total_tokens"] == 25
+        assert "reranking" not in turn.embedding_usage
         cached = resources.get_turn_service().backend
         assert isinstance(cached, LangGraphBackend)
         assert isinstance(turns.backend, LangGraphBackend)

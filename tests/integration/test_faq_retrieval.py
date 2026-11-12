@@ -8,7 +8,6 @@ from uuid import uuid4
 import pytest
 from fixtures.faq_pipeline import card, make_faq_package, make_faq_snapshot
 from fixtures.prepared import refresh_manifest
-from fixtures.reranking import reranking_response
 from sqlalchemy import event
 
 from atrag.chat.api.tools import RagTools
@@ -17,7 +16,6 @@ from atrag.corpus import publish_corpus, resolve_corpus
 from atrag.ingestion.services.index import index_package
 from atrag.ingestion.services.packages import build_package, load_package
 from atrag.migrations import migrate_database
-from atrag.retrieval.reranking import RerankingRequestError
 from atrag.retrieval.search import search_tax_documents
 
 pytestmark = pytest.mark.integration
@@ -48,7 +46,7 @@ def materials(
 
 
 @pytest.fixture
-def session(engine, materials):
+def session(engine, materials, request):
     service = ChatService(engine)
     user = service.authenticate(
         {
@@ -62,20 +60,19 @@ def session(engine, materials):
     conversation = service.create_conversation(user).id
     calls = []
 
-    def create(**request):
-        calls.append(request)
+    vector = getattr(request, "param", [1.0, 0.0]) + [0.0] * 1534
+
+    def create(**values):
+        calls.append(values)
         return SimpleNamespace(
             model_dump=lambda: {
-                "model": request["model"],
-                "data": [{"index": 0, "embedding": [1.0] + [0.0] * 1535}],
+                "model": values["model"],
+                "data": [{"index": 0, "embedding": vector}],
                 "usage": {"prompt_tokens": 5, "total_tokens": 5},
             }
         )
 
-    client = SimpleNamespace(
-        embeddings=SimpleNamespace(create=create),
-        responses=SimpleNamespace(create=reranking_response),
-    )
+    client = SimpleNamespace(embeddings=SimpleNamespace(create=create))
 
     def start():
         turn = uuid4()
@@ -240,69 +237,34 @@ def test_bare_address_stays_exact_without_embedding(engine, materials, session, 
     indirect=True,
 )
 @pytest.mark.parametrize("materials", [{"cirs_vector": [0.8, 0.6]}], indirect=True)
-def test_reranking_recovers_a_provision_beyond_the_old_candidate_window(
-    engine, materials, session
+@pytest.mark.parametrize(
+    "session, nearest_source",
+    [([1.0, 0.0], "pt-at-faq"), ([0.8, 0.6], "pt-at-cirs")],
+    indirect=["session"],
+)
+def test_shared_search_returns_nearest_vectors_without_source_preferences(
+    engine, materials, session, nearest_source
 ):
     members, _ = materials
     publish_corpus(engine, {"pt-at-faq": members["pt-at-faq"]})
     service, user, conversation, calls, start = session
     rag = start()
-    submitted = []
-
-    def select_evidence(**request):
-        payload = json.loads(request["input"])
-        submitted.append(payload)
-        response = reranking_response(**request)
-        preferred = [
-            c["id"] for c in payload["candidates"] if "1 - São residentes" in c["text"]
-        ]
-        order = preferred + [
-            c["id"] for c in payload["candidates"] if c["id"] not in preferred
-        ]
-        response.output_text = json.dumps(
-            {str(identity): 100 if identity in preferred else 0 for identity in order}
-        )
-        return response
-
-    rag.service.client.responses.create = select_evidence
-    result = invoke(rag, "search_tax_documents", query="Residência?", limit=5)
-    assert {s["address"]["source_id"] for s in result["sources"]} == set(members)
-    position = next(
-        i
-        for i, s in enumerate(result["sources"])
-        if s["legal_unit_id"] == "pt:cirs:code:article:16:paragraph:1"
-    )
-    assert result["hits"][position]["vector_rank"] > 50
-    assert len(submitted[0]["candidates"]) == 83 and len(calls) == 1
-    assert (
-        service.load_history(user, conversation)[0].embedding_usage["reranking"][
-            "requests"
-        ]
-        == 1
-    )
+    result = invoke(rag, "search_tax_documents", query="Residência?", limit=2)
+    assert {s["address"]["source_id"] for s in result["sources"]} == {nearest_source}
+    assert [hit["vector_rank"] for hit in result["hits"]] == [1, 2]
+    assert [hit["score"] for hit in result["hits"]] == pytest.approx([1.0, 1.0])
+    assert len(calls) == 1
+    assert service.load_history(user, conversation)[0].embedding_usage == {
+        "requests": 1,
+        "retries": 0,
+        "usage": {"prompt_tokens": 5, "total_tokens": 5},
+    }
+    other_source = next(source for source in members if source != nearest_source)
     narrowed = invoke(
-        rag, "search_tax_documents", query="Residência?", source_ids=["pt-at-faq"]
+        rag, "search_tax_documents", query="Residência?", source_ids=[other_source]
     )
-    assert {s["address"]["source_id"] for s in narrowed["sources"]} == {"pt-at-faq"}
-    assert all(c["role"] == "at_explanation" for c in submitted[1]["candidates"])
-
-
-def test_invalid_reranking_does_not_save_invented_evidence(engine, materials, session):
-    members, _ = materials
-    publish_corpus(engine, {"pt-at-faq": members["pt-at-faq"]})
-    service, user, conversation, _, start = session
-    rag = start()
-
-    def invalid(**request):
-        response = reranking_response(**request)
-        response.output_text = '{"999": 100, "998": 50}'
-        return response
-
-    rag.service.client.responses.create = invalid
-    with pytest.raises(RerankingRequestError):
-        invoke(rag, "search_tax_documents", query="Residência?", limit=1)
-    saved = service.load_history(user, conversation)[0]
-    assert saved.sources == [] and saved.retrieval_tokens == 0
+    assert {s["address"]["source_id"] for s in narrowed["sources"]} == {other_source}
+    assert len(calls) == 2
 
 
 @pytest.mark.parametrize(

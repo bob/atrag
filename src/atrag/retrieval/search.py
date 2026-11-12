@@ -22,8 +22,8 @@ from atrag.schemas.ingestion.embeddings import EmbeddingSpace
 from atrag.schemas.ingestion.fragments import SearchFragment
 from atrag.schemas.retrieval import Ranking, SearchRequest, SearchResult
 
-# Include short provisions displaced by explanatory texts before shared reranking.
-CANDIDATE_LIMIT = 200
+# Leave room to skip fragments that exceed the evidence budget.
+CANDIDATE_LIMIT = 50
 
 
 def _query_vector(query, snapshot, client, usage, encoding):
